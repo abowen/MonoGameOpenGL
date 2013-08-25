@@ -4,15 +4,16 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoGameOpenGL.Entities
 {
-    internal class PlayerShip : Sprite
+    public class PlayerShip : Sprite
     {
 
-        public PlayerShip(Texture2D texture, Vector2 location, Rectangle screenBounds)
-            : base(texture, location, screenBounds)
+        public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, GameState gameState)
+            : base(texture, location)
         {
-
+            _bulletManager = new BulletManager(bulletTexture, gameState);
         }
 
+        private BulletManager _bulletManager;
 
         public override void Update(GameTime gameTime)
         {
@@ -31,12 +32,17 @@ namespace MonoGameOpenGL.Entities
                 }
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                _bulletManager.FirePressed(this);
+            }
+
             base.Update(gameTime);
         }
 
         protected override void CheckBounds()
         {
-            Location.Y = MathHelper.Clamp(Location.Y, 0, _screenBounds.Height - _texture.Height);
+            Location.Y = MathHelper.Clamp(Location.Y, 0, GameConstants.ScreenBoundary.Height - _texture.Height);
         }
     }
 }

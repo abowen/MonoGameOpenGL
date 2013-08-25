@@ -8,7 +8,7 @@ namespace MonoGameOpenGL.Entities
         internal Texture2D _texture;
         public Vector2 Location;
         internal Vector2 Velocity;
-        protected Rectangle _screenBounds;
+        //protected Rectangle _screenBounds;
 
         public int Width
         {
@@ -26,6 +26,14 @@ namespace MonoGameOpenGL.Entities
             }
         }
 
+        public Vector2 Centre
+        {
+            get
+            {
+                return new Vector2(BoundingBox.Center.X, BoundingBox.Center.Y);
+            }
+        }
+
         public Rectangle BoundingBox
         {
             get
@@ -34,11 +42,10 @@ namespace MonoGameOpenGL.Entities
             }
         }
         
-        protected Sprite(Texture2D texture, Vector2 location, Rectangle screenBounds)
+        protected Sprite(Texture2D texture, Vector2 location)
         {
             _texture = texture;
-            Location = location;
-            _screenBounds = screenBounds;
+            Location = location;            
         }
 
         public void Draw(SpriteBatch spriteBatch)

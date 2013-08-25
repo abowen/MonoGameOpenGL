@@ -20,8 +20,7 @@ namespace MonoGameOpenGL
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
-        private GameState gameState;
+        private GameState gameState; 
 
         public Game1()
             : base()
@@ -52,12 +51,12 @@ namespace MonoGameOpenGL
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameState = new GameState(spriteBatch);
+            gameState = new GameState();
+            
+            GameConstants.ScreenBoundary = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height); 
 
-            var screenBounds = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height);
-            
-            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), new Vector2(0, 50f), screenBounds);
-            
+            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), new Vector2(0, 50f), Content.Load<Texture2D>("Bullet"), gameState);
+
             gameState.GameEntities.Add(playerShip);
         }
 
@@ -94,7 +93,7 @@ namespace MonoGameOpenGL
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            gameState.Draw();
+            gameState.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
