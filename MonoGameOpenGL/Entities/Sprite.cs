@@ -1,0 +1,57 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace MonoGameOpenGL.Entities
+{
+    abstract internal class Sprite
+    {
+        internal Texture2D _texture;
+        public Vector2 Location;
+        internal Vector2 Velocity;
+        protected Rectangle _screenBounds;
+
+        public int Width
+        {
+            get
+            {
+                return _texture.Width;
+            }
+        }
+
+        public int Height
+        {
+            get
+            {
+                return _texture.Height;
+            }
+        }
+
+        public Rectangle BoundingBox
+        {
+            get
+            {
+                return new Rectangle((int)Location.X, (int)Location.Y, Width, Height);
+            }
+        }
+        
+        protected Sprite(Texture2D texture, Vector2 location, Rectangle screenBounds)
+        {
+            _texture = texture;
+            Location = location;
+            _screenBounds = screenBounds;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_texture, Location, Color.White);
+        }
+
+        public virtual void Update(GameTime gameTime, GameObjects gameObjects)
+        {
+            Location += Velocity;
+            CheckBounds();
+        }
+
+        protected abstract void CheckBounds();
+    }
+}
