@@ -8,7 +8,7 @@ namespace MonoGameOpenGL.Entities
     {
 
         public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, GameState gameState)
-            : base(texture, location)
+            : base(texture, location, gameState)
         {
             _bulletManager = new BulletManager(bulletTexture, gameState);
         }

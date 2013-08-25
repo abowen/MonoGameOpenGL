@@ -36,8 +36,12 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\AsteroidManager.cs" />
     <Compile Include="Entities\Bullet.cs" />
     <Compile Include="Entities\BulletManager.cs" />
+    <Compile Include="Entities\Asteroid.cs" />
+    <Compile Include="Entities\CollisionManager.cs" />
+    <Compile Include="Entities\CollisionType.cs" />
     <Compile Include="Entities\GameConstants.cs" />
     <Compile Include="Entities\GameState.cs" />
     <Compile Include="Entities\PlayerShip.cs" />
@@ -64,6 +68,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Asteroid.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Bullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

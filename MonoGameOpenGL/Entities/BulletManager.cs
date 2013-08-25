@@ -21,15 +21,15 @@ namespace MonoGameOpenGL.Entities
         public void FirePressed(PlayerShip ship)
         {
             if (_stopwatch.ElapsedMilliseconds > 1000)
-            {                
-                var bullet = new Bullet(_texture2D, new Vector2(ship.Centre.X, ship.Centre.Y));
-                bullet.BulletOutOfBounds += BulletOnBulletOutOfBounds;
+            {
+                var bullet = new Bullet(_texture2D, new Vector2(ship.Centre.X, ship.Centre.Y), _gameState);
+                bullet.OutOfBounds += OutOfBounds;
                 _stopwatch.Restart();
                 _gameState.GameEntities.Add(bullet);
             }
         }
 
-        private void BulletOnBulletOutOfBounds(object sender, EventArgs eventArgs)
+        private void OutOfBounds(object sender, EventArgs eventArgs)
         {
             var bullet = sender as Bullet;
             if (bullet != null)
