@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGameOpenGL.Entities
 {
-    abstract internal class Sprite
+    abstract public class Sprite
     {
         internal Texture2D _texture;
         public Vector2 Location;
@@ -46,7 +46,7 @@ namespace MonoGameOpenGL.Entities
             spriteBatch.Draw(_texture, Location, Color.White);
         }
 
-        public virtual void Update(GameTime gameTime, GameObjects gameObjects)
+        public virtual void Update(GameTime gameTime)
         {
             Location += Velocity;
             CheckBounds();

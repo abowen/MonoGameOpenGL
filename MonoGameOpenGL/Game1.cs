@@ -20,11 +20,8 @@ namespace MonoGameOpenGL
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        private Paddle paddle;
-        private Paddle paddleComputer;
-        private Ball ball;
-        private GameObjects gameObjects;
+        
+        private GameState gameState;
 
         public Game1()
             : base()
@@ -55,14 +52,13 @@ namespace MonoGameOpenGL
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            gameState = new GameState(spriteBatch);
 
             var screenBounds = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height);
-            ball = new Ball(Content.Load<Texture2D>("Ball"), Vector2.Zero, screenBounds);
-            paddle = new Paddle(Content.Load<Texture2D>("Paddle01"), new Vector2(0, 50f), screenBounds, PlayerType.Human);
-            paddleComputer = new Paddle(Content.Load<Texture2D>("Paddle01"), new Vector2(screenBounds.Width - 50, 50f), screenBounds, PlayerType.Computer);
-            ball.AttachTo(paddle);
-
-            gameObjects = new GameObjects() { Ball = ball, PaddleComputer = paddleComputer, PaddlePlayer = paddle };
+            
+            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), new Vector2(0, 50f), screenBounds);
+            
+            gameState.GameEntities.Add(playerShip);
         }
 
         /// <summary>
@@ -84,9 +80,7 @@ namespace MonoGameOpenGL
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            paddle.Update(gameTime,  gameObjects);
-            paddleComputer.Update(gameTime,  gameObjects);
-            ball.Update(gameTime,  gameObjects);
+            gameState.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -100,9 +94,7 @@ namespace MonoGameOpenGL
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            paddle.Draw(spriteBatch);
-            paddleComputer.Draw(spriteBatch);
-            ball.Draw(spriteBatch);
+            gameState.Draw();
             spriteBatch.End();
 
             base.Draw(gameTime);
