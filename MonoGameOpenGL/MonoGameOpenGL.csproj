@@ -36,11 +36,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Entities\AsteroidManager.cs" />
+    <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Entities\Bullet.cs" />
-    <Compile Include="Entities\BulletManager.cs" />
+    <Compile Include="Managers\BulletManager.cs" />
     <Compile Include="Entities\Asteroid.cs" />
-    <Compile Include="Entities\CollisionManager.cs" />
+    <Compile Include="Managers\CollisionManager.cs" />
     <Compile Include="Entities\CollisionType.cs" />
     <Compile Include="Entities\GameConstants.cs" />
     <Compile Include="Entities\GameState.cs" />

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGameOpenGL.Entities;
 
-namespace MonoGameOpenGL.Entities
+namespace MonoGameOpenGL.Managers
 {
     public class BulletManager
     {
@@ -22,19 +22,9 @@ namespace MonoGameOpenGL.Entities
         {
             if (_stopwatch.ElapsedMilliseconds > 1000)
             {
-                var bullet = new Bullet(_texture2D, new Vector2(ship.Centre.X, ship.Centre.Y), _gameState);
-                bullet.OutOfBounds += OutOfBounds;
+                var bullet = new Bullet(_texture2D, new Vector2(ship.Centre.X, ship.Centre.Y));                
                 _stopwatch.Restart();
                 _gameState.GameEntities.Add(bullet);
-            }
-        }
-
-        private void OutOfBounds(object sender, EventArgs eventArgs)
-        {
-            var bullet = sender as Bullet;
-            if (bullet != null)
-            {
-                _gameState.GameEntities.Remove(bullet);
             }
         }
     }

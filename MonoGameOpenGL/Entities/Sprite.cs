@@ -5,8 +5,8 @@ namespace MonoGameOpenGL.Entities
 {
     abstract public class Sprite
     {
-        internal Texture2D _texture;
-        private GameState _gameState;
+        internal Texture2D _texture;        
+        public bool IsRemoved { get; set; }
 
         /// <summary>
         /// Top-Left co-ordinates
@@ -49,12 +49,11 @@ namespace MonoGameOpenGL.Entities
             }
         }
 
-        protected Sprite(Texture2D texture, Vector2 location, GameState gameState)
-        {
+        protected Sprite(Texture2D texture, Vector2 location)
+        {            
             Speed = 1;
             _texture = texture;
-            Location = location;
-            _gameState = gameState;
+            Location = location;            
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -66,14 +65,6 @@ namespace MonoGameOpenGL.Entities
         {
             Location += Direction * Speed;
             CheckBounds();
-        }
-
-        public void Destroy()
-        {
-            if (_gameState.GameEntities.Contains(this))
-            {
-                _gameState.GameEntities.Remove(this);
-            }
         }
 
         protected abstract void CheckBounds();

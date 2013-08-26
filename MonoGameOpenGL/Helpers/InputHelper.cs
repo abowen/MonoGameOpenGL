@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoGameOpenGL.Helpers
 {
+    // Could be refactored into extension method
     public static class InputHelper
     {
         public static Vector2 KeyboardDirection(Keys[] keys, bool isNormalized = true)

@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGameOpenGL.Entities;
 
-namespace MonoGameOpenGL.Entities
+namespace MonoGameOpenGL.Managers
 {
     public class AsteroidManager
     {        
@@ -13,10 +14,10 @@ namespace MonoGameOpenGL.Entities
 
         public AsteroidManager(Texture2D texture, GameState gameState)
         {            
-            _texture2D = texture;
-            _gameState = gameState;
+            _texture2D = texture;            
             _lastTimeSpan = new TimeSpan();
             _random = new Random();
+            _gameState = gameState;
         }
 
         public void Update(GameTime gameTime)
@@ -28,19 +29,9 @@ namespace MonoGameOpenGL.Entities
                 var x = GameConstants.ScreenBoundary.Right;
                 var y = _random.Next(0, GameConstants.ScreenBoundary.Bottom);
 
-                var asteroid = new Asteroid(_texture2D, new Vector2(x, y), _gameState);
-                asteroid.OutOfBounds += OutOfBounds;
+                var asteroid = new Asteroid(_texture2D, new Vector2(x, y));                
                 
                 _gameState.GameEntities.Add(asteroid);
-            }
-        }
-
-        private void OutOfBounds(object sender, EventArgs eventArgs)
-        {
-            var bullet = sender as Bullet;
-            if (bullet != null)
-            {
-                _gameState.GameEntities.Remove(bullet);
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,14 +12,10 @@ namespace MonoGameOpenGL.Entities
     {                
         public readonly List<Sprite> GameEntities = new List<Sprite>();
 
-        public GameState()
-        {
-            
-        }
-        
         public void Update(GameTime gameTime)
         {
             GameEntities.ForEach(s => s.Update(gameTime));            
+            GameEntities.RemoveAll(s => s.IsRemoved);
         }
 
         public void Draw(SpriteBatch spriteBatch)

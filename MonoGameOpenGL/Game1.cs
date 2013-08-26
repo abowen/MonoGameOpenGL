@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using MonoGameOpenGL.Entities;
+using MonoGameOpenGL.Managers;
 
 #endregion
 
@@ -62,8 +63,8 @@ namespace MonoGameOpenGL
                 TypeB = typeof(Asteroid),
                 Action = (bullet, asteroid) =>
                 {
-                    bullet.Destroy();
-                    asteroid.Destroy();
+                    bullet.IsRemoved = true;
+                    asteroid.IsRemoved = true;
                 }
             };
 

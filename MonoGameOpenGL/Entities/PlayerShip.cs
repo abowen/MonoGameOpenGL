@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameOpenGL.Helpers;
+using MonoGameOpenGL.Managers;
 
 namespace MonoGameOpenGL.Entities
 {
@@ -10,7 +11,7 @@ namespace MonoGameOpenGL.Entities
     {
 
         public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, GameState gameState)
-            : base(texture, location, gameState)
+            : base(texture, location)
         {
             _bulletManager = new BulletManager(bulletTexture, gameState);
         }
