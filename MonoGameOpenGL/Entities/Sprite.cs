@@ -6,25 +6,43 @@ namespace MonoGameOpenGL.Entities
     abstract public class Sprite
     {
         internal Texture2D _texture;
-        public Vector2 Location;
-        internal Vector2 Velocity;
         private GameState _gameState;
-        //protected Rectangle _screenBounds;
 
-        public int Width
+        /// <summary>
+        /// Top-Left co-ordinates
+        /// </summary>
+        public Vector2 Location { get; private set; }        
+
+        /// <summary>
+        /// Velocity = Speed * Direction
+        /// </summary>
+        public int Speed { get; protected set; }
+
+        private Vector2 _direction;
+        /// <summary>
+        /// Normalized direction
+        /// </summary>
+        public Vector2 Direction
         {
             get
             {
-                return _texture.Width;
+                return _direction;
             }
+            protected set
+            {
+                _direction = value;
+                _direction.Normalize();
+            }
+        }
+
+        public int Width
+        {
+            get { return _texture.Width; }
         }
 
         public int Height
         {
-            get
-            {
-                return _texture.Height;
-            }
+            get { return _texture.Height; }
         }
 
         public Vector2 Centre
@@ -45,6 +63,7 @@ namespace MonoGameOpenGL.Entities
 
         protected Sprite(Texture2D texture, Vector2 location, GameState gameState)
         {
+            Speed = 1;
             _texture = texture;
             Location = location;
             _gameState = gameState;
@@ -57,7 +76,7 @@ namespace MonoGameOpenGL.Entities
 
         public virtual void Update(GameTime gameTime)
         {
-            Location += Velocity;
+            Location += Direction * Speed;
             CheckBounds();
         }
 

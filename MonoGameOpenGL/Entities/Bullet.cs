@@ -9,11 +9,11 @@ namespace MonoGameOpenGL.Entities
         public Bullet(Texture2D texture, Vector2 location, GameState gameState)
             : base(texture, location, gameState)
         {
-            Velocity.X = 2;
+            Direction = new Vector2(2, 0);
         }
 
         public event EventHandler OutOfBounds;
-        
+
         protected override void CheckBounds()
         {
             if (Location.X > GameConstants.ScreenBoundary.Width)

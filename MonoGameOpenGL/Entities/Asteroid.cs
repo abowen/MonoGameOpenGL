@@ -9,7 +9,7 @@ namespace MonoGameOpenGL.Entities
         public Asteroid(Texture2D texture, Vector2 location, GameState gameState)
             : base(texture, location, gameState)
         {
-            Velocity.X = -1;
+            Direction = new Vector2(-1, 0);
         }
 
         public event EventHandler OutOfBounds;

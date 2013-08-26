@@ -19,17 +19,11 @@ namespace MonoGameOpenGL.Entities
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                if (Velocity.Y > -2)
-                {
-                    Velocity.Y--;
-                }
+                Direction = new Vector2(0, -1);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                if (Velocity.Y < 2)
-                {
-                    Velocity.Y++;
-                }
+                Direction = new Vector2(0, 1);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
@@ -42,7 +36,7 @@ namespace MonoGameOpenGL.Entities
 
         protected override void CheckBounds()
         {
-            Location.Y = MathHelper.Clamp(Location.Y, 0, GameConstants.ScreenBoundary.Height - _texture.Height);
+            //Location.Y = MathHelper.Clamp(Location.Y, 0, GameConstants.ScreenBoundary.Height - _texture.Height);
         }
     }
 }
