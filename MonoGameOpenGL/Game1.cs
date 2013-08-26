@@ -53,6 +53,8 @@ namespace MonoGameOpenGL
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
+            GameConstants.ScreenBoundary = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height);
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gameState = new GameState();
             collisionManager = new CollisionManager(gameState);
@@ -69,11 +71,15 @@ namespace MonoGameOpenGL
             };
 
             collisionManager.CollisionTypes.Add(bulletAsteroidCollision);
-            
-            
-            GameConstants.ScreenBoundary = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height);
-
-            asteroidManager = new AsteroidManager(Content.Load<Texture2D>("Asteroid"), gameState);
+                                    
+            var asteroids = new[]
+            {
+                Content.Load<Texture2D>("Asteroid01"),
+                Content.Load<Texture2D>("Asteroid02"),
+                Content.Load<Texture2D>("Asteroid03"),
+                Content.Load<Texture2D>("Asteroid04"),
+            };
+            asteroidManager = new AsteroidManager(asteroids, gameState);
 
             var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), new Vector2(0, 50f), Content.Load<Texture2D>("Bullet"), gameState);
 
