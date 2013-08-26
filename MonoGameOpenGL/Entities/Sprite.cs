@@ -1,27 +1,34 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGameOpenGL.Enums;
 
 namespace MonoGameOpenGL.Entities
 {
     abstract public class Sprite
     {
-        internal Texture2D _texture;        
+        internal Texture2D _texture;
         public bool IsRemoved { get; set; }
 
         /// <summary>
         /// Top-Left co-ordinates
         /// </summary>
-         public Vector2 Location { get; protected set; }        
+        public Vector2 Location { get; protected set; }
 
         /// <summary>
-        /// Velocity = Speed * Direction
+        /// Velocity = Speed * MovementDirection
         /// </summary>
         public int Speed { get; protected set; }
 
         /// <summary>
-        /// Direction of sprite
+        /// Movement direction of sprite
         /// </summary>
-        public Vector2 Direction { get; protected set; }
+        public Vector2 MovementDirection { get; protected set; }
+
+        /// <summary>
+        /// Face direction of sprite
+        /// </summary>
+        public FaceDirection FaceDirection { get; protected set; }
 
         public int Width
         {
@@ -50,10 +57,10 @@ namespace MonoGameOpenGL.Entities
         }
 
         protected Sprite(Texture2D texture, Vector2 location)
-        {            
+        {
             Speed = 1;
             _texture = texture;
-            Location = location;            
+            Location = location;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -63,7 +70,7 @@ namespace MonoGameOpenGL.Entities
 
         public virtual void Update(GameTime gameTime)
         {
-            Location += Direction * Speed;
+            Location += MovementDirection * Speed;
             CheckBounds();
         }
 

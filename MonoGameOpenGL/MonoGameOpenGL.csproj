@@ -37,6 +37,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entities\Health.cs" />
+    <Compile Include="Enums\FaceDirection.cs" />
+    <Compile Include="Extensions\FaceDirectionExtensions.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Entities\Bullet.cs" />
     <Compile Include="Managers\BulletManager.cs" />

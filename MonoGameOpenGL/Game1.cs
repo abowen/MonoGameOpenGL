@@ -92,8 +92,8 @@ namespace MonoGameOpenGL
                 Content.Load<Texture2D>("Asteroid04"),
             };
             asteroidManager = new AsteroidManager(asteroids, gameState);
-
-            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), new Vector2(0, 50f), Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, gameState);
+            var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width/2, GameConstants.ScreenBoundary.Height-50);
+            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), playerStartPosition, Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, gameState);
 
             gameState.GameEntities.Add(playerShip);
         }

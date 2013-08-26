@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGameOpenGL.Enums;
 using MonoGameOpenGL.Helpers;
 using MonoGameOpenGL.Managers;
 
@@ -13,6 +14,9 @@ namespace MonoGameOpenGL.Entities
         public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, Texture2D healthTexture, int lives, GameState gameState)
             : base(texture, location)
         {
+            Speed = 2;
+            FaceDirection = FaceDirection.Top;
+            
             _bulletManager = new BulletManager(bulletTexture, gameState);            
             HealthManager = new HealthManager(healthTexture, new Vector2(20,20), lives, gameState);
         }
@@ -23,7 +27,7 @@ namespace MonoGameOpenGL.Entities
         public override void Update(GameTime gameTime)
         {
             var keysPressed = Keyboard.GetState().GetPressedKeys();
-            Direction = InputHelper.KeyboardDirection(keysPressed);
+            MovementDirection = InputHelper.KeyboardDirection(keysPressed);
 
             if (keysPressed.Any(k => k == Keys.Space))
             {

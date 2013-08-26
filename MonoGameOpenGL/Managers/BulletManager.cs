@@ -20,9 +20,9 @@ namespace MonoGameOpenGL.Managers
 
         public void FirePressed(PlayerShip ship)
         {
-            if (_stopwatch.ElapsedMilliseconds > 1000)
+            if (_stopwatch.ElapsedMilliseconds > 500)
             {
-                var bullet = new Bullet(_texture2D, new Vector2(ship.Centre.X, ship.Centre.Y));                
+                var bullet = new Bullet(_texture2D, new Vector2(ship.Centre.X, ship.Centre.Y), ship.FaceDirection);                
                 _stopwatch.Restart();
                 _gameState.GameEntities.Add(bullet);
             }
