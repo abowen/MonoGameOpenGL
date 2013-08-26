@@ -20,7 +20,6 @@ namespace MonoGameOpenGL.Managers
             _lastTimeSpan = new TimeSpan();
             _random = new Random();
             _gameState = gameState;
-
         }
 
         public void Update(GameTime gameTime)

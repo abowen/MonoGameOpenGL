@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Enums;
+using MonoGameOpenGL.Extensions;
 
 namespace MonoGameOpenGL.Entities
 {
@@ -60,7 +61,7 @@ namespace MonoGameOpenGL.Entities
         {
             Speed = 1;
             _texture = texture;
-            Location = location;
+            Location = location;            
         }
 
         public void Draw(SpriteBatch spriteBatch)

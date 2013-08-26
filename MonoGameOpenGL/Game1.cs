@@ -24,6 +24,7 @@ namespace MonoGameOpenGL
         private GameState gameState;
         private AsteroidManager asteroidManager;
         private CollisionManager collisionManager;
+        private EnemyManager enemyManager;
 
         public Game1()
             : base()
@@ -92,9 +93,11 @@ namespace MonoGameOpenGL
                 Content.Load<Texture2D>("Asteroid04"),
             };
             asteroidManager = new AsteroidManager(asteroids, gameState);
-            var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width/2, GameConstants.ScreenBoundary.Height-50);
-            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), playerStartPosition, Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, gameState);
 
+            enemyManager = new EnemyManager(Content.Load<Texture2D>("EnemyShip"), Content.Load<Texture2D>("Bullet"), gameState);
+
+            var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width/2, GameConstants.ScreenBoundary.Height-50);
+            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), playerStartPosition, Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, gameState);            
             gameState.GameEntities.Add(playerShip);
         }
 
@@ -120,6 +123,7 @@ namespace MonoGameOpenGL
             gameState.Update(gameTime);
             asteroidManager.Update(gameTime);
             collisionManager.Update(gameTime);
+            enemyManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -130,7 +134,7 @@ namespace MonoGameOpenGL
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
             gameState.Draw(spriteBatch);
