@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGameOpenGL.Helpers;
 
 namespace MonoGameOpenGL.Entities
 {
@@ -17,16 +19,10 @@ namespace MonoGameOpenGL.Entities
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                Direction = new Vector2(0, -1);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                Direction = new Vector2(0, 1);
-            }
+            var keysPressed = Keyboard.GetState().GetPressedKeys();
+            Direction = InputHelper.KeyboardDirection(keysPressed);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (keysPressed.Any(k => k == Keys.Space))
             {
                 _bulletManager.FirePressed(this);
             }
@@ -36,7 +32,9 @@ namespace MonoGameOpenGL.Entities
 
         protected override void CheckBounds()
         {
-            //Location.Y = MathHelper.Clamp(Location.Y, 0, GameConstants.ScreenBoundary.Height - _texture.Height);
+            var topLeft = new Vector2(0, 0);
+            var bottomRight = new Vector2(GameConstants.ScreenBoundary.Width - _texture.Width, GameConstants.ScreenBoundary.Height - _texture.Height);
+            Location = Vector2.Clamp(Location, topLeft, bottomRight);
         }
     }
 }

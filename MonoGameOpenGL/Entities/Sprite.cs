@@ -11,29 +11,17 @@ namespace MonoGameOpenGL.Entities
         /// <summary>
         /// Top-Left co-ordinates
         /// </summary>
-        public Vector2 Location { get; private set; }        
+         public Vector2 Location { get; protected set; }        
 
         /// <summary>
         /// Velocity = Speed * Direction
         /// </summary>
         public int Speed { get; protected set; }
 
-        private Vector2 _direction;
         /// <summary>
-        /// Normalized direction
+        /// Direction of sprite
         /// </summary>
-        public Vector2 Direction
-        {
-            get
-            {
-                return _direction;
-            }
-            protected set
-            {
-                _direction = value;
-                _direction.Normalize();
-            }
-        }
+        public Vector2 Direction { get; protected set; }
 
         public int Width
         {

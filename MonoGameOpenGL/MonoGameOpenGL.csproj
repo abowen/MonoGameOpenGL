@@ -47,6 +47,7 @@
     <Compile Include="Entities\PlayerShip.cs" />
     <Compile Include="Entities\Sprite.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
