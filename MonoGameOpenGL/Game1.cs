@@ -59,8 +59,8 @@ namespace MonoGameOpenGL
             gameState = new GameState();
             collisionManager = new CollisionManager(gameState);
 
-            var bulletAsteroidCollision = new CollisionType()
-            {
+            var bulletAsteroidCollision = new CollisionType
+            {                
                 TypeA = typeof(Bullet),
                 TypeB = typeof(Asteroid),
                 Action = (bullet, asteroid) =>
@@ -70,7 +70,19 @@ namespace MonoGameOpenGL
                 }
             };
 
+            var playerAsteroidCollision = new CollisionType
+            {
+                TypeA = typeof(PlayerShip),
+                TypeB = typeof(Asteroid),
+                Action = (ship, asteroid) =>
+                {
+                    asteroid.IsRemoved = true;
+                    (ship as PlayerShip).HealthManager.RemoveLife();                                                                
+                }
+            };
+
             collisionManager.CollisionTypes.Add(bulletAsteroidCollision);
+            collisionManager.CollisionTypes.Add(playerAsteroidCollision);
                                     
             var asteroids = new[]
             {
@@ -81,7 +93,7 @@ namespace MonoGameOpenGL
             };
             asteroidManager = new AsteroidManager(asteroids, gameState);
 
-            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), new Vector2(0, 50f), Content.Load<Texture2D>("Bullet"), gameState);
+            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), new Vector2(0, 50f), Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, gameState);
 
             gameState.GameEntities.Add(playerShip);
         }

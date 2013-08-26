@@ -36,6 +36,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\Health.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Entities\Bullet.cs" />
     <Compile Include="Managers\BulletManager.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="Entities\Sprite.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Helpers\InputHelper.cs" />
+    <Compile Include="Managers\HealthManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -82,6 +84,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Bullet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Health.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PlayerShip.png">

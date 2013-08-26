@@ -10,13 +10,15 @@ namespace MonoGameOpenGL.Entities
     public class PlayerShip : Sprite
     {
 
-        public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, GameState gameState)
+        public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, Texture2D healthTexture, int lives, GameState gameState)
             : base(texture, location)
         {
-            _bulletManager = new BulletManager(bulletTexture, gameState);
+            _bulletManager = new BulletManager(bulletTexture, gameState);            
+            HealthManager = new HealthManager(healthTexture, new Vector2(20,20), lives, gameState);
         }
 
         private BulletManager _bulletManager;
+        public HealthManager HealthManager { get; private set; }
 
         public override void Update(GameTime gameTime)
         {

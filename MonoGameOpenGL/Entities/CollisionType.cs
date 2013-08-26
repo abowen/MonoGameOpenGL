@@ -2,7 +2,7 @@
 
 namespace MonoGameOpenGL.Entities
 {
-    public class CollisionType
+    public class CollisionType        
     {
         public Type TypeA;
         public Type TypeB;
