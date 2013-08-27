@@ -27,6 +27,7 @@ namespace MonoGameOpenGL.Helpers
                         break;
                 }                    
             }
+            // Redundant with base Sprite class normalizes movement direction by default but could be useful elsewhere
             if (direction != Vector2.Zero && isNormalized)
             {
                 direction.Normalize();

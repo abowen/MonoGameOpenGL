@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Enums;
-using MonoGameOpenGL.Extensions;
 
 namespace MonoGameOpenGL.Entities
 {
@@ -71,6 +69,7 @@ namespace MonoGameOpenGL.Entities
 
         public virtual void Update(GameTime gameTime)
         {
+            MovementDirection.Normalize();
             Location += MovementDirection * Speed;
             CheckBounds();
         }

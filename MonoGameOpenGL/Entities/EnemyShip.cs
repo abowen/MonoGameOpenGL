@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Enums;
 using MonoGameOpenGL.Extensions;
@@ -29,6 +30,10 @@ namespace MonoGameOpenGL.Entities
                 _timeElapsedMilliseconds = 0;
                 _bulletManager.Fire(this);
             }
+
+            var xChange = (float) Math.Cos(Location.Y / 40);
+            MovementDirection = new Vector2(xChange, MovementDirection.Y);
+
             base.Update(gameTime);
         }
 
