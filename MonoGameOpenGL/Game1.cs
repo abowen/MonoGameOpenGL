@@ -128,6 +128,9 @@ namespace MonoGameOpenGL
             base.Update(gameTime);
         }
 
+        private int frames;
+        private double timeElapsedMilliseconds;
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -141,6 +144,16 @@ namespace MonoGameOpenGL
             spriteBatch.End();
 
             base.Draw(gameTime);
+
+            frames++;
+            timeElapsedMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (timeElapsedMilliseconds > 2000)
+            {
+                var fps = frames/(timeElapsedMilliseconds/1000);
+                System.Diagnostics.Debug.WriteLine("FPS {0:N0}", fps);
+                timeElapsedMilliseconds = 0;
+                frames = 0;
+            }
         }
     }
 }
