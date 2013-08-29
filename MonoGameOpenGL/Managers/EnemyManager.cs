@@ -9,15 +9,15 @@ namespace MonoGameOpenGL.Managers
     {
         private readonly Texture2D _shipTexture;
         private readonly Texture2D _bulletTexture;
-        private readonly GameState _gameState;
+        private readonly GameLayer _gameLayer;
         private double _elapsedTimeMilliseconds;
         private readonly Random _random;
 
-        public EnemyManager(Texture2D shipTexture, Texture2D bulletTexture, GameState gameState)
+        public EnemyManager(Texture2D shipTexture, Texture2D bulletTexture, GameLayer gameLayer)
         {
             _shipTexture = shipTexture;
             _bulletTexture = bulletTexture;
-            _gameState = gameState;
+            _gameLayer = gameLayer;
             _random = new Random();
         }
 
@@ -28,8 +28,8 @@ namespace MonoGameOpenGL.Managers
             {
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);
-                var enemy = new EnemyShip(_shipTexture, new Vector2(xLocation, 0), _bulletTexture, _gameState);
-                _gameState.GameEntities.Add(enemy);
+                var enemy = new EnemyShip(_shipTexture, new Vector2(xLocation, 0), _bulletTexture, _gameLayer);
+                _gameLayer.GameEntities.Add(enemy);
             }
         }
     }

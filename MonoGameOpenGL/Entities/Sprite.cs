@@ -7,6 +7,7 @@ namespace MonoGameOpenGL.Entities
     abstract public class Sprite
     {
         internal Texture2D _texture;
+        private readonly GameLayer _gameLayer;
         public bool IsRemoved { get; set; }
 
         /// <summary>
@@ -55,11 +56,12 @@ namespace MonoGameOpenGL.Entities
             }
         }
 
-        protected Sprite(Texture2D texture, Vector2 location)
+        protected Sprite(Texture2D texture, Vector2 location, GameLayer gameLayer)
         {
             Speed = 1;
             _texture = texture;
-            Location = location;            
+            _gameLayer = gameLayer;
+            Location = location;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -70,7 +72,10 @@ namespace MonoGameOpenGL.Entities
         public virtual void Update(GameTime gameTime)
         {
             MovementDirection.Normalize();
-            Location += MovementDirection * Speed;
+            if (_gameLayer.GameLayerDepth != GameLayerDepth.Background)
+            {
+                Location += MovementDirection * Speed / (int)_gameLayer.GameLayerDepth;
+            }
             CheckBounds();
         }
 

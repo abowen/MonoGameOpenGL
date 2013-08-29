@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using MonoGameOpenGL.Entities;
+using MonoGameOpenGL.Enums;
 using MonoGameOpenGL.Managers;
 
 #endregion
@@ -17,16 +18,17 @@ namespace MonoGameOpenGL
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Game
+    public class TopDownSpaceShooter : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private GameState gameState;
+        private GameLayer _game;
+        private GameLayer _background;
         private AsteroidManager asteroidManager;
         private CollisionManager collisionManager;
         private EnemyManager enemyManager;
 
-        public Game1()
+        public TopDownSpaceShooter()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -57,11 +59,21 @@ namespace MonoGameOpenGL
             GameConstants.ScreenBoundary = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height);
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameState = new GameState();
-            collisionManager = new CollisionManager(gameState);
+            _background = new GameLayer(GameLayerDepth.Background);
+            var moon = new Planet(Content.Load<Texture2D>("Moon01"), new Vector2(200, 200), FaceDirection.Bottom, _background);
+            var planet01 = new Planet(Content.Load<Texture2D>("Planet01"), new Vector2(600, 250), FaceDirection.Bottom, _background);
+            var planet02 = new Planet(Content.Load<Texture2D>("Planet02"), new Vector2(100, 300), FaceDirection.Bottom, _background);
+            _background.GameEntities.Add(moon);
+            _background.GameEntities.Add(planet01);
+            _background.GameEntities.Add(planet02);
 
+            _game = new GameLayer(GameLayerDepth.Game);
+
+            collisionManager = new CollisionManager(_game);
+
+            // TODO: Refactor into generic collision manager into more event driven / composition manner
             var bulletAsteroidCollision = new CollisionType
-            {                
+            {
                 TypeA = typeof(Bullet),
                 TypeB = typeof(Asteroid),
                 Action = (bullet, asteroid) =>
@@ -78,13 +90,13 @@ namespace MonoGameOpenGL
                 Action = (ship, asteroid) =>
                 {
                     asteroid.IsRemoved = true;
-                    (ship as PlayerShip).HealthManager.RemoveLife();                                                                
+                    (ship as PlayerShip).HealthManager.RemoveLife();
                 }
             };
 
             collisionManager.CollisionTypes.Add(bulletAsteroidCollision);
             collisionManager.CollisionTypes.Add(playerAsteroidCollision);
-                                    
+
             var asteroids = new[]
             {
                 Content.Load<Texture2D>("Asteroid01"),
@@ -92,13 +104,13 @@ namespace MonoGameOpenGL
                 Content.Load<Texture2D>("Asteroid03"),
                 Content.Load<Texture2D>("Asteroid04"),
             };
-            asteroidManager = new AsteroidManager(asteroids, gameState);
+            asteroidManager = new AsteroidManager(asteroids, _game);
 
-            enemyManager = new EnemyManager(Content.Load<Texture2D>("EnemyShip"), Content.Load<Texture2D>("Bullet"), gameState);
+            enemyManager = new EnemyManager(Content.Load<Texture2D>("EnemyShip"), Content.Load<Texture2D>("Bullet"), _game);
 
-            var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width/2, GameConstants.ScreenBoundary.Height-50);
-            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), playerStartPosition, Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, gameState);            
-            gameState.GameEntities.Add(playerShip);
+            var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width / 2, GameConstants.ScreenBoundary.Height - 50);
+            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), playerStartPosition, Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, _game);
+            _game.GameEntities.Add(playerShip);
         }
 
         /// <summary>
@@ -120,7 +132,9 @@ namespace MonoGameOpenGL
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            gameState.Update(gameTime);
+            // TODO: Actually draw these based off a Z-Index instead of coding artifacts
+            _background.Update(gameTime);
+            _game.Update(gameTime);
             asteroidManager.Update(gameTime);
             collisionManager.Update(gameTime);
             enemyManager.Update(gameTime);
@@ -140,7 +154,8 @@ namespace MonoGameOpenGL
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-            gameState.Draw(spriteBatch);
+            _background.Draw(spriteBatch);
+            _game.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -149,7 +164,7 @@ namespace MonoGameOpenGL
             timeElapsedMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
             if (timeElapsedMilliseconds > 2000)
             {
-                var fps = frames/(timeElapsedMilliseconds/1000);
+                var fps = frames / (timeElapsedMilliseconds / 1000);
                 System.Diagnostics.Debug.WriteLine("FPS {0:N0}", fps);
                 timeElapsedMilliseconds = 0;
                 frames = 0;

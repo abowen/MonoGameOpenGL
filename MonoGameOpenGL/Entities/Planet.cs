@@ -5,21 +5,19 @@ using MonoGameOpenGL.Extensions;
 
 namespace MonoGameOpenGL.Entities
 {
-    internal class Bullet : Sprite
+    internal class Planet : Sprite
     {
-        public Bullet(Texture2D texture, Vector2 location, FaceDirection faceDirection, GameLayer gameLayer)
+        public Planet(Texture2D texture, Vector2 location, FaceDirection faceDirection, GameLayer gameLayer)
             : base(texture, location, gameLayer)
         {
-            Speed = 2;
             MovementDirection = faceDirection.GetVector2();
+            FaceDirection = faceDirection;
+            Speed = 50;
+            // TODO: Add feature that a planet can be blown up?
         }        
-
+        
         protected override void CheckBounds()
-        {
-            if (Location.X > GameConstants.ScreenBoundary.Width)
-            {
-                IsRemoved = true;
-            }
+        {            
         }
     }
 }

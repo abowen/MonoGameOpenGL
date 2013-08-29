@@ -7,7 +7,7 @@ namespace MonoGameOpenGL.Entities
     {
         public readonly int LifeNumber;
 
-        public Health(Texture2D texture2D, Vector2 location, int lifeNumber) :base(texture2D, location)
+        public Health(Texture2D texture2D, Vector2 location, int lifeNumber, GameLayer gameLayer) :base(texture2D, location, gameLayer)
         {
             LifeNumber = lifeNumber;
         }

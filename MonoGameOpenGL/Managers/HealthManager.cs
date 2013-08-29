@@ -8,18 +8,18 @@ namespace MonoGameOpenGL.Managers
 {
     public class HealthManager
     {
-        private readonly GameState _gameState;
+        private readonly GameLayer _gameLayer;
         private readonly List<Health> _lives = new List<Health>();        
 
-        public HealthManager(Texture2D texture2D, Vector2 location, int lives, GameState gameState)
+        public HealthManager(Texture2D texture2D, Vector2 location, int lives, GameLayer gameLayer)
         {                        
-            _gameState = gameState;
+            _gameLayer = gameLayer;
 
             for (var life = 1; life <= lives; life++)
             {
                 var xOffset = life * texture2D.Width * 2;
-                var health = new Health(texture2D, new Vector2(location.X + xOffset, location.Y), life);
-                _gameState.GameEntities.Add(health);
+                var health = new Health(texture2D, new Vector2(location.X + xOffset, location.Y), life, _gameLayer);
+                _gameLayer.GameEntities.Add(health);
                 _lives.Add(health);
             }
         }

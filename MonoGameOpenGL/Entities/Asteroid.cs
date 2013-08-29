@@ -7,8 +7,8 @@ namespace MonoGameOpenGL.Entities
 {
     internal class Asteroid : Sprite
     {
-        public Asteroid(Texture2D texture, Vector2 location, FaceDirection faceDirection)
-            : base(texture, location)
+        public Asteroid(Texture2D texture, Vector2 location, FaceDirection faceDirection, GameLayer gameLayer)
+            : base(texture, location, gameLayer)
         {
             MovementDirection = faceDirection.GetVector2();
             FaceDirection = faceDirection;

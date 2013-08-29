@@ -10,16 +10,16 @@ namespace MonoGameOpenGL.Managers
     public class AsteroidManager
     {
         private readonly Texture2D[] _texture2D;
-        private readonly GameState _gameState;
+        private readonly GameLayer _gameLayer;
         private readonly Random _random;
         private TimeSpan _lastTimeSpan;
 
-        public AsteroidManager(Texture2D[] textures, GameState gameState)
+        public AsteroidManager(Texture2D[] textures, GameLayer gameLayer)
         {
             _texture2D = textures;
             _lastTimeSpan = new TimeSpan();
             _random = new Random();
-            _gameState = gameState;
+            _gameLayer = gameLayer;
         }
 
         public void Update(GameTime gameTime)
@@ -32,15 +32,15 @@ namespace MonoGameOpenGL.Managers
                 var isLeftDirection = _random.Next(0, 2) == 1;
                 if (isLeftDirection)
                 {
-                    var x = GameConstants.ScreenBoundary.Right;                    
-                    var asteroid = new Asteroid(GetRandomTexture(), new Vector2(x, y), FaceDirection.Left);
-                    _gameState.GameEntities.Add(asteroid);
+                    var x = GameConstants.ScreenBoundary.Right;
+                    var asteroid = new Asteroid(GetRandomTexture(), new Vector2(x, y), FaceDirection.Left, _gameLayer);
+                    _gameLayer.GameEntities.Add(asteroid);
                 }
                 else
                 {
                     var x = GameConstants.ScreenBoundary.Left;                    
-                    var asteroid = new Asteroid(GetRandomTexture(), new Vector2(x, y), FaceDirection.Right);
-                    _gameState.GameEntities.Add(asteroid);
+                    var asteroid = new Asteroid(GetRandomTexture(), new Vector2(x, y), FaceDirection.Right, _gameLayer);
+                    _gameLayer.GameEntities.Add(asteroid);
                 }
             }
         }

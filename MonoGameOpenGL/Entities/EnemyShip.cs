@@ -10,13 +10,13 @@ namespace MonoGameOpenGL.Entities
     public class EnemyShip : Sprite
     {
 
-        public EnemyShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, GameState gameState)
-            : base(texture, location)
+        public EnemyShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, GameLayer gameLayer)
+            : base(texture, location, gameLayer)
         {
             Speed = 1;
             FaceDirection = FaceDirection.Bottom;
             MovementDirection = FaceDirection.GetVector2();
-            _bulletManager = new BulletManager(bulletTexture, gameState);
+            _bulletManager = new BulletManager(bulletTexture, gameLayer);
         }
 
         private double _timeElapsedMilliseconds;

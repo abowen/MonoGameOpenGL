@@ -8,20 +8,20 @@ namespace MonoGameOpenGL.Managers
 {
     public class CollisionManager
     {
-        public CollisionManager(GameState gameState)
+        public CollisionManager(GameLayer gameLayer)
         {
-            _gameState = gameState;
+            _gameLayer = gameLayer;
         }
 
-        private readonly GameState _gameState;
+        private readonly GameLayer _gameLayer;
         public readonly List<CollisionType> CollisionTypes = new List<CollisionType>();
         
         public void Update(GameTime gameTime)
         {
             Parallel.ForEach(CollisionTypes, collisionType =>
             {
-                var sourceCollisions = _gameState.GameEntities.Where(s => s.GetType() == collisionType.TypeA).ToList();
-                var destinationCollision = _gameState.GameEntities.Where(s => s.GetType() == collisionType.TypeB).ToList();
+                var sourceCollisions = _gameLayer.GameEntities.Where(s => s.GetType() == collisionType.TypeA).ToList();
+                var destinationCollision = _gameLayer.GameEntities.Where(s => s.GetType() == collisionType.TypeB).ToList();
                 
                 foreach (var source in sourceCollisions)
                 {
