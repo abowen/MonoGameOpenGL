@@ -12,23 +12,27 @@ namespace MonoGameOpenGL.Managers
         private readonly GameLayer _gameLayer;
         private double _elapsedTimeMilliseconds;
         private readonly Random _random;
+        private readonly double _spawnDelayMilliseconds;
+        private readonly double _bulletDelayMilliseconds;
 
-        public EnemyManager(Texture2D shipTexture, Texture2D bulletTexture, GameLayer gameLayer)
+        public EnemyManager(Texture2D shipTexture, Texture2D bulletTexture, GameLayer gameLayer, double spawnDelayMilliseconds, double bulletDelayMilliseconds)
         {
             _shipTexture = shipTexture;
             _bulletTexture = bulletTexture;
             _gameLayer = gameLayer;
             _random = new Random();
+            _spawnDelayMilliseconds = spawnDelayMilliseconds;
+            _bulletDelayMilliseconds = bulletDelayMilliseconds;
         }
 
         public void Update(GameTime gameTime)
         {
             _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (_elapsedTimeMilliseconds > 1500)
+            if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds)
             {
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);
-                var enemy = new EnemyShip(_shipTexture, new Vector2(xLocation, 0), _bulletTexture, _gameLayer);
+                var enemy = new EnemyShip(_shipTexture, new Vector2(xLocation, 0), _bulletTexture, _bulletDelayMilliseconds, _gameLayer);
                 _gameLayer.GameEntities.Add(enemy);
             }
         }

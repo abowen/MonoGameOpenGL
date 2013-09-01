@@ -12,7 +12,7 @@ namespace MonoGameOpenGL.Entities
         {
             MovementDirection = faceDirection.GetVector2();
             FaceDirection = faceDirection;
-            Speed = 50;
+            Speed = 1;
             // TODO: Add feature that a planet can be blown up?
         }        
         

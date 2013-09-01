@@ -27,6 +27,7 @@ namespace MonoGameOpenGL
         private AsteroidManager asteroidManager;
         private CollisionManager collisionManager;
         private EnemyManager enemyManager;
+        private EnemyManager backgroundEnemyManager;
 
         public TopDownSpaceShooter()
             : base()
@@ -60,7 +61,7 @@ namespace MonoGameOpenGL
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _background = new GameLayer(GameLayerDepth.Background);
-            var moon = new Planet(Content.Load<Texture2D>("Moon01"), new Vector2(200, 200), FaceDirection.Bottom, _background);
+            var moon = new Planet(Content.Load<Texture2D>("Moon01"), new Vector2(200, 50), FaceDirection.Bottom, _background);
             var planet01 = new Planet(Content.Load<Texture2D>("Planet01"), new Vector2(600, 250), FaceDirection.Bottom, _background);
             var planet02 = new Planet(Content.Load<Texture2D>("Planet02"), new Vector2(100, 300), FaceDirection.Bottom, _background);
             _background.GameEntities.Add(moon);
@@ -90,7 +91,7 @@ namespace MonoGameOpenGL
                 Action = (ship, asteroid) =>
                 {
                     asteroid.RemoveEntity();
-                    (ship as PlayerShip).HealthManager.RemoveLife();
+                    (ship as PlayerShip).HealthManager.RemoveLife(ship);
                 }
             };
 
@@ -113,7 +114,8 @@ namespace MonoGameOpenGL
             };
             asteroidManager = new AsteroidManager(asteroids, miniAsteroids, _game);
 
-            enemyManager = new EnemyManager(Content.Load<Texture2D>("EnemyShip"), Content.Load<Texture2D>("Bullet"), _game);
+            enemyManager = new EnemyManager(Content.Load<Texture2D>("EnemyShip"), Content.Load<Texture2D>("Bullet"), _game, 1500, 2000);
+            backgroundEnemyManager = new EnemyManager(Content.Load<Texture2D>("MiniEnemyShip"), Content.Load<Texture2D>("MiniBullet"), _background, 5000, 0);
 
             var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width / 2, GameConstants.ScreenBoundary.Height - 50);
             var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), playerStartPosition, Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, _game);
@@ -145,6 +147,7 @@ namespace MonoGameOpenGL
             asteroidManager.Update(gameTime);
             collisionManager.Update(gameTime);
             enemyManager.Update(gameTime);
+            backgroundEnemyManager.Update(gameTime);
 
             base.Update(gameTime);
         }

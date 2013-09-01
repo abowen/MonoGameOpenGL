@@ -7,19 +7,35 @@ namespace MonoGameOpenGL.Extensions
     {
         public static Vector2 GetVector2(this FaceDirection faceDirection)
         {
+            var direction = Vector2.Zero;
             switch (faceDirection)
             {
                 case FaceDirection.Top:
-                    return new Vector2(0, -1);
+                    direction = new Vector2(0, -1);
+                    break;
                 case FaceDirection.Bottom:
-                    return new Vector2(0, 1);
+                    direction = new Vector2(0, 1);
+                    break;
                 case FaceDirection.Left:
-                    return new Vector2(-1, 0);
+                    direction = new Vector2(-1, 0);
+                    break;
                 case FaceDirection.Right:
-                    return new Vector2(1, 0);
-                default:
-                    return Vector2.Zero;
+                    direction = new Vector2(1, 0);
+                    break;
+                case FaceDirection.TopLeft:
+                    direction = new Vector2(-1, -1);
+                    break;
+                case FaceDirection.TopRight:
+                    direction = new Vector2(1, -1);
+                    break;
+                case FaceDirection.BottomLeft:
+                    direction = new Vector2(-1, 1);
+                    break;
+                case FaceDirection.BottomRight:
+                    direction = new Vector2(1, 1);
+                    break;
             }
+            return direction;
         }
     }
 }

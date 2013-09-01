@@ -78,7 +78,7 @@ namespace MonoGameOpenGL.Entities
         public virtual void Update(GameTime gameTime)
         {
             MovementDirection.Normalize();
-            if (_gameLayer.GameLayerDepth != GameLayerDepth.Background)
+            if (_gameLayer.GameLayerDepth != GameLayerDepth.Display)
             {
                 Location += MovementDirection * Speed / (int)_gameLayer.GameLayerDepth;
             }

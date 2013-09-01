@@ -24,11 +24,18 @@ namespace MonoGameOpenGL.Managers
             }
         }
 
-        public void RemoveLife()
+        public void RemoveLife(Sprite owner)
         {
-            var life = _lives.OrderBy(h => h.LifeNumber).Last();
-            life.RemoveEntity();
-            _lives.Remove(life);
+            if (_lives.Any())
+            {
+                var life = _lives.OrderBy(h => h.LifeNumber).Last();
+                life.RemoveEntity();
+                _lives.Remove(life);    
+            }
+            else
+            {
+                owner.RemoveEntity();
+            }
         }
     }
 }
