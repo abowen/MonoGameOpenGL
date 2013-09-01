@@ -78,8 +78,8 @@ namespace MonoGameOpenGL
                 TypeB = typeof(Asteroid),
                 Action = (bullet, asteroid) =>
                 {
-                    bullet.IsRemoved = true;
-                    asteroid.IsRemoved = true;
+                    bullet.RemoveEntity();
+                    asteroid.RemoveEntity();
                 }
             };
 
@@ -89,7 +89,7 @@ namespace MonoGameOpenGL
                 TypeB = typeof(Asteroid),
                 Action = (ship, asteroid) =>
                 {
-                    asteroid.IsRemoved = true;
+                    asteroid.RemoveEntity();
                     (ship as PlayerShip).HealthManager.RemoveLife();
                 }
             };
@@ -104,7 +104,14 @@ namespace MonoGameOpenGL
                 Content.Load<Texture2D>("Asteroid03"),
                 Content.Load<Texture2D>("Asteroid04"),
             };
-            asteroidManager = new AsteroidManager(asteroids, _game);
+            var miniAsteroids = new[]
+            {
+                Content.Load<Texture2D>("MiniAsteroid01"),
+                Content.Load<Texture2D>("MiniAsteroid02"),
+                Content.Load<Texture2D>("MiniAsteroid03"),
+                Content.Load<Texture2D>("MiniAsteroid04"),
+            };
+            asteroidManager = new AsteroidManager(asteroids, miniAsteroids, _game);
 
             enemyManager = new EnemyManager(Content.Load<Texture2D>("EnemyShip"), Content.Load<Texture2D>("Bullet"), _game);
 

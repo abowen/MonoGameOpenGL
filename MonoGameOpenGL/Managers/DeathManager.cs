@@ -1,0 +1,41 @@
+﻿using System;
+using System.Linq;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGameOpenGL.Entities;
+using MonoGameOpenGL.Enums;
+
+namespace MonoGameOpenGL.Managers
+{
+    public class DeathManager
+    {
+        private readonly Texture2D[] _texture2D;
+        private readonly Sprite _owner;
+        private readonly GameLayer _gameLayer;
+        private readonly Random _random;        
+
+        public DeathManager(Texture2D[] textures, Sprite owner, GameLayer gameLayer)
+        {
+            _texture2D = textures;
+            _owner = owner;
+            _gameLayer = gameLayer;
+            _random = new Random();
+        }
+
+        public void Fire()
+        {            
+            var directions = new[] { FaceDirection.Top, FaceDirection.Bottom, FaceDirection.Left, FaceDirection.Right };
+            foreach (var direction in directions)
+            {
+                var deathTexture = GetRandomTexture();
+                var deathSprite = new TimedSprite(deathTexture, _owner.Location, direction, 1500, _gameLayer);
+                _gameLayer.GameEntities.Add(deathSprite);
+            }
+        }
+
+        public Texture2D GetRandomTexture()
+        {
+            var randomValue = _random.Next(0, _texture2D.Count());
+            return _texture2D[randomValue];
+        }
+    }
+}

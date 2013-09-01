@@ -8,7 +8,13 @@ namespace MonoGameOpenGL.Entities
     {
         internal Texture2D _texture;
         private readonly GameLayer _gameLayer;
-        public bool IsRemoved { get; set; }
+
+        public virtual void RemoveEntity()
+        {
+            IsRemoved = true;
+        }
+
+        public bool IsRemoved { get; protected set; }
 
         /// <summary>
         /// Top-Left co-ordinates

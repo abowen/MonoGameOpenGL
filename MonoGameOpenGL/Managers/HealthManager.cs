@@ -27,7 +27,7 @@ namespace MonoGameOpenGL.Managers
         public void RemoveLife()
         {
             var life = _lives.OrderBy(h => h.LifeNumber).Last();
-            life.IsRemoved = true;
+            life.RemoveEntity();
             _lives.Remove(life);
         }
     }

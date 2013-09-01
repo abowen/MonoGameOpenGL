@@ -1,5 +1,6 @@
-﻿namespace MonoGameOpenGL.Enums
-{
+﻿
+namespace MonoGameOpenGL.Enums
+{    
     public enum FaceDirection
     {
         Top,
