@@ -15,7 +15,6 @@ namespace MonoGameOpenGL.Entities
         private readonly Dictionary<Keys, FaceDirection> _keyboardMappings;
         private readonly Dictionary<Keys, FaceDirection> _buttonMappings;
 
-
         public virtual void RemoveEntity()
         {
             IsRemoved = true;
@@ -41,6 +40,10 @@ namespace MonoGameOpenGL.Entities
         /// <summary>
         /// Face direction of sprite
         /// </summary>
+        /// <remarks>
+        /// It's important to keep FaceDirection separate 
+        /// from MovementDirection to allow for strafing
+        /// </remarks>
         public FaceDirection FaceDirection { get; protected set; }
 
         public int Width

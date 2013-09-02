@@ -36,7 +36,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Entities\Planet.cs" />
+    <Compile Include="Entities\StaticSprite.cs" />
     <Compile Include="Entities\EnemyShip.cs" />
     <Compile Include="Entities\Health.cs" />
     <Compile Include="Entities\TimedSprite.cs" />
@@ -53,6 +53,7 @@
     <Compile Include="Entities\GameLayer.cs" />
     <Compile Include="Entities\PlayerShip.cs" />
     <Compile Include="Entities\Sprite.cs" />
+    <Compile Include="Managers\BackgroundManager.cs" />
     <Compile Include="Managers\DeathManager.cs" />
     <Compile Include="SpaceContent\SpaceGraphics.cs" />
     <Compile Include="TopDownSpaceShooter.cs" />
@@ -128,10 +129,19 @@
     <Content Include="SpaceContent\Planet03.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="SpaceContent\Planet04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SpaceContent\PlayerShip.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
+    <Content Include="SpaceContent\Star01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpaceContent\Star02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

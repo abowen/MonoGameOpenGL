@@ -31,6 +31,7 @@ namespace MonoGameOpenGL
         private CollisionManager collisionManager;
         private EnemyManager enemyManager;
         private EnemyManager backgroundEnemyManager;
+        private BackgroundManager backgroundManager;
 
         public TopDownSpaceShooter()
             : base()
@@ -65,12 +66,7 @@ namespace MonoGameOpenGL
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _background = new GameLayer(GameLayerDepth.Background);
-            //var moon = new Planet(Content.Load<Texture2D>("Moon01"), new Vector2(200, 50), FaceDirection.Down, _background);
-            //var planet01 = new Planet(Content.Load<Texture2D>("Planet01"), new Vector2(600, 250), FaceDirection.Down, _background);
-            //var planet02 = new Planet(Content.Load<Texture2D>("Planet02"), new Vector2(100, 300), FaceDirection.Down, _background);
-            //_background.GameEntities.Add(moon);
-            //_background.GameEntities.Add(planet01);
-            //_background.GameEntities.Add(planet02);
+            backgroundManager = new BackgroundManager(SpaceGraphics.PlanetAsset, SpaceGraphics.StarAsset, _background);
 
             _game = new GameLayer(GameLayerDepth.Game);
 
@@ -105,8 +101,8 @@ namespace MonoGameOpenGL
 
             asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, _game);
 
-            enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), _game, 1500, 2000);
-            backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), _background, 5000, 0);
+            enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1500, 2000, _game, 1);
+            backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), 5000, 0, _background, 2);
 
             var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width / 2, GameConstants.ScreenBoundary.Height - 50);
             var playerShip = new PlayerShip(SpaceGraphics.PlayerShipAsset.First(), playerStartPosition, SpaceGraphics.BulletAsset.First(), SpaceGraphics.HealthAsset.First(), 5, FaceDirection.Up, _game, InputHelper.KeyboardMappedKey());
@@ -139,12 +135,13 @@ namespace MonoGameOpenGL
             collisionManager.Update(gameTime);
             enemyManager.Update(gameTime);
             backgroundEnemyManager.Update(gameTime);
+            backgroundManager.Update(gameTime);
 
             base.Update(gameTime);
         }
 
         private int frames;
-        private double timeElapsedMilliseconds;
+        private double timeElapsedMilliseconds;        
 
         /// <summary>
         /// This is called when the game should draw itself.

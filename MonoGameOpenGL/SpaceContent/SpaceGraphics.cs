@@ -19,6 +19,7 @@ namespace MonoGameOpenGL.SpaceContent
         private static readonly string MiniEnemyShip = "MiniEnemyShip";
         private static readonly string Health = "Health";
         private static readonly string Planet = "Planet";
+        private static readonly string Star = "Star";
 
         public static Texture2D[] AsteroidAsset { get { return Assets[Asteroid]; } }
         public static Texture2D[] MiniAsteroidAsset { get { return Assets[MiniAsteroid]; } }
@@ -29,6 +30,7 @@ namespace MonoGameOpenGL.SpaceContent
         public static Texture2D[] MiniEnemyShipAsset { get { return Assets[MiniEnemyShip]; } }
         public static Texture2D[] HealthAsset { get { return Assets[Health]; } }
         public static Texture2D[] PlanetAsset { get { return Assets[Planet]; } }
+        public static Texture2D[] StarAsset { get { return Assets[Star]; } }
 
         public static void LoadSpaceContent(ContentManager content)
         {
@@ -40,6 +42,7 @@ namespace MonoGameOpenGL.SpaceContent
                 content.Load<Texture2D>("Planet01"),
                 content.Load<Texture2D>("Planet02"),
                 content.Load<Texture2D>("Planet03"),                
+                content.Load<Texture2D>("Planet04")                
             };
             Assets.Add(Planet, planets);
 
@@ -59,8 +62,14 @@ namespace MonoGameOpenGL.SpaceContent
                 content.Load<Texture2D>("MiniAsteroid03"),
                 content.Load<Texture2D>("MiniAsteroid04"),
             };
-
             Assets.Add(MiniAsteroid, miniAsteroids);
+
+            var stars = new[]
+            {
+                content.Load<Texture2D>("Star01"),
+                content.Load<Texture2D>("Star02")                
+            };
+            Assets.Add(Star, stars);
 
             var playerShip = new[]
             {

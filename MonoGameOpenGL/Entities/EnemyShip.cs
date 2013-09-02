@@ -10,11 +10,11 @@ namespace MonoGameOpenGL.Entities
     {
         private readonly double _bulletDelayMilliseconds;
 
-        public EnemyShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, double bulletDelayMilliseconds, FaceDirection faceDirection, GameLayer gameLayer)
+        public EnemyShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, double bulletDelayMilliseconds, FaceDirection faceDirection, int speed, GameLayer gameLayer)
             : base(texture, location, faceDirection, gameLayer)
         {
             _bulletDelayMilliseconds = bulletDelayMilliseconds;
-            Speed = 1;                        
+            Speed = speed;                        
             _bulletManager = new BulletManager(bulletTexture, gameLayer);
         }
 
