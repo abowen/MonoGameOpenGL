@@ -8,10 +8,9 @@ namespace MonoGameOpenGL.Entities
     internal class Bullet : Sprite
     {
         public Bullet(Texture2D texture, Vector2 location, FaceDirection faceDirection, GameLayer gameLayer)
-            : base(texture, location, gameLayer)
+            : base(texture, location, faceDirection, gameLayer)
         {
-            Speed = 2;
-            MovementDirection = faceDirection.GetVector2();
+            Speed = 2;            
         }        
 
         protected override void CheckBounds()

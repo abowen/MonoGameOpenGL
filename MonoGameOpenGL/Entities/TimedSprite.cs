@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Enums;
-using MonoGameOpenGL.Extensions;
 
 namespace MonoGameOpenGL.Entities
 {
@@ -11,11 +10,10 @@ namespace MonoGameOpenGL.Entities
         private double _elapsedTimeMilliseconds;
 
         public TimedSprite(Texture2D texture, Vector2 location, FaceDirection faceDirection, double lifeTimeMilliseconds, GameLayer gameLayer)
-            : base(texture, location, gameLayer)
+            : base(texture, location, faceDirection, gameLayer)
         {
             _lifeTimeMilliseconds = lifeTimeMilliseconds;
-            Speed = 1;
-            MovementDirection = faceDirection.GetVector2();
+            Speed = 1;            
         }
 
 

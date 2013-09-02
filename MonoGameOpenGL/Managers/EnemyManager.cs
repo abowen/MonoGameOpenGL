@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Entities;
+using MonoGameOpenGL.Enums;
 
 namespace MonoGameOpenGL.Managers
 {
@@ -32,7 +33,7 @@ namespace MonoGameOpenGL.Managers
             {
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);
-                var enemy = new EnemyShip(_shipTexture, new Vector2(xLocation, 0), _bulletTexture, _bulletDelayMilliseconds, _gameLayer);
+                var enemy = new EnemyShip(_shipTexture, new Vector2(xLocation, 0), _bulletTexture, _bulletDelayMilliseconds, FaceDirection.Down,  _gameLayer);
                 _gameLayer.GameEntities.Add(enemy);
             }
         }

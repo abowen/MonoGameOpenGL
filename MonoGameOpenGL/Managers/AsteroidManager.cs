@@ -30,6 +30,7 @@ namespace MonoGameOpenGL.Managers
             {
                 _lastTimeSpan = gameTime.TotalGameTime;
 
+                // TODO: Use perpendicular
                 var y = _random.Next(0, GameConstants.ScreenBoundary.Bottom);
                 var isLeftDirection = _random.Next(0, 2) == 1;
                 if (isLeftDirection)

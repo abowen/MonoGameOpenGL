@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Enums;
-using MonoGameOpenGL.Extensions;
 using MonoGameOpenGL.Managers;
 
 namespace MonoGameOpenGL.Entities
@@ -11,13 +10,11 @@ namespace MonoGameOpenGL.Entities
     {
         private readonly double _bulletDelayMilliseconds;
 
-        public EnemyShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, double bulletDelayMilliseconds, GameLayer gameLayer)
-            : base(texture, location, gameLayer)
+        public EnemyShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, double bulletDelayMilliseconds, FaceDirection faceDirection, GameLayer gameLayer)
+            : base(texture, location, faceDirection, gameLayer)
         {
             _bulletDelayMilliseconds = bulletDelayMilliseconds;
-            Speed = 1;
-            FaceDirection = FaceDirection.Down;
-            MovementDirection = FaceDirection.GetVector2();
+            Speed = 1;                        
             _bulletManager = new BulletManager(bulletTexture, gameLayer);
         }
 

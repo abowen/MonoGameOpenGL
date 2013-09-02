@@ -11,17 +11,15 @@ namespace MonoGameOpenGL.Entities
     public class PlayerShip : Sprite
     {
 
-        public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, Texture2D healthTexture, int lives, GameLayer gameLayer, Dictionary<Keys, FaceDirection> keyboardMappings = null, Dictionary<Keys, FaceDirection> buttonMappings = null)
-            : base(texture, location, gameLayer, keyboardMappings, buttonMappings)
+        public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, Texture2D healthTexture, int lives, FaceDirection faceDirection, GameLayer gameLayer, Dictionary<Keys, FaceDirection> keyboardMappings = null, Dictionary<Keys, FaceDirection> buttonMappings = null)
+            : base(texture, location, faceDirection, gameLayer, keyboardMappings, buttonMappings)
         {
-            Speed = 2;
-            FaceDirection = FaceDirection.Up;
-
+            Speed = 2;            
             _bulletManager = new BulletManager(bulletTexture, gameLayer);
             HealthManager = new HealthManager(healthTexture, new Vector2(20, 20), lives, gameLayer);
         }
 
-        private BulletManager _bulletManager;
+        private readonly BulletManager _bulletManager;
         public HealthManager HealthManager { get; private set; }
         private double _elapsedTimeMilliseconds;
 

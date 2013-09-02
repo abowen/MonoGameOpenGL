@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameOpenGL.Enums;
+using MonoGameOpenGL.Extensions;
 using MonoGameOpenGL.Helpers;
 
 namespace MonoGameOpenGL.Entities
@@ -68,8 +69,10 @@ namespace MonoGameOpenGL.Entities
             }
         }
 
-        protected Sprite(Texture2D texture, Vector2 location, GameLayer gameLayer, Dictionary<Keys, FaceDirection> keyboardMappings = null, Dictionary<Keys, FaceDirection> buttonMappings = null)
+        protected Sprite(Texture2D texture, Vector2 location, FaceDirection faceDirection, GameLayer gameLayer, Dictionary<Keys, FaceDirection> keyboardMappings = null, Dictionary<Keys, FaceDirection> buttonMappings = null)
         {
+            FaceDirection = faceDirection;
+            MovementDirection = FaceDirection.GetVector2();
             Speed = 1;
             _texture = texture;
             _gameLayer = gameLayer;
