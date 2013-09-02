@@ -24,7 +24,7 @@ namespace MonoGameOpenGL.Managers
         public void Fire()
         {          
             // TODO: Could use calculated method to take into account the owner's direction and use perpendicular
-            var directions = new[] { FaceDirection.TopLeft, FaceDirection.TopRight, FaceDirection.BottomLeft, FaceDirection.BottomRight };
+            var directions = new[] { FaceDirection.UpLeft, FaceDirection.UpRight, FaceDirection.DownLeft, FaceDirection.DownRight };
             foreach (var direction in directions)
             {
                 var deathTexture = GetRandomTexture();

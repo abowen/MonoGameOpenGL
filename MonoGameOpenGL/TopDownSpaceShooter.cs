@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using MonoGameOpenGL.Entities;
 using MonoGameOpenGL.Enums;
+using MonoGameOpenGL.Helpers;
 using MonoGameOpenGL.Managers;
 
 #endregion
@@ -61,9 +62,9 @@ namespace MonoGameOpenGL
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _background = new GameLayer(GameLayerDepth.Background);
-            var moon = new Planet(Content.Load<Texture2D>("Moon01"), new Vector2(200, 50), FaceDirection.Bottom, _background);
-            var planet01 = new Planet(Content.Load<Texture2D>("Planet01"), new Vector2(600, 250), FaceDirection.Bottom, _background);
-            var planet02 = new Planet(Content.Load<Texture2D>("Planet02"), new Vector2(100, 300), FaceDirection.Bottom, _background);
+            var moon = new Planet(Content.Load<Texture2D>("Moon01"), new Vector2(200, 50), FaceDirection.Down, _background);
+            var planet01 = new Planet(Content.Load<Texture2D>("Planet01"), new Vector2(600, 250), FaceDirection.Down, _background);
+            var planet02 = new Planet(Content.Load<Texture2D>("Planet02"), new Vector2(100, 300), FaceDirection.Down, _background);
             _background.GameEntities.Add(moon);
             _background.GameEntities.Add(planet01);
             _background.GameEntities.Add(planet02);
@@ -118,7 +119,7 @@ namespace MonoGameOpenGL
             backgroundEnemyManager = new EnemyManager(Content.Load<Texture2D>("MiniEnemyShip"), Content.Load<Texture2D>("MiniBullet"), _background, 5000, 0);
 
             var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width / 2, GameConstants.ScreenBoundary.Height - 50);
-            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), playerStartPosition, Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, _game);
+            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), playerStartPosition, Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, _game, InputHelper.KeyboardMappedKey());
             _game.GameEntities.Add(playerShip);
         }
 

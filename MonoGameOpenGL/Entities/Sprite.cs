@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGameOpenGL.Enums;
+using MonoGameOpenGL.Helpers;
 
 namespace MonoGameOpenGL.Entities
 {
@@ -8,6 +11,9 @@ namespace MonoGameOpenGL.Entities
     {
         internal Texture2D _texture;
         private readonly GameLayer _gameLayer;
+        private readonly Dictionary<Keys, FaceDirection> _keyboardMappings;
+        private readonly Dictionary<Keys, FaceDirection> _buttonMappings;
+
 
         public virtual void RemoveEntity()
         {
@@ -17,7 +23,7 @@ namespace MonoGameOpenGL.Entities
         public bool IsRemoved { get; protected set; }
 
         /// <summary>
-        /// Top-Left co-ordinates
+        /// Up-Left co-ordinates
         /// </summary>
         public Vector2 Location { get; protected set; }
 
@@ -62,11 +68,13 @@ namespace MonoGameOpenGL.Entities
             }
         }
 
-        protected Sprite(Texture2D texture, Vector2 location, GameLayer gameLayer)
+        protected Sprite(Texture2D texture, Vector2 location, GameLayer gameLayer, Dictionary<Keys, FaceDirection> keyboardMappings = null, Dictionary<Keys, FaceDirection> buttonMappings = null)
         {
             Speed = 1;
             _texture = texture;
             _gameLayer = gameLayer;
+            _keyboardMappings = keyboardMappings;
+            _buttonMappings = buttonMappings;
             Location = location;
         }
 
@@ -77,7 +85,19 @@ namespace MonoGameOpenGL.Entities
 
         public virtual void Update(GameTime gameTime)
         {
-            MovementDirection.Normalize();
+            if (_keyboardMappings != null || _buttonMappings != null)
+            {
+                var keysPressed = Keyboard.GetState().GetPressedKeys();
+                if (_keyboardMappings != null)
+                {
+                    MovementDirection = InputHelper.DirectionFromMapping(keysPressed, _keyboardMappings);
+                }
+                else if (_buttonMappings != null)
+                {
+                    MovementDirection = InputHelper.DirectionFromMapping(keysPressed, _buttonMappings);
+                }
+            }
+
             if (_gameLayer.GameLayerDepth != GameLayerDepth.Display)
             {
                 Location += MovementDirection * Speed / (int)_gameLayer.GameLayerDepth;

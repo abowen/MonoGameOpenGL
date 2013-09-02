@@ -1,9 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameOpenGL.Enums;
-using MonoGameOpenGL.Helpers;
 using MonoGameOpenGL.Managers;
 
 namespace MonoGameOpenGL.Entities
@@ -11,11 +11,11 @@ namespace MonoGameOpenGL.Entities
     public class PlayerShip : Sprite
     {
 
-        public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, Texture2D healthTexture, int lives, GameLayer gameLayer)
-            : base(texture, location, gameLayer)
+        public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, Texture2D healthTexture, int lives, GameLayer gameLayer, Dictionary<Keys, FaceDirection> keyboardMappings = null, Dictionary<Keys, FaceDirection> buttonMappings = null)
+            : base(texture, location, gameLayer, keyboardMappings, buttonMappings)
         {
             Speed = 2;
-            FaceDirection = FaceDirection.Top;
+            FaceDirection = FaceDirection.Up;
 
             _bulletManager = new BulletManager(bulletTexture, gameLayer);
             HealthManager = new HealthManager(healthTexture, new Vector2(20, 20), lives, gameLayer);
@@ -27,18 +27,13 @@ namespace MonoGameOpenGL.Entities
 
         public override void Update(GameTime gameTime)
         {
-            _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
-
             var keysPressed = Keyboard.GetState().GetPressedKeys();
-            MovementDirection = InputHelper.KeyboardDirection(keysPressed);
-
-            if (keysPressed.Any(k => k == Keys.Space))
+            _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
+            
+            if (keysPressed.Any(k => k == Keys.Space) && _elapsedTimeMilliseconds > 500)
             {
-                if (_elapsedTimeMilliseconds > 500)
-                {
-                    _elapsedTimeMilliseconds = 0;
-                    _bulletManager.Fire(this);                    
-                }
+                _elapsedTimeMilliseconds = 0;
+                _bulletManager.Fire(this);
             }
 
             base.Update(gameTime);

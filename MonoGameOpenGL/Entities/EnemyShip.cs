@@ -16,7 +16,7 @@ namespace MonoGameOpenGL.Entities
         {
             _bulletDelayMilliseconds = bulletDelayMilliseconds;
             Speed = 1;
-            FaceDirection = FaceDirection.Bottom;
+            FaceDirection = FaceDirection.Down;
             MovementDirection = FaceDirection.GetVector2();
             _bulletManager = new BulletManager(bulletTexture, gameLayer);
         }

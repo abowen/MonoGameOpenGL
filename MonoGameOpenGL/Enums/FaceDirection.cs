@@ -1,17 +1,18 @@
-﻿
+﻿using System;
+
 namespace MonoGameOpenGL.Enums
 {    
-    // TODO: Could use flags & combinations
+    [Flags]
     public enum FaceDirection
     {
         None,
-        Top,
-        Bottom,
+        Up,
+        Down,
         Left,
         Right,
-        TopLeft,
-        TopRight,
-        BottomLeft,
-        BottomRight
+        UpLeft = Up & Left,
+        UpRight = Up & Right,
+        DownLeft = Down & Left,
+        DownRight = Down & Right
     }
 }

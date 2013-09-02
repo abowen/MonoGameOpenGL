@@ -10,10 +10,10 @@ namespace MonoGameOpenGL.Extensions
             var direction = Vector2.Zero;
             switch (faceDirection)
             {
-                case FaceDirection.Top:
+                case FaceDirection.Up:
                     direction = new Vector2(0, -1);
                     break;
-                case FaceDirection.Bottom:
+                case FaceDirection.Down:
                     direction = new Vector2(0, 1);
                     break;
                 case FaceDirection.Left:
@@ -21,19 +21,7 @@ namespace MonoGameOpenGL.Extensions
                     break;
                 case FaceDirection.Right:
                     direction = new Vector2(1, 0);
-                    break;
-                case FaceDirection.TopLeft:
-                    direction = new Vector2(-1, -1);
-                    break;
-                case FaceDirection.TopRight:
-                    direction = new Vector2(1, -1);
-                    break;
-                case FaceDirection.BottomLeft:
-                    direction = new Vector2(-1, 1);
-                    break;
-                case FaceDirection.BottomRight:
-                    direction = new Vector2(1, 1);
-                    break;
+                    break;                
             }
             return direction;
         }
