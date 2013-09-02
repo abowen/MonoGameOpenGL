@@ -1,6 +1,7 @@
 ﻿#region Using Statements
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,6 +12,7 @@ using MonoGameOpenGL.Entities;
 using MonoGameOpenGL.Enums;
 using MonoGameOpenGL.Helpers;
 using MonoGameOpenGL.Managers;
+using MonoGameOpenGL.SpaceContent;
 
 #endregion
 
@@ -33,8 +35,7 @@ namespace MonoGameOpenGL
         public TopDownSpaceShooter()
             : base()
         {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            graphics = new GraphicsDeviceManager(this);            
         }
 
         /// <summary>
@@ -57,17 +58,19 @@ namespace MonoGameOpenGL
         /// </summary>
         protected override void LoadContent()
         {
+            SpaceGraphics.LoadSpaceContent(Content);
+
             // Create a new SpriteBatch, which can be used to draw textures.
             GameConstants.ScreenBoundary = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height);
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _background = new GameLayer(GameLayerDepth.Background);
-            var moon = new Planet(Content.Load<Texture2D>("Moon01"), new Vector2(200, 50), FaceDirection.Down, _background);
-            var planet01 = new Planet(Content.Load<Texture2D>("Planet01"), new Vector2(600, 250), FaceDirection.Down, _background);
-            var planet02 = new Planet(Content.Load<Texture2D>("Planet02"), new Vector2(100, 300), FaceDirection.Down, _background);
-            _background.GameEntities.Add(moon);
-            _background.GameEntities.Add(planet01);
-            _background.GameEntities.Add(planet02);
+            //var moon = new Planet(Content.Load<Texture2D>("Moon01"), new Vector2(200, 50), FaceDirection.Down, _background);
+            //var planet01 = new Planet(Content.Load<Texture2D>("Planet01"), new Vector2(600, 250), FaceDirection.Down, _background);
+            //var planet02 = new Planet(Content.Load<Texture2D>("Planet02"), new Vector2(100, 300), FaceDirection.Down, _background);
+            //_background.GameEntities.Add(moon);
+            //_background.GameEntities.Add(planet01);
+            //_background.GameEntities.Add(planet02);
 
             _game = new GameLayer(GameLayerDepth.Game);
 
@@ -99,27 +102,14 @@ namespace MonoGameOpenGL
             collisionManager.CollisionTypes.Add(bulletAsteroidCollision);
             collisionManager.CollisionTypes.Add(playerAsteroidCollision);
 
-            var asteroids = new[]
-            {
-                Content.Load<Texture2D>("Asteroid01"),
-                Content.Load<Texture2D>("Asteroid02"),
-                Content.Load<Texture2D>("Asteroid03"),
-                Content.Load<Texture2D>("Asteroid04"),
-            };
-            var miniAsteroids = new[]
-            {
-                Content.Load<Texture2D>("MiniAsteroid01"),
-                Content.Load<Texture2D>("MiniAsteroid02"),
-                Content.Load<Texture2D>("MiniAsteroid03"),
-                Content.Load<Texture2D>("MiniAsteroid04"),
-            };
-            asteroidManager = new AsteroidManager(asteroids, miniAsteroids, _game);
 
-            enemyManager = new EnemyManager(Content.Load<Texture2D>("EnemyShip"), Content.Load<Texture2D>("Bullet"), _game, 1500, 2000);
-            backgroundEnemyManager = new EnemyManager(Content.Load<Texture2D>("MiniEnemyShip"), Content.Load<Texture2D>("MiniBullet"), _background, 5000, 0);
+            asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, _game);
+
+            enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), _game, 1500, 2000);
+            backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), _background, 5000, 0);
 
             var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width / 2, GameConstants.ScreenBoundary.Height - 50);
-            var playerShip = new PlayerShip(Content.Load<Texture2D>("PlayerShip"), playerStartPosition, Content.Load<Texture2D>("Bullet"), Content.Load<Texture2D>("Health"), 5, _game, InputHelper.KeyboardMappedKey());
+            var playerShip = new PlayerShip(SpaceGraphics.PlayerShipAsset.First(), playerStartPosition, SpaceGraphics.BulletAsset.First(), SpaceGraphics.HealthAsset.First(), 5, _game, InputHelper.KeyboardMappedKey());
             _game.GameEntities.Add(playerShip);
         }
 

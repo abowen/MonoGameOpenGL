@@ -54,6 +54,7 @@
     <Compile Include="Entities\PlayerShip.cs" />
     <Compile Include="Entities\Sprite.cs" />
     <Compile Include="Managers\DeathManager.cs" />
+    <Compile Include="SpaceContent\SpaceGraphics.cs" />
     <Compile Include="TopDownSpaceShooter.cs" />
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Managers\EnemyManager.cs" />
@@ -79,55 +80,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Asteroid01.png">
+    <Content Include="SpaceContent\Asteroid01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Asteroid02.png">
+    <Content Include="SpaceContent\Asteroid02.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Asteroid03.png">
+    <Content Include="SpaceContent\Asteroid03.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Asteroid04.png">
+    <Content Include="SpaceContent\Asteroid04.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Bullet.png">
+    <Content Include="SpaceContent\Bullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\EnemyShip.png">
+    <Content Include="SpaceContent\EnemyShip.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Health.png">
+    <Content Include="SpaceContent\Health.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\MiniAsteroid01.png">
+    <Content Include="SpaceContent\MiniAsteroid01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\MiniAsteroid02.png">
+    <Content Include="SpaceContent\MiniAsteroid02.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\MiniAsteroid03.png">
+    <Content Include="SpaceContent\MiniAsteroid03.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\MiniAsteroid04.png">
+    <Content Include="SpaceContent\MiniAsteroid04.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\MiniBullet.png">
+    <Content Include="SpaceContent\MiniBullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\MiniEnemyShip.png">
+    <Content Include="SpaceContent\MiniEnemyShip.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Moon01.png">
+    <Content Include="SpaceContent\Planet01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Planet01.png">
+    <Content Include="SpaceContent\Planet02.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Planet02.png">
+    <Content Include="SpaceContent\Planet03.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PlayerShip.png">
+    <Content Include="SpaceContent\PlayerShip.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
