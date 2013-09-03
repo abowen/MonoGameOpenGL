@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,8 +13,8 @@ namespace MonoGameOpenGL.Entities
     {
         internal Texture2D _texture;
         private readonly GameLayer _gameLayer;
-        private readonly Dictionary<Keys, FaceDirection> _keyboardMappings;
-        private readonly Dictionary<Keys, FaceDirection> _buttonMappings;
+        private readonly Dictionary<Keys, InputAction> _keyboardMappings;
+        private readonly Dictionary<Keys, InputAction> _buttonMappings;
 
         public virtual void RemoveEntity()
         {
@@ -72,7 +73,7 @@ namespace MonoGameOpenGL.Entities
             }
         }
 
-        protected Sprite(Texture2D texture, Vector2 location, FaceDirection faceDirection, GameLayer gameLayer, Dictionary<Keys, FaceDirection> keyboardMappings = null, Dictionary<Keys, FaceDirection> buttonMappings = null)
+        protected Sprite(Texture2D texture, Vector2 location, FaceDirection faceDirection, GameLayer gameLayer, Dictionary<Keys, InputAction> keyboardMappings = null, Dictionary<Keys, InputAction> buttonMappings = null)
         {
             FaceDirection = faceDirection;
             MovementDirection = FaceDirection.GetVector2();
@@ -107,6 +108,10 @@ namespace MonoGameOpenGL.Entities
             if (_gameLayer.GameLayerDepth != GameLayerDepth.Display)
             {
                 Location += MovementDirection * Speed / (int)_gameLayer.GameLayerDepth;
+                if (float.IsNaN(Location.X) || float.IsNaN(Location.Y))
+                {
+                    // WTF!
+                }
             }
             CheckBounds();
         }

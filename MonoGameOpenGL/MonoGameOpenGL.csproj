@@ -40,6 +40,7 @@
     <Compile Include="Entities\EnemyShip.cs" />
     <Compile Include="Entities\Health.cs" />
     <Compile Include="Entities\TimedSprite.cs" />
+    <Compile Include="Enums\InputAction.cs" />
     <Compile Include="Enums\FaceDirection.cs" />
     <Compile Include="Extensions\FaceDirectionExtensions.cs" />
     <Compile Include="Helpers\TextureHelper.cs" />

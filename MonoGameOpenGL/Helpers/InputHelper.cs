@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework.Input;
 using MonoGameOpenGL.Enums;
 
 namespace MonoGameOpenGL.Helpers
-{    
+{
     public static class InputHelper
-    {        
-        public static Vector2 DirectionFromMapping(Keys[] keys, Dictionary<Keys, FaceDirection> mapping)
+    {
+        public static Vector2 DirectionFromMapping(Keys[] keys, Dictionary<Keys, InputAction> mapping)
         {
             Contract.Assert(keys != null, "Failed to pass input parameter");
 
@@ -20,11 +20,11 @@ namespace MonoGameOpenGL.Helpers
                     var faceDirection = mapping[key];
                     direction = Direction(faceDirection, direction);
                 }
-            }            
+            }
             return direction;
         }
 
-        public static Vector2 DirectionFromMapping(Buttons[] keys, Dictionary<Buttons, FaceDirection> mapping)
+        public static Vector2 DirectionFromMapping(Buttons[] keys, Dictionary<Buttons, InputAction> mapping)
         {
             Contract.Assert(keys != null, "Failed to pass input parameter");
 
@@ -36,51 +36,56 @@ namespace MonoGameOpenGL.Helpers
                     var faceDirection = mapping[key];
                     direction = Direction(faceDirection, direction);
                 }
-            }            
+            }
             return direction;
         }
 
-        private static Vector2 Direction(FaceDirection faceDirection, Vector2 direction)
-        {
-            switch (faceDirection)
+        private static Vector2 Direction(InputAction inputAction, Vector2 direction)
+        {            
+            switch (inputAction)
             {
-                case FaceDirection.Up:
+                case InputAction.Up:
                     direction += new Vector2(0, -1);
                     break;
-                case FaceDirection.Down:
+                case InputAction.Down:
                     direction += new Vector2(0, 1);
                     break;
-                case FaceDirection.Right:
+                case InputAction.Right:
                     direction += new Vector2(1, 0);
                     break;
-                case FaceDirection.Left:
+                case InputAction.Left:
                     direction += new Vector2(-1, 0);
                     break;
             }
-            direction.Normalize();
+            if (direction != Vector2.Zero)
+            {
+                direction.Normalize();
+            }
             return direction;
         }
 
-        public static Dictionary<Keys, FaceDirection> KeyboardMappedKey()
+        public static Dictionary<Keys, InputAction> KeyboardMappedKey()
         {
-            var dictionary = new Dictionary<Keys, FaceDirection>
+            var dictionary = new Dictionary<Keys, InputAction>
             {
-                {Keys.Left, FaceDirection.Left},
-                {Keys.Right, FaceDirection.Right},
-                {Keys.Up, FaceDirection.Up},
-                {Keys.Down, FaceDirection.Down}
+                {Keys.Left, InputAction.Left},
+                {Keys.Right, InputAction.Right},
+                {Keys.Up, InputAction.Up},
+                {Keys.Down, InputAction.Down},
+                {Keys.Space, InputAction.Fire}
             };
             return dictionary;
         }
-        
-        public static Dictionary<Buttons, FaceDirection> GamepadMappedKey()
-        {            
-            var dictionary = new Dictionary<Buttons, FaceDirection>
+
+        public static Dictionary<Buttons, InputAction> GamepadMappedKey()
+        {
+            var dictionary = new Dictionary<Buttons, InputAction>
             {
-                {Buttons.LeftThumbstickLeft, FaceDirection.Left},
-                {Buttons.LeftThumbstickRight, FaceDirection.Right},
-                {Buttons.LeftThumbstickUp, FaceDirection.Up},
-                {Buttons.LeftThumbstickDown, FaceDirection.Down}
+                {Buttons.LeftThumbstickLeft, InputAction.Left},
+                {Buttons.LeftThumbstickRight, InputAction.Right},
+                {Buttons.LeftThumbstickUp, InputAction.Up},
+                {Buttons.LeftThumbstickDown, InputAction.Down},
+                {Buttons.RightTrigger, InputAction.Fire}
             };
             return dictionary;
         }

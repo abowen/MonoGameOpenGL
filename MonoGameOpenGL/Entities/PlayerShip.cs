@@ -11,7 +11,7 @@ namespace MonoGameOpenGL.Entities
     public class PlayerShip : Sprite
     {
 
-        public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, Texture2D healthTexture, int lives, FaceDirection faceDirection, GameLayer gameLayer, Dictionary<Keys, FaceDirection> keyboardMappings = null, Dictionary<Keys, FaceDirection> buttonMappings = null)
+        public PlayerShip(Texture2D texture, Vector2 location, Texture2D bulletTexture, Texture2D healthTexture, int lives, FaceDirection faceDirection, GameLayer gameLayer, Dictionary<Keys, InputAction> keyboardMappings = null, Dictionary<Keys, InputAction> buttonMappings = null)
             : base(texture, location, faceDirection, gameLayer, keyboardMappings, buttonMappings)
         {
             Speed = 2;            
@@ -42,6 +42,6 @@ namespace MonoGameOpenGL.Entities
             var topLeft = new Vector2(0, 0);
             var bottomRight = new Vector2(GameConstants.ScreenBoundary.Width - _texture.Width, GameConstants.ScreenBoundary.Height - _texture.Height);
             Location = Vector2.Clamp(Location, topLeft, bottomRight);
-        }
+        }        
     }
 }
