@@ -1,18 +1,14 @@
 ﻿#region Using Statements
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
+using MonoGame.Graphics.Space;
 using MonoGameOpenGL.Entities;
 using MonoGameOpenGL.Enums;
 using MonoGameOpenGL.Helpers;
 using MonoGameOpenGL.Managers;
-using MonoGameOpenGL.SpaceContent;
+using System.Linq;
+
 
 #endregion
 

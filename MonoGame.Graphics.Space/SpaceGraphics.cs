@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MonoGameOpenGL.SpaceContent
+namespace MonoGame.Graphics.Space
 {
     // TODO: Could replace this with a T4 Template so as new content is added, it's easily generated
     // Convention could be A..D representats variation, while 01..04 represents animation
@@ -34,7 +34,7 @@ namespace MonoGameOpenGL.SpaceContent
 
         public static void LoadSpaceContent(ContentManager content)
         {
-            content.RootDirectory = "SpaceContent";
+            content.RootDirectory = "";
             Assets = new Dictionary<string, Texture2D[]>();
 
             var planets = new[]
