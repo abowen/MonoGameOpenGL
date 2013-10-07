@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGameOpenGL.Interfaces;
 
 namespace MonoGameOpenGL.Entities
 {
@@ -12,6 +13,7 @@ namespace MonoGameOpenGL.Entities
     {
         public readonly GameLayerDepth GameLayerDepth;
         public readonly List<Sprite> GameEntities = new List<Sprite>();
+        public readonly List<IManager> Managers = new List<IManager>();
 
 
         public GameLayer(GameLayerDepth gameLayerDepth)
@@ -23,6 +25,7 @@ namespace MonoGameOpenGL.Entities
         {
             GameEntities.ForEach(s => s.Update(gameTime));            
             GameEntities.RemoveAll(s => s.IsRemoved);
+            Managers.ForEach(s => s.Update(gameTime));            
         }
 
         public void Draw(SpriteBatch spriteBatch)

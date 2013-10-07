@@ -17,22 +17,17 @@ namespace MonoGameOpenGL
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class TopDownSpaceShooter : Game
+    public class MainGame : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
         private GameLayer _game;
-        private GameLayer _background;
-        private AsteroidManager asteroidManager;
-        private CollisionManager collisionManager;
-        private EnemyManager enemyManager;
-        private EnemyManager backgroundEnemyManager;
-        private BackgroundManager backgroundManager;
-
-        public TopDownSpaceShooter()
+        private GameLayer _background;                 
+        
+        public MainGame()
             : base()
         {
-            graphics = new GraphicsDeviceManager(this);            
+            _graphics = new GraphicsDeviceManager(this);            
         }
 
         /// <summary>
@@ -42,10 +37,8 @@ namespace MonoGameOpenGL
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here
+        {            
             IsMouseVisible = true;
-
             base.Initialize();
         }
 
@@ -54,55 +47,17 @@ namespace MonoGameOpenGL
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
-        {
-            SpaceGraphics.LoadSpaceContent(Content);
-
+        {            
             // Create a new SpriteBatch, which can be used to draw textures.
             GameConstants.ScreenBoundary = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height);
-
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);            
             _background = new GameLayer(GameLayerDepth.Background);
-            backgroundManager = new BackgroundManager(SpaceGraphics.PlanetAsset, SpaceGraphics.StarAsset, _background);
-
             _game = new GameLayer(GameLayerDepth.Game);
-
-            collisionManager = new CollisionManager(_game);
-
-            // TODO: Refactor into generic collision manager into more event driven / composition manner
-            var bulletAsteroidCollision = new CollisionType
-            {
-                TypeA = typeof(Bullet),
-                TypeB = typeof(Asteroid),
-                Action = (bullet, asteroid) =>
-                {
-                    bullet.RemoveEntity();
-                    asteroid.RemoveEntity();
-                }
-            };
-
-            var playerAsteroidCollision = new CollisionType
-            {
-                TypeA = typeof(PlayerShip),
-                TypeB = typeof(Asteroid),
-                Action = (ship, asteroid) =>
-                {
-                    asteroid.RemoveEntity();
-                    (ship as PlayerShip).HealthManager.RemoveLife(ship);
-                }
-            };
-
-            collisionManager.CollisionTypes.Add(bulletAsteroidCollision);
-            collisionManager.CollisionTypes.Add(playerAsteroidCollision);
-
-
-            asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, _game);
-
-            enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1500, 2000, _game, 1);
-            backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), 5000, 0, _background, 2);
-
-            var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width / 2, GameConstants.ScreenBoundary.Height - 50);
-            var playerShip = new PlayerShip(SpaceGraphics.PlayerShipAsset.First(), playerStartPosition, SpaceGraphics.BulletAsset.First(), SpaceGraphics.HealthAsset.First(), 5, FaceDirection.Up, _game, InputHelper.KeyboardMappedKey());
-            _game.GameEntities.Add(playerShip);
+            
+            var topDownGame = new TopDownGame();
+            topDownGame.LoadGraphics(Content);
+            topDownGame.LoadBackground(_background);                        
+            topDownGame.LoadGame(_game);                                                
         }
 
         /// <summary>
@@ -127,12 +82,7 @@ namespace MonoGameOpenGL
             // TODO: Actually draw these based off a Z-Index instead of coding artifacts
             _background.Update(gameTime);
             _game.Update(gameTime);
-            asteroidManager.Update(gameTime);
-            collisionManager.Update(gameTime);
-            enemyManager.Update(gameTime);
-            backgroundEnemyManager.Update(gameTime);
-            backgroundManager.Update(gameTime);
-
+            
             base.Update(gameTime);
         }
 
@@ -147,10 +97,10 @@ namespace MonoGameOpenGL
         {
             GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin();
-            _background.Draw(spriteBatch);
-            _game.Draw(spriteBatch);
-            spriteBatch.End();
+            _spriteBatch.Begin();
+            _background.Draw(_spriteBatch);
+            _game.Draw(_spriteBatch);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
 

@@ -4,10 +4,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Entities;
 using MonoGameOpenGL.Enums;
+using MonoGameOpenGL.Interfaces;
 
 namespace MonoGameOpenGL.Managers
 {
-    public class AsteroidManager
+    public class AsteroidManager : IManager
     {
         private readonly Texture2D[] _texture2D;
         private readonly Texture2D[] _deathTextures;

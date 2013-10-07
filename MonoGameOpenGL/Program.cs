@@ -18,7 +18,7 @@ namespace MonoGameOpenGL
         [STAThread]
         static void Main()
         {
-            using (var game = new TopDownSpaceShooter())
+            using (var game = new MainGame())
                 game.Run();
         }
     }

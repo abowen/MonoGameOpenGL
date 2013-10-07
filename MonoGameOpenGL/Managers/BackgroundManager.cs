@@ -4,10 +4,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Entities;
 using MonoGameOpenGL.Enums;
+using MonoGameOpenGL.Interfaces;
 
 namespace MonoGameOpenGL.Managers
 {
-    public class BackgroundManager
+    public class BackgroundManager : IManager
     {
         private readonly Texture2D[] _majorTextures;
         private readonly Texture2D[] _minorTextures;

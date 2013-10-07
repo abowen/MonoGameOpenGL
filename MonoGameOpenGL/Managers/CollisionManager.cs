@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using MonoGameOpenGL.Entities;
+using MonoGameOpenGL.Interfaces;
 
 namespace MonoGameOpenGL.Managers
 {
-    public class CollisionManager
+    public class CollisionManager : IManager
     {
         public CollisionManager(GameLayer gameLayer)
         {
@@ -18,7 +18,7 @@ namespace MonoGameOpenGL.Managers
         
         public void Update(GameTime gameTime)
         {
-            Parallel.ForEach(CollisionTypes, collisionType =>
+            foreach (var collisionType in CollisionTypes)
             {
                 var sourceCollisions = _gameLayer.GameEntities.Where(s => s.GetType() == collisionType.TypeA).ToList();
                 var destinationCollision = _gameLayer.GameEntities.Where(s => s.GetType() == collisionType.TypeB).ToList();
@@ -33,7 +33,7 @@ namespace MonoGameOpenGL.Managers
                         }
                     }
                 }
-            });
+            }
         }
     }
 }

@@ -43,7 +43,7 @@ namespace MonoGame.Graphics.Space
                 content.Load<Texture2D>("Planet02"),
                 content.Load<Texture2D>("Planet03"),                
                 content.Load<Texture2D>("Planet04")                
-            };
+            };            
             Assets.Add(Planet, planets);
 
             var asteroids = new[]
