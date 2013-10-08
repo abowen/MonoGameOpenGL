@@ -53,11 +53,8 @@
     <Compile Include="Enums\InputAction.cs" />
     <Compile Include="Extensions\FaceDirectionExtensions.cs" />
     <Compile Include="Helpers\InputHelper.cs" />
-    <Compile Include="Helpers\TextureHelper.cs" />
     <Compile Include="Infrastructure\GameLayer.cs" />
     <Compile Include="Infrastructure\GameLevel.cs" />
-    <Compile Include="Infrastructure\MyGame.cs" />
-    <Compile Include="Interfaces\IGameContent.cs" />
     <Compile Include="Interfaces\IManager.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Managers\BackgroundManager.cs" />

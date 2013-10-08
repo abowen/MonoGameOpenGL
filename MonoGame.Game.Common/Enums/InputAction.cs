@@ -1,4 +1,4 @@
-﻿namespace MonoGameOpenGL.Enums
+﻿namespace MonoGame.Game.Common.Enums
 {        
     public enum InputAction
     {        

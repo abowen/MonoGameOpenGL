@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MonoGameOpenGL.Entities
+namespace MonoGame.Game.Common.Entities
 {
     public class CollisionType        
     {

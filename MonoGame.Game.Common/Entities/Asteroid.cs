@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameOpenGL.Enums;
-using MonoGameOpenGL.Infrastructure;
-using MonoGameOpenGL.Managers;
+using MonoGame.Game.Common.Enums;
+using MonoGame.Game.Common.Infrastructure;
+using MonoGame.Game.Common.Managers;
 
-namespace MonoGameOpenGL.Entities
+namespace MonoGame.Game.Common.Entities
 {
     public class Asteroid : Sprite
     {

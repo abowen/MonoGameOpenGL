@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGameOpenGL.Enums;
-using MonoGameOpenGL.Extensions;
-using MonoGameOpenGL.Helpers;
-using MonoGameOpenGL.Infrastructure;
+using MonoGame.Game.Common.Enums;
+using MonoGame.Game.Common.Extensions;
+using MonoGame.Game.Common.Helpers;
+using MonoGame.Game.Common.Infrastructure;
 
-namespace MonoGameOpenGL.Entities
+namespace MonoGame.Game.Common.Entities
 {
     abstract public class Sprite
     {
@@ -112,6 +112,7 @@ namespace MonoGameOpenGL.Entities
                 if (float.IsNaN(Location.X) || float.IsNaN(Location.Y))
                 {
                     // WTF!
+                    throw new Exception("Invalid Sprite Location");
                 }
             }
             CheckBounds();

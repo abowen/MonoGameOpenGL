@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameOpenGL.Enums;
-using MonoGameOpenGL.Infrastructure;
+using MonoGame.Game.Common.Enums;
+using MonoGame.Game.Common.Infrastructure;
 
-namespace MonoGameOpenGL.Entities
+namespace MonoGame.Game.Common.Entities
 {
     public class Health : Sprite
     {

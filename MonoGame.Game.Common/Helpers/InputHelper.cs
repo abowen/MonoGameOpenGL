@@ -2,9 +2,9 @@
 using System.Diagnostics.Contracts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using MonoGameOpenGL.Enums;
+using MonoGame.Game.Common.Enums;
 
-namespace MonoGameOpenGL.Helpers
+namespace MonoGame.Game.Common.Helpers
 {
     public static class InputHelper
     {

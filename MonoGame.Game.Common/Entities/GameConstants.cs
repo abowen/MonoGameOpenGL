@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace MonoGameOpenGL.Entities
+namespace MonoGame.Game.Common.Entities
 {
     public static class GameConstants
     {        

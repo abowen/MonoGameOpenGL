@@ -1,27 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MonoGameOpenGL.Infrastructure
+namespace MonoGame.Game.Common.Infrastructure
 {
-    public class GameLevel
+    public abstract class GameLevel
     {
-        private readonly GameLayer _game = new GameLayer(GameLayerDepth.Game);
-        private readonly GameLayer _background = new GameLayer(GameLayerDepth.Background);
+        protected GameLevel()
+        {
+            LoadForeground();
+            LoadBackground();
+        }
+
+        protected readonly GameLayer ForegroundLayer = new GameLayer(GameLayerDepth.Foreground);
+        protected readonly GameLayer BackgroundLayer = new GameLayer(GameLayerDepth.Background);
 
         public void Update(GameTime gameTime)
         {
-            _game.Update(gameTime);
-            _background.Update(gameTime);
+            ForegroundLayer.Update(gameTime);
+            BackgroundLayer.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            ForegroundLayer.Draw(spriteBatch);
+            BackgroundLayer.Draw(spriteBatch);
         }
 
+        protected abstract void LoadForeground();
+
+
+        protected abstract void LoadBackground();
     }
 }

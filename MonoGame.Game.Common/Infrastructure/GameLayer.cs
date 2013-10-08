@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameOpenGL.Entities;
+using MonoGame.Game.Common.Entities;
 using MonoGameOpenGL.Interfaces;
 
-namespace MonoGameOpenGL.Infrastructure
+namespace MonoGame.Game.Common.Infrastructure
 {
     /// <summary>
     /// GameLayer represents a single environment
@@ -38,7 +38,7 @@ namespace MonoGameOpenGL.Infrastructure
     public enum GameLayerDepth
     {
         Display = 0,
-        Game = 1,
+        Foreground = 1,
         Background = 10,
     }
 }

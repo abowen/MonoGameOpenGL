@@ -2,12 +2,12 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameOpenGL.Entities;
-using MonoGameOpenGL.Enums;
-using MonoGameOpenGL.Infrastructure;
+using MonoGame.Game.Common.Entities;
+using MonoGame.Game.Common.Enums;
+using MonoGame.Game.Common.Infrastructure;
 using MonoGameOpenGL.Interfaces;
 
-namespace MonoGameOpenGL.Managers
+namespace MonoGame.Game.Common.Managers
 {
     public class BackgroundManager : IManager
     {

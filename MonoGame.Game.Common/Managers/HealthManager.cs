@@ -2,10 +2,10 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameOpenGL.Entities;
-using MonoGameOpenGL.Infrastructure;
+using MonoGame.Game.Common.Entities;
+using MonoGame.Game.Common.Infrastructure;
 
-namespace MonoGameOpenGL.Managers
+namespace MonoGame.Game.Common.Managers
 {
     public class HealthManager
     {

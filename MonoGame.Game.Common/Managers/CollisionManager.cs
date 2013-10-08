@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using MonoGameOpenGL.Entities;
-using MonoGameOpenGL.Infrastructure;
+using MonoGame.Game.Common.Entities;
+using MonoGame.Game.Common.Infrastructure;
 using MonoGameOpenGL.Interfaces;
 
-namespace MonoGameOpenGL.Managers
+namespace MonoGame.Game.Common.Managers
 {
     public class CollisionManager : IManager
     {
