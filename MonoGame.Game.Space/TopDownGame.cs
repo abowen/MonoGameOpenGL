@@ -1,19 +1,42 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Graphics.Space;
 using MonoGameOpenGL.Entities;
 using MonoGameOpenGL.Enums;
 using MonoGameOpenGL.Helpers;
-using MonoGameOpenGL.Interfaces;
+using MonoGameOpenGL.Infrastructure;
 using MonoGameOpenGL.Managers;
 
 namespace MonoGameOpenGL
 {
-    public class TopDownGame : IGameContent
+    public class TopDownGame
     {
-        public void LoadGraphics(Microsoft.Xna.Framework.Content.ContentManager content)
+        //protected readonly List<GameLevel> _levels = new List<GameLevel>();
+
+        private readonly GameLayer _game = new GameLayer(GameLayerDepth.Game);
+        private readonly GameLayer _background = new GameLayer(GameLayerDepth.Background);
+
+        public void Update(GameTime gameTime)
         {
-            SpaceGraphics.LoadSpaceContent(content);
+            _game.Update(gameTime);
+            _background.Update(gameTime);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            _game.Draw(spriteBatch);
+            _background.Draw(spriteBatch);
+        }
+
+        public TopDownGame(GameWindow window, ContentManager contentManager)
+        {
+            SpaceGraphics.LoadSpaceContent(contentManager);
+            GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);            
+            LoadBackground(_background);
+            LoadGame(_game);
         }
 
         public void LoadBackground(GameLayer gameLayer)

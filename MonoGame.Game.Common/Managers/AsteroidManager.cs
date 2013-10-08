@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Entities;
 using MonoGameOpenGL.Enums;
+using MonoGameOpenGL.Infrastructure;
 using MonoGameOpenGL.Interfaces;
 
 namespace MonoGameOpenGL.Managers

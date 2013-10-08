@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Enums;
+using MonoGameOpenGL.Infrastructure;
 using MonoGameOpenGL.Managers;
 
 namespace MonoGameOpenGL.Entities
 {
-    internal class Asteroid : Sprite
+    public class Asteroid : Sprite
     {
         private readonly Texture2D[] _deathTextures;
 

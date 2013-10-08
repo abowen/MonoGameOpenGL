@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Entities;
 using MonoGameOpenGL.Enums;
+using MonoGameOpenGL.Infrastructure;
 
 namespace MonoGameOpenGL.Managers
 {

@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameOpenGL.Enums;
 using MonoGameOpenGL.Extensions;
+using MonoGameOpenGL.Infrastructure;
 
 namespace MonoGameOpenGL.Entities
 {
-    internal class Bullet : Sprite
+    public class Bullet : Sprite
     {
         public Bullet(Texture2D texture, Vector2 location, FaceDirection faceDirection, GameLayer gameLayer)
             : base(texture, location, faceDirection, gameLayer)

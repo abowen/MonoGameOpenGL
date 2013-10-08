@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGameOpenGL.Entities;
 using MonoGameOpenGL.Interfaces;
 
-namespace MonoGameOpenGL.Entities
+namespace MonoGameOpenGL.Infrastructure
 {
     /// <summary>
     /// GameLayer represents a single environment

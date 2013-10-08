@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using MonoGameOpenGL.Entities;
+using MonoGameOpenGL.Infrastructure;
 
 namespace MonoGameOpenGL.Interfaces
 {

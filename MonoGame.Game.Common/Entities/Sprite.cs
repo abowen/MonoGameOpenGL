@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGameOpenGL.Enums;
 using MonoGameOpenGL.Extensions;
 using MonoGameOpenGL.Helpers;
+using MonoGameOpenGL.Infrastructure;
 
 namespace MonoGameOpenGL.Entities
 {

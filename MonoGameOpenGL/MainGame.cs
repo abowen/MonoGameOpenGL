@@ -2,14 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Graphics.Space;
-using MonoGameOpenGL.Entities;
-using MonoGameOpenGL.Enums;
-using MonoGameOpenGL.Helpers;
-using MonoGameOpenGL.Managers;
-using System.Linq;
-
-
 #endregion
 
 namespace MonoGameOpenGL
@@ -21,8 +13,7 @@ namespace MonoGameOpenGL
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private GameLayer _game;
-        private GameLayer _background;                 
+        private TopDownGame _topDownGame;
         
         public MainGame()
             : base()
@@ -30,6 +21,7 @@ namespace MonoGameOpenGL
             _graphics = new GraphicsDeviceManager(this);            
         }
 
+      
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -48,16 +40,9 @@ namespace MonoGameOpenGL
         /// </summary>
         protected override void LoadContent()
         {            
-            // Create a new SpriteBatch, which can be used to draw textures.
-            GameConstants.ScreenBoundary = new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height);
-            _spriteBatch = new SpriteBatch(GraphicsDevice);            
-            _background = new GameLayer(GameLayerDepth.Background);
-            _game = new GameLayer(GameLayerDepth.Game);
-            
-            var topDownGame = new TopDownGame();
-            topDownGame.LoadGraphics(Content);
-            topDownGame.LoadBackground(_background);                        
-            topDownGame.LoadGame(_game);                                                
+            // Create a new SpriteBatch, which can be used to draw textures.            
+            _spriteBatch = new SpriteBatch(GraphicsDevice);                                    
+            _topDownGame = new TopDownGame(Window, Content);                        
         }
 
         /// <summary>
@@ -79,9 +64,7 @@ namespace MonoGameOpenGL
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Actually draw these based off a Z-Index instead of coding artifacts
-            _background.Update(gameTime);
-            _game.Update(gameTime);
+            _topDownGame.Update(gameTime);
             
             base.Update(gameTime);
         }
@@ -98,8 +81,7 @@ namespace MonoGameOpenGL
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-            _background.Draw(_spriteBatch);
-            _game.Draw(_spriteBatch);
+            _topDownGame.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

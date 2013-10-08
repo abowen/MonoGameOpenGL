@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGameOpenGL.Entities;
+using MonoGameOpenGL.Infrastructure;
 using MonoGameOpenGL.Interfaces;
 
 namespace MonoGameOpenGL.Managers
