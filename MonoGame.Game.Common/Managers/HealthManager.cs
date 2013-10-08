@@ -4,10 +4,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Infrastructure;
+using MonoGameOpenGL.Interfaces;
 
 namespace MonoGame.Game.Common.Managers
 {
-    public class HealthManager
+    public class HealthManager : IManager
     {
         private readonly GameLayer _gameLayer;
         private readonly List<Health> _lives = new List<Health>();        
@@ -37,6 +38,11 @@ namespace MonoGame.Game.Common.Managers
             {
                 owner.RemoveEntity();
             }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            
         }
     }
 }

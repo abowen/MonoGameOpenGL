@@ -19,6 +19,11 @@ namespace MonoGame.Game.Space
             BackgroundLayer.Managers.Add(backgroundEnemyManager);
         }
 
+        protected override void LoadDisplay()
+        {
+            
+        }
+
         protected override void LoadForeground()
         {
             // TODO: Refactor into generic collision manager into more event driven / composition manner

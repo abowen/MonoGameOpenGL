@@ -8,17 +8,15 @@ namespace MonoGame.Game.Common.Entities
 {
     public class Asteroid : Sprite
     {
-        private readonly Texture2D[] _deathTextures;
-
         public Asteroid(Texture2D texture, Vector2 location, FaceDirection faceDirection, Texture2D[] deathTextures, GameLayer gameLayer)
             : base(texture, location, faceDirection, gameLayer)
         {
-            _deathTextures = deathTextures;            
             _deathManager = new DeathManager(deathTextures, this, gameLayer);
         }
 
         public override void RemoveEntity()
         {
+            GameConstants.Score++;
             _deathManager.Fire();
             base.RemoveEntity();
         }

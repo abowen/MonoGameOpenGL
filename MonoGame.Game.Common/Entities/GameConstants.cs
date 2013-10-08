@@ -5,5 +5,6 @@ namespace MonoGame.Game.Common.Entities
     public static class GameConstants
     {        
         public static Rectangle ScreenBoundary;
+        public static int Score;
     }
 }
