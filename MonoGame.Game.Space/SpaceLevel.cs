@@ -51,8 +51,33 @@ namespace MonoGame.Game.Space
                 }
             };
 
+            var playerBulletCollision = new CollisionType
+            {
+                TypeA = typeof(PlayerShip),
+                TypeB = typeof(Bullet),
+                Action = (ship, bullet) =>
+                {
+                    bullet.RemoveEntity();
+                    (ship as PlayerShip).HealthManager.RemoveLife(ship);
+                }
+            };
+
+            var enemyBulletCollision = new CollisionType
+            {
+                TypeA = typeof(EnemyShip),
+                TypeB = typeof(Bullet),
+                Action = (enemy, bullet) =>
+                {
+                    bullet.RemoveEntity();
+                    enemy.RemoveEntity();
+                }
+            };
+            
+
             collisionManager.CollisionTypes.Add(bulletAsteroidCollision);
             collisionManager.CollisionTypes.Add(playerAsteroidCollision);
+            collisionManager.CollisionTypes.Add(enemyBulletCollision);
+            collisionManager.CollisionTypes.Add(playerBulletCollision);
 
             var asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, ForegroundLayer);
 

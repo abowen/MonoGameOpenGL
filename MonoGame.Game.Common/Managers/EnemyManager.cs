@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Entities;
@@ -30,10 +31,14 @@ namespace MonoGame.Game.Common.Managers
             _bulletDelayMilliseconds = bulletDelayMilliseconds;
         }
 
+        private const int MAX_ENEMIES = 1;
+
         public void Update(GameTime gameTime)
         {
+            var enemyCount = _gameLayer.GameEntities.Count(sprite => typeof (EnemyShip) == sprite.GetType());
+
             _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds)
+            if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds && enemyCount < MAX_ENEMIES)
             {
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);

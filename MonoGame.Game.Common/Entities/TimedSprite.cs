@@ -17,7 +17,6 @@ namespace MonoGame.Game.Common.Entities
             Speed = 1;            
         }
 
-
         public override void Update(GameTime gameTime)
         {
             _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;

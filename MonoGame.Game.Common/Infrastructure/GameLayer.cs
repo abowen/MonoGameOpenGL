@@ -24,7 +24,7 @@ namespace MonoGame.Game.Common.Infrastructure
 
         public void Update(GameTime gameTime)
         {
-            GameEntities.ForEach(s => s.Update(gameTime));            
+            GameEntities.ForEach(s => s.Update(gameTime));
             GameEntities.RemoveAll(s => s.IsRemoved);
             Managers.ForEach(s => s.Update(gameTime));            
         }

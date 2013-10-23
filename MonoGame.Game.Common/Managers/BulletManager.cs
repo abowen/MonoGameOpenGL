@@ -18,7 +18,7 @@ namespace MonoGame.Game.Common.Managers
         
         public void Fire(Sprite owner)
         {
-            var bullet = new Bullet(_texture2D, new Vector2(owner.Centre.X, owner.Centre.Y), owner.FaceDirection, _gameLayer);
+            var bullet = new Bullet(_texture2D, new Vector2(owner.Centre.X, owner.BoundingBox.Bottom), owner.FaceDirection, _gameLayer);
             _gameLayer.GameEntities.Add(bullet);
         }
     }

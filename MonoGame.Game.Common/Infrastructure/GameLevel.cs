@@ -26,8 +26,9 @@ namespace MonoGame.Game.Common.Infrastructure
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            ForegroundLayer.Draw(spriteBatch);
+            // Draw the furthest to start with
             BackgroundLayer.Draw(spriteBatch);
+            ForegroundLayer.Draw(spriteBatch);            
             DisplayLayer.Draw(spriteBatch);
         }
 
