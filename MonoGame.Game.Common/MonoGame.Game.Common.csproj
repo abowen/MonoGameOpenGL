@@ -39,6 +39,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\BulletComponent.cs" />
     <Compile Include="Components\InputComponent.cs" />
     <Compile Include="Components\MovementComponent.cs" />
     <Compile Include="Entities\Asteroid.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Entities\TimedSprite.cs" />
     <Compile Include="Enums\FaceDirection.cs" />
     <Compile Include="Enums\InputAction.cs" />
+    <Compile Include="Events\ActionEventArgs.cs" />
     <Compile Include="Extensions\FaceDirectionExtensions.cs" />
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\GameLayer.cs" />

@@ -21,10 +21,9 @@ namespace MonoGame.Game.Common.Components
 
         public GameObject Owner { get; set; }
 
-        public SpriteComponent(GameObject owner, Texture2D texture)
+        public SpriteComponent(Texture2D texture)
         {            
-            Texture = texture;            
-            Owner = owner;            
+            Texture = texture; 
         }
 
         public void Draw(SpriteBatch spriteBatch)

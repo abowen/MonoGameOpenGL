@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Enums;
+using MonoGame.Game.Common.Events;
 using MonoGame.Game.Common.Helpers;
 using MonoGame.Game.Common.Interfaces;
 
@@ -12,9 +14,8 @@ namespace MonoGame.Game.Common.Components
 {
     public class InputComponent : IMonoGameComponent
     {
-        public InputComponent(GameObject owner, Dictionary<Keys, InputAction> keyboardMappings, Dictionary<Keys, InputAction> buttonMappings, MovementComponent movementComponent)
+        public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, Dictionary<Keys, InputAction> buttonMappings, MovementComponent movementComponent)
         {
-            Owner = owner;
             _keyboardMappings = keyboardMappings;
             _buttonMappings = buttonMappings;
             
@@ -30,7 +31,7 @@ namespace MonoGame.Game.Common.Components
 
         public GameObject Owner { get; set; }
 
-
+        private double _elapsedTimeMilliseconds;
 
         public void Update(GameTime gameTime)
         {
@@ -44,6 +45,14 @@ namespace MonoGame.Game.Common.Components
                 else if (_buttonMappings != null)
                 {
                     _movementComponent.Direction = InputHelper.DirectionFromMapping(keysPressed, _buttonMappings);
+                }
+
+                _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (keysPressed.Any(k => k == Keys.Space) && _elapsedTimeMilliseconds > 500)
+                {
+                    _elapsedTimeMilliseconds = 0;
+                    Owner.Event("Fire");
                 }
             }
         }

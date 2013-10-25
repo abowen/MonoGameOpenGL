@@ -10,9 +10,8 @@ namespace MonoGame.Game.Common.Components
 {
     public class MovementComponent : IMonoGameComponent
     {
-        public MovementComponent(GameObject owner, int baseSpeed)
+        public MovementComponent(int baseSpeed)
         {
-            Owner = owner;
             BaseSpeed = baseSpeed;
         }
 
