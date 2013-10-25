@@ -39,7 +39,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\InputComponent.cs" />
+    <Compile Include="Components\MovementComponent.cs" />
     <Compile Include="Entities\Asteroid.cs" />
+    <Compile Include="Components\SpriteComponent.cs" />
+    <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Entities\Bullet.cs" />
     <Compile Include="Entities\CollisionType.cs" />
     <Compile Include="Entities\EnemyShip.cs" />
@@ -55,6 +59,7 @@
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\GameLayer.cs" />
     <Compile Include="Infrastructure\GameLevel.cs" />
+    <Compile Include="Interfaces\IMonoGameComponent.cs" />
     <Compile Include="Interfaces\IManager.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Managers\BackgroundManager.cs" />

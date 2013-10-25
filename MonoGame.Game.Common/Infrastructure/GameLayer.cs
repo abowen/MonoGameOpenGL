@@ -15,6 +15,7 @@ namespace MonoGame.Game.Common.Infrastructure
         public readonly GameLayerDepth GameLayerDepth;
         public readonly List<Sprite> GameEntities = new List<Sprite>();
         public readonly List<IManager> Managers = new List<IManager>();
+        public readonly List<GameObject> GameObjects = new List<GameObject>();
 
 
         public GameLayer(GameLayerDepth gameLayerDepth)
@@ -24,6 +25,7 @@ namespace MonoGame.Game.Common.Infrastructure
 
         public void Update(GameTime gameTime)
         {
+            GameObjects.ForEach(s => s.Update(gameTime));
             GameEntities.ForEach(s => s.Update(gameTime));
             GameEntities.RemoveAll(s => s.IsRemoved);
             Managers.ForEach(s => s.Update(gameTime));            
@@ -31,6 +33,7 @@ namespace MonoGame.Game.Common.Infrastructure
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            GameObjects.ForEach(s => s.Draw(spriteBatch));
             GameEntities.ForEach(s => s.Draw(spriteBatch));
         }
     }

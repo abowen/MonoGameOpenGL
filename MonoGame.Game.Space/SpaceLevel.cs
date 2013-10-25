@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.Xna.Framework;
+using MonoGame.Game.Common.Components;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Enums;
 using MonoGame.Game.Common.Helpers;
@@ -86,8 +87,20 @@ namespace MonoGame.Game.Space
 
 
             var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width / 2, GameConstants.ScreenBoundary.Height - 50);
-            var playerShip = new PlayerShip(SpaceGraphics.PlayerShipAsset.First(), playerStartPosition, SpaceGraphics.BulletAsset.First(), SpaceGraphics.HealthAsset.First(), 5, FaceDirection.Up, ForegroundLayer, InputHelper.KeyboardMappedKey());
-            ForegroundLayer.GameEntities.Add(playerShip);
+            //var playerShip = new PlayerShip(SpaceGraphics.PlayerShipAsset.First(), playerStartPosition, SpaceGraphics.BulletAsset.First(), SpaceGraphics.HealthAsset.First(), 5, FaceDirection.Up, ForegroundLayer, InputHelper.KeyboardMappedKey());
+
+            // TODO: Refactor this
+            var newPlayerShip = new GameObject(ForegroundLayer, playerStartPosition);
+            var playerSpriteComponent = new SpriteComponent(newPlayerShip, SpaceGraphics.PlayerShipAsset.First());
+            var playerMovementComponent = new MovementComponent(newPlayerShip, 1);
+            var playerInputComponent = new InputComponent(newPlayerShip, InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
+            
+            newPlayerShip.GraphicsComponents.Add(playerSpriteComponent);
+            newPlayerShip.PhysicsComponents.Add(playerMovementComponent);
+            newPlayerShip.InputComponents.Add(playerInputComponent);
+            
+            ForegroundLayer.GameObjects.Add(newPlayerShip);
+            //ForegroundLayer.GameEntities.Add(playerShip);
 
             ForegroundLayer.Managers.Add(collisionManager);
             ForegroundLayer.Managers.Add(asteroidManager);

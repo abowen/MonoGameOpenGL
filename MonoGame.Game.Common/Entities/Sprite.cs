@@ -7,6 +7,7 @@ using MonoGame.Game.Common.Enums;
 using MonoGame.Game.Common.Extensions;
 using MonoGame.Game.Common.Helpers;
 using MonoGame.Game.Common.Infrastructure;
+using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Entities
 {
@@ -15,7 +16,7 @@ namespace MonoGame.Game.Common.Entities
         internal Texture2D _texture;
         private readonly GameLayer _gameLayer;
         private readonly Dictionary<Keys, InputAction> _keyboardMappings;
-        private readonly Dictionary<Keys, InputAction> _buttonMappings;
+        private readonly Dictionary<Keys, InputAction> _buttonMappings;        
 
         public virtual void RemoveEntity()
         {
@@ -30,7 +31,7 @@ namespace MonoGame.Game.Common.Entities
         public Vector2 Location { get; protected set; }
 
         /// <summary>
-        /// Velocity = Speed * MovementDirection
+        /// Velocity = Speed * Direction
         /// </summary>
         public int Speed { get; protected set; }
 
@@ -44,7 +45,7 @@ namespace MonoGame.Game.Common.Entities
         /// </summary>
         /// <remarks>
         /// It's important to keep FaceDirection separate 
-        /// from MovementDirection to allow for strafing
+        /// from Direction to allow for strafing
         /// </remarks>
         public FaceDirection FaceDirection { get; protected set; }
 
