@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Events;
@@ -35,11 +36,14 @@ namespace MonoGame.Game.Common.Entities
 
         public event EventHandler<ActionEventArgs> ActionEvent;
 
+        // TODO: Refactor string into Enum
         public void Event(string action)
         {
+            Contract.Assert(!string.IsNullOrWhiteSpace(action), "Missing Action input");
+
             if (ActionEvent != null)
             {
-                ActionEvent(this, new ActionEventArgs() { Action = "Fire" });
+                ActionEvent(this, new ActionEventArgs() { Action = action });
             }
         }
 

@@ -10,9 +10,10 @@ namespace MonoGame.Game.Common.Components
 {
     public class MovementComponent : IMonoGameComponent
     {
-        public MovementComponent(int baseSpeed)
+        public MovementComponent(int baseSpeed, FaceDirection startFaceDirection)
         {
             BaseSpeed = baseSpeed;
+            FaceDirection = startFaceDirection;
         }
 
         /// <summary>

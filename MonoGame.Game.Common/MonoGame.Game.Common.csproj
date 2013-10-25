@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\BulletComponent.cs" />
+    <Compile Include="Components\HealthComponent.cs" />
     <Compile Include="Components\InputComponent.cs" />
     <Compile Include="Components\MovementComponent.cs" />
     <Compile Include="Entities\Asteroid.cs" />

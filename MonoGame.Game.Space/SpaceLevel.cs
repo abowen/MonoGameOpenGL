@@ -92,14 +92,18 @@ namespace MonoGame.Game.Space
             // TODO: Refactor this
             var newPlayerShip = new GameObject(ForegroundLayer, playerStartPosition);
             var playerSpriteComponent = new SpriteComponent(SpaceGraphics.PlayerShipAsset.First());
-            var playerMovementComponent = new MovementComponent(1);
+            var playerMovementComponent = new MovementComponent(1, FaceDirection.Up);
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
             var playerBulletComponent = new BulletComponent(newPlayerShip, SpaceGraphics.BulletAsset,
                 playerMovementComponent);
+            var playerHealthComponent = new HealthComponent(SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
+                DisplayLayer);
 
             newPlayerShip.AddGraphicsComponent(playerSpriteComponent);
             newPlayerShip.AddPhysicsComponent(playerMovementComponent);
             newPlayerShip.AddInputComponent(playerInputComponent);
+            newPlayerShip.AddInputComponent(playerBulletComponent);
+            newPlayerShip.AddGraphicsComponent(playerHealthComponent);
             
             ForegroundLayer.GameObjects.Add(newPlayerShip);
             //ForegroundLayer.GameEntities.Add(playerShip);

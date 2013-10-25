@@ -45,12 +45,12 @@ namespace MonoGame.Game.Common.Components
 
         public void Update(GameTime gameTime)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
         public void Draw(SpriteBatch gameTime)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
     }
 }
