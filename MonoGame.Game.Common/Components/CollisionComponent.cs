@@ -1,20 +1,28 @@
 ﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using Microsoft.Xna.Framework;
+//using MonoGame.Game.Common.Entities;
+//using MonoGame.Game.Common.Events;
 //using MonoGame.Game.Common.Interfaces;
 
 //namespace MonoGame.Game.Common.Components
 //{
 //    public class CollisionComponent : IMonoGameComponent
 //    {
-//     //   public readonly Rectangle CollisionBox;
-//        public Entities.GameObject Owner { get; set; }
+//        public GameObject Owner { get; set; }
 
-//        public CollisionComponent()
+//        public CollisionComponent(GameObject owner, Action collisionAction)
 //        {
-//           // CollisionBox = collisionBox;
+//            Owner = owner;
+//            Owner.ActionEvent += OwnerOnActionEvent;
+//        }
+
+//        public Action CollisionAction { get; set; }
+
+//        private void OwnerOnActionEvent(object sender, ActionEventArgs actionEventArgs)
+//        {
+//            if (CollisionAction != null && actionEventArgs.Action == "Collision")
+//            {
+//                CollisionAction();
+//            }
 //        }
 
 //        public void Update(Microsoft.Xna.Framework.GameTime gameTime)

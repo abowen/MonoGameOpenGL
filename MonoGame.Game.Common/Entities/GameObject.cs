@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Game.Common.Components;
 using MonoGame.Game.Common.Events;
 using MonoGame.Game.Common.Infrastructure;
 using MonoGame.Game.Common.Interfaces;
@@ -55,6 +53,11 @@ namespace MonoGame.Game.Common.Entities
             Centre = startLocation;
         }
 
+        public void RemoveGameObject()
+        {
+            GameLayer.GameObjects.Remove(this);
+        }
+
         /// <summary>
         /// Centre co-ordinators for the object
         /// </summary>
@@ -63,7 +66,16 @@ namespace MonoGame.Game.Common.Entities
         public int Width;
         public int Height;
 
-        public bool HasCollision = true;
+        public bool HasCollision = false;
+
+
+        // Not sure if should make this event based instead
+        //protected virtual void Collision()
+        //{
+        //    GameLayer.GameObjects.Remove(this);
+        //}
+
+        //public Action OnCollision;
 
         //private bool? _hasCollision;
 

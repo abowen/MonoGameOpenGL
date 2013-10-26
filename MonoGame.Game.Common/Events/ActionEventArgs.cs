@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGame.Game.Common.Events
 {
 
     public class ActionEventArgs : EventArgs
     {
+        // TODO: Replace with Enum & sender
         public string Action { get; set; }
     }
 }

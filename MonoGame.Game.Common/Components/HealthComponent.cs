@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,7 +6,6 @@ using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Events;
 using MonoGame.Game.Common.Infrastructure;
 using MonoGame.Game.Common.Interfaces;
-using MonoGameOpenGL.Interfaces;
 
 namespace MonoGame.Game.Common.Components
 {
@@ -35,9 +33,11 @@ namespace MonoGame.Game.Common.Components
         {
             if (actionEventArgs.Action == "Collision")
             {
-                RemoveLife();
+                _hasCollided = true;
             }
         }
+
+        private bool _hasCollided;
 
         public GameObject Owner { get; set; }
 
@@ -57,7 +57,11 @@ namespace MonoGame.Game.Common.Components
 
         public void Update(GameTime gameTime)
         {
-            
+            if (_hasCollided)
+            {
+                _hasCollided = false;
+                RemoveLife();
+            }
         }
 
 

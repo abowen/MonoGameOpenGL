@@ -35,26 +35,38 @@ namespace MonoGame.Game.Common.Managers
 
                 // TODO: Use perpendicular
                 var y = _random.Next(0, GameConstants.ScreenBoundary.Bottom);
+               
+
                 var isLeftDirection = _random.Next(0, 2) == 1;
                 if (isLeftDirection)
                 {
                     var x = GameConstants.ScreenBoundary.Right;
 
                     var asteroid = new GameObject(_gameLayer, new Vector2(x, y));
+                    asteroid.HasCollision = true;
+                    var asteroidInstance = new InstanceComponent(asteroid);
                     var asteroidGraphics = new SpriteComponent(GetRandomTexture());
                     var asteroidMovement = new MovementComponent(1, FaceDirection.Left, new Vector2(-1,0));
+                    asteroid.AddPhysicsComponent(asteroidInstance);
                     asteroid.AddGraphicsComponent(asteroidGraphics);
                     asteroid.AddPhysicsComponent(asteroidMovement);
                     _gameLayer.GameObjects.Add(asteroid);
-                    //var asteroid = new Asteroid(GetRandomTexture(), new Vector2(x, y), FaceDirection.Left, _deathTextures, _gameLayer);
-                    //_gameLayer.GameEntities.Add(asteroid);
                 }
                 else
                 {
                     var x = GameConstants.ScreenBoundary.Left;
-                    var asteroid = new Asteroid(GetRandomTexture(), new Vector2(x, y), FaceDirection.Right, _deathTextures, _gameLayer);
-                    _gameLayer.GameEntities.Add(asteroid);
+                    var asteroid = new GameObject(_gameLayer, new Vector2(x, y));
+                    asteroid.HasCollision = true;
+                    var asteroidInstance = new InstanceComponent(asteroid);
+                    var asteroidGraphics = new SpriteComponent(GetRandomTexture());
+                    var asteroidMovement = new MovementComponent(1, FaceDirection.Right, new Vector2(1, 0));
+                    asteroid.AddPhysicsComponent(asteroidInstance);
+                    asteroid.AddGraphicsComponent(asteroidGraphics);
+                    asteroid.AddPhysicsComponent(asteroidMovement);
+                    _gameLayer.GameObjects.Add(asteroid);
                 }
+
+                                
             }
         }
 

@@ -85,8 +85,6 @@ namespace MonoGame.Game.Space
             var xCentre = GameConstants.ScreenBoundary.Width/2;
             var yCentre = GameConstants.ScreenBoundary.Height/2;
 
-            var asteroidGameObject = new GameObject(ForegroundLayer, new Vector2(xCentre, yCentre));
-
             var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1500, 2000, ForegroundLayer, 1);
 
             var playerStartPosition = new Vector2(xCentre, yCentre - 50);
