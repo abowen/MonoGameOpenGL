@@ -34,7 +34,7 @@ namespace MonoGame.Game.Space
 
             var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1500, 2000, ForegroundLayer, 1);
 
-            var playerStartPosition = new Vector2(xCentre, yCentre - 50);
+            var playerStartPosition = new Vector2(xCentre, yCentre + 50);
 
             // TODO: Refactor this into BuilderPattern
             var newPlayerShip = new GameObject(ForegroundLayer, playerStartPosition);
@@ -44,16 +44,15 @@ namespace MonoGame.Game.Space
             var playerBulletComponent = new BulletComponent(newPlayerShip, SpaceGraphics.BulletAsset, playerMovementComponent);
             var playerHealthComponent = new HealthComponent(newPlayerShip, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
                 DisplayLayer);
+            var playerBoundaryComponent = new BoundaryComponent(newPlayerShip, SpaceGraphics.BoundaryAsset.First(), 10, 10);
 
-            newPlayerShip.Width = 10;
-            newPlayerShip.Height = 10;
-            newPlayerShip.HasCollision = true;
-
+ 
             newPlayerShip.AddGraphicsComponent(playerSpriteComponent);
             newPlayerShip.AddPhysicsComponent(playerMovementComponent);
             newPlayerShip.AddInputComponent(playerInputComponent);
             newPlayerShip.AddInputComponent(playerBulletComponent);
             newPlayerShip.AddGraphicsComponent(playerHealthComponent);
+            newPlayerShip.AddGraphicsComponent(playerBoundaryComponent);
             
             ForegroundLayer.GameObjects.Add(newPlayerShip);
 

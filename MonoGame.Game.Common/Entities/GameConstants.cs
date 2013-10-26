@@ -6,5 +6,6 @@ namespace MonoGame.Game.Common.Entities
     {        
         public static Rectangle ScreenBoundary;
         public static int Score;
+        public static bool ShowObjectBoundary = true;
     }
 }

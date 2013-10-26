@@ -65,8 +65,7 @@ namespace MonoGame.Game.Common.Components
 
         public void Update(GameTime gameTime)
         {
-            
-            Owner.Centre += Velocity;            
+            Owner.TopLeft += Velocity;            
         }
 
         public void Draw(SpriteBatch gameTime)

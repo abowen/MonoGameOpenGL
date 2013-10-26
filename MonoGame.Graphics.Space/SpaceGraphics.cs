@@ -20,6 +20,7 @@ namespace MonoGame.Graphics.Space
         private static readonly string Health = "Health";
         private static readonly string Planet = "Planet";
         private static readonly string Star = "Star";
+        private static readonly string Boundary = "Boundary";
 
         public static Texture2D[] AsteroidAsset { get { return Assets[Asteroid]; } }
         public static Texture2D[] MiniAsteroidAsset { get { return Assets[MiniAsteroid]; } }
@@ -31,6 +32,7 @@ namespace MonoGame.Graphics.Space
         public static Texture2D[] HealthAsset { get { return Assets[Health]; } }
         public static Texture2D[] PlanetAsset { get { return Assets[Planet]; } }
         public static Texture2D[] StarAsset { get { return Assets[Star]; } }
+        public static Texture2D[] BoundaryAsset { get { return Assets[Boundary]; } }
 
         public static void LoadSpaceContent(ContentManager content)
         {
@@ -106,6 +108,11 @@ namespace MonoGame.Graphics.Space
                 content.Load<Texture2D>("Health")
             };
             Assets.Add(Health, health);
+            var boundary = new[]
+            {
+                content.Load<Texture2D>("Boundary")
+            };
+            Assets.Add(Boundary, boundary);
         }
     }
 }

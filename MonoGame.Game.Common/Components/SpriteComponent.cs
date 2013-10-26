@@ -28,7 +28,7 @@ namespace MonoGame.Game.Common.Components
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Owner.Centre, Color.White);
+            spriteBatch.Draw(Texture, new Vector2(Owner.TopLeft.X, Owner.TopLeft.Y), Color.White);
         }
 
         public void Update(GameTime gameTime)

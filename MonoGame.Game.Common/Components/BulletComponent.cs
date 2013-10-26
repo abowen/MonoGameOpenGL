@@ -35,7 +35,7 @@ namespace MonoGame.Game.Common.Components
         public void Fire()
         {
             // TODO: Allow different bullets
-            var bullet = new Bullet(_texture2D.First(), new Vector2(Owner.Centre.X, Owner.Centre.Y), _movementComponent.FaceDirection, Owner.GameLayer);
+            var bullet = new Bullet(_texture2D.First(), new Vector2(Owner.TopLeft.X, Owner.TopLeft.Y), _movementComponent.FaceDirection, Owner.GameLayer);
             // TODO: Refactor
             Owner.GameLayer.GameEntities.Add(bullet);
         }

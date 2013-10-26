@@ -6,6 +6,7 @@ using MonoGame.Game.Common.Components;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Enums;
 using MonoGame.Game.Common.Infrastructure;
+using MonoGame.Graphics.Space;
 using MonoGameOpenGL.Interfaces;
 
 namespace MonoGame.Game.Common.Managers
@@ -43,26 +44,32 @@ namespace MonoGame.Game.Common.Managers
                     var x = GameConstants.ScreenBoundary.Right;
 
                     var asteroid = new GameObject(_gameLayer, new Vector2(x, y));
-                    asteroid.HasCollision = true;
+                    
                     var asteroidInstance = new InstanceComponent(asteroid);
                     var asteroidGraphics = new SpriteComponent(GetRandomTexture());
                     var asteroidMovement = new MovementComponent(1, FaceDirection.Left, new Vector2(-1,0));
+                    var asteroidBoundary = new BoundaryComponent(asteroid, SpaceGraphics.BoundaryAsset.First(),
+                        asteroidGraphics.Width, asteroidGraphics.Height);
                     asteroid.AddPhysicsComponent(asteroidInstance);
                     asteroid.AddGraphicsComponent(asteroidGraphics);
                     asteroid.AddPhysicsComponent(asteroidMovement);
+                    asteroid.AddGraphicsComponent(asteroidBoundary);
                     _gameLayer.GameObjects.Add(asteroid);
                 }
                 else
                 {
                     var x = GameConstants.ScreenBoundary.Left;
                     var asteroid = new GameObject(_gameLayer, new Vector2(x, y));
-                    asteroid.HasCollision = true;
                     var asteroidInstance = new InstanceComponent(asteroid);
                     var asteroidGraphics = new SpriteComponent(GetRandomTexture());
                     var asteroidMovement = new MovementComponent(1, FaceDirection.Right, new Vector2(1, 0));
+                    var asteroidBoundary = new BoundaryComponent(asteroid, SpaceGraphics.BoundaryAsset.First(),
+                        asteroidGraphics.Width, asteroidGraphics.Height);
                     asteroid.AddPhysicsComponent(asteroidInstance);
                     asteroid.AddGraphicsComponent(asteroidGraphics);
                     asteroid.AddPhysicsComponent(asteroidMovement);
+                    asteroid.AddGraphicsComponent(asteroidBoundary);
+
                     _gameLayer.GameObjects.Add(asteroid);
                 }
 

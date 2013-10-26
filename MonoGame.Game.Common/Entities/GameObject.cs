@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Game.Common.Components;
 using MonoGame.Game.Common.Enums;
 using MonoGame.Game.Common.Events;
 using MonoGame.Game.Common.Infrastructure;
@@ -41,14 +42,14 @@ namespace MonoGame.Game.Common.Entities
         {
             if (ObjectEvent != null)
             {
-                ObjectEvent(this, new ObjectEventArgs() { Action = action });
+                ObjectEvent(this, new ObjectEventArgs { Action = action });
             }
         }
 
-        public GameObject(GameLayer gameLayer, Vector2 startLocation)
+        public GameObject(GameLayer gameLayer, Vector2 topLeftLocation)
         {
             GameLayer = gameLayer;
-            Centre = startLocation;
+            TopLeft = topLeftLocation;
         }
 
         public void RemoveGameObject()
@@ -57,47 +58,61 @@ namespace MonoGame.Game.Common.Entities
         }
 
         /// <summary>
-        /// Centre co-ordinators for the object
+        /// Top left co-ordinates for the object
         /// </summary>
-        public Vector2 Centre { get; set; }
+        public Vector2 TopLeft { get; set; }
 
-        public int Width;
-        public int Height;
+        /// <summary>
+        /// Centre co-ordinates of the object
+        /// </summary>
+        public Vector2 Centre
+        {
+            get
+            {
+                var x = (TopLeft.X + Width/2);
+                var y = (TopLeft.Y + Height/2);
+                return new Vector2(x, y);
+            }
+        }
 
-        public bool HasCollision = false;
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
 
-        // Not sure if should make this event based instead
-        //protected virtual void Collision()
-        //{
-        //    GameLayer.GameObjects.Remove(this);
-        //}
-
-        //public Action OnCollision;
-
-        //private bool? _hasCollision;
-
-        //public bool HasCollision
-        //{
-        //    get
-        //    {
-        //        if (_hasCollision == null)
-        //        {
-        //            _hasCollision = PhysicsComponents.Any(c => c.GetType() == typeof (CollisionComponent));
-        //        }
-        //        return _hasCollision.Value;
-        //    }
-        //}
-        
         public Rectangle BoundingRectangle
         {
             get
             {
-                var left = (int) (Centre.X - Width/2);
-                var top = (int) (Centre.Y - Height/2);
-                return new Rectangle(left, top, Width, Height);
+                return new Rectangle((int)TopLeft.X, (int)TopLeft.Y, Width, Height);
             }
         }
+
+
+        private bool? _hasCollision;
+
+        public bool HasCollision
+        {
+            get
+            {
+                if (_hasCollision == null)
+                {
+                    var component = GraphicsComponents.FirstOrDefault(c => c.GetType() == typeof(BoundaryComponent)) as BoundaryComponent;
+                    if (component != null)
+                    {
+                        Width = component.Width;
+                        Height = component.Height;
+                        _hasCollision = true;
+                    }
+                    else
+                    {
+                        _hasCollision = false;
+                    }
+                }
+                return _hasCollision.Value;
+            }
+        }
+        
+
 
 
         public virtual void Update(GameTime gameTime)
