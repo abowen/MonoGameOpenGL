@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Entities;
+using MonoGame.Game.Common.Enums;
 using MonoGameOpenGL.Interfaces;
 
 namespace MonoGame.Game.Common.Infrastructure
@@ -32,7 +33,7 @@ namespace MonoGame.Game.Common.Infrastructure
             Managers.ForEach(s => s.Update(gameTime));
 
             // Collision Manager
-            var collisionComponents = GameObjects.Where(co => co.HasCollision);
+            var collisionComponents = GameObjects.Where(co => co.HasCollision).ToArray();
             foreach (var source in collisionComponents)
             {
                 foreach (var destination in collisionComponents)
@@ -41,8 +42,8 @@ namespace MonoGame.Game.Common.Infrastructure
                     {
                         if (source.BoundingRectangle.Intersects(destination.BoundingRectangle))
                         {
-                            source.Event("Collision");
-                            destination.Event("Collision");
+                            source.Event(ObjectEvent.Collision);
+                            destination.Event(ObjectEvent.Collision);
                         }
                     }
                 }
@@ -56,10 +57,4 @@ namespace MonoGame.Game.Common.Infrastructure
         }
     }
 
-    public enum GameLayerDepth
-    {
-        Display = 0,
-        Foreground = 1,
-        Background = 10,
-    }
 }

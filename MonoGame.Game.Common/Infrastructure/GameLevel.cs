@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Game.Common.Enums;
 
 namespace MonoGame.Game.Common.Infrastructure
 {

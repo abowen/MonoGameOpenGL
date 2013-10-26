@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Entities;
+using MonoGame.Game.Common.Enums;
 using MonoGame.Game.Common.Events;
-using MonoGame.Game.Common.Infrastructure;
 using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
@@ -21,12 +20,12 @@ namespace MonoGame.Game.Common.Components
             _movementComponent = movementComponent;
             Owner = gameObject;
 
-            Owner.ActionEvent += OwnerOnActionEvent;
+            Owner.ObjectEvent += OwnerOnObjectEvent;
         }
 
-        private void OwnerOnActionEvent(object sender, ActionEventArgs eventArgs)
+        private void OwnerOnObjectEvent(object sender, ObjectEventArgs eventArgs)
         {
-            if (eventArgs.Action == "Fire")
+            if (eventArgs.Action == ObjectEvent.Fire)
             {
                 Fire();
             }

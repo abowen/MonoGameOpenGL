@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Game.Common.Enums;
 using MonoGame.Game.Common.Events;
 using MonoGame.Game.Common.Infrastructure;
 using MonoGame.Game.Common.Interfaces;
@@ -34,16 +35,13 @@ namespace MonoGame.Game.Common.Entities
             component.Owner = this;
         }
 
-        public event EventHandler<ActionEventArgs> ActionEvent;
+        public event EventHandler<ObjectEventArgs> ObjectEvent;
 
-        // TODO: Refactor string into Enum
-        public void Event(string action)
+        public void Event(ObjectEvent action)
         {
-            Contract.Assert(!string.IsNullOrWhiteSpace(action), "Missing Action input");
-
-            if (ActionEvent != null)
+            if (ObjectEvent != null)
             {
-                ActionEvent(this, new ActionEventArgs() { Action = action });
+                ObjectEvent(this, new ObjectEventArgs() { Action = action });
             }
         }
 

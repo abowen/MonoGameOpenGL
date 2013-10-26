@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Enums;
-using MonoGame.Game.Common.Events;
 using MonoGame.Game.Common.Helpers;
 using MonoGame.Game.Common.Interfaces;
 
@@ -52,7 +51,7 @@ namespace MonoGame.Game.Common.Components
                 if (keysPressed.Any(k => k == Keys.Space) && _elapsedTimeMilliseconds > 500)
                 {
                     _elapsedTimeMilliseconds = 0;
-                    Owner.Event("Fire");
+                    Owner.Event(ObjectEvent.Fire);
                 }
             }
         }

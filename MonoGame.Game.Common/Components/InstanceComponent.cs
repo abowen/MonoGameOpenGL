@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Entities;
+using MonoGame.Game.Common.Enums;
 using MonoGame.Game.Common.Events;
-using MonoGame.Game.Common.Infrastructure;
 using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
@@ -14,12 +12,12 @@ namespace MonoGame.Game.Common.Components
         public InstanceComponent(GameObject owner)
         {
             Owner = owner;
-            owner.ActionEvent += OwnerOnActionEvent;
+            owner.ObjectEvent += OwnerOnObjectEvent;
         }
 
-        private void OwnerOnActionEvent(object sender, ActionEventArgs actionEventArgs)
+        private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
         {
-            if (actionEventArgs.Action == "Collision")
+            if (objectEventArgs.Action == ObjectEvent.Collision)
             {
                 _hasCollided = true;
             }
