@@ -82,28 +82,36 @@ namespace MonoGame.Game.Space
 
             var asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, ForegroundLayer);
 
+            var xCentre = GameConstants.ScreenBoundary.Width/2;
+            var yCentre = GameConstants.ScreenBoundary.Height/2;
+
+            var asteroidGameObject = new GameObject(ForegroundLayer, new Vector2(xCentre, yCentre));
 
             var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1500, 2000, ForegroundLayer, 1);
 
-
-            var playerStartPosition = new Vector2(GameConstants.ScreenBoundary.Width / 2, GameConstants.ScreenBoundary.Height - 50);
+            var playerStartPosition = new Vector2(xCentre, yCentre - 50);
             //var playerShip = new PlayerShip(SpaceGraphics.PlayerShipAsset.First(), playerStartPosition, SpaceGraphics.BulletAsset.First(), SpaceGraphics.HealthAsset.First(), 5, FaceDirection.Up, ForegroundLayer, InputHelper.KeyboardMappedKey());
 
             // TODO: Refactor this
             var newPlayerShip = new GameObject(ForegroundLayer, playerStartPosition);
             var playerSpriteComponent = new SpriteComponent(SpaceGraphics.PlayerShipAsset.First());
-            var playerMovementComponent = new MovementComponent(1, FaceDirection.Up);
+            var playerMovementComponent = new MovementComponent(1, FaceDirection.Up, Vector2.Zero);
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
-            var playerBulletComponent = new BulletComponent(newPlayerShip, SpaceGraphics.BulletAsset,
-                playerMovementComponent);
-            var playerHealthComponent = new HealthComponent(SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
+            var playerBulletComponent = new BulletComponent(newPlayerShip, SpaceGraphics.BulletAsset, playerMovementComponent);
+            var playerHealthComponent = new HealthComponent(newPlayerShip, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
                 DisplayLayer);
+//            var playerCollisionComponent = new CollisionComponent();
+
+            newPlayerShip.Width = 10;
+            newPlayerShip.Height = 10;
+            newPlayerShip.HasCollision = true;
 
             newPlayerShip.AddGraphicsComponent(playerSpriteComponent);
             newPlayerShip.AddPhysicsComponent(playerMovementComponent);
             newPlayerShip.AddInputComponent(playerInputComponent);
             newPlayerShip.AddInputComponent(playerBulletComponent);
             newPlayerShip.AddGraphicsComponent(playerHealthComponent);
+       //     newPlayerShip.AddPhysicsComponent(playerCollisionComponent);
             
             ForegroundLayer.GameObjects.Add(newPlayerShip);
             //ForegroundLayer.GameEntities.Add(playerShip);

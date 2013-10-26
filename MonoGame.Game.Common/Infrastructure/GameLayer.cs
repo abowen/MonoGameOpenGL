@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Entities;
@@ -10,7 +11,7 @@ namespace MonoGame.Game.Common.Infrastructure
     /// GameLayer represents a single environment
     /// e.g. Shop, world map, fighting arena
     /// </summary>
-    public class GameLayer 
+    public class GameLayer
     {
         public readonly GameLayerDepth GameLayerDepth;
         public readonly List<Sprite> GameEntities = new List<Sprite>();
@@ -28,7 +29,24 @@ namespace MonoGame.Game.Common.Infrastructure
             GameObjects.ForEach(s => s.Update(gameTime));
             GameEntities.ForEach(s => s.Update(gameTime));
             GameEntities.RemoveAll(s => s.IsRemoved);
-            Managers.ForEach(s => s.Update(gameTime));            
+            Managers.ForEach(s => s.Update(gameTime));
+
+            // Collision Manager
+            var collisionComponents = GameObjects.Where(co => co.HasCollision);
+            foreach (var source in collisionComponents)
+            {
+                foreach (var destination in collisionComponents)
+                {
+                    if (source != destination)
+                    {
+                        if (source.BoundingRectangle.Intersects(destination.BoundingRectangle))
+                        {
+                            source.Event("Collision");
+                            destination.Event("Collision");
+                        }
+                    }
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

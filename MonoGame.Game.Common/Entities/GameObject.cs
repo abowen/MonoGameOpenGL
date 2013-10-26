@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Game.Common.Components;
 using MonoGame.Game.Common.Events;
 using MonoGame.Game.Common.Infrastructure;
 using MonoGame.Game.Common.Interfaces;
@@ -51,13 +53,41 @@ namespace MonoGame.Game.Common.Entities
         {
             GameLayer = gameLayer;
             Centre = startLocation;
-
         }
 
         /// <summary>
         /// Centre co-ordinators for the object
         /// </summary>
         public Vector2 Centre { get; set; }
+
+        public int Width;
+        public int Height;
+
+        public bool HasCollision = true;
+
+        //private bool? _hasCollision;
+
+        //public bool HasCollision
+        //{
+        //    get
+        //    {
+        //        if (_hasCollision == null)
+        //        {
+        //            _hasCollision = PhysicsComponents.Any(c => c.GetType() == typeof (CollisionComponent));
+        //        }
+        //        return _hasCollision.Value;
+        //    }
+        //}
+        
+        public Rectangle BoundingRectangle
+        {
+            get
+            {
+                var left = (int) (Centre.X - Width/2);
+                var top = (int) (Centre.Y - Height/2);
+                return new Rectangle(left, top, Width, Height);
+            }
+        }
 
 
         public virtual void Update(GameTime gameTime)

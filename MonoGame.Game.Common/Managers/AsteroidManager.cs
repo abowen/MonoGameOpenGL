@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Game.Common.Components;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Enums;
 using MonoGame.Game.Common.Infrastructure;
@@ -38,8 +39,15 @@ namespace MonoGame.Game.Common.Managers
                 if (isLeftDirection)
                 {
                     var x = GameConstants.ScreenBoundary.Right;
-                    var asteroid = new Asteroid(GetRandomTexture(), new Vector2(x, y), FaceDirection.Left, _deathTextures, _gameLayer);
-                    _gameLayer.GameEntities.Add(asteroid);
+
+                    var asteroid = new GameObject(_gameLayer, new Vector2(x, y));
+                    var asteroidGraphics = new SpriteComponent(GetRandomTexture());
+                    var asteroidMovement = new MovementComponent(1, FaceDirection.Left, new Vector2(-1,0));
+                    asteroid.AddGraphicsComponent(asteroidGraphics);
+                    asteroid.AddPhysicsComponent(asteroidMovement);
+                    _gameLayer.GameObjects.Add(asteroid);
+                    //var asteroid = new Asteroid(GetRandomTexture(), new Vector2(x, y), FaceDirection.Left, _deathTextures, _gameLayer);
+                    //_gameLayer.GameEntities.Add(asteroid);
                 }
                 else
                 {
