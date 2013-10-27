@@ -40,13 +40,13 @@ namespace MonoGame.Game.Space
             var player = new GameObject(ForegroundLayer, playerStartPosition);
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
             var playerSpriteComponent = new SpriteComponent(playerTexture);
-            var playerMovementComponent = new MovementComponent(1, FaceDirection.Up, Vector2.Zero);
+            var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
             var playerBulletComponent = new BulletComponent(player, SpaceGraphics.BulletAsset, playerMovementComponent);
             var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
                 DisplayLayer);
             var playerBoundaryComponent = new BoundaryComponent(player, SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
-
+            var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), 5, false);
  
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);
@@ -54,6 +54,7 @@ namespace MonoGame.Game.Space
             player.AddInputComponent(playerBulletComponent);
             player.AddGraphicsComponent(playerHealthComponent);
             player.AddPhysicsComponent(playerBoundaryComponent);
+            player.AddGraphicsComponent(playerHealthBarComponent);
             
             ForegroundLayer.GameObjects.Add(player);
 

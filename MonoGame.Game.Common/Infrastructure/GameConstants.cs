@@ -6,7 +6,7 @@ namespace MonoGame.Game.Common.Infrastructure
     {        
         public static Rectangle ScreenBoundary;
         public static int Score;
-        public static bool ShowObjectBoundary = true;
+        public static bool ShowObjectBoundary = false;
         public static readonly int MaximumEnemies = 1;
     }
 }

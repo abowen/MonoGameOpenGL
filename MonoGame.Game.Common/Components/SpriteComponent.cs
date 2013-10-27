@@ -8,7 +8,8 @@ namespace MonoGame.Game.Common.Components
     public class SpriteComponent : IMonoGameComponent
     {
         internal Texture2D Texture;
-                                    
+        private readonly Vector2 _relativeLocation;
+
         public int Width
         {
             get { return Texture.Width; }
@@ -23,12 +24,19 @@ namespace MonoGame.Game.Common.Components
 
         public SpriteComponent(Texture2D texture)
         {            
-            Texture = texture; 
+            Texture = texture;
+            _relativeLocation = Vector2.Zero;
+        }
+
+        public SpriteComponent(Texture2D texture, Vector2 relativeLocation)
+        {
+            Texture = texture;
+            _relativeLocation = relativeLocation;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, new Vector2(Owner.TopLeft.X, Owner.TopLeft.Y), Color.White);
+            spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, Color.White);
         }
 
         public void Update(GameTime gameTime)
