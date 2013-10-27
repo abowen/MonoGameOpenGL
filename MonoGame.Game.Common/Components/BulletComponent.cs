@@ -36,17 +36,23 @@ namespace MonoGame.Game.Common.Components
 
         public void Fire()
         {
-            // Get vector from FaceDirection and use that with width & height to determine start position
             var bulletTexture = _texture2D.First();
-            var bullet = new GameObject(Owner.GameLayer, new Vector2(Owner.Centre.X, Owner.TopLeft.Y));
-            var bulletMovement = new MovementComponent(3, _movementComponent.FaceDirection,
-                _movementComponent.FaceDirection.GetVector2());
+            var direction = _movementComponent.FaceDirection.GetVector2();
+            direction.Normalize();
+            var startLocation = Owner.Centre;
+            startLocation += (direction * new Vector2(Owner.Width, Owner.Height));
+            startLocation += (direction * new Vector2(bulletTexture.Width + 1, bulletTexture.Height + 1));
+            var bullet = new GameObject(Owner.GameLayer, startLocation);
+
+            var bulletMovement = new MovementComponent(3, _movementComponent.FaceDirection, direction);
             var bulletSprite = new SpriteComponent(bulletTexture);
             var bulletBoundary = new BoundaryComponent(bullet, SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width,
                 bulletTexture.Height);
+            var instanceComponent = new InstanceComponent(bullet);
             bullet.AddPhysicsComponent(bulletMovement);
             bullet.AddGraphicsComponent(bulletSprite);
             bullet.AddPhysicsComponent(bulletBoundary);
+            bullet.AddPhysicsComponent(instanceComponent);
 
             Owner.GameLayer.GameObjects.Add(bullet);
         }

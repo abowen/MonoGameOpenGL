@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGame.Game.Space", "Mono
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGame.Game.Common", "MonoGame.Game.Common\MonoGame.Game.Common.csproj", "{EE193094-B6A8-46C2-9E82-50AC198D3987}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGame.Sounds.Space", "MonoGame.Sounds.Space\MonoGame.Sounds.Space.csproj", "{080ACC59-CF82-4961-98CB-638D4976944F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,16 @@ Global
 		{EE193094-B6A8-46C2-9E82-50AC198D3987}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EE193094-B6A8-46C2-9E82-50AC198D3987}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EE193094-B6A8-46C2-9E82-50AC198D3987}.Release|x86.ActiveCfg = Release|Any CPU
+		{080ACC59-CF82-4961-98CB-638D4976944F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{080ACC59-CF82-4961-98CB-638D4976944F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{080ACC59-CF82-4961-98CB-638D4976944F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{080ACC59-CF82-4961-98CB-638D4976944F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{080ACC59-CF82-4961-98CB-638D4976944F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{080ACC59-CF82-4961-98CB-638D4976944F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{080ACC59-CF82-4961-98CB-638D4976944F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{080ACC59-CF82-4961-98CB-638D4976944F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{080ACC59-CF82-4961-98CB-638D4976944F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{080ACC59-CF82-4961-98CB-638D4976944F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

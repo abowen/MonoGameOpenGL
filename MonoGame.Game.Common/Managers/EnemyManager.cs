@@ -2,9 +2,11 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Game.Common.Components;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Enums;
 using MonoGame.Game.Common.Infrastructure;
+using MonoGame.Graphics.Space;
 using MonoGameOpenGL.Interfaces;
 
 namespace MonoGame.Game.Common.Managers
@@ -31,19 +33,32 @@ namespace MonoGame.Game.Common.Managers
             _bulletDelayMilliseconds = bulletDelayMilliseconds;
         }
 
-        private const int MAX_ENEMIES = 1;
 
         public void Update(GameTime gameTime)
         {
             var enemyCount = _gameLayer.GameEntities.Count(sprite => typeof (EnemyShip) == sprite.GetType());
 
             _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds && enemyCount < MAX_ENEMIES)
+            if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds && enemyCount < GameConstants.MaximumEnemies)
             {
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);
-                var enemy = new EnemyShip(_shipTexture, new Vector2(xLocation, 0), _bulletTexture, _bulletDelayMilliseconds, FaceDirection.Down,  _speed, _gameLayer);
-                _gameLayer.GameEntities.Add(enemy);
+
+                var enemy = new GameObject(_gameLayer, new Vector2(xLocation, 0));
+                var enemySprite = new SpriteComponent(_shipTexture);
+                var enemyMovement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
+                var enemyBullet = new BulletComponent(enemy, SpaceGraphics.BulletAsset, enemyMovement);
+                var enemyBoundary = new BoundaryComponent(enemy, SpaceGraphics.BoundaryAsset.First(), _shipTexture.Width,
+                    _shipTexture.Height);
+                var enemyInstance = new InstanceComponent(enemy);
+                var enemyTimed = new TimedActionComponent(enemy, ObjectEvent.Fire, 1000);
+                enemy.AddGraphicsComponent(enemySprite);
+                enemy.AddPhysicsComponent(enemyMovement);
+                enemy.AddPhysicsComponent(enemyBullet);
+                enemy.AddPhysicsComponent(enemyBoundary);
+                enemy.AddPhysicsComponent(enemyInstance);
+                enemy.AddInputComponent(enemyTimed);
+                _gameLayer.GameObjects.Add(enemy);
             }
         }
     }
