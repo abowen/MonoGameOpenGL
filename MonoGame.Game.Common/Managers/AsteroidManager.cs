@@ -53,7 +53,7 @@ namespace MonoGame.Game.Common.Managers
                     asteroid.AddPhysicsComponent(asteroidInstance);
                     asteroid.AddGraphicsComponent(asteroidGraphics);
                     asteroid.AddPhysicsComponent(asteroidMovement);
-                    asteroid.AddGraphicsComponent(asteroidBoundary);
+                    asteroid.AddPhysicsComponent(asteroidBoundary);
                     _gameLayer.GameObjects.Add(asteroid);
                 }
                 else
@@ -68,7 +68,7 @@ namespace MonoGame.Game.Common.Managers
                     asteroid.AddPhysicsComponent(asteroidInstance);
                     asteroid.AddGraphicsComponent(asteroidGraphics);
                     asteroid.AddPhysicsComponent(asteroidMovement);
-                    asteroid.AddGraphicsComponent(asteroidBoundary);
+                    asteroid.AddPhysicsComponent(asteroidBoundary);
 
                     _gameLayer.GameObjects.Add(asteroid);
                 }

@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Enums;
 using MonoGame.Game.Common.Events;
+using MonoGame.Game.Common.Extensions;
 using MonoGame.Game.Common.Interfaces;
+using MonoGame.Graphics.Space;
 
 namespace MonoGame.Game.Common.Components
 {
@@ -34,10 +36,19 @@ namespace MonoGame.Game.Common.Components
 
         public void Fire()
         {
-            // TODO: Allow different bullets
-            var bullet = new Bullet(_texture2D.First(), new Vector2(Owner.TopLeft.X, Owner.TopLeft.Y), _movementComponent.FaceDirection, Owner.GameLayer);
-            // TODO: Refactor
-            Owner.GameLayer.GameEntities.Add(bullet);
+            // Get vector from FaceDirection and use that with width & height to determine start position
+            var bulletTexture = _texture2D.First();
+            var bullet = new GameObject(Owner.GameLayer, new Vector2(Owner.Centre.X, Owner.TopLeft.Y));
+            var bulletMovement = new MovementComponent(3, _movementComponent.FaceDirection,
+                _movementComponent.FaceDirection.GetVector2());
+            var bulletSprite = new SpriteComponent(bulletTexture);
+            var bulletBoundary = new BoundaryComponent(bullet, SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width,
+                bulletTexture.Height);
+            bullet.AddPhysicsComponent(bulletMovement);
+            bullet.AddGraphicsComponent(bulletSprite);
+            bullet.AddPhysicsComponent(bulletBoundary);
+
+            Owner.GameLayer.GameObjects.Add(bullet);
         }
 
         public GameObject Owner { get; set; }

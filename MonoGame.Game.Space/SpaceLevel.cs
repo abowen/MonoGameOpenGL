@@ -37,24 +37,25 @@ namespace MonoGame.Game.Space
             var playerStartPosition = new Vector2(xCentre, yCentre + 50);
 
             // TODO: Refactor this into BuilderPattern
-            var newPlayerShip = new GameObject(ForegroundLayer, playerStartPosition);
-            var playerSpriteComponent = new SpriteComponent(SpaceGraphics.PlayerShipAsset.First());
+            var player = new GameObject(ForegroundLayer, playerStartPosition);
+            var playerTexture = SpaceGraphics.PlayerShipAsset.First();
+            var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(1, FaceDirection.Up, Vector2.Zero);
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
-            var playerBulletComponent = new BulletComponent(newPlayerShip, SpaceGraphics.BulletAsset, playerMovementComponent);
-            var playerHealthComponent = new HealthComponent(newPlayerShip, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
+            var playerBulletComponent = new BulletComponent(player, SpaceGraphics.BulletAsset, playerMovementComponent);
+            var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
                 DisplayLayer);
-            var playerBoundaryComponent = new BoundaryComponent(newPlayerShip, SpaceGraphics.BoundaryAsset.First(), 10, 10);
+            var playerBoundaryComponent = new BoundaryComponent(player, SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
 
  
-            newPlayerShip.AddGraphicsComponent(playerSpriteComponent);
-            newPlayerShip.AddPhysicsComponent(playerMovementComponent);
-            newPlayerShip.AddInputComponent(playerInputComponent);
-            newPlayerShip.AddInputComponent(playerBulletComponent);
-            newPlayerShip.AddGraphicsComponent(playerHealthComponent);
-            newPlayerShip.AddGraphicsComponent(playerBoundaryComponent);
+            player.AddGraphicsComponent(playerSpriteComponent);
+            player.AddPhysicsComponent(playerMovementComponent);
+            player.AddInputComponent(playerInputComponent);
+            player.AddInputComponent(playerBulletComponent);
+            player.AddGraphicsComponent(playerHealthComponent);
+            player.AddPhysicsComponent(playerBoundaryComponent);
             
-            ForegroundLayer.GameObjects.Add(newPlayerShip);
+            ForegroundLayer.GameObjects.Add(player);
 
             ForegroundLayer.Managers.Add(asteroidManager);
             ForegroundLayer.Managers.Add(enemyManager);

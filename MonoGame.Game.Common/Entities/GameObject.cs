@@ -96,7 +96,7 @@ namespace MonoGame.Game.Common.Entities
             {
                 if (_hasCollision == null)
                 {
-                    var component = GraphicsComponents.FirstOrDefault(c => c.GetType() == typeof(BoundaryComponent)) as BoundaryComponent;
+                    var component = PhysicsComponents.FirstOrDefault(c => c.GetType() == typeof(BoundaryComponent)) as BoundaryComponent;
                     if (component != null)
                     {
                         Width = component.Width;
@@ -125,6 +125,10 @@ namespace MonoGame.Game.Common.Entities
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             GraphicsComponents.ForEach(c => c.Draw(spriteBatch));
+            if (GameConstants.ShowObjectBoundary)
+            {
+                PhysicsComponents.ForEach(c => c.Draw(spriteBatch));
+            }
         }
     }
 }
