@@ -1,7 +1,8 @@
-﻿using System.Security.Permissions;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Entities;
+using MonoGame.Game.Common.Enums;
+using MonoGame.Game.Common.Events;
 using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
@@ -10,8 +11,10 @@ namespace MonoGame.Game.Common.Components
     {
         internal Texture2D Texture;
         private readonly Vector2 _relativeLocation;
-        private readonly int _repeat;
+        private int _repeat;
         private readonly bool _isVertical;
+        private readonly ObjectEvent _eventType;
+        private readonly bool _isDescending;
 
         public int Width
         {
@@ -40,6 +43,32 @@ namespace MonoGame.Game.Common.Components
             _relativeLocation = relativeLocation;
             _repeat = repeat;
             _isVertical = isVertical;
+        }
+
+        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, int repeat, bool isVertical, GameObject owner, ObjectEvent eventType, bool isDescending)
+        {
+            Texture = texture;
+            _relativeLocation = relativeLocation;
+            _repeat = repeat;
+            _isVertical = isVertical;
+            _eventType = eventType;
+            _isDescending = isDescending;
+            owner.ObjectEvent += OwnerOnObjectEvent;
+        }
+
+        private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
+        {
+            if (objectEventArgs.Action == _eventType)
+            {
+                if (_isDescending)
+                {
+                    _repeat--;
+                }
+                else
+                {
+                    _repeat++;
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

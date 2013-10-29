@@ -43,7 +43,7 @@ namespace MonoGame.Game.Common.Components
             startLocation += (direction * new Vector2(Owner.Width, Owner.Height));
             startLocation += (direction * new Vector2(bulletTexture.Width + 1, bulletTexture.Height + 1));
             var bullet = new GameObject(Owner.GameLayer, startLocation);
-
+            bullet.GameType = "Bullet";
             var bulletMovement = new MovementComponent(3, _movementComponent.FaceDirection, direction);
             var bulletSprite = new SpriteComponent(bulletTexture);
             var bulletBoundary = new BoundaryComponent(bullet, SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width,

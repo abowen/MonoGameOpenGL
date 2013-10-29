@@ -33,18 +33,18 @@ namespace MonoGame.Game.Common.Infrastructure
             Managers.ForEach(s => s.Update(gameTime));
 
             // Collision Manager
-            var collisionComponents = GameObjects.Where(co => co.HasCollision).ToArray();
-            foreach (var source in collisionComponents)
+            var sourceComponents = GameObjects.Where(co => co.HasCollision).ToList();
+            var destinationComponents = sourceComponents.ToList();
+
+            foreach (var source in sourceComponents)
             {
-                foreach (var destination in collisionComponents)
+                destinationComponents.Remove(source);
+                foreach (var destination in destinationComponents)
                 {
-                    if (source != destination)
+                    if (source.BoundingRectangle.Intersects(destination.BoundingRectangle))
                     {
-                        if (source.BoundingRectangle.Intersects(destination.BoundingRectangle))
-                        {
-                            source.Event(ObjectEvent.Collision);
-                            destination.Event(ObjectEvent.Collision);
-                        }
+                        source.Event(ObjectEvent.Collision);
+                        destination.Event(ObjectEvent.Collision);
                     }
                 }
             }

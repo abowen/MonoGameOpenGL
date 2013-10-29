@@ -18,7 +18,6 @@ namespace MonoGame.Game.Space
             var backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), 5000, 10000, BackgroundLayer, 2);
             BackgroundLayer.Managers.Add(backgroundManager);
             BackgroundLayer.Managers.Add(backgroundEnemyManager);
-
         }
 
         protected override void LoadDisplay()
@@ -39,6 +38,7 @@ namespace MonoGame.Game.Space
 
             // TODO: Refactor this into BuilderPattern
             var player = new GameObject(ForegroundLayer, playerStartPosition);
+            player.GameType = "Player";
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
@@ -47,7 +47,7 @@ namespace MonoGame.Game.Space
             var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
                 DisplayLayer);
             var playerBoundaryComponent = new BoundaryComponent(player, SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
-            var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), 5, false);
+            var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), 5, false, player, ObjectEvent.Collision, true);
  
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);

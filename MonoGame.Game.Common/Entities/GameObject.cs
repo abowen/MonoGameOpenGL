@@ -132,5 +132,14 @@ namespace MonoGame.Game.Common.Entities
                 PhysicsComponents.ForEach(c => c.Draw(spriteBatch));
             }
         }
+
+        public override string ToString()
+        {
+            if (!string.IsNullOrWhiteSpace(GameType))
+            {
+                return GameType;
+            }
+            return base.ToString();
+        }
     }
 }
