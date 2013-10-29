@@ -14,23 +14,38 @@ namespace MonoGame.Game.Common.Components
     {
         private readonly Texture2D[] _texture2D;
         private readonly MovementComponent _movementComponent;
+        private readonly ObjectEvent _fireEvent;
+        private readonly ObjectEvent _stopEvent;
+        private readonly ObjectEvent _startEvent;
+        private bool _canFire = true;
 
-
-        public BulletComponent(GameObject gameObject, Texture2D[] texture, MovementComponent movementComponent)
+        
+        public BulletComponent(GameObject gameObject, Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore)
         {
             _texture2D = texture;
             _movementComponent = movementComponent;
+            _fireEvent = fireEvent;
+            _stopEvent = stopEvent;
+            _startEvent = startEvent;
             Owner = gameObject;
-
             Owner.ObjectEvent += OwnerOnObjectEvent;
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs eventArgs)
         {
-            if (eventArgs.Action == ObjectEvent.Fire)
+            if (eventArgs.Action == _fireEvent && _canFire)
             {
                 Fire();
             }
+            else if (eventArgs.Action == _stopEvent)
+            {
+                _canFire = false;
+            }
+            else if (eventArgs.Action == _startEvent)
+            {
+                _canFire = true;
+            }
+            
         }
 
 

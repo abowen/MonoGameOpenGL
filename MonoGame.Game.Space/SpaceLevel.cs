@@ -43,12 +43,18 @@ namespace MonoGame.Game.Space
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
-            var playerBulletComponent = new BulletComponent(player, SpaceGraphics.BulletAsset, playerMovementComponent);
+            
             var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
                 DisplayLayer);
             var playerBoundaryComponent = new BoundaryComponent(player, SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
-            var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), 5, false, player, ObjectEvent.Collision);
-            var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.AmmoBarAsset.First(), new Vector2(-25, 25), 5, true, player, ObjectEvent.Fire, true, true);
+
+            var playerHealthCounterComponent = new CounterComponent(player, ObjectEvent.Collision, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
+            var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), false, player, ObjectEvent.HealthRemoved, playerHealthCounterComponent);
+
+            var playerBulletComponent = new BulletComponent(player, SpaceGraphics.BulletAsset, playerMovementComponent, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset);
+            var playerAmmoCounterComponent = new CounterComponent(player, ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10, 0);
+            var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.AmmoBarAsset.First(), new Vector2(-25, 25), true, player, ObjectEvent.AmmoRemoved, playerAmmoCounterComponent, true);
+            
  
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);
@@ -56,8 +62,13 @@ namespace MonoGame.Game.Space
             player.AddInputComponent(playerBulletComponent);
             player.AddGraphicsComponent(playerHealthComponent);
             player.AddPhysicsComponent(playerBoundaryComponent);
+
+            player.AddPhysicsComponent(playerHealthCounterComponent);
             player.AddGraphicsComponent(playerHealthBarComponent);
+            
+            player.AddPhysicsComponent(playerAmmoCounterComponent);
             player.AddGraphicsComponent(playerAmmoBarComponent);
+            
 
             
             ForegroundLayer.GameObjects.Add(player);

@@ -11,10 +11,10 @@ namespace MonoGame.Game.Common.Components
     {
         internal Texture2D Texture;
         private readonly Vector2 _relativeLocation;
-        private int _repeat;
+        private int _currentValue;
         private readonly bool _isVertical;
-        private readonly ObjectEvent _eventType;
-        private readonly bool _isDescending;
+        private readonly ObjectEvent _subscribeEvent;
+        private readonly CounterComponent _counterComponent;        
         private readonly bool _isReverse;
 
         public int Width
@@ -29,53 +29,46 @@ namespace MonoGame.Game.Common.Components
 
         public GameObject Owner { get; set; }
 
-        public SpriteRepeaterComponent(Texture2D texture, int repeat, bool isVertical)
+        public SpriteRepeaterComponent(Texture2D texture, int currentValue, bool isVertical)
         {
             Texture = texture;
-            _repeat = repeat;
+            _currentValue = currentValue;
             _isVertical = isVertical;
             _relativeLocation = Vector2.Zero;
         }
 
         // TODO: Use optional parameters, introduce gap
-        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, int repeat, bool isVertical)
+        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, int currentValue, bool isVertical)
         {
             Texture = texture;
             _relativeLocation = relativeLocation;
-            _repeat = repeat;
+            _currentValue = currentValue;
             _isVertical = isVertical;
         }
 
-        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, int repeat, bool isVertical, GameObject owner, ObjectEvent eventType, bool isDescending = true, bool isReverse = false)
+        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, bool isVertical, GameObject owner, ObjectEvent subscribeEvent, CounterComponent counterComponent, bool isReverse = false)
         {
             Texture = texture;
             _relativeLocation = relativeLocation;
-            _repeat = repeat;
+            _currentValue = counterComponent.CurrentValue;
             _isVertical = isVertical;
-            _eventType = eventType;
-            _isDescending = isDescending;
+            _subscribeEvent = subscribeEvent;
+            _counterComponent = counterComponent;            
             _isReverse = isReverse;
             owner.ObjectEvent += OwnerOnObjectEvent;
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
         {
-            if (objectEventArgs.Action == _eventType)
+            if (objectEventArgs.Action == _subscribeEvent)
             {
-                if (_isDescending)
-                {
-                    _repeat--;
-                }
-                else
-                {
-                    _repeat++;
-                }
+                _currentValue = _counterComponent.CurrentValue;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (var count = 0; count < _repeat; count++)
+            for (var count = 0; count < _currentValue; count++)
             {
                 var expansion = _isVertical ? new Vector2(0, 1) : new Vector2(1, 0);
                 var newLocation = Owner.TopLeft;
@@ -91,11 +84,6 @@ namespace MonoGame.Game.Common.Components
                 }
                 spriteBatch.Draw(Texture, newLocation, Color.White);
             }
-        }
-
-        private void DrawItem(SpriteBatch spriteBatch, int count)
-        {
-
         }
 
         public void Update(GameTime gameTime)

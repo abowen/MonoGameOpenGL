@@ -2,7 +2,14 @@
 {        
     public enum ObjectEvent
     {        
+        Ignore,
         Collision,
-        Fire
+        HealthRemoved,
+        HealthEmpty,
+        HealthReset,
+        Fire,
+        AmmoRemoved,
+        AmmoEmpty,
+        AmmoReset        
     }
 }
