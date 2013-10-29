@@ -50,10 +50,12 @@ namespace MonoGame.Game.Common.Managers
                     var asteroidMovement = new MovementComponent(1, FaceDirection.Left, new Vector2(-1,0));
                     var asteroidBoundary = new BoundaryComponent(asteroid, SpaceGraphics.BoundaryAsset.First(),
                         asteroidGraphics.Width, asteroidGraphics.Height);
+                    var asteroidOutOfBounds = new OutOfBoundsComponent(asteroid);
                     asteroid.AddPhysicsComponent(asteroidInstance);
                     asteroid.AddGraphicsComponent(asteroidGraphics);
                     asteroid.AddPhysicsComponent(asteroidMovement);
                     asteroid.AddPhysicsComponent(asteroidBoundary);
+                    asteroid.AddPhysicsComponent(asteroidOutOfBounds);
                     _gameLayer.GameObjects.Add(asteroid);
                 }
                 else
@@ -65,10 +67,12 @@ namespace MonoGame.Game.Common.Managers
                     var asteroidMovement = new MovementComponent(1, FaceDirection.Right, new Vector2(1, 0));
                     var asteroidBoundary = new BoundaryComponent(asteroid, SpaceGraphics.BoundaryAsset.First(),
                         asteroidGraphics.Width, asteroidGraphics.Height);
+                    var asteroidOutOfBounds = new OutOfBoundsComponent(asteroid);
                     asteroid.AddPhysicsComponent(asteroidInstance);
                     asteroid.AddGraphicsComponent(asteroidGraphics);
                     asteroid.AddPhysicsComponent(asteroidMovement);
                     asteroid.AddPhysicsComponent(asteroidBoundary);
+                    asteroid.AddPhysicsComponent(asteroidOutOfBounds);
 
                     _gameLayer.GameObjects.Add(asteroid);
                 }

@@ -15,7 +15,7 @@ namespace MonoGame.Game.Space
         protected override void LoadBackground()
         {
             var backgroundManager = new BackgroundManager(SpaceGraphics.PlanetAsset, SpaceGraphics.StarAsset, BackgroundLayer);
-            var backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), 5000, 5000, BackgroundLayer, 2);
+            var backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), 5000, 10000, BackgroundLayer, 2);
             BackgroundLayer.Managers.Add(backgroundManager);
             BackgroundLayer.Managers.Add(backgroundEnemyManager);
 
@@ -33,7 +33,7 @@ namespace MonoGame.Game.Space
             var xCentre = GameConstants.ScreenBoundary.Width/2;
             var yCentre = GameConstants.ScreenBoundary.Height/2;
 
-       //     var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1500, 2000, ForegroundLayer, 1);
+            var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1500, 2000, ForegroundLayer, 1);
 
             var playerStartPosition = new Vector2(xCentre, yCentre + 50);
 
@@ -60,7 +60,7 @@ namespace MonoGame.Game.Space
             ForegroundLayer.GameObjects.Add(player);
 
             ForegroundLayer.Managers.Add(asteroidManager);
-           // ForegroundLayer.Managers.Add(enemyManager);
+            ForegroundLayer.Managers.Add(enemyManager);
         }
 
     }

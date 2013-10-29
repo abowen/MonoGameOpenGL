@@ -49,10 +49,12 @@ namespace MonoGame.Game.Common.Components
             var bulletBoundary = new BoundaryComponent(bullet, SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width,
                 bulletTexture.Height);
             var instanceComponent = new InstanceComponent(bullet);
+            var bulletOutOfBounds = new OutOfBoundsComponent(bullet);
             bullet.AddPhysicsComponent(bulletMovement);
             bullet.AddGraphicsComponent(bulletSprite);
             bullet.AddPhysicsComponent(bulletBoundary);
             bullet.AddPhysicsComponent(instanceComponent);
+            bullet.AddPhysicsComponent(bulletOutOfBounds);
 
             Owner.GameLayer.GameObjects.Add(bullet);
         }

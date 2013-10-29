@@ -52,12 +52,14 @@ namespace MonoGame.Game.Common.Managers
                 var enemyBoundary = new BoundaryComponent(enemy, SpaceGraphics.BoundaryAsset.First(), _shipTexture.Width,
                     _shipTexture.Height);
                 var enemyInstance = new InstanceComponent(enemy);
-                var enemyTimed = new TimedActionComponent(enemy, ObjectEvent.Fire, 1000);
+                var enemyTimed = new TimedActionComponent(enemy, ObjectEvent.Fire, _bulletDelayMilliseconds);
+                var enemyOutOfBounds = new OutOfBoundsComponent(enemy);
                 enemy.AddGraphicsComponent(enemySprite);
                 enemy.AddPhysicsComponent(enemyMovement);
                 enemy.AddPhysicsComponent(enemyBullet);
                 enemy.AddPhysicsComponent(enemyBoundary);
                 enemy.AddPhysicsComponent(enemyInstance);
+                enemy.AddPhysicsComponent(enemyOutOfBounds);
                 enemy.AddInputComponent(enemyTimed);
                 _gameLayer.GameObjects.Add(enemy);
             }
