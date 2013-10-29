@@ -40,6 +40,9 @@
     <Compile Include="SpaceGraphics.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AmmoBar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Asteroid01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

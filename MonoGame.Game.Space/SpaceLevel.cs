@@ -47,7 +47,8 @@ namespace MonoGame.Game.Space
             var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
                 DisplayLayer);
             var playerBoundaryComponent = new BoundaryComponent(player, SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
-            var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), 5, false, player, ObjectEvent.Collision, true);
+            var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), 5, false, player, ObjectEvent.Collision);
+            var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.AmmoBarAsset.First(), new Vector2(-25, 25), 5, true, player, ObjectEvent.Fire, true, true);
  
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);
@@ -56,6 +57,8 @@ namespace MonoGame.Game.Space
             player.AddGraphicsComponent(playerHealthComponent);
             player.AddPhysicsComponent(playerBoundaryComponent);
             player.AddGraphicsComponent(playerHealthBarComponent);
+            player.AddGraphicsComponent(playerAmmoBarComponent);
+
             
             ForegroundLayer.GameObjects.Add(player);
 

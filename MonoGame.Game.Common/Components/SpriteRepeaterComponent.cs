@@ -15,6 +15,7 @@ namespace MonoGame.Game.Common.Components
         private readonly bool _isVertical;
         private readonly ObjectEvent _eventType;
         private readonly bool _isDescending;
+        private readonly bool _isReverse;
 
         public int Width
         {
@@ -45,7 +46,7 @@ namespace MonoGame.Game.Common.Components
             _isVertical = isVertical;
         }
 
-        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, int repeat, bool isVertical, GameObject owner, ObjectEvent eventType, bool isDescending)
+        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, int repeat, bool isVertical, GameObject owner, ObjectEvent eventType, bool isDescending = true, bool isReverse = false)
         {
             Texture = texture;
             _relativeLocation = relativeLocation;
@@ -53,6 +54,7 @@ namespace MonoGame.Game.Common.Components
             _isVertical = isVertical;
             _eventType = eventType;
             _isDescending = isDescending;
+            _isReverse = isReverse;
             owner.ObjectEvent += OwnerOnObjectEvent;
         }
 
@@ -78,9 +80,22 @@ namespace MonoGame.Game.Common.Components
                 var expansion = _isVertical ? new Vector2(0, 1) : new Vector2(1, 0);
                 var newLocation = Owner.TopLeft;
                 newLocation += _relativeLocation;
-                newLocation += count * new Vector2(Texture.Width, Texture.Height) * expansion;
+
+                if (!_isReverse)
+                {                                        
+                    newLocation += count * new Vector2(Texture.Width, Texture.Height) * expansion;
+                }
+                else
+                {
+                    newLocation -= count * new Vector2(Texture.Width, Texture.Height) * expansion;
+                }
                 spriteBatch.Draw(Texture, newLocation, Color.White);
             }
+        }
+
+        private void DrawItem(SpriteBatch spriteBatch, int count)
+        {
+
         }
 
         public void Update(GameTime gameTime)

@@ -22,8 +22,6 @@ namespace MonoGame.Game.Common.Components
             _movementComponent = movementComponent;
         }
 
-
-
         private readonly Dictionary<Keys, InputAction> _keyboardMappings;
         private readonly Dictionary<Keys, InputAction> _buttonMappings;
         private readonly MovementComponent _movementComponent;
