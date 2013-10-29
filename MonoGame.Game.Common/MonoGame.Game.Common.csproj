@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Components\BulletComponent.cs" />
     <Compile Include="Components\BoundaryComponent.cs" />
+    <Compile Include="Components\SpriteGenericComponent.cs" />
     <Compile Include="Components\CounterComponent.cs" />
     <Compile Include="Components\OutOfBoundsComponent.cs" />
     <Compile Include="Components\SpriteRepeaterComponent.cs" />

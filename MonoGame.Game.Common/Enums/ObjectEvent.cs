@@ -1,7 +1,7 @@
 ﻿namespace MonoGame.Game.Common.Enums
-{        
+{
     public enum ObjectEvent
-    {        
+    {
         Ignore,
         Collision,
         HealthRemoved,
@@ -10,6 +10,7 @@
         Fire,
         AmmoRemoved,
         AmmoEmpty,
-        AmmoReset        
+        AmmoReset,
+        WoodFire
     }
 }

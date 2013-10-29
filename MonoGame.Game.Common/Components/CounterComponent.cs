@@ -9,8 +9,8 @@ namespace MonoGame.Game.Common.Components
 {
     public class CounterComponent : IMonoGameComponent
     {
-        private readonly ObjectEvent _actionEvent;
-        private readonly ObjectEvent _updateEvent;
+        private readonly ObjectEvent _subscribeEvent;
+        private readonly ObjectEvent _publishEvent;
         private readonly ObjectEvent _lastEvent;
         private readonly ObjectEvent _resetEvent;
         private readonly int _startValue;
@@ -21,11 +21,12 @@ namespace MonoGame.Game.Common.Components
         public GameObject Owner { get; set; }
 
 
-        public CounterComponent(GameObject owner, ObjectEvent actionEvent, ObjectEvent updateEvent, ObjectEvent lastEvent, ObjectEvent resetEvent, int startValue, int lastValue, bool isDescending = true)
+        // TODO: Determine descending by if start > 0
+        public CounterComponent(GameObject owner, ObjectEvent subscribeEvent, ObjectEvent publishEvent, ObjectEvent lastEvent, ObjectEvent resetEvent, int startValue, int lastValue, bool isDescending = true)
         {
             Owner = owner;
-            _actionEvent = actionEvent;
-            _updateEvent = updateEvent;
+            _subscribeEvent = subscribeEvent;
+            _publishEvent = publishEvent;
             _lastEvent = lastEvent;
             _resetEvent = resetEvent;
             _startValue = startValue;
@@ -37,7 +38,7 @@ namespace MonoGame.Game.Common.Components
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
         {
-            if (objectEventArgs.Action == _actionEvent)
+            if (objectEventArgs.Action == _subscribeEvent)
             {
                 if (CurrentValue != _lastValue)
                 {
@@ -49,7 +50,7 @@ namespace MonoGame.Game.Common.Components
                     {
                         CurrentValue++;
                     }
-                    Owner.Event(_updateEvent);
+                    Owner.Event(_publishEvent);
                 }
                 else
                 {
@@ -59,7 +60,7 @@ namespace MonoGame.Game.Common.Components
             if (objectEventArgs.Action == _resetEvent)
             {
                 CurrentValue = _startValue;
-                Owner.Event(_updateEvent);
+                Owner.Event(_publishEvent);
             }
         }
 

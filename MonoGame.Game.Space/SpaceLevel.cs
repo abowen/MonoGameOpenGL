@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Game.Common.Components;
 using MonoGame.Game.Common.Entities;
@@ -54,7 +55,10 @@ namespace MonoGame.Game.Space
             var playerBulletComponent = new BulletComponent(player, SpaceGraphics.BulletAsset, playerMovementComponent, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset);
             var playerAmmoCounterComponent = new CounterComponent(player, ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10, 0);
             var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.AmmoBarAsset.First(), new Vector2(-25, 25), true, player, ObjectEvent.AmmoRemoved, playerAmmoCounterComponent, true);
-            
+
+            var playerFireCounterComponent = new CounterComponent(player, ObjectEvent.Collision, ObjectEvent.WoodFire,
+                ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 3, false);
+            var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset.First(), Vector2.Zero, player, ObjectEvent.WoodFire, playerFireCounterComponent, DrawMethod);
  
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);
@@ -69,7 +73,8 @@ namespace MonoGame.Game.Space
             player.AddPhysicsComponent(playerAmmoCounterComponent);
             player.AddGraphicsComponent(playerAmmoBarComponent);
             
-
+            player.AddPhysicsComponent(playerFireCounterComponent);
+            player.AddGraphicsComponent(playerWoodFireComponent);
             
             ForegroundLayer.GameObjects.Add(player);
 
@@ -77,5 +82,12 @@ namespace MonoGame.Game.Space
             ForegroundLayer.Managers.Add(enemyManager);
         }
 
+        private Random _random = new Random();
+
+        private Vector2 DrawMethod()
+        {
+            var value = _random.Next(0, 5);
+            return new Vector2(value, value);
+        }
     }
 }
