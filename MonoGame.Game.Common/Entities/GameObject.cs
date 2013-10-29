@@ -18,6 +18,8 @@ namespace MonoGame.Game.Common.Entities
         private readonly List<IMonoGameComponent> GraphicsComponents = new List<IMonoGameComponent>();
         public readonly GameLayer GameLayer;
 
+        public string GameType { get; set; }
+
         public void AddInputComponent(IMonoGameComponent component)
         {
             InputComponents.Add(component);

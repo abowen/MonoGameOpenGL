@@ -36,7 +36,7 @@ namespace MonoGame.Game.Common.Managers
 
         public void Update(GameTime gameTime)
         {
-            var enemyCount = _gameLayer.GameEntities.Count(sprite => typeof (EnemyShip) == sprite.GetType());
+            var enemyCount = _gameLayer.GameObjects.Count(gameObject => gameObject.GameType == "Enemy");
 
             _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
             if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds && enemyCount < GameConstants.MaximumEnemies)
@@ -45,6 +45,7 @@ namespace MonoGame.Game.Common.Managers
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);
 
                 var enemy = new GameObject(_gameLayer, new Vector2(xLocation, 0));
+                enemy.GameType = "Enemy";
                 var enemySprite = new SpriteComponent(_shipTexture);
                 var enemyMovement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
                 var enemyBullet = new BulletComponent(enemy, SpaceGraphics.BulletAsset, enemyMovement);

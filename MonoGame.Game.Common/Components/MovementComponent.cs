@@ -20,19 +20,24 @@ namespace MonoGame.Game.Common.Components
         /// <summary>
         /// Speed of the object ignoring the location of the camera        
         /// </summary>
-        public int BaseSpeed { get; protected set; }
+        public float BaseSpeed { get; protected set; }
 
         /// <summary>
         /// Speed of the object relative to the camera
         /// </summary>
-        public int RelativeSpeed
+        public float RelativeSpeed
         {
             get
             {
                 var gameDepth = Owner.GameLayer.GameLayerDepth;
                 if (gameDepth != GameLayerDepth.Display)
                 {
-                    return BaseSpeed / (int) gameDepth;
+                    var result =  BaseSpeed / (int) gameDepth;
+                    if (result == 0)
+                    {
+                        // DEBUG
+                    }
+                    return result;
                 }
                 return 0;
             }
