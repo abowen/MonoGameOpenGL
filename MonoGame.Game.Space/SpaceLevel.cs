@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using MonoGame.Game.Common.Components;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Enums;
+using MonoGame.Game.Common.Events;
 using MonoGame.Game.Common.Helpers;
 using MonoGame.Game.Common.Infrastructure;
 using MonoGame.Game.Common.Managers;
@@ -57,9 +58,11 @@ namespace MonoGame.Game.Space
             var playerAmmoCounterComponent = new CounterComponent(player, ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10, 0);
             var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.AmmoBarAsset.First(), new Vector2(-25, 25), true, player, ObjectEvent.AmmoRemoved, playerAmmoCounterComponent, true);
 
-            var playerFireCounterComponent = new CounterComponent(player, ObjectEvent.Collision, ObjectEvent.WoodFire,
-                ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 3, false);
+            var playerFireCounterComponent = new CounterComponent(player, ObjectEvent.Collision, ObjectEvent.WoodFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
             var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, player, ObjectEvent.WoodFire, playerFireCounterComponent, DrawMethod);
+
+            var playerEventComponent = new ObjectEventComponent(player, ObjectEvent.HealthEmpty, Action);
+           // player.ObjectEvent += PlayerOnObjectEvent;
 
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);
@@ -77,11 +80,23 @@ namespace MonoGame.Game.Space
             player.AddPhysicsComponent(playerFireCounterComponent);
             player.AddGraphicsComponent(playerWoodFireComponent);
 
+            player.AddPhysicsComponent(playerEventComponent);
+
             ForegroundLayer.GameObjects.Add(player);
 
             ForegroundLayer.Managers.Add(asteroidManager);
             ForegroundLayer.Managers.Add(enemyManager);
         }
+
+        private void Action(GameObject gameObject)
+        {
+            gameObject.RemoveGameObject();
+            var death = new GameObject(ForegroundLayer, gameObject.TopLeft);
+            var deathSprite = new SpriteComponent(SpaceGraphics.PlanetAsset[3]);
+            death.AddGraphicsComponent(deathSprite);
+            ForegroundLayer.GameObjects.Add(death);
+        }
+
 
         private readonly Random _random = new Random();
 
