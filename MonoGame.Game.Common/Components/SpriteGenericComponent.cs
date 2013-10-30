@@ -52,9 +52,10 @@ namespace MonoGame.Game.Common.Components
             {
                 _currentValue = _counterComponent.CurrentValue;
 
-                var requiredItems = _currentValue - _locations.Count();
+                var requiredItems = _currentValue;// - _locations.Count();
                 var newVectors = _drawMethod(requiredItems, 5).ToList();
-                _locations.AddRange(newVectors);
+                //_locations.AddRange(newVectors);
+                _locations = newVectors;
             }
         }
 

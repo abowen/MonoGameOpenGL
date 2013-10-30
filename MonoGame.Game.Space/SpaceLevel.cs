@@ -60,7 +60,7 @@ namespace MonoGame.Game.Space
             var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.AmmoBarAsset.First(), new Vector2(-25, 25), true, player, ObjectEvent.AmmoRemoved, playerAmmoCounterComponent, true);
 
             var playerFireCounterComponent = new CounterComponent(player, ObjectEvent.Collision, ObjectEvent.WoodFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
-            var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, player, ObjectEvent.WoodFire, playerFireCounterComponent, DrawMethod);
+            var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, player, ObjectEvent.WoodFire, playerFireCounterComponent, RandomDrawMethod);
 
             var playerEventComponent = new ObjectEventComponent(player, ObjectEvent.HealthEmpty, PlayerDeath);
             // player.ObjectEvent += PlayerOnObjectEvent;
@@ -147,7 +147,7 @@ namespace MonoGame.Game.Space
 
         private readonly Random _random = new Random();
 
-        private IEnumerable<Vector2> DrawMethod(int requiredValues, int width)
+        private IEnumerable<Vector2> RandomDrawMethod(int requiredValues, int width)
         {
             for (var i = 0; i < requiredValues; i++)
             {
