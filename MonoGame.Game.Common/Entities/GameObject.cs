@@ -65,7 +65,7 @@ namespace MonoGame.Game.Common.Entities
         public Vector2 TopLeft { get; set; }
 
         /// <summary>
-        /// Centre co-ordinates of the object
+        /// Global Centre co-ordinates of the object
         /// </summary>
         public Vector2 Centre
         {
@@ -73,6 +73,19 @@ namespace MonoGame.Game.Common.Entities
             {
                 var x = (TopLeft.X + Width/2);
                 var y = (TopLeft.Y + Height/2);
+                return new Vector2(x, y);
+            }
+        }
+
+        /// <summary>
+        /// Local centre co-ordinators of the object
+        /// </summary>
+        public Vector2 CentreLocal
+        {
+            get
+            {
+                var x = (Width / 2);
+                var y = (Height / 2);
                 return new Vector2(x, y);
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Game.Common.Components;
@@ -23,15 +24,15 @@ namespace MonoGame.Game.Space
 
         protected override void LoadDisplay()
         {
-            
+
         }
 
         protected override void LoadForeground()
         {
             var asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, ForegroundLayer);
 
-            var xCentre = GameConstants.ScreenBoundary.Width/2;
-            var yCentre = GameConstants.ScreenBoundary.Height/2;
+            var xCentre = GameConstants.ScreenBoundary.Width / 2;
+            var yCentre = GameConstants.ScreenBoundary.Height / 2;
 
             var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1500, 2000, ForegroundLayer, 1);
 
@@ -44,7 +45,7 @@ namespace MonoGame.Game.Space
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
-            
+
             var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
                 DisplayLayer);
             var playerBoundaryComponent = new BoundaryComponent(player, SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
@@ -58,8 +59,8 @@ namespace MonoGame.Game.Space
 
             var playerFireCounterComponent = new CounterComponent(player, ObjectEvent.Collision, ObjectEvent.WoodFire,
                 ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 3, false);
-            var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset.First(), Vector2.Zero, player, ObjectEvent.WoodFire, playerFireCounterComponent, DrawMethod);
- 
+            var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, player, ObjectEvent.WoodFire, playerFireCounterComponent, DrawMethod);
+
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);
             player.AddInputComponent(playerInputComponent);
@@ -69,25 +70,29 @@ namespace MonoGame.Game.Space
 
             player.AddPhysicsComponent(playerHealthCounterComponent);
             player.AddGraphicsComponent(playerHealthBarComponent);
-            
+
             player.AddPhysicsComponent(playerAmmoCounterComponent);
             player.AddGraphicsComponent(playerAmmoBarComponent);
-            
+
             player.AddPhysicsComponent(playerFireCounterComponent);
             player.AddGraphicsComponent(playerWoodFireComponent);
-            
+
             ForegroundLayer.GameObjects.Add(player);
 
             ForegroundLayer.Managers.Add(asteroidManager);
             ForegroundLayer.Managers.Add(enemyManager);
         }
 
-        private Random _random = new Random();
+        private readonly Random _random = new Random();
 
-        private Vector2 DrawMethod()
+        private IEnumerable<Vector2> DrawMethod(int requiredValues)
         {
-            var value = _random.Next(0, 5);
-            return new Vector2(value, value);
+            for (var i = 0; i < requiredValues; i++)
+            {
+                var xValue = _random.Next(-5, 5);
+                var yValue = _random.Next(-5, 5);
+                yield return new Vector2(xValue, yValue);
+            }
         }
     }
 }
