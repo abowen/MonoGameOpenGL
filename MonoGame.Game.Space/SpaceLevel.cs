@@ -50,6 +50,7 @@ namespace MonoGame.Game.Space
             var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
                 DisplayLayer);
             var playerBoundaryComponent = new BoundaryComponent(player, SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
+            player.AddPhysicsComponent(playerBoundaryComponent);
 
             var playerHealthCounterComponent = new CounterComponent(player, ObjectEvent.Collision, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
             var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), false, player, ObjectEvent.HealthRemoved, playerHealthCounterComponent);
@@ -61,7 +62,7 @@ namespace MonoGame.Game.Space
             var playerFireCounterComponent = new CounterComponent(player, ObjectEvent.Collision, ObjectEvent.WoodFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
             var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, player, ObjectEvent.WoodFire, playerFireCounterComponent, DrawMethod);
 
-            var playerEventComponent = new ObjectEventComponent(player, ObjectEvent.HealthEmpty, Action);
+            var playerEventComponent = new ObjectEventComponent(player, ObjectEvent.HealthEmpty, PlayerDeath);
            // player.ObjectEvent += PlayerOnObjectEvent;
 
             player.AddGraphicsComponent(playerSpriteComponent);
@@ -69,7 +70,7 @@ namespace MonoGame.Game.Space
             player.AddInputComponent(playerInputComponent);
             player.AddInputComponent(playerBulletComponent);
             player.AddGraphicsComponent(playerHealthComponent);
-            player.AddPhysicsComponent(playerBoundaryComponent);
+
 
             player.AddPhysicsComponent(playerHealthCounterComponent);
             player.AddGraphicsComponent(playerHealthBarComponent);
@@ -88,8 +89,10 @@ namespace MonoGame.Game.Space
             ForegroundLayer.Managers.Add(enemyManager);
         }
 
-        private void Action(GameObject gameObject)
+        private void PlayerDeath(GameObject gameObject)
         {
+            // Could be moved into the component instead of action?
+            // Or maybe set a flag on game object that other components respond to?
             gameObject.RemoveGameObject();
             var death = new GameObject(ForegroundLayer, gameObject.TopLeft);
             var deathSprite = new SpriteComponent(SpaceGraphics.PlanetAsset[3]);

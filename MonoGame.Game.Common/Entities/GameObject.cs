@@ -71,8 +71,8 @@ namespace MonoGame.Game.Common.Entities
         {
             get
             {
-                var x = (TopLeft.X + Width/2);
-                var y = (TopLeft.Y + Height/2);
+                var x = (TopLeft.X + Width / 2);
+                var y = (TopLeft.Y + Height / 2);
                 return new Vector2(x, y);
             }
         }
@@ -90,8 +90,29 @@ namespace MonoGame.Game.Common.Entities
             }
         }
 
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        public int Width
+        {
+            get
+            {
+                if (BoundaryComponent != null)
+                {
+                    return BoundaryComponent.Width;
+                }
+                return 1;
+            }
+        }
+
+        public int Height
+        {
+            get
+            {
+                if (BoundaryComponent != null)
+                {
+                    return BoundaryComponent.Height;
+                }
+                return 1;
+            }
+        }
 
 
         public Rectangle BoundingRectangle
@@ -102,31 +123,28 @@ namespace MonoGame.Game.Common.Entities
             }
         }
 
-
-        private bool? _hasCollision;
+        private BoundaryComponent _boundaryComponent;
+        BoundaryComponent BoundaryComponent
+        {
+            get
+            {
+                if (_boundaryComponent == null)
+                {
+                    var item = PhysicsComponents.FirstOrDefault(c => c.GetType() == typeof(BoundaryComponent)) as BoundaryComponent;
+                    _boundaryComponent = item;
+                }
+                return _boundaryComponent;
+            }
+        }
 
         public bool HasCollision
         {
             get
             {
-                if (_hasCollision == null)
-                {
-                    var component = PhysicsComponents.FirstOrDefault(c => c.GetType() == typeof(BoundaryComponent)) as BoundaryComponent;
-                    if (component != null)
-                    {
-                        Width = component.Width;
-                        Height = component.Height;
-                        _hasCollision = true;
-                    }
-                    else
-                    {
-                        _hasCollision = false;
-                    }
-                }
-                return _hasCollision.Value;
+                return BoundaryComponent != null;
             }
         }
-        
+
 
 
 
