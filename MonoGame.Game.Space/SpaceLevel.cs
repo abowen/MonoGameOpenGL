@@ -87,6 +87,36 @@ namespace MonoGame.Game.Space
 
             ForegroundLayer.Managers.Add(asteroidManager);
             ForegroundLayer.Managers.Add(enemyManager);
+
+            GameConstants.GameInstance.ScoreEventHandler += ScoreMilestones;
+        }
+
+        private void ScoreMilestones(object sender, ScoreEventArgs scoreEventArgs)
+        {
+            if (scoreEventArgs.Score == 5)
+            {
+
+                var enemy = new GameObject(ForegroundLayer, new Vector2(GameConstants.ScreenBoundary.Center.X, 0));
+                enemy.GameType = "Boss";
+                var shipTexture = SpaceGraphics.BossAAsset.First();
+                var enemySprite = new SpriteComponent(shipTexture);
+                var enemyMovement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
+                var enemyBullet = new BulletComponent(enemy, SpaceGraphics.BulletAsset, enemyMovement);
+                var enemyBoundary = new BoundaryComponent(enemy, SpaceGraphics.BoundaryAsset.First(), shipTexture.Width,
+                    shipTexture.Height);
+                var enemyInstance = new InstanceComponent(enemy);
+                var enemyTimed = new TimedActionComponent(enemy, ObjectEvent.Fire, 500);
+                var enemyOutOfBounds = new OutOfBoundsComponent(enemy);
+         //       var enemyScore = new ObjectEventComponent(enemy, ObjectEvent.Collision, IncreaseScore);
+                enemy.AddGraphicsComponent(enemySprite);
+                enemy.AddPhysicsComponent(enemyMovement);
+                enemy.AddPhysicsComponent(enemyBullet);
+                enemy.AddPhysicsComponent(enemyBoundary);
+                enemy.AddPhysicsComponent(enemyInstance);
+                enemy.AddPhysicsComponent(enemyOutOfBounds);
+                enemy.AddInputComponent(enemyTimed);
+                ForegroundLayer.GameObjects.Add(enemy);
+            }
         }
 
         private void PlayerDeath(GameObject gameObject)

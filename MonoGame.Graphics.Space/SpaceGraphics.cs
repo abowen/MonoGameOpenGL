@@ -24,6 +24,7 @@ namespace MonoGame.Graphics.Space
         private static readonly string HealthBar = "HealthBar";
         private static readonly string AmmoBar = "AmmoBar";
         private static readonly string Fire = "Fire";
+        private static readonly string BossA = "BossA";
 
 
         public static Texture2D[] AsteroidAsset { get { return Assets[Asteroid]; } }
@@ -40,6 +41,7 @@ namespace MonoGame.Graphics.Space
         public static Texture2D[] HealthBarAsset { get { return Assets[HealthBar]; } }
         public static Texture2D[] AmmoBarAsset { get { return Assets[AmmoBar]; } }
         public static Texture2D[] FireAsset { get { return Assets[Fire]; } }
+        public static Texture2D[] BossAAsset { get { return Assets[BossA]; } }
 
         public static void LoadSpaceContent(ContentManager content)
         {
@@ -139,6 +141,12 @@ namespace MonoGame.Graphics.Space
                 content.Load<Texture2D>("Fire02")
             };
             Assets.Add(Fire, fire);
+
+            var bossA = new[]
+            {
+                content.Load<Texture2D>("BossA")
+            };
+            Assets.Add(BossA, bossA);
         }
     }
 }
