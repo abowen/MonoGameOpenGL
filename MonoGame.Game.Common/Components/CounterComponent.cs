@@ -50,7 +50,7 @@ namespace MonoGame.Game.Common.Components
                     {
                         CurrentValue++;
                     }
-                    Owner.Event(_publishEvent);
+                     Owner.Event(_publishEvent);
                 }
                 else
                 {

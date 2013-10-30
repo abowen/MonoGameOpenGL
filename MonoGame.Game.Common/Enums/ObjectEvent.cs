@@ -11,6 +11,8 @@
         AmmoRemoved,
         AmmoEmpty,
         AmmoReset,
-        WoodFire
+        WoodFire,
+        ScoreIncrease,
+        ScoreIncreaseDisplay
     }
 }

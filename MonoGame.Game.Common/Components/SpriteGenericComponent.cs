@@ -20,7 +20,7 @@ namespace MonoGame.Game.Common.Components
         private int _currentValue;
         private readonly ObjectEvent _subscribeEvent;
         private readonly CounterComponent _counterComponent;
-        private readonly Func<int, IEnumerable<Vector2>> _drawMethod;
+        private readonly Func<int, int, IEnumerable<Vector2>> _drawMethod;
 
         public int Width { get; private set; }
 
@@ -29,7 +29,7 @@ namespace MonoGame.Game.Common.Components
         public GameObject Owner { get; set; }
 
 
-        public SpriteGenericComponent(Texture2D[] textures, Vector2 relativeLocation, GameObject owner, ObjectEvent subscribeEvent, CounterComponent counterComponent, Func<int, IEnumerable<Vector2>> drawMethod)
+        public SpriteGenericComponent(Texture2D[] textures, Vector2 relativeLocation, GameObject owner, ObjectEvent subscribeEvent, CounterComponent counterComponent, Func<int, int, IEnumerable<Vector2>> drawMethod)
         {
             Textures = textures;
 
@@ -43,7 +43,7 @@ namespace MonoGame.Game.Common.Components
             _drawMethod = drawMethod;
             owner.ObjectEvent += OwnerOnObjectEvent;
 
-            _locations = drawMethod.Invoke(_currentValue).ToList();
+            _locations = drawMethod.Invoke(_currentValue, 0).ToList();
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
@@ -53,7 +53,7 @@ namespace MonoGame.Game.Common.Components
                 _currentValue = _counterComponent.CurrentValue;
 
                 var requiredItems = _currentValue - _locations.Count();
-                var newVectors = _drawMethod(requiredItems).ToList();
+                var newVectors = _drawMethod(requiredItems, 5).ToList();
                 _locations.AddRange(newVectors);
             }
         }

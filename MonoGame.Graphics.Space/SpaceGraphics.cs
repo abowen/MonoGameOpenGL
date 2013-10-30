@@ -125,7 +125,8 @@ namespace MonoGame.Graphics.Space
 
             var healthBar = new[]
             {
-                content.Load<Texture2D>("HealthBar")
+                content.Load<Texture2D>("HealthBar"),
+                content.Load<Texture2D>("HealthBar02")
             };
             Assets.Add(HealthBar, healthBar);
 

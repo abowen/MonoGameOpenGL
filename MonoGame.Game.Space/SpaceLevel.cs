@@ -47,8 +47,8 @@ namespace MonoGame.Game.Space
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
 
-            var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
-                DisplayLayer);
+            //var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
+            //    DisplayLayer);
             var playerBoundaryComponent = new BoundaryComponent(player, SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
             player.AddPhysicsComponent(playerBoundaryComponent);
 
@@ -63,27 +63,32 @@ namespace MonoGame.Game.Space
             var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, player, ObjectEvent.WoodFire, playerFireCounterComponent, DrawMethod);
 
             var playerEventComponent = new ObjectEventComponent(player, ObjectEvent.HealthEmpty, PlayerDeath);
-           // player.ObjectEvent += PlayerOnObjectEvent;
+            // player.ObjectEvent += PlayerOnObjectEvent;
 
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);
             player.AddInputComponent(playerInputComponent);
             player.AddInputComponent(playerBulletComponent);
-            player.AddGraphicsComponent(playerHealthComponent);
-
-
             player.AddPhysicsComponent(playerHealthCounterComponent);
             player.AddGraphicsComponent(playerHealthBarComponent);
-
             player.AddPhysicsComponent(playerAmmoCounterComponent);
             player.AddGraphicsComponent(playerAmmoBarComponent);
-
             player.AddPhysicsComponent(playerFireCounterComponent);
             player.AddGraphicsComponent(playerWoodFireComponent);
-
             player.AddPhysicsComponent(playerEventComponent);
 
             ForegroundLayer.GameObjects.Add(player);
+
+            // TODO: Move scoring to use global space and per player
+            var score = new GameObject(DisplayLayer, new Vector2(10, 10));
+            score.GameType = "Score";
+            var scoreCounterComponent = new CounterComponent(score, ObjectEvent.ScoreIncrease, ObjectEvent.ScoreIncreaseDisplay, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 20, false);
+            var scoreComponent = new SpriteGenericComponent(SpaceGraphics.HealthAsset, score.CentreLocal, score, ObjectEvent.ScoreIncreaseDisplay, scoreCounterComponent, VerticalDrawMethod);
+            score.AddPhysicsComponent(scoreCounterComponent);
+            score.AddGraphicsComponent(scoreComponent);
+            _scoreGameObject = score;
+
+            DisplayLayer.GameObjects.Add(score);
 
             ForegroundLayer.Managers.Add(asteroidManager);
             ForegroundLayer.Managers.Add(enemyManager);
@@ -91,30 +96,39 @@ namespace MonoGame.Game.Space
             GameConstants.GameInstance.ScoreEventHandler += ScoreMilestones;
         }
 
+        private GameObject _scoreGameObject;
+
         private void ScoreMilestones(object sender, ScoreEventArgs scoreEventArgs)
         {
+            if (_scoreGameObject != null)
+            {
+                _scoreGameObject.Event(ObjectEvent.ScoreIncrease);
+            }
             if (scoreEventArgs.Score == 5)
             {
-
                 var enemy = new GameObject(ForegroundLayer, new Vector2(GameConstants.ScreenBoundary.Center.X, 0));
                 enemy.GameType = "Boss";
                 var shipTexture = SpaceGraphics.BossAAsset.First();
                 var enemySprite = new SpriteComponent(shipTexture);
-                var enemyMovement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
+                var enemyMovement = new MovementComponent(0.1f, FaceDirection.Down, new Vector2(0, 1));
                 var enemyBullet = new BulletComponent(enemy, SpaceGraphics.BulletAsset, enemyMovement);
                 var enemyBoundary = new BoundaryComponent(enemy, SpaceGraphics.BoundaryAsset.First(), shipTexture.Width,
                     shipTexture.Height);
-                var enemyInstance = new InstanceComponent(enemy);
                 var enemyTimed = new TimedActionComponent(enemy, ObjectEvent.Fire, 500);
                 var enemyOutOfBounds = new OutOfBoundsComponent(enemy);
-         //       var enemyScore = new ObjectEventComponent(enemy, ObjectEvent.Collision, IncreaseScore);
+
+                var healthCounterComponent = new CounterComponent(enemy, ObjectEvent.Collision, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
+                var healthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset[1], new Vector2(0, 25), false, enemy, ObjectEvent.HealthRemoved, healthCounterComponent);
+
                 enemy.AddGraphicsComponent(enemySprite);
                 enemy.AddPhysicsComponent(enemyMovement);
                 enemy.AddPhysicsComponent(enemyBullet);
                 enemy.AddPhysicsComponent(enemyBoundary);
-                enemy.AddPhysicsComponent(enemyInstance);
                 enemy.AddPhysicsComponent(enemyOutOfBounds);
                 enemy.AddInputComponent(enemyTimed);
+                enemy.AddPhysicsComponent(healthCounterComponent);
+                enemy.AddGraphicsComponent(healthBarComponent);
+
                 ForegroundLayer.GameObjects.Add(enemy);
             }
         }
@@ -133,13 +147,22 @@ namespace MonoGame.Game.Space
 
         private readonly Random _random = new Random();
 
-        private IEnumerable<Vector2> DrawMethod(int requiredValues)
+        private IEnumerable<Vector2> DrawMethod(int requiredValues, int width)
         {
             for (var i = 0; i < requiredValues; i++)
             {
-                var xValue = _random.Next(-5, 5);
-                var yValue = _random.Next(-5, 5);
+                var xValue = _random.Next(-width, width);
+                var yValue = _random.Next(-width, width);
                 yield return new Vector2(xValue, yValue);
+            }
+        }
+
+        private IEnumerable<Vector2> VerticalDrawMethod(int requiredValues, int height)
+        {
+            for (var i = 0; i < requiredValues; i++)
+            {
+                var yValue = height * i;
+                yield return new Vector2(0, yValue);
             }
         }
     }

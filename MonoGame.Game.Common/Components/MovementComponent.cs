@@ -1,16 +1,14 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Enums;
-using MonoGame.Game.Common.Infrastructure;
 using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
 {
     public class MovementComponent : IMonoGameComponent
     {
-        public MovementComponent(int baseSpeed, FaceDirection startFaceDirection, Vector2 direction)
+        public MovementComponent(float baseSpeed, FaceDirection startFaceDirection, Vector2 direction)
         {
             BaseSpeed = baseSpeed;
             FaceDirection = startFaceDirection;
