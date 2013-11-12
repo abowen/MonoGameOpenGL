@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 
 namespace MonoGame.Server
@@ -26,11 +25,17 @@ namespace MonoGame.Server
 
         // Move to mapping?
         public static byte CommandRequestClientId = 1;
+        public static byte CommandSendClientId = 2;
 
         public static byte[] RequestClientId()
         {
             return new byte[] { CommandRequestClientId, 0, 0 };
         }
+
+        public static byte[] SendClientId(byte newId)
+        {            
+            return new byte[] { CommandSendClientId, newId, 0 };
+        }        
     }
 
     public class MessageContent
@@ -42,13 +47,13 @@ namespace MonoGame.Server
             EntityId = bytes[2];
         }
 
-        public byte[] ToBytes
-        {
-            get
-            {
-                return new byte[] { CommandId, ClientId, EntityId };
-            }
-        }
+        //public byte[] ToBytes
+        //{
+        //    get
+        //    {
+        //        return new byte[] { CommandId, ClientId, EntityId };
+        //    }
+        //}
 
         public byte CommandId;
         public byte ClientId;

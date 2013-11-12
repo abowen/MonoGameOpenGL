@@ -20,8 +20,8 @@ namespace MonoGame.Game.Rpg
         public RpgGame(GameWindow window, ContentManager contentManager)
         {
             SpaceGraphics.LoadSpaceContent(contentManager);
-            GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);            
-            
+            GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
+
             Initialize();
         }
 
@@ -30,11 +30,18 @@ namespace MonoGame.Game.Rpg
             // Let the server fire up
             Thread.Sleep(1000);
             var broadcastClient = new BroadcastClient();
-                        
+
             broadcastClient.Send(Message.RequestClientId());
-            while (broadcastClient.MessagesReceived.Any())
+            while (broadcastClient.IsListening)
             {
-                var message = broadcastClient.MessagesReceived.Dequeue();                
+                if (broadcastClient.MessagesReceived.Any())
+                {
+                    var message = broadcastClient.MessagesReceived.Dequeue();
+                    if (message.MessageContent.CommandId == Message.CommandSendClientId)
+                    {
+                        broadcastClient.IsListening = false;
+                    }
+                }
             }
         }
 

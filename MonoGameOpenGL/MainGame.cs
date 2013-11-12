@@ -47,9 +47,7 @@ namespace MonoGameOpenGL
         {            
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new RpgGame(Window, Content);                        
-            
-            
+            _game = new RpgGame(Window, Content);                                                
         }
 
         /// <summary>
