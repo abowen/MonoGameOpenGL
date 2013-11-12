@@ -9,9 +9,7 @@ namespace MonoGame.Server.Rpg
     {
         public Listener()
         {
-            _broadcastClient = new BroadcastClient();
-
-      
+            _broadcastClient = new BroadcastClient();      
         }
 
         private readonly BroadcastClient _broadcastClient;
@@ -24,6 +22,10 @@ namespace MonoGame.Server.Rpg
                 {
                     var message = _broadcastClient.MessagesReceived.Dequeue();                                        
                     Console.WriteLine(message);
+                    if (message.MessageContent.CommandId == Message.CommandRequestClientId)
+                    {
+                        Console.WriteLine("Client Request");
+                    }
                 }
                 Thread.Sleep(10);
             }

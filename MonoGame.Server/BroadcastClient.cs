@@ -55,7 +55,7 @@ namespace MonoGame.Networking
             udpClient.BeginReceive(UdpMessageReceived, udpClient);
             if (udpReceiveEndPoint.Port != LocalPort)
             {
-                MessagesReceived.Enqueue(new Message() { Address = udpReceiveEndPoint.Address, Port = udpReceiveEndPoint.Port, Bytes = receivedBytes });
+                MessagesReceived.Enqueue(new Message(udpReceiveEndPoint.Address, udpReceiveEndPoint.Port, receivedBytes));
             }
         }
 

@@ -48,6 +48,14 @@
       <Project>{bfa0ca76-d587-43f9-85b7-55a52b132fff}</Project>
       <Name>MonoGame.Graphics.Space</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MonoGame.Server.Common\MonoGame.Server.Common.csproj">
+      <Project>{db22c95a-26f9-4359-8874-c0db8ec3b9f0}</Project>
+      <Name>MonoGame.Server.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MonoGame.Server\MonoGame.Server.csproj">
+      <Project>{a4b862cd-d259-4595-8b84-812f1a6a9533}</Project>
+      <Name>MonoGame.Server</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

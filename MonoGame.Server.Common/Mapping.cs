@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MonoGame.Game.Common.Enums;
 
 namespace MonoGame.Server.Common
 {
-    public class Mapping    
+    public class Mapping
     {
         static Mapping()
         {
@@ -11,9 +12,11 @@ namespace MonoGame.Server.Common
             NetworkMapping.Add(InputAction.Down, 2);
             NetworkMapping.Add(InputAction.Left, 3);
             NetworkMapping.Add(InputAction.Right, 4);
-            NetworkMapping.Add(InputAction.Fire, 5);          
-        }                
-        
+            NetworkMapping.Add(InputAction.Fire, 5);
+        }
+
         public static Dictionary<InputAction, byte> NetworkMapping = new Dictionary<InputAction, byte>();
+
+        
     }
 }
