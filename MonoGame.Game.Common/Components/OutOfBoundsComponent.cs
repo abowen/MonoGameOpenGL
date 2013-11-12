@@ -6,7 +6,7 @@ using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
 {
-    public class OutOfBoundsComponent : IMonoGameComponent
+    public class OutOfBoundsComponent : IComponent
     {
         public GameObject Owner { get; set; }
 

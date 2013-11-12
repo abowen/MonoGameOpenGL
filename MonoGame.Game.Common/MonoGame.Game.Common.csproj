@@ -68,7 +68,7 @@
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\GameLayer.cs" />
     <Compile Include="Infrastructure\GameLevel.cs" />
-    <Compile Include="Interfaces\IMonoGameComponent.cs" />
+    <Compile Include="Interfaces\IComponent.cs" />
     <Compile Include="Interfaces\IManager.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Managers\BackgroundManager.cs" />

@@ -7,7 +7,7 @@ using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
 {
-    public class InstanceComponent : IMonoGameComponent
+    public class InstanceComponent : IComponent
     {
         public InstanceComponent(GameObject owner)
         {

@@ -11,7 +11,7 @@ using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
 {
-    public class InputComponent : IMonoGameComponent
+    public class InputComponent : IComponent
     {
         public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, Dictionary<Keys, InputAction> buttonMappings, MovementComponent movementComponent)
         {

@@ -11,6 +11,8 @@
     <RootNamespace>MonoGameOpenGL</RootNamespace>
     <AssemblyName>MonoGameOpenGL</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -22,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -31,6 +34,7 @@
     <DefineConstants>TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
@@ -49,8 +53,14 @@
   <ItemGroup>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MonoGame.Game.Rpg\MonoGame.Game.Rpg.csproj">
+      <Project>{08063c3d-0ee5-445f-a671-9c5ed6a741f6}</Project>
+      <Name>MonoGame.Game.Rpg</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MonoGame.Game.Space\MonoGame.Game.Space.csproj">
       <Project>{2a4aedc5-35cc-4d39-81e6-f9a328521f4e}</Project>
       <Name>MonoGame.Game.Space</Name>

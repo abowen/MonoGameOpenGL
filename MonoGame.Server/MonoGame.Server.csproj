@@ -7,8 +7,8 @@
     <ProjectGuid>{A4B862CD-D259-4595-8B84-812F1A6A9533}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MonoGame.Networking</RootNamespace>
-    <AssemblyName>MonoGame.Networking</AssemblyName>
+    <RootNamespace>MonoGame.Server</RootNamespace>
+    <AssemblyName>MonoGame.Server</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

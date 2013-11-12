@@ -6,7 +6,7 @@ using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
 {
-    public class MovementComponent : IMonoGameComponent
+    public class MovementComponent : IComponent
     {
         public MovementComponent(float baseSpeed, FaceDirection startFaceDirection, Vector2 direction)
         {

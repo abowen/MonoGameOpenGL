@@ -6,7 +6,7 @@ using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
 {
-    public class BoundaryComponent : IMonoGameComponent
+    public class BoundaryComponent : IComponent
     {
         private readonly Texture2D _texture;
         public readonly int Width;

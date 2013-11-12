@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Game.Rpg;
 using MonoGame.Game.Space;
 
 #endregion
@@ -15,7 +16,9 @@ namespace MonoGameOpenGL
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private TopDownGame _topDownGame;
+
+        // TODO: Refactor this to common Interface for a common
+        private RpgGame _game;
         
         public MainGame()
             : base()
@@ -43,8 +46,10 @@ namespace MonoGameOpenGL
         protected override void LoadContent()
         {            
             // Create a new SpriteBatch, which can be used to draw textures.            
-            _spriteBatch = new SpriteBatch(GraphicsDevice);                                    
-            _topDownGame = new TopDownGame(Window, Content);                        
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _game = new RpgGame(Window, Content);                        
+            
+            
         }
 
         /// <summary>
@@ -66,7 +71,7 @@ namespace MonoGameOpenGL
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            _topDownGame.Update(gameTime);
+            _game.Update(gameTime);
             
             base.Update(gameTime);
         }
@@ -83,7 +88,7 @@ namespace MonoGameOpenGL
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-            _topDownGame.Draw(_spriteBatch);
+            _game.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

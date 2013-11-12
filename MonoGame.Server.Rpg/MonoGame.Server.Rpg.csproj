@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2A4AEDC5-35CC-4D39-81E6-F9A328521F4E}</ProjectGuid>
+    <ProjectGuid>{8883EE41-08BA-4EDE-9397-63D803674769}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MonoGame.Game.Space</RootNamespace>
-    <AssemblyName>MonoGame.Game.Space</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>MonoGame.Server.Rpg</RootNamespace>
+    <AssemblyName>MonoGame.Server.Rpg</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,31 +30,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InventoryLevel.cs" />
+    <Compile Include="Listener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpaceLevel.cs" />
-    <Compile Include="TopDown.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonoGame.Game.Common\MonoGame.Game.Common.csproj">
       <Project>{ee193094-b6a8-46c2-9e82-50ac198d3987}</Project>
       <Name>MonoGame.Game.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MonoGame.Game.Rpg\MonoGame.Game.Rpg.csproj">
-      <Project>{08063c3d-0ee5-445f-a671-9c5ed6a741f6}</Project>
-      <Name>MonoGame.Game.Rpg</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MonoGame.Graphics.Space\MonoGame.Graphics.Space.csproj">
-      <Project>{bfa0ca76-d587-43f9-85b7-55a52b132fff}</Project>
-      <Name>MonoGame.Graphics.Space</Name>
+    <ProjectReference Include="..\MonoGame.Server\MonoGame.Server.csproj">
+      <Project>{a4b862cd-d259-4595-8b84-812f1a6a9533}</Project>
+      <Name>MonoGame.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

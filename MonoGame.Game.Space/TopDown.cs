@@ -10,12 +10,12 @@ using MonoGame.Graphics.Space;
 
 namespace MonoGame.Game.Space
 {
-    public class TopDownGame
+    public class TopDown
     {
         protected readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
         private readonly Stopwatch _stopWatch = new Stopwatch();
 
-        public TopDownGame(GameWindow window, ContentManager contentManager)
+        public TopDown(GameWindow window, ContentManager contentManager)
         {
             _stopWatch.Start();
             SpaceGraphics.LoadSpaceContent(contentManager);

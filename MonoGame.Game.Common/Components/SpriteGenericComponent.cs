@@ -12,7 +12,7 @@ using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
 {
-    public class SpriteGenericComponent : IMonoGameComponent
+    public class SpriteGenericComponent : IComponent
     {
         internal Texture2D[] Textures;
         private List<Vector2> _locations;

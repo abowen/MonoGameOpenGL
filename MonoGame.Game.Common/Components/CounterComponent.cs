@@ -7,7 +7,7 @@ using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
 {
-    public class CounterComponent : IMonoGameComponent
+    public class CounterComponent : IComponent
     {
         private readonly ObjectEvent _subscribeEvent;
         private readonly ObjectEvent _publishEvent;

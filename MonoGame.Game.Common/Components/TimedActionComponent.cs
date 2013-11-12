@@ -10,7 +10,7 @@ using MonoGame.Game.Common.Interfaces;
 
 namespace MonoGame.Game.Common.Components
 {
-    public class TimedActionComponent : IMonoGameComponent
+    public class TimedActionComponent : IComponent
     {
         private readonly ObjectEvent _eventTypeRaised;
         private readonly double _intervalMilliseconds;
