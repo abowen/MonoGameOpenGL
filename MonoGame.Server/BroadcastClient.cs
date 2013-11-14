@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using MonoGame.Server;
@@ -74,6 +75,12 @@ namespace MonoGame.Networking
             {
                 udpClient.BeginSend(data, data.Length, endPoint, UdpMessageSent, udpClient);
             }
+        }
+
+        public void Send(int destinationPort, byte[] data)
+        {
+            var endPoint = udpSendEndPoints.First(udp => udp.Port == destinationPort);            
+            udpClient.BeginSend(data, data.Length, endPoint, UdpMessageSent, udpClient);            
         }
 
         private void UdpMessageSent(IAsyncResult asyncResult)

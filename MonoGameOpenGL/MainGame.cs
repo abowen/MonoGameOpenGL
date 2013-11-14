@@ -18,7 +18,7 @@ namespace MonoGameOpenGL
         private SpriteBatch _spriteBatch;
 
         // TODO: Refactor this to common Interface for a common
-        private RpgGame _game;
+        private TopDown _game;
         
         public MainGame()
             : base()
@@ -47,7 +47,7 @@ namespace MonoGameOpenGL
         {            
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new RpgGame(Window, Content);                                                
+            _game = new TopDown(Window, Content);                                                
         }
 
         /// <summary>

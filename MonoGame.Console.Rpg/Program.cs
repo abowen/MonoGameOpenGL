@@ -1,14 +1,14 @@
-﻿using MonoGame.Server.Rpg;
+﻿using MonoGame.Game.Common.Helpers;
+using MonoGame.Server.Rpg;
 
 namespace MonoGame.Console.Rpg
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            // Could be hosted in a service / IIS
-            var listener = new Listener();
-            listener.Listen();
+        static void Main()
+        {            
+            var listener = new UdpController(InputHelper.KeyboardMappedKey(), 15123);
+            listener.Run();            
         }
     }
 }

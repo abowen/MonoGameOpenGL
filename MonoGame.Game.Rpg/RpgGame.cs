@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Game.Common.Infrastructure;
 using Microsoft.Xna.Framework;
+using MonoGame.Game.Space;
 using MonoGame.Graphics.Space;
 using MonoGame.Networking;
 using MonoGame.Server;
-using MonoGame.Server.Common;
 
 namespace MonoGame.Game.Rpg
 {
@@ -21,14 +20,13 @@ namespace MonoGame.Game.Rpg
         {
             SpaceGraphics.LoadSpaceContent(contentManager);
             GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
-
+            var worldLevel = new WorldLevel();
+            Levels.Push(worldLevel);
             Initialize();
         }
 
         private void Initialize()
-        {
-            // Let the server fire up
-            Thread.Sleep(1000);
+        {            
             var broadcastClient = new BroadcastClient();
 
             broadcastClient.Send(Message.RequestClientId());

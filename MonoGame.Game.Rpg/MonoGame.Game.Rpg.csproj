@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RpgGame.cs" />
+    <Compile Include="WorldLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonoGame.Game.Common\MonoGame.Game.Common.csproj">
