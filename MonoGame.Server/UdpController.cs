@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoGame.Server
 {
-    public class UdpController : Microsoft.Xna.Framework.Game
+    public class UdpController : Game
     {
         public UdpController(int serverPort, Func<IEnumerable<Keys>, IEnumerable<byte>> keysPressedMappingFunc)
         {
@@ -34,7 +34,8 @@ namespace MonoGame.Server
 
         private void SendUpdate(params byte[] items)
         {
-            _broadcastClient.Send(_serverPort, items);
+            //_broadcastClient.Send(_serverPort, items);
+            _broadcastClient.Send(items);
         }
 
         public void BroadcastInputs()

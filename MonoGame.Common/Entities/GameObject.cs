@@ -38,6 +38,8 @@ namespace MonoGame.Common.Entities
             component.Owner = this;
         }
 
+    
+
         public event EventHandler<ObjectEventArgs> ObjectEvent;
 
         public void Event(ObjectEvent action)

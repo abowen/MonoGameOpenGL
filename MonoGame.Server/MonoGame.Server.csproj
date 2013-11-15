@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BroadcastClient.cs" />
+    <Compile Include="INetworkComponent.cs" />
     <Compile Include="INetworkGame.cs" />
     <Compile Include="InputNetworkComponent.cs" />
     <Compile Include="NetworkMessage.cs" />

@@ -16,6 +16,7 @@ namespace MonoGame.Common.Presets
             return InputHelper.MapBytesToKeys(BasicKeyboardKeys, returnedBytes);
         }
 
+        // TODO: Could make this Dynamic but including the ASCII in the byte
         public static IEnumerable<Keys> BasicKeyboardKeys = new List<Keys>
         {
             Keys.Left,

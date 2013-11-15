@@ -13,15 +13,15 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Server
 {
-    public class InputNetworkComponent : IComponent, INetworkGame
+    public class InputNetworkComponent : IComponent, INetworkComponent
     {
-        public InputNetworkComponent(int listeningPort, Func<NetworkMessage, IEnumerable<Keys>> networkMessageEncoding, Dictionary<Keys, InputAction> keyboardMapping, Dictionary<Keys, InputAction> buttonMapping, MovementComponent movementComponent)
+        public InputNetworkComponent(Func<IEnumerable<byte>, IEnumerable<Keys>> networkMessageEncoding, Dictionary<Keys, InputAction> keyboardMapping, Dictionary<Keys, InputAction> buttonMapping, MovementComponent movementComponent)
         {
             _keyboardMappings = keyboardMapping;
             _buttonMappings = buttonMapping;
             
             Contract.Assert(movementComponent != null, "InputComponent has a dependency on the MovementComponent");
-            _listeningPort = listeningPort;
+          //  _listeningPort = listeningPort;
             _networkMessageEncoding = networkMessageEncoding;
             _movementComponent = movementComponent;
         }
@@ -29,9 +29,9 @@ namespace MonoGame.Server
         private readonly Dictionary<Keys, InputAction> _keyboardMappings;
         private readonly Dictionary<Keys, InputAction> _buttonMappings;
         private readonly int _listeningPort;
-        private readonly Func<NetworkMessage, IEnumerable<Keys>> _networkMessageEncoding;
+        private readonly Func<IEnumerable<byte>, IEnumerable<Keys>> _networkMessageEncoding;
         private readonly MovementComponent _movementComponent;
-        private IEnumerable<Keys> _lastKnownKeys;
+        private IEnumerable<Keys> _lastKnownKeys = new List<Keys>();
 
         public GameObject Owner { get; set; }
 
@@ -66,9 +66,9 @@ namespace MonoGame.Server
             
         }
 
-        public void UpdateNetwork(NetworkMessage message)
+        public void Update(NetworkMessage message)
         {
-            _lastKnownKeys = _networkMessageEncoding(message);
+            _lastKnownKeys = _networkMessageEncoding(message.Bytes);
         }
     }
 }
