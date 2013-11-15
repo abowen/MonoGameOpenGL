@@ -2,11 +2,11 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Game.Common.Entities;
-using MonoGame.Game.Common.Enums;
-using MonoGameOpenGL.Interfaces;
+using MonoGame.Common.Entities;
+using MonoGame.Common.Enums;
+using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Game.Common.Infrastructure
+namespace MonoGame.Common.Infrastructure
 {
     /// <summary>
     /// GameLayer represents a single environment

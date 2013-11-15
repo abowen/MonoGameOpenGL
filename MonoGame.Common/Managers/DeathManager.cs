@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Game.Common.Entities;
-using MonoGame.Game.Common.Enums;
-using MonoGame.Game.Common.Infrastructure;
+using MonoGame.Common.Entities;
+using MonoGame.Common.Enums;
+using MonoGame.Common.Infrastructure;
 
-namespace MonoGame.Game.Common.Managers
+namespace MonoGame.Common.Managers
 {
     public class DeathManager
     {

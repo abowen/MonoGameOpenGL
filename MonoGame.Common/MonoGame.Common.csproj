@@ -78,6 +78,7 @@
     <Compile Include="Managers\DeathManager.cs" />
     <Compile Include="Managers\EnemyManager.cs" />
     <Compile Include="Data\DataConvertHelper.cs" />
+    <Compile Include="Presets\KeyboardPresets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

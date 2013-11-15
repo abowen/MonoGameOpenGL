@@ -4,12 +4,12 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Game.Common.Entities;
-using MonoGame.Game.Common.Enums;
-using MonoGame.Game.Common.Helpers;
-using MonoGame.Game.Common.Interfaces;
+using MonoGame.Common.Entities;
+using MonoGame.Common.Enums;
+using MonoGame.Common.Helpers;
+using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Game.Common.Components
+namespace MonoGame.Common.Components
 {
     public class InputComponent : IComponent
     {

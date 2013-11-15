@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using Microsoft.Xna.Framework;
-using MonoGame.Game.Common.Components;
-using MonoGame.Game.Common.Entities;
-using MonoGame.Game.Common.Enums;
-using MonoGame.Game.Common.Helpers;
-using MonoGame.Game.Common.Infrastructure;
+using MonoGame.Common.Components;
+using MonoGame.Common.Entities;
+using MonoGame.Common.Enums;
+using MonoGame.Common.Helpers;
+using MonoGame.Common.Infrastructure;
 using MonoGame.Graphics.Space;
 using MonoGame.Server;
 
@@ -35,11 +35,11 @@ namespace MonoGame.Game.Rpg
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
             // Refactor to listen to network events
-            var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
+            //var playerInputComponent = new InputNetworkComponent(15234, , , null, playerMovementComponent);
                         
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);
-            player.AddInputComponent(playerInputComponent);
+            //player.AddInputComponent(playerInputComponent);
             
             ForegroundLayer.GameObjects.Add(player);
         }

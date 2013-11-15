@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MonoGame.Game.Common.Events
+namespace MonoGame.Common.Events
 {
     public class ScoreEventArgs : EventArgs
     {

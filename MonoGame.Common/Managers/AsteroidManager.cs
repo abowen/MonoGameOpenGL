@@ -2,14 +2,14 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Game.Common.Components;
-using MonoGame.Game.Common.Entities;
-using MonoGame.Game.Common.Enums;
-using MonoGame.Game.Common.Infrastructure;
+using MonoGame.Common.Components;
+using MonoGame.Common.Entities;
+using MonoGame.Common.Enums;
+using MonoGame.Common.Infrastructure;
+using MonoGame.Common.Interfaces;
 using MonoGame.Graphics.Space;
-using MonoGameOpenGL.Interfaces;
 
-namespace MonoGame.Game.Common.Managers
+namespace MonoGame.Common.Managers
 {
     public class AsteroidManager : IManager
     {

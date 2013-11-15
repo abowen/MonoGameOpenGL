@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Game.Common.Enums;
-using MonoGame.Game.Common.Extensions;
-using MonoGame.Game.Common.Helpers;
-using MonoGame.Game.Common.Infrastructure;
-using MonoGame.Game.Common.Interfaces;
+using MonoGame.Common.Enums;
+using MonoGame.Common.Extensions;
+using MonoGame.Common.Helpers;
+using MonoGame.Common.Infrastructure;
 
-namespace MonoGame.Game.Common.Entities
+namespace MonoGame.Common.Entities
 {
     abstract public class Sprite
     {

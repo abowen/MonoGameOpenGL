@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Game.Common.Entities;
-using MonoGame.Game.Common.Infrastructure;
-using MonoGame.Game.Common.Interfaces;
+using MonoGame.Common.Entities;
+using MonoGame.Common.Infrastructure;
+using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Game.Common.Components
+namespace MonoGame.Common.Components
 {
     public class BoundaryComponent : IComponent
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using MonoGame.Game.Common.Enums;
+using MonoGame.Common.Enums;
 
-namespace MonoGame.Game.Common.Events
+namespace MonoGame.Common.Events
 {
     public class ObjectEventArgs : EventArgs
     {

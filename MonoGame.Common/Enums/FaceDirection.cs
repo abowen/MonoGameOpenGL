@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MonoGame.Game.Common.Enums
+namespace MonoGame.Common.Enums
 {    
     [Flags]
     public enum FaceDirection

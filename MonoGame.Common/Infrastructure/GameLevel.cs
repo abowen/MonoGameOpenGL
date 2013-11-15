@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Game.Common.Enums;
+using MonoGame.Common.Enums;
 
-namespace MonoGame.Game.Common.Infrastructure
+namespace MonoGame.Common.Infrastructure
 {
     // Could be renamed to GameScreen
     public abstract class GameLevel 

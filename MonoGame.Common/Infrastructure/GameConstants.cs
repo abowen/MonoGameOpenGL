@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using MonoGame.Game.Common.Events;
+using MonoGame.Common.Events;
 
-namespace MonoGame.Game.Common.Infrastructure
+namespace MonoGame.Common.Infrastructure
 {
     public static class GameConstants
     {

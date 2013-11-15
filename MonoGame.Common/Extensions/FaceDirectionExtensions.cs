@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using MonoGame.Game.Common.Enums;
+using MonoGame.Common.Enums;
 
-namespace MonoGame.Game.Common.Extensions
+namespace MonoGame.Common.Extensions
 {
     public static class FaceDirectionExtensions
     {

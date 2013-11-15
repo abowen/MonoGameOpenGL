@@ -41,13 +41,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KeyboardUDP.cs" />
+    <Compile Include="KeyboardUdp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MonoGame.Common\MonoGame.Common.csproj">
+      <Project>{ee193094-b6a8-46c2-9e82-50ac198d3987}</Project>
+      <Name>MonoGame.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MonoGame.Game.Rpg\MonoGame.Game.Rpg.csproj">
       <Project>{08063C3D-0EE5-445F-A671-9C5ED6A741F6}</Project>
       <Name>MonoGame.Game.Rpg</Name>

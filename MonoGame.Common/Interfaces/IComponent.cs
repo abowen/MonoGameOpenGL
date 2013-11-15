@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Game.Common.Entities;
+using MonoGame.Common.Entities;
 
-namespace MonoGame.Game.Common.Interfaces
+namespace MonoGame.Common.Interfaces
 {
     public interface IComponent : IGameComponent
     {

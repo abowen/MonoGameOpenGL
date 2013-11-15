@@ -1,4 +1,4 @@
-﻿using MonoGame.Game.Common.Infrastructure;
+﻿using MonoGame.Common.Infrastructure;
 
 namespace MonoGame.Game.Space
 {

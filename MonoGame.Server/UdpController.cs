@@ -9,12 +9,12 @@ namespace MonoGame.Server
 {
     public class UdpController : Microsoft.Xna.Framework.Game
     {
-        public UdpController(int serverPort, Func<IEnumerable<Keys>, IEnumerable<byte>> keyboardMappingsFunc)
+        public UdpController(int serverPort, Func<IEnumerable<Keys>, IEnumerable<byte>> keysPressedMappingFunc)
         {
             _graphics = new GraphicsDeviceManager(this);            
             
             _serverPort = serverPort;
-            _keyboardMappingsFunc = keyboardMappingsFunc;
+            _keysPressedMappingFunc = keysPressedMappingFunc;
             _broadcastClient = new BroadcastClient();            
         }        
 
@@ -22,7 +22,7 @@ namespace MonoGame.Server
         private SpriteBatch _spriteBatch;
         private readonly BroadcastClient _broadcastClient;
         private readonly int _serverPort;
-        private readonly Func<IEnumerable<Keys>, IEnumerable<byte>> _keyboardMappingsFunc;
+        private readonly Func<IEnumerable<Keys>, IEnumerable<byte>> _keysPressedMappingFunc;
 
         public bool IsListening
         {
@@ -40,7 +40,7 @@ namespace MonoGame.Server
         public void BroadcastInputs()
         {
             var keysPressed = Keyboard.GetState().GetPressedKeys();
-            var bytes = _keyboardMappingsFunc(keysPressed);
+            var bytes = _keysPressedMappingFunc(keysPressed);
             SendUpdate(bytes.ToArray());
 
             _broadcastClient.IsListening = !keysPressed.Contains(Keys.Escape);

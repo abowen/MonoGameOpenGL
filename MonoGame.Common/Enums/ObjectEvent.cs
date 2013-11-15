@@ -1,4 +1,4 @@
-﻿namespace MonoGame.Game.Common.Enums
+﻿namespace MonoGame.Common.Enums
 {
     public enum ObjectEvent
     {

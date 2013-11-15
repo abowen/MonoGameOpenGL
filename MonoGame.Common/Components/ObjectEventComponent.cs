@@ -1,10 +1,10 @@
 ﻿using System;
-using MonoGame.Game.Common.Entities;
-using MonoGame.Game.Common.Enums;
-using MonoGame.Game.Common.Events;
-using MonoGame.Game.Common.Interfaces;
+using MonoGame.Common.Entities;
+using MonoGame.Common.Enums;
+using MonoGame.Common.Events;
+using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Game.Common.Components
+namespace MonoGame.Common.Components
 {
     public class ObjectEventComponent : IComponent
     {

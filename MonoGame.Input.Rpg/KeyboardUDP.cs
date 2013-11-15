@@ -1,4 +1,4 @@
-﻿using MonoGame.Game.Rpg;
+﻿using MonoGame.Common.Presets;
 using MonoGame.Server;
 
 namespace MonoGame.Input.Rpg
@@ -7,8 +7,8 @@ namespace MonoGame.Input.Rpg
     {
         static void Main()
         {
-            var listener = new UdpController(15123, KeyboardMapping.ConvertKeysToBytes);
+            var listener = new UdpController(15123, KeyboardPresets.BasicKeyboardMapping);
             listener.Run();            
-        }      
+        }
     }
 }

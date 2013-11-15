@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Game.Common.Enums;
+using MonoGame.Common.Data;
+using MonoGame.Common.Enums;
 
-namespace MonoGame.Game.Common.Helpers
+namespace MonoGame.Common.Helpers
 {
     public static class InputHelper
     {
@@ -41,7 +44,7 @@ namespace MonoGame.Game.Common.Helpers
         }
 
         private static Vector2 Direction(InputAction inputAction, Vector2 direction)
-        {            
+        {
             switch (inputAction)
             {
                 case InputAction.Up:
@@ -88,6 +91,32 @@ namespace MonoGame.Game.Common.Helpers
                 {Buttons.RightTrigger, InputAction.Fire}
             };
             return dictionary;
+        }
+
+        public static IEnumerable<byte> MapKeysToBytes(IEnumerable<Keys> keysOrder, IEnumerable<Keys> pressedKeys)
+        {
+            return keysOrder
+                .Select(pressedKeys.Contains)
+                .Select(DataConvertHelper.ConvertBoolToByte);
+        }
+
+        public static IEnumerable<Keys> MapBytesToKeys(IEnumerable<Keys> keysOrder, IEnumerable<byte> returnBytes)
+        {
+            var byteArray = returnBytes.ToArray();
+            var keyArray = keysOrder.ToArray();
+            if (keyArray.Count() != byteArray.Count())
+            {
+                throw new Exception("Incorrect parameters");
+            }
+            for (var index = 0; index < keyArray.Count(); index++)
+            {
+                var returnedByte = byteArray[index];
+                var pressed = returnedByte == 255;
+                if (pressed)
+                {
+                    yield return keyArray[index];
+                }
+            }
         }
     }
 }

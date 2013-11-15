@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using MonoGame.Game.Common.Components;
-using MonoGame.Game.Common.Entities;
-using MonoGame.Game.Common.Enums;
-using MonoGame.Game.Common.Events;
-using MonoGame.Game.Common.Helpers;
-using MonoGame.Game.Common.Infrastructure;
-using MonoGame.Game.Common.Managers;
+using MonoGame.Common.Components;
+using MonoGame.Common.Entities;
+using MonoGame.Common.Enums;
+using MonoGame.Common.Events;
+using MonoGame.Common.Helpers;
+using MonoGame.Common.Infrastructure;
+using MonoGame.Common.Managers;
 using MonoGame.Graphics.Space;
 
 namespace MonoGame.Game.Space
