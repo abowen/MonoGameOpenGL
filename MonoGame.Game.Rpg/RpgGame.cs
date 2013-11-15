@@ -1,41 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Common.Interfaces;
 using MonoGame.Game.Common.Infrastructure;
 using Microsoft.Xna.Framework;
-using MonoGame.Game.Space;
 using MonoGame.Graphics.Space;
-using MonoGame.Networking;
 using MonoGame.Server;
 
 namespace MonoGame.Game.Rpg
 {
-    public class RpgGame
+    public class RpgGame : INetworkGame, IGame
     {
+        private readonly SpriteBatch _spriteBatch;
         protected readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
 
-        public RpgGame(GameWindow window, ContentManager contentManager)
+
+        public RpgGame(GameWindow window, ContentManager contentManager, SpriteBatch spriteBatch)
         {
+            _spriteBatch = spriteBatch;
             SpaceGraphics.LoadSpaceContent(contentManager);
             GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
+
             var worldLevel = new WorldLevel();
             Levels.Push(worldLevel);
-            Initialize();
-        }
-
-        private void Initialize()
-        {            
-            var broadcastClient = new BroadcastClient();
-            
-            while (broadcastClient.IsListening)
-            {
-                if (broadcastClient.MessagesReceived.Any())
-                {
-                    
-                }
-            }
         }
 
         protected GameLevel ActiveGameLevel
@@ -54,11 +43,20 @@ namespace MonoGame.Game.Rpg
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void UpdateNetwork(NetworkMessage message)
+        {
+            var networkUpdate = ActiveGameLevel as INetworkGame;
+            if (networkUpdate != null)
+            {
+                networkUpdate.UpdateNetwork(message);
+            }
+        }
+
+        public void Draw(GameTime gameTime)
         {
             if (ActiveGameLevel != null)
             {
-                ActiveGameLevel.Draw(spriteBatch);
+                ActiveGameLevel.Draw(_spriteBatch);
             }
         }
     }

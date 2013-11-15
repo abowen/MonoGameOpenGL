@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Common.Data;
 using MonoGame.Game.Common.Helpers;
-using MonoGame.Game.Common.Networking;
 
 namespace MonoGame.Game.Rpg
 {

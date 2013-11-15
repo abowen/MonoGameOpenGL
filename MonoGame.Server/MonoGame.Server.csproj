@@ -45,9 +45,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BroadcastClient.cs" />
-    <Compile Include="Message.cs" />
+    <Compile Include="INetworkGame.cs" />
+    <Compile Include="InputNetworkComponent.cs" />
+    <Compile Include="NetworkMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UdpController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MonoGame.Common\MonoGame.Common.csproj">
+      <Project>{ee193094-b6a8-46c2-9e82-50ac198d3987}</Project>
+      <Name>MonoGame.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

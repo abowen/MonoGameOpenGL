@@ -3,9 +3,9 @@ using System.Net;
 
 namespace MonoGame.Server
 {
-    public class Message
+    public class NetworkMessage
     {
-        public Message(IPAddress address, int port, byte[] bytes)
+        public NetworkMessage(IPAddress address, int port, byte[] bytes)
         {
             Address = address;
             Port = port;

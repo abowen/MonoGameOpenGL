@@ -7,8 +7,8 @@
     <ProjectGuid>{EE193094-B6A8-46C2-9E82-50AC198D3987}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MonoGame.Game.Common</RootNamespace>
-    <AssemblyName>MonoGame.Game.Common</AssemblyName>
+    <RootNamespace>MonoGame.Common</RootNamespace>
+    <AssemblyName>MonoGame.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -69,12 +69,15 @@
     <Compile Include="Infrastructure\GameLayer.cs" />
     <Compile Include="Infrastructure\GameLevel.cs" />
     <Compile Include="Interfaces\IComponent.cs" />
+    <Compile Include="Interfaces\IDrawableSimple.cs" />
+    <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IManager.cs" />
+    <Compile Include="Interfaces\IUpdateableSimple.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Managers\BackgroundManager.cs" />
     <Compile Include="Managers\DeathManager.cs" />
     <Compile Include="Managers\EnemyManager.cs" />
-    <Compile Include="Networking\DataConvertHelper.cs" />
+    <Compile Include="Data\DataConvertHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

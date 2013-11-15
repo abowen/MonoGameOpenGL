@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.Contracts;
 
-namespace MonoGame.Game.Common.Networking
+namespace MonoGame.Common.Data
 {
     public class DataConvertHelper
     {

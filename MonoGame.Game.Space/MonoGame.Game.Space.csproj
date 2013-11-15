@@ -45,9 +45,9 @@
     <Compile Include="TopDown.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MonoGame.Game.Common\MonoGame.Game.Common.csproj">
+    <ProjectReference Include="..\MonoGame.Common\MonoGame.Common.csproj">
       <Project>{ee193094-b6a8-46c2-9e82-50ac198d3987}</Project>
-      <Name>MonoGame.Game.Common</Name>
+      <Name>MonoGame.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\MonoGame.Game.Rpg\MonoGame.Game.Rpg.csproj">
       <Project>{08063c3d-0ee5-445f-a671-9c5ed6a741f6}</Project>

@@ -1,7 +1,7 @@
 ﻿using MonoGame.Game.Rpg;
 using MonoGame.Server;
 
-namespace MonoGame.Console.Rpg
+namespace MonoGame.Input.Rpg
 {
     class KeyboardUdp
     {

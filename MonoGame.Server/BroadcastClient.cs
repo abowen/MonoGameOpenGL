@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using MonoGame.Server;
 
-namespace MonoGame.Networking
+namespace MonoGame.Server
 {
     public class BroadcastClient
     {
@@ -16,7 +15,7 @@ namespace MonoGame.Networking
         private List<IPEndPoint> udpSendEndPoints;
         public int LocalPort;
         public bool IsListening = false;
-        public Queue<Message> MessagesReceived = new Queue<Message>();
+        public Queue<NetworkMessage> MessagesReceived = new Queue<NetworkMessage>();
 
         public BroadcastClient()
         {
@@ -56,7 +55,7 @@ namespace MonoGame.Networking
             udpClient.BeginReceive(UdpMessageReceived, udpClient);
             if (udpReceiveEndPoint.Port != LocalPort)
             {
-                MessagesReceived.Enqueue(new Message(udpReceiveEndPoint.Address, udpReceiveEndPoint.Port, receivedBytes));
+                MessagesReceived.Enqueue(new NetworkMessage(udpReceiveEndPoint.Address, udpReceiveEndPoint.Port, receivedBytes));
             }
         }
 

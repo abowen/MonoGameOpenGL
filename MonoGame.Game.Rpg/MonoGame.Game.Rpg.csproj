@@ -42,9 +42,9 @@
     <Compile Include="WorldLevel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MonoGame.Game.Common\MonoGame.Game.Common.csproj">
+    <ProjectReference Include="..\MonoGame.Common\MonoGame.Common.csproj">
       <Project>{ee193094-b6a8-46c2-9e82-50ac198d3987}</Project>
-      <Name>MonoGame.Game.Common</Name>
+      <Name>MonoGame.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\MonoGame.Graphics.Space\MonoGame.Graphics.Space.csproj">
       <Project>{bfa0ca76-d587-43f9-85b7-55a52b132fff}</Project>

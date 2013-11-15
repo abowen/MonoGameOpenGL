@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Game.Common.Components;
 using MonoGame.Game.Common.Entities;
 using MonoGame.Game.Common.Enums;
-using MonoGame.Game.Common.Events;
 using MonoGame.Game.Common.Helpers;
 using MonoGame.Game.Common.Infrastructure;
-using MonoGame.Game.Common.Managers;
 using MonoGame.Graphics.Space;
+using MonoGame.Server;
 
-namespace MonoGame.Game.Space
+namespace MonoGame.Game.Rpg
 {
-    public class WorldLevel : GameLevel
+    public class WorldLevel : GameLevel,  INetworkGame
     {
         protected override void LoadBackground()
         {
@@ -37,15 +34,19 @@ namespace MonoGame.Game.Space
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
-            // TODO: Refactor to listen to network
+            // Refactor to listen to network events
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
-
-
+                        
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);
             player.AddInputComponent(playerInputComponent);
             
             ForegroundLayer.GameObjects.Add(player);
-        }        
+        }
+
+        public void UpdateNetwork(NetworkMessage message)
+        {
+            // Send message to any networked components
+        }
     }
 }

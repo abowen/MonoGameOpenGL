@@ -1,9 +1,12 @@
 ﻿#region Using Statements
+
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Common.Interfaces;
 using MonoGame.Game.Rpg;
-using MonoGame.Game.Space;
+using MonoGame.Server;
 
 #endregion
 
@@ -16,17 +19,33 @@ namespace MonoGameOpenGL
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
-        // TODO: Refactor this to common Interface for a common
-        private TopDown _game;
+        private BroadcastClient _broadcastClient;
         
+        private IGame _game;
+
+        private INetworkGame NetworkGame
+        {
+            get
+            {
+                return _game as INetworkGame;
+            }
+        }
+
+        private bool IsNetworkGame 
+        {
+            get
+            {
+                return NetworkGame != null;
+            }
+        }
+
         public MainGame()
             : base()
         {
-            _graphics = new GraphicsDeviceManager(this);            
+            _graphics = new GraphicsDeviceManager(this);           
         }
 
-      
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -34,7 +53,7 @@ namespace MonoGameOpenGL
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
-        {            
+        {
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -44,10 +63,14 @@ namespace MonoGameOpenGL
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
-        {            
+        {
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new TopDown(Window, Content);                                                
+            _game = new RpgGame(Window, Content, _spriteBatch);
+            if (IsNetworkGame)
+            {
+                _broadcastClient = new BroadcastClient();
+            }
         }
 
         /// <summary>
@@ -70,12 +93,20 @@ namespace MonoGameOpenGL
                 Exit();
 
             _game.Update(gameTime);
-            
+
+            if (IsNetworkGame)
+            {
+                while (_broadcastClient.MessagesReceived.Any())
+                {
+                    NetworkGame.UpdateNetwork(_broadcastClient.MessagesReceived.Dequeue());
+                }
+            }
+
             base.Update(gameTime);
         }
 
         private int frames;
-        private double timeElapsedMilliseconds;        
+        private double timeElapsedMilliseconds;
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -86,7 +117,7 @@ namespace MonoGameOpenGL
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-            _game.Draw(_spriteBatch);
+            _game.Draw(gameTime);
             _spriteBatch.End();
 
             base.Draw(gameTime);

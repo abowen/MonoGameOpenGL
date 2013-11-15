@@ -4,11 +4,10 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Networking;
 
 namespace MonoGame.Server
 {
-    public class UdpController : Game
+    public class UdpController : Microsoft.Xna.Framework.Game
     {
         public UdpController(int serverPort, Func<IEnumerable<Keys>, IEnumerable<byte>> keyboardMappingsFunc)
         {
