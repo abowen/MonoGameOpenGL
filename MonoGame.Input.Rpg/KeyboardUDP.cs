@@ -7,7 +7,7 @@ namespace MonoGame.Input.Rpg
     {
         static void Main()
         {
-            var listener = new UdpController(15123, KeyboardPresets.BasicKeyboardMapping);
+            var listener = new UdpController(15123, 1, KeyboardPresets.BasicKeyboardMapping);
             listener.Run();            
         }
     }

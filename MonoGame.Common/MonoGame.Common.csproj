@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Components\BulletComponent.cs" />
     <Compile Include="Components\BoundaryComponent.cs" />
+    <Compile Include="Components\LocalKeyboardComponent.cs" />
     <Compile Include="Components\ObjectEventComponent.cs" />
     <Compile Include="Components\SpriteGenericComponent.cs" />
     <Compile Include="Components\CounterComponent.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Interfaces\IComponent.cs" />
     <Compile Include="Interfaces\IDrawableSimple.cs" />
     <Compile Include="Interfaces\IGame.cs" />
+    <Compile Include="Interfaces\IKeyboardOutput.cs" />
     <Compile Include="Interfaces\IManager.cs" />
     <Compile Include="Interfaces\IUpdateableSimple.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />

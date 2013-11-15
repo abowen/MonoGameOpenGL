@@ -9,11 +9,12 @@ namespace MonoGame.Server
 {
     public class UdpController : Game
     {
-        public UdpController(int serverPort, Func<IEnumerable<Keys>, IEnumerable<byte>> keysPressedMappingFunc)
+        public UdpController(int serverPort, int controllerId, Func<IEnumerable<Keys>, IEnumerable<byte>> keysPressedMappingFunc)
         {
             _graphics = new GraphicsDeviceManager(this);            
             
             _serverPort = serverPort;
+            _controllerId = controllerId;
             _keysPressedMappingFunc = keysPressedMappingFunc;
             _broadcastClient = new BroadcastClient();            
         }        
@@ -22,6 +23,7 @@ namespace MonoGame.Server
         private SpriteBatch _spriteBatch;
         private readonly BroadcastClient _broadcastClient;
         private readonly int _serverPort;
+        private readonly int _controllerId;
         private readonly Func<IEnumerable<Keys>, IEnumerable<byte>> _keysPressedMappingFunc;
 
         public bool IsListening
@@ -34,6 +36,8 @@ namespace MonoGame.Server
 
         private void SendUpdate(params byte[] items)
         {
+            // TODO: Append / Prefix ControllerId
+            // TODO: Send to app.config server port / ip
             //_broadcastClient.Send(_serverPort, items);
             _broadcastClient.Send(items);
         }

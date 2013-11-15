@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -38,16 +39,19 @@ namespace MonoGame.Game.Rpg
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
             // Refactor to listen to network events
-            var playerInputComponent = new InputNetworkComponent(KeyboardPresets.BasicReverseKeyboardMapping, InputHelper.KeyboardMappedKey(), null, playerMovementComponent);
+            var networkKeyboardComponent = new NetworkKeyboardComponent(KeyboardPresets.BasicReverseKeyboardMapping);
+            var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent,
+                networkKeyboardComponent);
                         
             player.AddGraphicsComponent(playerSpriteComponent);
             player.AddPhysicsComponent(playerMovementComponent);
+            player.AddInputComponent(networkKeyboardComponent);
             player.AddInputComponent(playerInputComponent);
             
             ForegroundLayer.GameObjects.Add(player);
 
             // TODO: Refactor this out, similar to AddGraphicsComponent
-            _networkComponents.Add(playerInputComponent);
+            _networkComponents.Add(networkKeyboardComponent);
         }
 
         private readonly List<INetworkComponent> _networkComponents = new List<INetworkComponent>();
