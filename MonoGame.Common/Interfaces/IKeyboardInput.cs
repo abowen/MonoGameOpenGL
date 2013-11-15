@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoGame.Common.Interfaces
 {
-    public interface IKeyboardOuput
+    public interface IKeyboardInput
     {
         IEnumerable<Keys> PressedKeys { get; }
     }

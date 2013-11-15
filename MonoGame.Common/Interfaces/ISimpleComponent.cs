@@ -4,7 +4,7 @@ using MonoGame.Common.Entities;
 
 namespace MonoGame.Common.Interfaces
 {
-    public interface IComponent : IGameComponent
+    public interface ISimpleComponent : IGameComponent
     {
         GameObject Owner { get; set; }        
     }

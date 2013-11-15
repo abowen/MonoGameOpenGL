@@ -11,9 +11,9 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class InputComponent : IComponent
+    public class InputComponent : ISimpleComponent
     {
-        public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, Dictionary<Keys, InputAction> buttonMappings, MovementComponent movementComponent, IKeyboardOuput keyboardInput)
+        public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, Dictionary<Keys, InputAction> buttonMappings, MovementComponent movementComponent, IKeyboardInput keyboardInput)
         {
             _keyboardMappings = keyboardMappings;
             _buttonMappings = buttonMappings;
@@ -26,7 +26,7 @@ namespace MonoGame.Common.Components
         private readonly Dictionary<Keys, InputAction> _keyboardMappings;
         private readonly Dictionary<Keys, InputAction> _buttonMappings;
         private readonly MovementComponent _movementComponent;
-        private readonly IKeyboardOuput _keyboardInput;
+        private readonly IKeyboardInput _keyboardInput;
 
         public GameObject Owner { get; set; }
 

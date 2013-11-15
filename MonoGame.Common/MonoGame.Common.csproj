@@ -69,12 +69,12 @@
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\GameLayer.cs" />
     <Compile Include="Infrastructure\GameLevel.cs" />
-    <Compile Include="Interfaces\IComponent.cs" />
-    <Compile Include="Interfaces\IDrawableSimple.cs" />
+    <Compile Include="Interfaces\ISimpleComponent.cs" />
+    <Compile Include="Interfaces\ISimpleDrawable.cs" />
     <Compile Include="Interfaces\IGame.cs" />
-    <Compile Include="Interfaces\IKeyboardOutput.cs" />
+    <Compile Include="Interfaces\IKeyboardInput.cs" />
     <Compile Include="Interfaces\IManager.cs" />
-    <Compile Include="Interfaces\IUpdateableSimple.cs" />
+    <Compile Include="Interfaces\ISimpleUpdateable.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Managers\BackgroundManager.cs" />
     <Compile Include="Managers\DeathManager.cs" />

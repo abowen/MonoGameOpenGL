@@ -13,26 +13,26 @@ namespace MonoGame.Common.Entities
 {
     public class GameObject
     {
-        private readonly List<IComponent> InputComponents = new List<IComponent>();
-        private readonly List<IComponent> PhysicsComponents = new List<IComponent>();
-        private readonly List<IComponent> GraphicsComponents = new List<IComponent>();
+        private readonly List<ISimpleComponent> InputComponents = new List<ISimpleComponent>();
+        private readonly List<ISimpleComponent> PhysicsComponents = new List<ISimpleComponent>();
+        private readonly List<ISimpleComponent> GraphicsComponents = new List<ISimpleComponent>();
         public readonly GameLayer GameLayer;
 
         public string GameType { get; set; }
 
-        public void AddInputComponent(IComponent component)
+        public void AddInputComponent(ISimpleComponent component)
         {
             InputComponents.Add(component);
             component.Owner = this;
         }
 
-        public void AddPhysicsComponent(IComponent component)
+        public void AddPhysicsComponent(ISimpleComponent component)
         {
             PhysicsComponents.Add(component);
             component.Owner = this;
         }
 
-        public void AddGraphicsComponent(IComponent component)
+        public void AddGraphicsComponent(ISimpleComponent component)
         {
             GraphicsComponents.Add(component);
             component.Owner = this;

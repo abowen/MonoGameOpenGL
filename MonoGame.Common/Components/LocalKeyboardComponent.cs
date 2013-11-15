@@ -10,7 +10,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class LocalKeyboardComponent : IComponent, IKeyboardOuput
+    public class LocalKeyboardComponent : ISimpleComponent, IKeyboardInput
     {
         public LocalKeyboardComponent(GameObject owner)
         {

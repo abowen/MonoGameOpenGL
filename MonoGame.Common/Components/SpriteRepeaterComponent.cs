@@ -7,7 +7,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class SpriteRepeaterComponent : IComponent
+    public class SpriteRepeaterComponent : ISimpleComponent
     {
         internal Texture2D Texture;
         private readonly Vector2 _relativeLocation;

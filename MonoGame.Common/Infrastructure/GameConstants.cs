@@ -22,7 +22,7 @@ namespace MonoGame.Common.Infrastructure
             _score++;
             if (ScoreEventHandler != null)
             {
-                ScoreEventHandler.Invoke(this, new ScoreEventArgs() { Score = _score });
+                ScoreEventHandler.Invoke(this, new ScoreEventArgs { Score = _score });
             }
         }
 

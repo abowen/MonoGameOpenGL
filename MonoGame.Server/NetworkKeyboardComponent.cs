@@ -8,7 +8,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Server
 {
-    public class NetworkKeyboardComponent : IComponent, INetworkComponent, IKeyboardOuput
+    public class NetworkKeyboardComponent : ISimpleComponent, INetworkComponent, IKeyboardInput
     {
         public NetworkKeyboardComponent(Func<IEnumerable<byte>, IEnumerable<Keys>> networkMessageEncoding)
         {

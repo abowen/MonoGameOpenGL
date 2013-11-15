@@ -10,7 +10,7 @@ using MonoGame.Graphics.Space;
 
 namespace MonoGame.Common.Components
 {
-    public class BulletComponent : IComponent
+    public class BulletComponent : ISimpleComponent
     {
         private readonly Texture2D[] _texture2D;
         private readonly MovementComponent _movementComponent;

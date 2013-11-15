@@ -5,7 +5,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class SpriteComponent : IComponent
+    public class SpriteComponent : ISimpleComponent
     {
         internal Texture2D Texture;
         private readonly Vector2 _relativeLocation;

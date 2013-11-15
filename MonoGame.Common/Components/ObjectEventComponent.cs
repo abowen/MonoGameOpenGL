@@ -6,7 +6,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class ObjectEventComponent : IComponent
+    public class ObjectEventComponent : ISimpleComponent
     {
         private readonly ObjectEvent _subscribeEvent;
         private readonly Action<GameObject> _action;

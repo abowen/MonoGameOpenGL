@@ -10,7 +10,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class HealthComponent : IComponent
+    public class HealthComponent : ISimpleComponent
     {
         private readonly GameLayer _gameLayer;
         private readonly List<Health> _lives = new List<Health>();        
