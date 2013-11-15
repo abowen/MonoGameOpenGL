@@ -6,17 +6,20 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Infrastructure;
+using MonoGame.Common.Interfaces;
 using MonoGame.Graphics.Space;
 
 namespace MonoGame.Game.Space
 {
-    public class TopDown
+    public class TopDown : IGame
     {
+        private readonly SpriteBatch _spriteBatch;
         protected readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
         private readonly Stopwatch _stopWatch = new Stopwatch();
 
-        public TopDown(GameWindow window, ContentManager contentManager)
+        public TopDown(GameWindow window, ContentManager contentManager, SpriteBatch spriteBatch)
         {
+            _spriteBatch = spriteBatch;
             _stopWatch.Start();
             SpaceGraphics.LoadSpaceContent(contentManager);
             GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
@@ -50,9 +53,9 @@ namespace MonoGame.Game.Space
             ActiveGameLevel.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime spriteBatch)
         {
-            ActiveGameLevel.Draw(spriteBatch);
+            ActiveGameLevel.Draw(_spriteBatch);
         }
     }
 }

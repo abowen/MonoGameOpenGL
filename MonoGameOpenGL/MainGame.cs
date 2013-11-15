@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Interfaces;
 using MonoGame.Game.Rpg;
+using MonoGame.Game.Space;
 using MonoGame.Server;
 
 #endregion
@@ -66,7 +67,7 @@ namespace MonoGameOpenGL
         {
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new RpgGame(Window, Content, _spriteBatch);
+            _game = new TopDown(Window, Content, _spriteBatch);
             if (IsNetworkGame)
             {
                 _broadcastClient = new BroadcastClient();

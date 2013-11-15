@@ -55,6 +55,7 @@
     <Compile Include="Components\SpriteComponent.cs" />
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Events\ScoreEventArgs.cs" />
+    <Compile Include="Helpers\SpriteReader.cs" />
     <Compile Include="Infrastructure\GameConstants.cs" />
     <Compile Include="Entities\Health.cs" />
     <Compile Include="Entities\Sprite.cs" />

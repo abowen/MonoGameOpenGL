@@ -8,6 +8,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Server
 {
+    // TODO: Remove ISimpleComponent aspect
     public class NetworkKeyboardComponent : ISimpleComponent, INetworkComponent, IKeyboardInput
     {
         public NetworkKeyboardComponent(Func<IEnumerable<byte>, IEnumerable<Keys>> networkMessageEncoding)
