@@ -8,7 +8,7 @@ namespace MonoGame.Game.Common.Helpers
 {
     public static class InputHelper
     {
-        public static Vector2 DirectionFromMapping(Keys[] keys, Dictionary<Keys, InputAction> mapping)
+        public static Vector2 DirectionFromMapping(IEnumerable<Keys> keys, Dictionary<Keys, InputAction> mapping)
         {
             Contract.Assert(keys != null, "Failed to pass input parameter");
 
@@ -24,7 +24,7 @@ namespace MonoGame.Game.Common.Helpers
             return direction;
         }
 
-        public static Vector2 DirectionFromMapping(Buttons[] keys, Dictionary<Buttons, InputAction> mapping)
+        public static Vector2 DirectionFromMapping(IEnumerable<Buttons> keys, Dictionary<Buttons, InputAction> mapping)
         {
             Contract.Assert(keys != null, "Failed to pass input parameter");
 

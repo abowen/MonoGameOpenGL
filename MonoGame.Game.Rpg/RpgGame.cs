@@ -28,17 +28,12 @@ namespace MonoGame.Game.Rpg
         private void Initialize()
         {            
             var broadcastClient = new BroadcastClient();
-
-            broadcastClient.Send(Message.RequestClientId());
+            
             while (broadcastClient.IsListening)
             {
                 if (broadcastClient.MessagesReceived.Any())
                 {
-                    var message = broadcastClient.MessagesReceived.Dequeue();
-                    if (message.MessageContent.CommandId == Message.CommandSendClientId)
-                    {
-                        broadcastClient.IsListening = false;
-                    }
+                    
                 }
             }
         }
