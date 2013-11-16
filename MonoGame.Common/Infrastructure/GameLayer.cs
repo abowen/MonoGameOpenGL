@@ -16,7 +16,6 @@ namespace MonoGame.Common.Infrastructure
     public class GameLayer : ISimpleDrawable, ISimpleUpdateable, ISimpleNetworking
     {
         public readonly GameLayerDepth GameLayerDepth;
-        public readonly List<Sprite> GameEntities = new List<Sprite>();
         public readonly List<IManager> Managers = new List<IManager>();
         public readonly List<GameObject> GameObjects = new List<GameObject>();
 
@@ -28,8 +27,6 @@ namespace MonoGame.Common.Infrastructure
         public void Update(GameTime gameTime)
         {
             GameObjects.ForEach(s => s.Update(gameTime));
-            GameEntities.ForEach(s => s.Update(gameTime));
-            GameEntities.RemoveAll(s => s.IsRemoved);
             Managers.ForEach(s => s.Update(gameTime));
 
             // Collision Manager
@@ -53,7 +50,6 @@ namespace MonoGame.Common.Infrastructure
         public void Draw(SpriteBatch spriteBatch, GameTime gametime)
         {
             GameObjects.ForEach(s => s.Draw(spriteBatch, gametime));
-            GameEntities.ForEach(s => s.Draw(spriteBatch));
         }
 
         public void Update(NetworkMessage message)

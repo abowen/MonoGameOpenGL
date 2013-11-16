@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Common.Components;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Infrastructure;
@@ -37,13 +38,21 @@ namespace MonoGame.Common.Managers
                 var isMajorItem = _random.Next(0, 100) == 1;
                 if (isMajorItem)
                 {                    
-                    var item = new StaticSprite(GetRandomTexture(_majorTextures), new Vector2(x, 0), FaceDirection.Down, _gameLayer);
-                    _gameLayer.GameEntities.Add(item);
+                    var star = new GameObject("World", _gameLayer, new Vector2(x, 0));
+                    var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
+                    var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures));
+                    star.AddComponent(movementComponent);
+                    star.AddComponent(spriteComponent);
+                    _gameLayer.GameObjects.Add(star);
                 }
                 else
                 {
-                    var planet = new StaticSprite(GetRandomTexture(_minorTextures), new Vector2(x, 0), FaceDirection.Down, _gameLayer);
-                    _gameLayer.GameEntities.Add(planet);
+                    var star = new GameObject("Star", _gameLayer, new Vector2(x, 0));
+                    var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
+                    var spriteComponent = new SpriteComponent(GetRandomTexture(_minorTextures));
+                    star.AddComponent(movementComponent);
+                    star.AddComponent(spriteComponent);
+                    _gameLayer.GameObjects.Add(star);
                 }
             }
         }

@@ -7,11 +7,11 @@ namespace MonoGame.Common.Components
 {
     public class MovementComponent : ISimpleComponent, ISimpleUpdateable
     {
-        public MovementComponent(float baseSpeed, FaceDirection startFaceDirection, Vector2 direction)
+        public MovementComponent(float baseSpeed, FaceDirection startFaceDirection, Vector2 movementDirection)
         {
             BaseSpeed = baseSpeed;
             FaceDirection = startFaceDirection;
-            Direction = direction;
+            Direction = movementDirection;
         }
 
         /// <summary>

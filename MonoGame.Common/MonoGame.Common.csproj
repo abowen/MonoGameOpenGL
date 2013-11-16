@@ -49,7 +49,6 @@
     <Compile Include="Components\OutOfBoundsComponent.cs" />
     <Compile Include="Components\SpriteRepeaterComponent.cs" />
     <Compile Include="Components\InstanceComponent.cs" />
-    <Compile Include="Components\HealthComponent.cs" />
     <Compile Include="Components\InputComponent.cs" />
     <Compile Include="Components\MovementComponent.cs" />
     <Compile Include="Components\TimedActionComponent.cs" />
@@ -58,10 +57,6 @@
     <Compile Include="Events\ScoreEventArgs.cs" />
     <Compile Include="Helpers\SpriteReader.cs" />
     <Compile Include="Infrastructure\GameConstants.cs" />
-    <Compile Include="Entities\Health.cs" />
-    <Compile Include="Entities\Sprite.cs" />
-    <Compile Include="Entities\StaticSprite.cs" />
-    <Compile Include="Entities\TimedSprite.cs" />
     <Compile Include="Enums\GameLayerDepth.cs" />
     <Compile Include="Enums\ObjectEvent.cs" />
     <Compile Include="Enums\FaceDirection.cs" />
@@ -80,7 +75,6 @@
     <Compile Include="Interfaces\ISimpleUpdateable.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Managers\BackgroundManager.cs" />
-    <Compile Include="Managers\DeathManager.cs" />
     <Compile Include="Managers\EnemyManager.cs" />
     <Compile Include="Data\DataConvertHelper.cs" />
     <Compile Include="Networking\NetworkMessage.cs" />
