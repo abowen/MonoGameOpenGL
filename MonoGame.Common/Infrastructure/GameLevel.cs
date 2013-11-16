@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Enums;
+using MonoGame.Common.Interfaces;
+using MonoGame.Common.Networking;
 
 namespace MonoGame.Common.Infrastructure
 {
-    // Could be renamed to GameScreen
-    public abstract class GameLevel 
+    public abstract class GameLevel : ISimpleDrawable, ISimpleUpdateable, ISimpleNetworking
     {
         protected GameLevel()
         {
@@ -31,6 +32,13 @@ namespace MonoGame.Common.Infrastructure
             BackgroundLayer.Draw(spriteBatch, gametime);
             ForegroundLayer.Draw(spriteBatch, gametime);
             DisplayLayer.Draw(spriteBatch, gametime);
+        }
+
+        public void Update(NetworkMessage networkMessage)
+        {
+            ForegroundLayer.Update(networkMessage);
+            BackgroundLayer.Update(networkMessage);
+            DisplayLayer.Update(networkMessage);
         }
 
         protected abstract void LoadForeground();

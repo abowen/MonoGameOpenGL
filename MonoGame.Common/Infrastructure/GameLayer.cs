@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Interfaces;
+using MonoGame.Common.Networking;
 
 namespace MonoGame.Common.Infrastructure
 {
@@ -12,7 +13,7 @@ namespace MonoGame.Common.Infrastructure
     /// GameLayer represents a single environment
     /// e.g. Shop, world map, fighting arena
     /// </summary>
-    public class GameLayer : ISimpleDrawable, ISimpleUpdateable
+    public class GameLayer : ISimpleDrawable, ISimpleUpdateable, ISimpleNetworking
     {
         public readonly GameLayerDepth GameLayerDepth;
         public readonly List<Sprite> GameEntities = new List<Sprite>();
@@ -53,6 +54,11 @@ namespace MonoGame.Common.Infrastructure
         {
             GameObjects.ForEach(s => s.Draw(spriteBatch, gametime));
             GameEntities.ForEach(s => s.Draw(spriteBatch));
+        }
+
+        public void Update(NetworkMessage message)
+        {
+            GameObjects.ForEach(s => s.Update(message));
         }
     }
 

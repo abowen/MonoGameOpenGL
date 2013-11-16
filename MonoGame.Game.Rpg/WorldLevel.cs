@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Common.Components;
 using MonoGame.Common.Entities;
@@ -10,11 +7,10 @@ using MonoGame.Common.Helpers;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Presets;
 using MonoGame.Graphics.Space;
-using MonoGame.Server;
 
 namespace MonoGame.Game.Rpg
 {
-    public class WorldLevel : GameLevel,  INetworkGame
+    public class WorldLevel : GameLevel
     {
         protected override void LoadBackground()
         {
@@ -46,18 +42,9 @@ namespace MonoGame.Game.Rpg
             player.AddComponent(playerMovementComponent);
             player.AddComponent(networkKeyboardComponent);
             player.AddComponent(playerInputComponent);
-            
+            player.AddComponent(networkKeyboardComponent);
             ForegroundLayer.GameObjects.Add(player);
 
-            // TODO: Refactor this out, similar to AddGraphicsComponent
-            _networkComponents.Add(networkKeyboardComponent);
-        }
-
-        private readonly List<INetworkComponent> _networkComponents = new List<INetworkComponent>();
-
-        public void UpdateNetwork(NetworkMessage message)
-        {
-            _networkComponents.ForEach(nc => nc.Update(message));
         }
     }
 }

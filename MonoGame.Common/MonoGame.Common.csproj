@@ -42,6 +42,7 @@
     <Compile Include="Components\BulletComponent.cs" />
     <Compile Include="Components\BoundaryComponent.cs" />
     <Compile Include="Components\LocalKeyboardComponent.cs" />
+    <Compile Include="Components\NetworkKeyboardComponent.cs" />
     <Compile Include="Components\ObjectEventComponent.cs" />
     <Compile Include="Components\SpriteGenericComponent.cs" />
     <Compile Include="Components\CounterComponent.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\GameLayer.cs" />
     <Compile Include="Infrastructure\GameLevel.cs" />
+    <Compile Include="Interfaces\ISimpleNetworking.cs" />
     <Compile Include="Interfaces\ISimpleComponent.cs" />
     <Compile Include="Interfaces\ISimpleDrawable.cs" />
     <Compile Include="Interfaces\ISimpleGame.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Managers\DeathManager.cs" />
     <Compile Include="Managers\EnemyManager.cs" />
     <Compile Include="Data\DataConvertHelper.cs" />
+    <Compile Include="Networking\NetworkMessage.cs" />
     <Compile Include="Presets\KeyboardPresets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

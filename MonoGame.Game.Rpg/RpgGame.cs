@@ -5,12 +5,13 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
 using Microsoft.Xna.Framework;
+using MonoGame.Common.Networking;
 using MonoGame.Graphics.Space;
 using MonoGame.Server;
 
 namespace MonoGame.Game.Rpg
 {
-    public class RpgGame : INetworkGame, ISimpleGame
+    public class RpgGame : ISimpleNetworking, ISimpleGame
     {        
         protected readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
 
@@ -39,12 +40,12 @@ namespace MonoGame.Game.Rpg
             }
         }
 
-        public void UpdateNetwork(NetworkMessage message)
+        public void Update(NetworkMessage message)
         {
-            var networkUpdate = ActiveGameLevel as INetworkGame;
+            var networkUpdate = ActiveGameLevel as ISimpleNetworking;
             if (networkUpdate != null)
             {
-                networkUpdate.UpdateNetwork(message);
+                networkUpdate.Update(message);
             }
         }
 

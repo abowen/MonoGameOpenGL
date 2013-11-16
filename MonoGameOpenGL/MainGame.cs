@@ -24,11 +24,11 @@ namespace MonoGameOpenGL
         
         private ISimpleGame _game;
 
-        private INetworkGame NetworkGame
+        private ISimpleNetworking NetworkGame
         {
             get
             {
-                return _game as INetworkGame;
+                return _game as ISimpleNetworking;
             }
         }
 
@@ -67,7 +67,7 @@ namespace MonoGameOpenGL
         {
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new TopDown(Window, Content);
+            _game = new RpgGame(Window, Content);
             if (IsNetworkGame)
             {
                 _broadcastClient = new BroadcastClient();
@@ -99,7 +99,7 @@ namespace MonoGameOpenGL
             {
                 while (_broadcastClient.MessagesReceived.Any())
                 {
-                    NetworkGame.UpdateNetwork(_broadcastClient.MessagesReceived.Dequeue());
+                    NetworkGame.Update(_broadcastClient.MessagesReceived.Dequeue());
                 }
             }
 

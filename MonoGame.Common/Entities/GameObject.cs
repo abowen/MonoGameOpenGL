@@ -8,14 +8,16 @@ using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
+using MonoGame.Common.Networking;
 
 namespace MonoGame.Common.Entities
 {
-    public class GameObject
+    public class GameObject: ISimpleDrawable, ISimpleNetworking, ISimpleUpdateable
     {
         private readonly List<ISimpleComponent> _components = new List<ISimpleComponent>();
         private readonly List<ISimpleUpdateable> _updateableComponents = new List<ISimpleUpdateable>();
         private readonly List<ISimpleDrawable> _drawableComponents = new List<ISimpleDrawable>();
+        private readonly List<ISimpleNetworking> _networkingComponents = new List<ISimpleNetworking>(); 
         
         public readonly GameLayer GameLayer;
         public string GameType { get; private set; }
@@ -30,6 +32,10 @@ namespace MonoGame.Common.Entities
             if (component is ISimpleDrawable)
             {
                 _drawableComponents.Add(component as ISimpleDrawable);
+            }
+            if (component is ISimpleNetworking)
+            {
+                _networkingComponents.Add(component as ISimpleNetworking);
             }
             component.Owner = this;
         }
@@ -150,6 +156,11 @@ namespace MonoGame.Common.Entities
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             _drawableComponents.ForEach(c => c.Draw(spriteBatch, gameTime));
+        }
+
+        public virtual void Update(NetworkMessage networkMessage)
+        {
+            _networkingComponents.ForEach(c => c.Update(networkMessage));
         }
 
         public override string ToString()
