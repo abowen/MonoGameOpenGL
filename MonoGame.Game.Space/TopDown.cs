@@ -51,9 +51,9 @@ namespace MonoGame.Game.Space
             ActiveGameLevel.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            ActiveGameLevel.Draw(spriteBatch, gameTime);
+            ActiveGameLevel.Draw(spriteBatch);
         }
     }
 }

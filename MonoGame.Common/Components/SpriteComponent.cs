@@ -34,7 +34,7 @@ namespace MonoGame.Common.Components
             _relativeLocation = relativeLocation;
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, Color.White);
         }   

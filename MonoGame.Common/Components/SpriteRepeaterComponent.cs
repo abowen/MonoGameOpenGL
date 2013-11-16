@@ -66,7 +66,7 @@ namespace MonoGame.Common.Components
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch)
         {
             for (var count = 0; count < _currentValue; count++)
             {

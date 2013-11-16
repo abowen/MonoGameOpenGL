@@ -26,12 +26,12 @@ namespace MonoGame.Common.Infrastructure
             DisplayLayer.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gametime)
+        public void Draw(SpriteBatch spriteBatch)
         {
             // Draw the furthest to start with
-            BackgroundLayer.Draw(spriteBatch, gametime);
-            ForegroundLayer.Draw(spriteBatch, gametime);
-            DisplayLayer.Draw(spriteBatch, gametime);
+            BackgroundLayer.Draw(spriteBatch);
+            ForegroundLayer.Draw(spriteBatch);
+            DisplayLayer.Draw(spriteBatch);
         }
 
         public void Update(NetworkMessage networkMessage)

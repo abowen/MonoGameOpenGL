@@ -47,9 +47,9 @@ namespace MonoGame.Common.Infrastructure
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gametime)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            GameObjects.ForEach(s => s.Draw(spriteBatch, gametime));
+            GameObjects.ForEach(s => s.Draw(spriteBatch));
         }
 
         public void Update(NetworkMessage message)

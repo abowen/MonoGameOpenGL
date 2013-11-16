@@ -22,7 +22,7 @@ namespace MonoGame.Common.Components
 
         public GameObject Owner { get; set; }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch)
         {
             if (GameConstants.ShowObjectBoundary)
             {

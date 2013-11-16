@@ -67,7 +67,7 @@ namespace MonoGameOpenGL
         {
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new TopDown(Window, Content);
+            _game = new RpgGame(Window, Content);
             if (IsNetworkGame)
             {
                 _broadcastClient = new BroadcastClient();
@@ -118,7 +118,7 @@ namespace MonoGameOpenGL
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-            _game.Draw(_spriteBatch, gameTime);
+            _game.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

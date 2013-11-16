@@ -59,7 +59,7 @@ namespace MonoGame.Common.Components
         private double _elapsedTimeSpan = 0;
         private double _spriteRefresh = 250;
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch)
         {
             var index = (int) (_elapsedTimeSpan/_spriteRefresh);
             var texture = Textures[index];

@@ -153,9 +153,9 @@ namespace MonoGame.Common.Entities
             _updateableComponents.ForEach(c => c.Update(gameTime));
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            _drawableComponents.ForEach(c => c.Draw(spriteBatch, gameTime));
+            _drawableComponents.ForEach(c => c.Draw(spriteBatch));
         }
 
         public virtual void Update(NetworkMessage networkMessage)
