@@ -44,13 +44,13 @@ namespace MonoGame.Common.Components
                 {
                     if (_isDescending)
                     {
-                        CurrentValue--;                        
+                        CurrentValue--;
                     }
                     else
                     {
                         CurrentValue++;
                     }
-                     Owner.Event(_publishEvent);
+                    Owner.Event(_publishEvent);
                 }
                 else
                 {
@@ -62,16 +62,6 @@ namespace MonoGame.Common.Components
                 CurrentValue = _startValue;
                 Owner.Event(_publishEvent);
             }
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-
-        }
-
-        public void Update(GameTime gameTime)
-        {
-
         }
     }
 }

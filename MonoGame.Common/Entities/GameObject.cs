@@ -13,32 +13,26 @@ namespace MonoGame.Common.Entities
 {
     public class GameObject
     {
-        private readonly List<ISimpleComponent> InputComponents = new List<ISimpleComponent>();
-        private readonly List<ISimpleComponent> PhysicsComponents = new List<ISimpleComponent>();
-        private readonly List<ISimpleComponent> GraphicsComponents = new List<ISimpleComponent>();
+        private readonly List<ISimpleComponent> _components = new List<ISimpleComponent>();
+        private readonly List<ISimpleUpdateable> _updateableComponents = new List<ISimpleUpdateable>();
+        private readonly List<ISimpleDrawable> _drawableComponents = new List<ISimpleDrawable>();
+        
         public readonly GameLayer GameLayer;
+        public string GameType { get; private set; }
 
-        public string GameType { get; set; }
-
-        public void AddInputComponent(ISimpleComponent component)
+        public void AddComponent(ISimpleComponent component)
         {
-            InputComponents.Add(component);
+            _components.Add(component);
+            if (component is ISimpleUpdateable)
+            {
+                _updateableComponents.Add(component as ISimpleUpdateable);
+            }
+            if (component is ISimpleDrawable)
+            {
+                _drawableComponents.Add(component as ISimpleDrawable);
+            }
             component.Owner = this;
         }
-
-        public void AddPhysicsComponent(ISimpleComponent component)
-        {
-            PhysicsComponents.Add(component);
-            component.Owner = this;
-        }
-
-        public void AddGraphicsComponent(ISimpleComponent component)
-        {
-            GraphicsComponents.Add(component);
-            component.Owner = this;
-        }
-
-    
 
         public event EventHandler<ObjectEventArgs> ObjectEvent;
 
@@ -50,8 +44,9 @@ namespace MonoGame.Common.Entities
             }
         }
 
-        public GameObject(GameLayer gameLayer, Vector2 topLeftLocation)
+        public GameObject(string typeName, GameLayer gameLayer, Vector2 topLeftLocation)
         {
+            GameType = typeName;
             GameLayer = gameLayer;
             TopLeft = topLeftLocation;
         }
@@ -132,7 +127,7 @@ namespace MonoGame.Common.Entities
             {
                 if (_boundaryComponent == null)
                 {
-                    var item = PhysicsComponents.FirstOrDefault(c => c.GetType() == typeof(BoundaryComponent)) as BoundaryComponent;
+                    var item = _components.FirstOrDefault(c => c.GetType() == typeof(BoundaryComponent)) as BoundaryComponent;
                     _boundaryComponent = item;
                 }
                 return _boundaryComponent;
@@ -147,23 +142,14 @@ namespace MonoGame.Common.Entities
             }
         }
 
-
-
-
         public virtual void Update(GameTime gameTime)
         {
-            InputComponents.ForEach(c => c.Update(gameTime));
-            PhysicsComponents.ForEach(c => c.Update(gameTime));
-            GraphicsComponents.ForEach(c => c.Update(gameTime));
+            _updateableComponents.ForEach(c => c.Update(gameTime));
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            GraphicsComponents.ForEach(c => c.Draw(spriteBatch));
-            if (GameConstants.ShowObjectBoundary)
-            {
-                PhysicsComponents.ForEach(c => c.Draw(spriteBatch));
-            }
+            _drawableComponents.ForEach(c => c.Draw(spriteBatch, gameTime));
         }
 
         public override string ToString()

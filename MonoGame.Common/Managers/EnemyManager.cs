@@ -44,8 +44,7 @@ namespace MonoGame.Common.Managers
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);
 
-                var enemy = new GameObject(_gameLayer, new Vector2(xLocation, 0));
-                enemy.GameType = "Enemy";
+                var enemy = new GameObject("Enemy", _gameLayer, new Vector2(xLocation, 0));                
                 var enemySprite = new SpriteComponent(_shipTexture);
                 var enemyMovement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
                 var enemyBullet = new BulletComponent(enemy, SpaceGraphics.BulletAsset, enemyMovement);
@@ -55,18 +54,19 @@ namespace MonoGame.Common.Managers
                 var enemyTimed = new TimedActionComponent(enemy, ObjectEvent.Fire, _bulletDelayMilliseconds);
                 var enemyOutOfBounds = new OutOfBoundsComponent(enemy);
                 var enemyScore = new ObjectEventComponent(enemy, ObjectEvent.Collision, IncreaseScore);
-                enemy.AddGraphicsComponent(enemySprite);
-                enemy.AddPhysicsComponent(enemyMovement);
-                enemy.AddPhysicsComponent(enemyBullet);
-                enemy.AddPhysicsComponent(enemyBoundary);
-                enemy.AddPhysicsComponent(enemyInstance);
-                enemy.AddPhysicsComponent(enemyOutOfBounds);
-                enemy.AddInputComponent(enemyTimed);
+                enemy.AddComponent(enemySprite);
+                enemy.AddComponent(enemyMovement);
+                enemy.AddComponent(enemyBullet);
+                enemy.AddComponent(enemyBoundary);
+                enemy.AddComponent(enemyInstance);
+                enemy.AddComponent(enemyOutOfBounds);
+                enemy.AddComponent(enemyTimed);
+                enemy.AddComponent(enemyScore);
                 _gameLayer.GameObjects.Add(enemy);
             }
         }
 
-        private void IncreaseScore(GameObject gameObject)
+        private static void IncreaseScore(GameObject gameObject)
         {
             GameConstants.GameInstance.UpdateScore();
         }

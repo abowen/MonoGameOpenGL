@@ -12,13 +12,12 @@ namespace MonoGame.Common.Infrastructure
     /// GameLayer represents a single environment
     /// e.g. Shop, world map, fighting arena
     /// </summary>
-    public class GameLayer
+    public class GameLayer : ISimpleDrawable, ISimpleUpdateable
     {
         public readonly GameLayerDepth GameLayerDepth;
         public readonly List<Sprite> GameEntities = new List<Sprite>();
         public readonly List<IManager> Managers = new List<IManager>();
         public readonly List<GameObject> GameObjects = new List<GameObject>();
-
 
         public GameLayer(GameLayerDepth gameLayerDepth)
         {
@@ -50,9 +49,9 @@ namespace MonoGame.Common.Infrastructure
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gametime)
         {
-            GameObjects.ForEach(s => s.Draw(spriteBatch));
+            GameObjects.ForEach(s => s.Draw(spriteBatch, gametime));
             GameEntities.ForEach(s => s.Draw(spriteBatch));
         }
     }

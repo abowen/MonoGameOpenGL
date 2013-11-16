@@ -40,8 +40,7 @@ namespace MonoGame.Game.Space
             var playerStartPosition = new Vector2(xCentre, yCentre + 50);
 
             // TODO: Refactor this into BuilderPattern
-            var player = new GameObject(ForegroundLayer, playerStartPosition);
-            player.GameType = "Player";
+            var player = new GameObject("Player", ForegroundLayer, playerStartPosition);            
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
@@ -51,7 +50,7 @@ namespace MonoGame.Game.Space
             //var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
             //    DisplayLayer);
             var playerBoundaryComponent = new BoundaryComponent(player, SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
-            player.AddPhysicsComponent(playerBoundaryComponent);
+            player.AddComponent(playerBoundaryComponent);
 
             var playerHealthCounterComponent = new CounterComponent(player, ObjectEvent.Collision, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
             var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), false, player, ObjectEvent.HealthRemoved, playerHealthCounterComponent);
@@ -66,27 +65,26 @@ namespace MonoGame.Game.Space
             var playerEventComponent = new ObjectEventComponent(player, ObjectEvent.HealthEmpty, PlayerDeath);
             // player.ObjectEvent += PlayerOnObjectEvent;
 
-            player.AddGraphicsComponent(playerSpriteComponent);
-            player.AddPhysicsComponent(playerMovementComponent);
-            player.AddInputComponent(playerInputComponent);
-            player.AddInputComponent(playerBulletComponent);
-            player.AddPhysicsComponent(playerHealthCounterComponent);
-            player.AddGraphicsComponent(playerHealthBarComponent);
-            player.AddPhysicsComponent(playerAmmoCounterComponent);
-            player.AddGraphicsComponent(playerAmmoBarComponent);
-            player.AddPhysicsComponent(playerFireCounterComponent);
-            player.AddGraphicsComponent(playerWoodFireComponent);
-            player.AddPhysicsComponent(playerEventComponent);
+            player.AddComponent(playerSpriteComponent);
+            player.AddComponent(playerMovementComponent);
+            player.AddComponent(playerInputComponent);
+            player.AddComponent(playerBulletComponent);
+            player.AddComponent(playerHealthCounterComponent);
+            player.AddComponent(playerHealthBarComponent);
+            player.AddComponent(playerAmmoCounterComponent);
+            player.AddComponent(playerAmmoBarComponent);
+            player.AddComponent(playerFireCounterComponent);
+            player.AddComponent(playerWoodFireComponent);
+            player.AddComponent(playerEventComponent);
 
             ForegroundLayer.GameObjects.Add(player);
 
             // TODO: Move scoring to use global space and per player
-            var score = new GameObject(DisplayLayer, new Vector2(10, 10));
-            score.GameType = "Score";
+            var score = new GameObject("Score", DisplayLayer, new Vector2(10, 10));            
             var scoreCounterComponent = new CounterComponent(score, ObjectEvent.ScoreIncrease, ObjectEvent.ScoreIncreaseDisplay, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 20, false);
             var scoreComponent = new SpriteGenericComponent(SpaceGraphics.HealthAsset, score.CentreLocal, score, ObjectEvent.ScoreIncreaseDisplay, scoreCounterComponent, VerticalDrawMethod);
-            score.AddPhysicsComponent(scoreCounterComponent);
-            score.AddGraphicsComponent(scoreComponent);
+            score.AddComponent(scoreCounterComponent);
+            score.AddComponent(scoreComponent);
             _scoreGameObject = score;
 
             DisplayLayer.GameObjects.Add(score);
@@ -107,8 +105,7 @@ namespace MonoGame.Game.Space
             }
             if (scoreEventArgs.Score == 5)
             {
-                var enemy = new GameObject(ForegroundLayer, new Vector2(GameConstants.ScreenBoundary.Center.X, 0));
-                enemy.GameType = "Boss";
+                var enemy = new GameObject("Boss", ForegroundLayer, new Vector2(GameConstants.ScreenBoundary.Center.X, 0));                
                 var shipTexture = SpaceGraphics.BossAAsset.First();
                 var enemySprite = new SpriteComponent(shipTexture);
                 var enemyMovement = new MovementComponent(0.1f, FaceDirection.Down, new Vector2(0, 1));
@@ -121,14 +118,14 @@ namespace MonoGame.Game.Space
                 var healthCounterComponent = new CounterComponent(enemy, ObjectEvent.Collision, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
                 var healthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset[1], new Vector2(0, 25), false, enemy, ObjectEvent.HealthRemoved, healthCounterComponent);
 
-                enemy.AddGraphicsComponent(enemySprite);
-                enemy.AddPhysicsComponent(enemyMovement);
-                enemy.AddPhysicsComponent(enemyBullet);
-                enemy.AddPhysicsComponent(enemyBoundary);
-                enemy.AddPhysicsComponent(enemyOutOfBounds);
-                enemy.AddInputComponent(enemyTimed);
-                enemy.AddPhysicsComponent(healthCounterComponent);
-                enemy.AddGraphicsComponent(healthBarComponent);
+                enemy.AddComponent(enemySprite);
+                enemy.AddComponent(enemyMovement);
+                enemy.AddComponent(enemyBullet);
+                enemy.AddComponent(enemyBoundary);
+                enemy.AddComponent(enemyOutOfBounds);
+                enemy.AddComponent(enemyTimed);
+                enemy.AddComponent(healthCounterComponent);
+                enemy.AddComponent(healthBarComponent);
 
                 ForegroundLayer.GameObjects.Add(enemy);
             }
@@ -139,9 +136,9 @@ namespace MonoGame.Game.Space
             // Could be moved into the component instead of action?
             // Or maybe set a flag on game object that other components respond to?
             gameObject.RemoveGameObject();
-            var death = new GameObject(ForegroundLayer, gameObject.TopLeft);
+            var death = new GameObject("Death", ForegroundLayer, gameObject.TopLeft);
             var deathSprite = new SpriteComponent(SpaceGraphics.PlanetAsset[3]);
-            death.AddGraphicsComponent(deathSprite);
+            death.AddComponent(deathSprite);
             ForegroundLayer.GameObjects.Add(death);
         }
 

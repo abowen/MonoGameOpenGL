@@ -10,7 +10,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class SpriteGenericComponent : ISimpleComponent
+    public class SpriteGenericComponent : ISimpleComponent, ISimpleDrawable, ISimpleUpdateable
     {
         internal Texture2D[] Textures;
         private List<Vector2> _locations;
@@ -25,7 +25,6 @@ namespace MonoGame.Common.Components
         public int Height { get; private set; }
 
         public GameObject Owner { get; set; }
-
 
         public SpriteGenericComponent(Texture2D[] textures, Vector2 relativeLocation, GameObject owner, ObjectEvent subscribeEvent, CounterComponent counterComponent, Func<int, int, IEnumerable<Vector2>> drawMethod)
         {
@@ -60,7 +59,7 @@ namespace MonoGame.Common.Components
         private double _elapsedTimeSpan = 0;
         private double _spriteRefresh = 250;
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             var index = (int) (_elapsedTimeSpan/_spriteRefresh);
             var texture = Textures[index];

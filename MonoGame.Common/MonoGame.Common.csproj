@@ -72,7 +72,7 @@
     <Compile Include="Infrastructure\GameLevel.cs" />
     <Compile Include="Interfaces\ISimpleComponent.cs" />
     <Compile Include="Interfaces\ISimpleDrawable.cs" />
-    <Compile Include="Interfaces\IGame.cs" />
+    <Compile Include="Interfaces\ISimpleGame.cs" />
     <Compile Include="Interfaces\IKeyboardInput.cs" />
     <Compile Include="Interfaces\IManager.cs" />
     <Compile Include="Interfaces\ISimpleUpdateable.cs" />

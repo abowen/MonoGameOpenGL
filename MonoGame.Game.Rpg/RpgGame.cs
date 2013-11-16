@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,15 +10,12 @@ using MonoGame.Server;
 
 namespace MonoGame.Game.Rpg
 {
-    public class RpgGame : INetworkGame, IGame
-    {
-        private readonly SpriteBatch _spriteBatch;
+    public class RpgGame : INetworkGame, ISimpleGame
+    {        
         protected readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
 
-
-        public RpgGame(GameWindow window, ContentManager contentManager, SpriteBatch spriteBatch)
+        public RpgGame(GameWindow window, ContentManager contentManager)
         {
-            _spriteBatch = spriteBatch;
             SpaceGraphics.LoadSpaceContent(contentManager);
             GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
 
@@ -52,11 +48,11 @@ namespace MonoGame.Game.Rpg
             }
         }
 
-        public void Draw(GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (ActiveGameLevel != null)
             {
-                ActiveGameLevel.Draw(_spriteBatch);
+                ActiveGameLevel.Draw(spriteBatch, gameTime);
             }
         }
     }

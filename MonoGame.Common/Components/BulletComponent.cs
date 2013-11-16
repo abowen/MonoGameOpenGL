@@ -57,33 +57,22 @@ namespace MonoGame.Common.Components
             var startLocation = Owner.Centre;
             startLocation += (direction * new Vector2(Owner.Width, Owner.Height));
             startLocation += (direction * new Vector2(bulletTexture.Width + 1, bulletTexture.Height + 1));
-            var bullet = new GameObject(Owner.GameLayer, startLocation);
-            bullet.GameType = "Bullet";
+            var bullet = new GameObject("Bullet",Owner.GameLayer, startLocation);            
             var bulletMovement = new MovementComponent(3, _movementComponent.FaceDirection, direction);
             var bulletSprite = new SpriteComponent(bulletTexture);
             var bulletBoundary = new BoundaryComponent(bullet, SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width,
                 bulletTexture.Height);
             var instanceComponent = new InstanceComponent(bullet);
             var bulletOutOfBounds = new OutOfBoundsComponent(bullet);
-            bullet.AddPhysicsComponent(bulletMovement);
-            bullet.AddGraphicsComponent(bulletSprite);
-            bullet.AddPhysicsComponent(bulletBoundary);
-            bullet.AddPhysicsComponent(instanceComponent);
-            bullet.AddPhysicsComponent(bulletOutOfBounds);
+            bullet.AddComponent(bulletMovement);
+            bullet.AddComponent(bulletSprite);
+            bullet.AddComponent(bulletBoundary);
+            bullet.AddComponent(instanceComponent);
+            bullet.AddComponent(bulletOutOfBounds);
 
             Owner.GameLayer.GameObjects.Add(bullet);
         }
 
         public GameObject Owner { get; set; }
-
-        public void Update(GameTime gameTime)
-        {
-            //throw new System.NotImplementedException();
-        }
-
-        public void Draw(SpriteBatch gameTime)
-        {
-            //throw new System.NotImplementedException();
-        }
     }
 }

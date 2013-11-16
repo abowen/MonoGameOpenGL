@@ -11,7 +11,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class InputComponent : ISimpleComponent
+    public class InputComponent : ISimpleComponent, ISimpleUpdateable
     {
         public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, Dictionary<Keys, InputAction> buttonMappings, MovementComponent movementComponent, IKeyboardInput keyboardInput)
         {
@@ -54,11 +54,6 @@ namespace MonoGame.Common.Components
                     Owner.Event(ObjectEvent.Fire);
                 }
             }
-        }
-
-        public void Draw(SpriteBatch gameTime)
-        {
-            
-        }                
+        }            
     }
 }

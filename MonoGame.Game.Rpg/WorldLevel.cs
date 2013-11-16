@@ -33,8 +33,7 @@ namespace MonoGame.Game.Rpg
 
             var playerStartPosition = new Vector2(xCentre, yCentre + 50);
             
-            var player = new GameObject(ForegroundLayer, playerStartPosition);
-            player.GameType = "Player";
+            var player = new GameObject("Player", ForegroundLayer, playerStartPosition);            
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
@@ -43,10 +42,10 @@ namespace MonoGame.Game.Rpg
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent,
                 networkKeyboardComponent);
                         
-            player.AddGraphicsComponent(playerSpriteComponent);
-            player.AddPhysicsComponent(playerMovementComponent);
-            player.AddInputComponent(networkKeyboardComponent);
-            player.AddInputComponent(playerInputComponent);
+            player.AddComponent(playerSpriteComponent);
+            player.AddComponent(playerMovementComponent);
+            player.AddComponent(networkKeyboardComponent);
+            player.AddComponent(playerInputComponent);
             
             ForegroundLayer.GameObjects.Add(player);
 

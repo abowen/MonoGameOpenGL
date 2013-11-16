@@ -7,7 +7,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class InstanceComponent : ISimpleComponent
+    public class InstanceComponent : ISimpleComponent, ISimpleUpdateable
     {
         public InstanceComponent(GameObject owner)
         {
@@ -33,10 +33,6 @@ namespace MonoGame.Common.Components
             {
                 Owner.RemoveGameObject();
             }
-        }
-
-        public void Draw(SpriteBatch gameTime)
-        {
         }
     }
 }

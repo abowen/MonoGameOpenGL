@@ -5,7 +5,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class SpriteComponent : ISimpleComponent
+    public class SpriteComponent : ISimpleComponent, ISimpleDrawable
     {
         internal Texture2D Texture;
         private readonly Vector2 _relativeLocation;
@@ -34,14 +34,9 @@ namespace MonoGame.Common.Components
             _relativeLocation = relativeLocation;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, Color.White);
-        }
-
-        public void Update(GameTime gameTime)
-        {            
-         
-        }        
+        }   
     }
 }

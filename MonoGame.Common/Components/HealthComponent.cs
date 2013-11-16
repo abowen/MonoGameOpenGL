@@ -10,22 +10,21 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class HealthComponent : ISimpleComponent
+    public class HealthComponent : ISimpleComponent, ISimpleUpdateable
     {
-        private readonly GameLayer _gameLayer;
         private readonly List<Health> _lives = new List<Health>();        
 
         public HealthComponent(GameObject owner, Texture2D texture2D, Vector2 location, int lives, GameLayer gameLayer)
         {
             Owner = owner;
             owner.ObjectEvent += OwnerOnObjectEvent;
-            _gameLayer = gameLayer;
+            var gameLayer1 = gameLayer;
 
             for (var life = 1; life <= lives; life++)
             {
                 var xOffset = life * texture2D.Width * 2;
-                var health = new Health(texture2D, new Vector2(location.X + xOffset, location.Y), life, _gameLayer);
-                _gameLayer.GameEntities.Add(health);
+                var health = new Health(texture2D, new Vector2(location.X + xOffset, location.Y), life, gameLayer1);
+                gameLayer1.GameEntities.Add(health);
                 _lives.Add(health);
             }
         }
@@ -63,11 +62,6 @@ namespace MonoGame.Common.Components
                 _hasCollided = false;
                 RemoveLife();
             }
-        }
-
-
-        public void Draw(SpriteBatch gameTime)
-        {
         }
     }
 }

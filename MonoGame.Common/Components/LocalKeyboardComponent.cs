@@ -17,14 +17,6 @@ namespace MonoGame.Common.Components
             Owner = owner;
         }
 
-        public void Update(GameTime gameTime)
-        {
-        }
-
-        public void Draw(SpriteBatch gameTime)
-        {
-        }
-
         public GameObject Owner { get; set; }
 
         public IEnumerable<Keys> PressedKeys

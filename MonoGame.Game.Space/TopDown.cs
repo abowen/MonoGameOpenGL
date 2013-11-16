@@ -11,15 +11,13 @@ using MonoGame.Graphics.Space;
 
 namespace MonoGame.Game.Space
 {
-    public class TopDown : IGame
+    public class TopDown : ISimpleGame
     {
-        private readonly SpriteBatch _spriteBatch;
         protected readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
         private readonly Stopwatch _stopWatch = new Stopwatch();
 
-        public TopDown(GameWindow window, ContentManager contentManager, SpriteBatch spriteBatch)
+        public TopDown(GameWindow window, ContentManager contentManager)
         {
-            _spriteBatch = spriteBatch;
             _stopWatch.Start();
             SpaceGraphics.LoadSpaceContent(contentManager);
             GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
@@ -53,9 +51,9 @@ namespace MonoGame.Game.Space
             ActiveGameLevel.Update(gameTime);
         }
 
-        public void Draw(GameTime spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            ActiveGameLevel.Draw(_spriteBatch);
+            ActiveGameLevel.Draw(spriteBatch, gameTime);
         }
     }
 }

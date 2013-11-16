@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class MovementComponent : ISimpleComponent
+    public class MovementComponent : ISimpleComponent, ISimpleUpdateable
     {
         public MovementComponent(float baseSpeed, FaceDirection startFaceDirection, Vector2 direction)
         {
@@ -69,11 +68,6 @@ namespace MonoGame.Common.Components
         public void Update(GameTime gameTime)
         {
             Owner.TopLeft += Velocity;            
-        }
-
-        public void Draw(SpriteBatch gameTime)
-        {
-            
-        }                
+        }           
     }
 }

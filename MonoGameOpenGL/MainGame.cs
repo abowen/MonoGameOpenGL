@@ -22,7 +22,7 @@ namespace MonoGameOpenGL
         private SpriteBatch _spriteBatch;
         private BroadcastClient _broadcastClient;
         
-        private IGame _game;
+        private ISimpleGame _game;
 
         private INetworkGame NetworkGame
         {
@@ -67,7 +67,7 @@ namespace MonoGameOpenGL
         {
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new TopDown(Window, Content, _spriteBatch);
+            _game = new TopDown(Window, Content);
             if (IsNetworkGame)
             {
                 _broadcastClient = new BroadcastClient();
@@ -118,7 +118,7 @@ namespace MonoGameOpenGL
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-            _game.Draw(gameTime);
+            _game.Draw(_spriteBatch, gameTime);
             _spriteBatch.End();
 
             base.Draw(gameTime);

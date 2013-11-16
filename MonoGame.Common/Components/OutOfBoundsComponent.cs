@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class OutOfBoundsComponent : ISimpleComponent
+    public class OutOfBoundsComponent : ISimpleComponent, ISimpleUpdateable
     {
         public GameObject Owner { get; set; }
 
@@ -24,11 +23,6 @@ namespace MonoGame.Common.Components
             {
                 Owner.RemoveGameObject();
             }
-        }
-
-        public void Draw(SpriteBatch gameTime)
-        {
-            
         }
     }
 }

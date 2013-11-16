@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class TimedActionComponent : ISimpleComponent
+    public class TimedActionComponent : ISimpleComponent, ISimpleUpdateable
     {
         private readonly ObjectEvent _eventTypeRaised;
         private readonly double _intervalMilliseconds;
@@ -30,11 +29,6 @@ namespace MonoGame.Common.Components
                 _timeElapsed = 0;
                 Owner.Event(_eventTypeRaised);
             }
-        }
-
-        public void Draw(SpriteBatch gameTime)
-        {
-            
         }
     }
 }

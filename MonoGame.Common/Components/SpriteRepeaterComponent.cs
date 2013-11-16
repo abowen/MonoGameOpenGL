@@ -7,7 +7,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class SpriteRepeaterComponent : ISimpleComponent
+    public class SpriteRepeaterComponent : ISimpleComponent, ISimpleDrawable
     {
         internal Texture2D Texture;
         private readonly Vector2 _relativeLocation;
@@ -66,7 +66,7 @@ namespace MonoGame.Common.Components
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             for (var count = 0; count < _currentValue; count++)
             {
@@ -85,10 +85,5 @@ namespace MonoGame.Common.Components
                 spriteBatch.Draw(Texture, newLocation, Color.White);
             }
         }
-
-        public void Update(GameTime gameTime)
-        {
-
-        }
-    }
+   }
 }

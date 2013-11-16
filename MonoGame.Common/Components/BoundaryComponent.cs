@@ -6,7 +6,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class BoundaryComponent : ISimpleComponent
+    public class BoundaryComponent : ISimpleComponent, ISimpleDrawable
     {
         private readonly Texture2D _texture;
         public readonly int Width;
@@ -20,15 +20,9 @@ namespace MonoGame.Common.Components
             Owner = owner;
         }
 
-
         public GameObject Owner { get; set; }
 
-        public void Update(GameTime gameTime)
-        {
-            
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (GameConstants.ShowObjectBoundary)
             {
