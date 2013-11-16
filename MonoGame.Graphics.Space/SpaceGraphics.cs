@@ -45,7 +45,7 @@ namespace MonoGame.Graphics.Space
 
         public static void LoadSpaceContent(ContentManager content)
         {
-            content.RootDirectory = "";
+            content.RootDirectory = @".\Graphics";
             Assets = new Dictionary<string, Texture2D[]>();
 
             var planets = new[]

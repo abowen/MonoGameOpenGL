@@ -6,6 +6,7 @@ using MonoGame.Common.Enums;
 using MonoGame.Common.Helpers;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Presets;
+using MonoGame.Graphics.Common;
 using MonoGame.Graphics.Space;
 
 namespace MonoGame.Game.Rpg
@@ -19,7 +20,10 @@ namespace MonoGame.Game.Rpg
 
         protected override void LoadDisplay()
         {
-
+            var text = new GameObject("Text", DisplayLayer, new Vector2(50, 50));
+            var textComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "TEST");
+            text.AddComponent(textComponent);
+            DisplayLayer.GameObjects.Add(text);
         }
 
         protected override void LoadForeground()
@@ -33,7 +37,6 @@ namespace MonoGame.Game.Rpg
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
-            // Refactor to listen to network events
             var networkKeyboardComponent = new NetworkKeyboardComponent(KeyboardPresets.BasicReverseKeyboardMapping);
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent,
                 networkKeyboardComponent);

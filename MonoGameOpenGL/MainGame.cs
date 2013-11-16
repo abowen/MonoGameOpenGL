@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Interfaces;
 using MonoGame.Game.Rpg;
-using MonoGame.Game.Space;
 using MonoGame.Server;
 
 #endregion

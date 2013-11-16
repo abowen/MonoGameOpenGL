@@ -65,10 +65,6 @@
       <Project>{08063c3d-0ee5-445f-a671-9c5ed6a741f6}</Project>
       <Name>MonoGame.Game.Rpg</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MonoGame.Game.Space\MonoGame.Game.Space.csproj">
-      <Project>{2a4aedc5-35cc-4d39-81e6-f9a328521f4e}</Project>
-      <Name>MonoGame.Game.Space</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MonoGame.Server\MonoGame.Server.csproj">
       <Project>{a4b862cd-d259-4595-8b84-812f1a6a9533}</Project>
       <Name>MonoGame.Server</Name>

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BFA0CA76-D587-43F9-85B7-55A52B132FFF}</ProjectGuid>
+    <ProjectGuid>{E75CA2E0-80DB-4C48-8FE0-55FBACC43E81}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MonoGame.Graphics.Space</RootNamespace>
-    <AssemblyName>MonoGame.Graphics.Space</AssemblyName>
+    <RootNamespace>MonoGame.Graphics.Common</RootNamespace>
+    <AssemblyName>MonoGame.Graphics.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,94 +31,75 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterMapping.cs" />
+    <Compile Include="CharHelper.cs" />
+    <Compile Include="FontGraphics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpaceGraphics.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Graphics\AmmoBar.png">
+    <Content Include="Fonts\anuvverbubbla_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\Asteroid01.png">
+    <Content Include="Fonts\bloxxit_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\Asteroid02.png">
+    <Content Include="Fonts\bubblemad_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\Asteroid03.png">
+    <Content Include="Fonts\digifont_16x16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\Asteroid04.png">
+    <Content Include="Fonts\fasttracker2-style_12x12.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\BossA.png">
+    <Content Include="Fonts\geebeeyay-8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\Boundary.png">
+    <Content Include="Fonts\geebeeyay_8x16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\Bullet.png">
+    <Content Include="Fonts\gold_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\EnemyShip.png">
+    <Content Include="Fonts\gradbubble-32x32-wip.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\Fire01.png">
+    <Content Include="Fonts\kromagrad_16x16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\Fire02.png">
+    <Content Include="Fonts\kromasky_16x16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\Health.png">
+    <Content Include="Fonts\mig68000_8x16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\HealthBar.png">
+    <Content Include="Fonts\nfo-font_6x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\HealthBar02.png">
+    <Content Include="Fonts\nuskool_krome_64x64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\MiniAsteroid01.png">
+    <Content Include="Fonts\proportional_16x16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\MiniAsteroid02.png">
+    <Content Include="Fonts\proportional_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\MiniAsteroid03.png">
+    <Content Include="Fonts\simple_6x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\MiniAsteroid04.png">
+    <Content Include="Fonts\teenyshadow_5x9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphics\MiniBullet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\MiniEnemyShip.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\Planet01.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\Planet02.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\Planet03.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\Planet04.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\PlayerShip.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\Star01.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Graphics\Star02.png">
+    <Content Include="Fonts\verifier_font_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

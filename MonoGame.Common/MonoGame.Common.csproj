@@ -51,6 +51,7 @@
     <Compile Include="Components\InstanceComponent.cs" />
     <Compile Include="Components\InputComponent.cs" />
     <Compile Include="Components\MovementComponent.cs" />
+    <Compile Include="Components\TextComponent.cs" />
     <Compile Include="Components\TimedActionComponent.cs" />
     <Compile Include="Components\SpriteComponent.cs" />
     <Compile Include="Entities\GameObject.cs" />
@@ -82,6 +83,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MonoGame.Graphics.Common\MonoGame.Graphics.Common.csproj">
+      <Project>{e75ca2e0-80db-4c48-8fe0-55fbacc43e81}</Project>
+      <Name>MonoGame.Graphics.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MonoGame.Graphics.Space\MonoGame.Graphics.Space.csproj">
       <Project>{BFA0CA76-D587-43F9-85B7-55A52B132FFF}</Project>
       <Name>MonoGame.Graphics.Space</Name>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MonoGame.Graphics.Rpg
 {
-    public class Class1
+    public class RpgGraphics
     {
     }
 }
