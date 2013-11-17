@@ -51,6 +51,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MonoGame.Graphics.Common\MonoGame.Graphics.Common.csproj">
+      <Project>{e75ca2e0-80db-4c48-8fe0-55fbacc43e81}</Project>
+      <Name>MonoGame.Graphics.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

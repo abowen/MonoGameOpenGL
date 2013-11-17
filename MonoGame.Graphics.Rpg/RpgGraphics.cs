@@ -1,12 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Graphics.Common;
 
 namespace MonoGame.Graphics.Rpg
 {
     public class RpgGraphics
     {
+        public static SpriteMapping GameboySpriteMapping;
+
+        public static void LoadContent(ContentManager content)
+        {
+            content.RootDirectory = @".\";
+
+
+            var digifontTexture = content.Load<Texture2D>("gameboy");
+            var spritesList = new List<string>()
+            {
+
+            };
+            GameboySpriteMapping = new SpriteMapping(digifontTexture, 16, 16, 10, spritesList);
+        }
     }
 }
