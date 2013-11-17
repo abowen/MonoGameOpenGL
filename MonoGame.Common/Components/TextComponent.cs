@@ -9,14 +9,13 @@ namespace MonoGame.Common.Components
     public class TextComponent : ISimpleComponent, ISimpleDrawable
     {
         private readonly CharacterMapping _characterMapping;
-        private readonly string _text;
+        public string Text;
 
-        // TODO: Allow for text to change
         // TODO: Allow for forced upper or lower case
         public TextComponent(CharacterMapping characterMapping, string text)
         {
             _characterMapping = characterMapping;
-            _text = text;
+            Text = text;
         }
 
         public GameObject Owner { get; set; }
@@ -24,7 +23,7 @@ namespace MonoGame.Common.Components
         {
             var location = Owner.TopLeft;
             var width = _characterMapping.Width;
-            foreach (var character in _text.ToCharArray())
+            foreach (var character in Text.ToCharArray())
             {
                 if (!char.IsWhiteSpace(character))
                 {

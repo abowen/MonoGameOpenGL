@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -17,15 +18,18 @@ namespace MonoGame.Graphics.Common
             return _characterLocation[character];
         }
 
-        public CharacterMapping(Texture2D texture, int width, int height, IEnumerable<char> ascii)
+        public CharacterMapping(Texture2D texture, int width, int height, string characters)
         {
             Texture = texture;
             Height = height;
             Width = width;
             var xLocation = 0;
-            foreach (var character in ascii)
+            foreach (var character in characters.ToCharArray())
             {
-                _characterLocation.Add(character, new Rectangle(xLocation, 0, width, height));
+                if (!_characterLocation.Keys.Contains(character))
+                {
+                    _characterLocation.Add(character, new Rectangle(xLocation, 0, width, height));
+                }
                 xLocation += width;
             }
         }

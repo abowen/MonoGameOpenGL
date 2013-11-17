@@ -21,7 +21,7 @@ namespace MonoGame.Game.Rpg
         protected override void LoadDisplay()
         {
             var text = new GameObject("Text", DisplayLayer, new Vector2(50, 50));
-            var textComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "TEST");
+            var textComponent = new TextComponent(FontGraphics.DigifontFont16X16, "TEST");
             text.AddComponent(textComponent);
             DisplayLayer.GameObjects.Add(text);
         }
@@ -47,7 +47,6 @@ namespace MonoGame.Game.Rpg
             player.AddComponent(playerInputComponent);
             player.AddComponent(networkKeyboardComponent);
             ForegroundLayer.GameObjects.Add(player);
-
         }
     }
 }

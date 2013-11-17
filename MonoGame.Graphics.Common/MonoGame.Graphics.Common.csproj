@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterMapping.cs" />
-    <Compile Include="CharHelper.cs" />
+    <Compile Include="StringHelper.cs" />
     <Compile Include="FontGraphics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
