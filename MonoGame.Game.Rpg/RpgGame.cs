@@ -7,6 +7,7 @@ using MonoGame.Common.Interfaces;
 using Microsoft.Xna.Framework;
 using MonoGame.Common.Networking;
 using MonoGame.Graphics.Common;
+using MonoGame.Graphics.Rpg;
 using MonoGame.Graphics.Space;
 
 namespace MonoGame.Game.Rpg
@@ -19,6 +20,7 @@ namespace MonoGame.Game.Rpg
         {
             FontGraphics.LoadContent(contentManager);
             SpaceGraphics.LoadSpaceContent(contentManager);
+            RpgGraphics.LoadContent(contentManager);
 
             GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
 

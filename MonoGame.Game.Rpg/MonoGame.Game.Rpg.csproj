@@ -50,6 +50,10 @@
       <Project>{e75ca2e0-80db-4c48-8fe0-55fbacc43e81}</Project>
       <Name>MonoGame.Graphics.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MonoGame.Graphics.Rpg\MonoGame.Graphics.Rpg.csproj">
+      <Project>{8a7224cf-ef73-431e-99fd-2a894708f7bd}</Project>
+      <Name>MonoGame.Graphics.Rpg</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MonoGame.Graphics.Space\MonoGame.Graphics.Space.csproj">
       <Project>{bfa0ca76-d587-43f9-85b7-55a52b132fff}</Project>
       <Name>MonoGame.Graphics.Space</Name>

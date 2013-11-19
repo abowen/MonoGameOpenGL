@@ -13,13 +13,9 @@ namespace MonoGame.Graphics.Rpg
         {
             content.RootDirectory = @".\";
 
-
             var digifontTexture = content.Load<Texture2D>("gameboy");
-            var spritesList = new List<string>()
-            {
-
-            };
-            GameboySpriteMapping = new SpriteMapping(digifontTexture, 16, 16, 10, spritesList);
+           
+            GameboySpriteMapping = new SpriteMapping(digifontTexture, 16, 16, @".\gameboy.csv");
         }
     }
 }

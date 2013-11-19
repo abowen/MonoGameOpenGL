@@ -18,27 +18,47 @@ namespace MonoGame.Graphics.Common
             return _spriteRectangles[spriteName];
         }
 
-        public SpriteMapping(Texture2D texture, int width, int height, int column, IEnumerable<string> spriteNames)
+        public SpriteMapping(Texture2D texture, int width, int height, string csvFile)
         {
             Texture = texture;
             Height = height;
             Width = width;
-            var xLocation = 0;
-            var columnCount = 0;
-            var yLocation = 0;
-            foreach (var spriteName in spriteNames)
+
+            var spriteNames = ReadCsv(csvFile);
+            AssignSpriteNameToRectangles(spriteNames);
+        }
+
+        private static List<List<string>> ReadCsv(string csvFile)
+        {
+            var lines = System.IO.File.ReadAllLines(csvFile);
+            var spriteNames = new List<List<string>>();
+            foreach (var line in lines)
             {
-                if (!_spriteRectangles.Keys.Contains(spriteName))
+                var sprites = new List<string>();
+                if (!string.IsNullOrWhiteSpace(line))
                 {
-                    _spriteRectangles.Add(spriteName, new Rectangle(xLocation, yLocation, width, height));
+                    sprites = line.Split(',').ToList();
                 }
-                xLocation += width;
-                columnCount++;
-                if (columnCount == column)
+                spriteNames.Add(sprites);
+            }
+            return spriteNames;
+        }
+
+        private void AssignSpriteNameToRectangles(IEnumerable<IEnumerable<string>> spriteNames)
+        {
+            var xLocation = 0;
+            var yLocation = 0;
+            foreach (var sprites in spriteNames)
+            {
+                foreach (var sprite in sprites)
                 {
-                    columnCount = 0;
-                    yLocation += height;
+                    if (!_spriteRectangles.Keys.Contains(sprite))
+                    {
+                        _spriteRectangles.Add(sprite, new Rectangle(xLocation, yLocation, Width, Height));
+                    }
+                    xLocation += Width;                   
                 }
+                yLocation += Height;
             }
         }
     }
