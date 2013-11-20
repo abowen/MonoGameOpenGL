@@ -15,7 +15,8 @@ namespace MonoGame.Graphics.Common
 
         public Rectangle GetRectangle(string spriteName)
         {
-            return _spriteRectangles[spriteName];
+            var rectangle = _spriteRectangles[spriteName];
+            return rectangle;
         }
 
         public SpriteMapping(Texture2D texture, int width, int height, string csvFile)
@@ -49,7 +50,7 @@ namespace MonoGame.Graphics.Common
             var xLocation = 0;
             var yLocation = 0;
             foreach (var sprites in spriteNames)
-            {
+            {                
                 foreach (var sprite in sprites)
                 {
                     if (!_spriteRectangles.Keys.Contains(sprite))
@@ -59,6 +60,7 @@ namespace MonoGame.Graphics.Common
                     xLocation += Width;                   
                 }
                 yLocation += Height;
+                xLocation = 0;
             }
         }
     }

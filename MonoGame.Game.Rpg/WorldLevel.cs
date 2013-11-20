@@ -23,8 +23,7 @@ namespace MonoGame.Game.Rpg
         {
             var text = new GameObject("Text", DisplayLayer, new Vector2(50, 50));
             var textComponent = new TextComponent(FontGraphics.DigifontFont16X16, "TEST");
-            var spriteMappingComponent = new SpriteMappingComponent(RpgGraphics.GameboySpriteMapping, "Shield3",
-                new Vector2(15, 15));
+            var spriteMappingComponent = new SpriteMappingComponent(RpgGraphics.GameboySpriteMapping, "Shield3", new Vector2(0, 20));
             text.AddComponent(textComponent);
             text.AddComponent(spriteMappingComponent);
             DisplayLayer.GameObjects.Add(text);

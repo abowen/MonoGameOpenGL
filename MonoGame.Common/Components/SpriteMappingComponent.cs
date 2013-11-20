@@ -23,7 +23,7 @@ namespace MonoGame.Common.Components
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_spriteMapping.Texture, Owner.TopLeft + _relativeLocation, _spriteMapping.GetRectangle(_spriteName), Color.White);
+            spriteBatch.Draw(_spriteMapping.Texture, Owner.TopLeft + _relativeLocation, _spriteMapping.GetRectangle(_spriteName), Color.White);            
         }   
     }
 }
