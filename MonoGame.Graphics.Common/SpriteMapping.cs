@@ -29,7 +29,7 @@ namespace MonoGame.Graphics.Common
             AssignSpriteNameToRectangles(spriteNames);
         }
 
-        private static List<List<string>> ReadCsv(string csvFile)
+        private static IEnumerable<IEnumerable<string>> ReadCsv(string csvFile)
         {
             var lines = System.IO.File.ReadAllLines(csvFile);
             var spriteNames = new List<List<string>>();
