@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Components\BulletComponent.cs" />
     <Compile Include="Components\BoundaryComponent.cs" />
+    <Compile Include="Components\SpriteMappingComponent.cs" />
     <Compile Include="Components\LocalKeyboardComponent.cs" />
     <Compile Include="Components\NetworkKeyboardComponent.cs" />
     <Compile Include="Components\ObjectEventComponent.cs" />
