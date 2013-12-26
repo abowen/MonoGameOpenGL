@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Components;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Infrastructure;
+using MonoGame.Common.Managers;
 using MonoGame.Graphics.Common;
 
 namespace MonoGame.Game.Surfing
@@ -10,7 +12,7 @@ namespace MonoGame.Game.Surfing
     {
         protected override void LoadBackground()
         {
-            
+
         }
 
         protected override void LoadDisplay()
@@ -22,8 +24,15 @@ namespace MonoGame.Game.Surfing
         }
 
         protected override void LoadForeground()
-        {            
+        {
+            var foam = new[] {
+                GeneralGraphics.TransparentCubeAsset, 
+                GeneralGraphics.WhiteCubeAsset, 
+                GeneralGraphics.BlueCubeAsset, 
+                GeneralGraphics.LightBlueCubeAsset};
+            var waveManager = new WaveManager(foam, new Texture2D[0], ForegroundLayer, 200, 100);
 
+            DisplayLayer.Managers.Add(waveManager);
         }
     }
 }
