@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7561853A-87E4-414E-BEF7-9F8310002E65}</ProjectGuid>
+    <ProjectGuid>{A8DBFF37-C740-42B4-81E3-A1A3F55C8B1F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MonoGame.Game.Surfing</RootNamespace>
-    <AssemblyName>MonoGame.Game.Surfing</AssemblyName>
+    <RootNamespace>MonoGame.Graphics.Surfing</RootNamespace>
+    <AssemblyName>MonoGame.Graphics.Surfing</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -41,26 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SurfingGraphics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SurfingGame.cs" />
-    <Compile Include="SurfLevel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MonoGame.Common\MonoGame.Common.csproj">
-      <Project>{ee193094-b6a8-46c2-9e82-50ac198d3987}</Project>
-      <Name>MonoGame.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MonoGame.Graphics.Common\MonoGame.Graphics.Common.csproj">
       <Project>{e75ca2e0-80db-4c48-8fe0-55fbacc43e81}</Project>
       <Name>MonoGame.Graphics.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MonoGame.Graphics.Surfing\MonoGame.Graphics.Surfing.csproj">
-      <Project>{a8dbff37-c740-42b4-81e3-a1a3f55c8b1f}</Project>
-      <Name>MonoGame.Graphics.Surfing</Name>
-    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Graphics\Surfboard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.3.0.1\build\net40\MonoGame.targets" Condition="Exists('..\packages\MonoGame.3.0.1\build\net40\MonoGame.targets')" />

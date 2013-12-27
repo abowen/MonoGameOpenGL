@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Graphics.Common
 {
-    public class GeneralGraphics
+    public class CommonGraphics
     {
 
         public static Texture2D WhiteCubeAsset { get; private set; }
@@ -13,7 +13,7 @@ namespace MonoGame.Graphics.Common
  
         public static void LoadContent(ContentManager content)
         {
-            content.RootDirectory = @".\General";
+            content.RootDirectory = @".\Graphics";
 
             WhiteCubeAsset = content.Load<Texture2D>("WhiteCube_8x8");
             TransparentCubeAsset = content.Load<Texture2D>("TransparentCube_8x8");

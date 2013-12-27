@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics.Contracts;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Interfaces;
@@ -23,7 +24,11 @@ namespace MonoGame.Common.Components
         public GameObject Owner { get; set; }
 
         public SpriteComponent(Texture2D texture)
-        {            
+        {
+            if (texture == null)
+            {
+                Contract.Assert(texture != null, "Texture cannot be null");    
+            }            
             Texture = texture;
             _relativeLocation = Vector2.Zero;
         }

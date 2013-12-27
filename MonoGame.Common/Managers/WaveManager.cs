@@ -41,6 +41,9 @@ namespace MonoGame.Common.Managers
                 GenerateFoam(GetRandomX(2));
                 GenerateFoam(GetRandomX(3));
                 GenerateFoam(GetRandomX(4));
+                GenerateFoam(GetRandomX(4));
+                GenerateFoam(GetRandomX(8));
+                GenerateFoam(GetRandomX(8));
                 GenerateFoam(GetRandomX(8));
                 GenerateFoam(GetRandomX(16));
             }

@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterMapping.cs" />
-    <Compile Include="GeneralGraphics.cs" />
+    <Compile Include="CommonGraphics.cs" />
     <Compile Include="SpriteMapping.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="FontGraphics.cs" />
@@ -104,16 +104,16 @@
     <Content Include="Fonts\verifier_font_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="General\BlueCube_8x8.png">
+    <Content Include="Graphics\BlueCube_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="General\LightBlueCube_8x8.png">
+    <Content Include="Graphics\LightBlueCube_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="General\TransparentCube_8x8.png">
+    <Content Include="Graphics\TransparentCube_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="General\WhiteCube_8x8.png">
+    <Content Include="Graphics\WhiteCube_8x8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
