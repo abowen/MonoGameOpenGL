@@ -19,7 +19,7 @@ namespace MonoGame.Common.Entities
         private readonly List<ISimpleDrawable> _drawableComponents = new List<ISimpleDrawable>();
         private readonly List<ISimpleNetworking> _networkingComponents = new List<ISimpleNetworking>(); 
         
-        public readonly GameLayer GameLayer;
+        public GameLayer GameLayer;
         public string GameType { get; private set; }
 
         public void AddComponent(ISimpleComponent component)
@@ -50,16 +50,15 @@ namespace MonoGame.Common.Entities
             }
         }
 
-        public GameObject(string typeName, GameLayer gameLayer, Vector2 topLeftLocation)
+        public GameObject(string typeName, Vector2 topLeftLocation)
         {
-            GameType = typeName;
-            GameLayer = gameLayer;
+            GameType = typeName;            
             TopLeft = topLeftLocation;
         }
 
         public void RemoveGameObject()
         {
-            GameLayer.GameObjects.Remove(this);
+            GameLayer.RemoveGameObject(this);
         }
 
         /// <summary>

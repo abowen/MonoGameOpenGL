@@ -40,7 +40,7 @@ namespace MonoGame.Game.Space
             var playerStartPosition = new Vector2(xCentre, yCentre + 50);
 
             // TODO: Refactor this into BuilderPattern
-            var player = new GameObject("Player", ForegroundLayer, playerStartPosition);            
+            var player = new GameObject("Player", playerStartPosition);            
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
@@ -77,17 +77,17 @@ namespace MonoGame.Game.Space
             player.AddComponent(playerWoodFireComponent);
             player.AddComponent(playerEventComponent);
 
-            ForegroundLayer.GameObjects.Add(player);
+            ForegroundLayer.AddGameObject(player);
 
             // TODO: Move scoring to use global space and per player
-            var score = new GameObject("Score", DisplayLayer, new Vector2(10, 10));            
+            var score = new GameObject("Score", new Vector2(10, 10));            
             var scoreCounterComponent = new CounterComponent(score, ObjectEvent.ScoreIncrease, ObjectEvent.ScoreIncreaseDisplay, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 20, false);
             var scoreComponent = new SpriteGenericComponent(SpaceGraphics.HealthAsset, score.CentreLocal, score, ObjectEvent.ScoreIncreaseDisplay, scoreCounterComponent, VerticalDrawMethod);
             score.AddComponent(scoreCounterComponent);
             score.AddComponent(scoreComponent);
             _scoreGameObject = score;
 
-            DisplayLayer.GameObjects.Add(score);
+            DisplayLayer.AddGameObject(score);
 
             ForegroundLayer.Managers.Add(asteroidManager);
             ForegroundLayer.Managers.Add(enemyManager);
@@ -105,7 +105,7 @@ namespace MonoGame.Game.Space
             }
             if (scoreEventArgs.Score == 5)
             {
-                var enemy = new GameObject("Boss", ForegroundLayer, new Vector2(GameConstants.ScreenBoundary.Center.X, 0));                
+                var enemy = new GameObject("Boss", new Vector2(GameConstants.ScreenBoundary.Center.X, 0));                
                 var shipTexture = SpaceGraphics.BossAAsset.First();
                 var enemySprite = new SpriteComponent(shipTexture);
                 var enemyMovement = new MovementComponent(0.1f, FaceDirection.Down, new Vector2(0, 1));
@@ -127,7 +127,7 @@ namespace MonoGame.Game.Space
                 enemy.AddComponent(healthCounterComponent);
                 enemy.AddComponent(healthBarComponent);
 
-                ForegroundLayer.GameObjects.Add(enemy);
+                ForegroundLayer.AddGameObject(enemy);
             }
         }
 
@@ -136,10 +136,10 @@ namespace MonoGame.Game.Space
             // Could be moved into the component instead of action?
             // Or maybe set a flag on game object that other components respond to?
             gameObject.RemoveGameObject();
-            var death = new GameObject("Death", ForegroundLayer, gameObject.TopLeft);
+            var death = new GameObject("Death", gameObject.TopLeft);
             var deathSprite = new SpriteComponent(SpaceGraphics.PlanetAsset[3]);
             death.AddComponent(deathSprite);
-            ForegroundLayer.GameObjects.Add(death);
+            ForegroundLayer.AddGameObject(death);
         }
 
 

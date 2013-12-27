@@ -19,27 +19,27 @@ namespace MonoGame.Game.Surfing
 
         protected override void LoadDisplay()
         {
-            var text = new GameObject("Text", DisplayLayer, new Vector2(50, 50));
+            var text = new GameObject("Text", new Vector2(50, 50));
             var textComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "SURFING");
             text.AddComponent(textComponent);
-            DisplayLayer.GameObjects.Add(text);
+            DisplayLayer.AddGameObject(text);
 
             var foam = new[] {
                 CommonGraphics.TransparentCubeAsset, 
                 CommonGraphics.WhiteCubeAsset, 
                 CommonGraphics.BlueCubeAsset, 
                 CommonGraphics.LightBlueCubeAsset};
-            var waveManager = new WaveManager(foam, new Texture2D[0], ForegroundLayer, 200, 100);
+            var waveManager = new WaveManager(foam, new Texture2D[0], BackgroundLayer, ForegroundLayer, 200, 100);
 
             DisplayLayer.Managers.Add(waveManager);
         }
 
         protected override void LoadForeground()
         {            
-            var player = new GameObject("Player", ForegroundLayer, new Vector2(100,100));
+            var player = new GameObject("Player", new Vector2(100,100));
             var playerTexture = SurfingGraphics.SurfboardAsset;
             
-            var playerMovementComponent = new AngularMovementComponent(2, 4, 180, Vector2.Zero);
+            var playerMovementComponent = new AngularMovementComponent(2, 0, 20, 180, Vector2.Zero);
             var playerLocalKeyboardComponent = new LocalKeyboardComponent();
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent, playerLocalKeyboardComponent);
             var playerSpriteComponent = new SpriteComponent(playerTexture, playerMovementComponent);
@@ -49,7 +49,7 @@ namespace MonoGame.Game.Surfing
             player.AddComponent(playerLocalKeyboardComponent);
             player.AddComponent(playerInputComponent);
 
-            ForegroundLayer.GameObjects.Add(player);
+            ForegroundLayer.AddGameObject(player);
         }
     }
 }

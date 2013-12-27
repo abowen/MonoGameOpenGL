@@ -21,12 +21,12 @@ namespace MonoGame.Game.Rpg
 
         protected override void LoadDisplay()
         {
-            var text = new GameObject("Text", DisplayLayer, new Vector2(50, 50));
+            var text = new GameObject("Text", new Vector2(50, 50));
             var textComponent = new TextComponent(FontGraphics.DigifontFont16X16, "TEST");
             var spriteMappingComponent = new SpriteMappingComponent(RpgGraphics.GameboySpriteMapping, "Shield3", new Vector2(0, 20));
             text.AddComponent(textComponent);
             text.AddComponent(spriteMappingComponent);
-            DisplayLayer.GameObjects.Add(text);
+            DisplayLayer.AddGameObject(text);
         }
 
         protected override void LoadForeground()
@@ -36,7 +36,7 @@ namespace MonoGame.Game.Rpg
 
             var playerStartPosition = new Vector2(xCentre, yCentre + 50);
             
-            var player = new GameObject("Player", ForegroundLayer, playerStartPosition);            
+            var player = new GameObject("Player", playerStartPosition);            
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
@@ -49,7 +49,7 @@ namespace MonoGame.Game.Rpg
             player.AddComponent(networkKeyboardComponent);
             player.AddComponent(playerInputComponent);
             player.AddComponent(networkKeyboardComponent);
-            ForegroundLayer.GameObjects.Add(player);
+            ForegroundLayer.AddGameObject(player);
         }
     }
 }

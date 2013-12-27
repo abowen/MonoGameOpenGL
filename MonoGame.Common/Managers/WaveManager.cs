@@ -15,19 +15,21 @@ namespace MonoGame.Common.Managers
     {
         private readonly Texture2D[] _majorTextures;
         private readonly Texture2D[] _minorTextures;
-        private readonly GameLayer _gameLayer;
+        private readonly GameLayer _backgroundLayer;
+        private readonly GameLayer _topLayer;        
         private readonly int _waveHeight;
         private readonly int _yPosition;
         private readonly Random _random;
         private TimeSpan _lastTimeSpan;
 
-        public WaveManager(Texture2D[] majorTextures, Texture2D[] minorTextures, GameLayer gameLayer, int waveHeight, int yPosition)
+        public WaveManager(Texture2D[] majorTextures, Texture2D[] minorTextures, GameLayer backgroundLayer, GameLayer topLayer, int waveHeight, int yPosition)
         {
             _majorTextures = majorTextures;
             _minorTextures = minorTextures;
+            _backgroundLayer = backgroundLayer;
+            _topLayer = topLayer;
             _lastTimeSpan = new TimeSpan();
-            _random = new Random();
-            _gameLayer = gameLayer;
+            _random = new Random();            
             _waveHeight = waveHeight;
             _yPosition = yPosition;
         }
@@ -56,15 +58,15 @@ namespace MonoGame.Common.Managers
 
         private void GenerateFoam(int xPosition)
         {
-       
-            var gameObject = new GameObject("Foam", _gameLayer, new Vector2(xPosition, _yPosition));
+            var bottomPadding = GameConstants.ScreenBoundary.Bottom - (_yPosition + _waveHeight);
+            var gameObject = new GameObject("Foam", new Vector2(xPosition, _yPosition));
             var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
             var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures));
-            var outOfBoundsComponent = new OutOfBoundsComponent(gameObject);
+            var outOfBoundsComponent = new OutOfBoundsComponent(gameObject, bottomPadding: bottomPadding);
             gameObject.AddComponent(movementComponent);
             gameObject.AddComponent(spriteComponent);
             gameObject.AddComponent(outOfBoundsComponent);
-            _gameLayer.GameObjects.Add(gameObject);
+            _topLayer.AddGameObject(gameObject);
         }
 
         public Texture2D GetRandomTexture(Texture2D[] textures)

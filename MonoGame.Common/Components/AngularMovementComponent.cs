@@ -7,10 +7,12 @@ namespace MonoGame.Common.Components
 {
     public class AngularMovementComponent : ISimpleComponent, ISimpleUpdateable, IMovementComponent, IRotationComponent
     {
+        private readonly float _minSpeed;
         private readonly float _maxSpeed;
 
-        public AngularMovementComponent(float baseSpeed, float maxSpeed, float startRotation, Vector2 movementInputDirection)
+        public AngularMovementComponent(float baseSpeed, float minSpeed, float maxSpeed, float startRotation, Vector2 movementInputDirection)
         {
+            _minSpeed = minSpeed;
             _maxSpeed = maxSpeed;
             BaseSpeed = baseSpeed;
             CurrentSpeed = BaseSpeed;
@@ -80,20 +82,28 @@ namespace MonoGame.Common.Components
         {
             // Process Input
             // Move forward
-            if (InputDirection.Y > 0)
+            if (InputDirection.Y < 0)
             {
                 if (CurrentSpeed < _maxSpeed)
                 {
                     CurrentSpeed++;
                 }
             }
+            else if (InputDirection.Y > 0)
+            {
+                if (CurrentSpeed > _minSpeed)
+                {
+                    CurrentSpeed--;
+                }
+
+            }
             if (InputDirection.X < 0)
             {
-                Rotation -= 0.1f;
+                Rotation -= 0.05f;
             }
             if (InputDirection.X > 0)
             {
-                Rotation += 0.1f;
+                Rotation += 0.05f;
             }
 
             // Refactor this to use speed properties and angular inputs
@@ -102,8 +112,8 @@ namespace MonoGame.Common.Components
             var x = Owner.TopLeft.X;
             var y = Owner.TopLeft.Y;
 
-            x += matrix.M12 * 0.1f;
-            y -= matrix.M11 * 0.1f;
+            x += matrix.M12 * 0.1f * CurrentSpeed;
+            y -= matrix.M11 * 0.1f * CurrentSpeed;
 
             Owner.TopLeft = new Vector2(x, y);
 

@@ -57,7 +57,7 @@ namespace MonoGame.Common.Components
             var startLocation = Owner.Centre;
             startLocation += (direction * new Vector2(Owner.Width, Owner.Height));
             startLocation += (direction * new Vector2(bulletTexture.Width + 1, bulletTexture.Height + 1));
-            var bullet = new GameObject("Bullet",Owner.GameLayer, startLocation);            
+            var bullet = new GameObject("Bullet", startLocation);            
             var bulletMovement = new MovementComponent(3, _movementComponent.FaceDirection, direction);
             var bulletSprite = new SpriteComponent(bulletTexture);
             var bulletBoundary = new BoundaryComponent(bullet, SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width,
@@ -70,7 +70,7 @@ namespace MonoGame.Common.Components
             bullet.AddComponent(instanceComponent);
             bullet.AddComponent(bulletOutOfBounds);
 
-            Owner.GameLayer.GameObjects.Add(bullet);
+            Owner.GameLayer.AddGameObject(bullet);
         }
 
         public GameObject Owner { get; set; }

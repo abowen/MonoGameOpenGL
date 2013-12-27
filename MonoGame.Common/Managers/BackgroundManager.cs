@@ -38,21 +38,21 @@ namespace MonoGame.Common.Managers
                 var isMajorItem = _random.Next(0, 100) == 1;
                 if (isMajorItem)
                 {                    
-                    var star = new GameObject("World", _gameLayer, new Vector2(x, 0));
+                    var star = new GameObject("World", new Vector2(x, 0));
                     var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
                     var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures));
                     star.AddComponent(movementComponent);
                     star.AddComponent(spriteComponent);
-                    _gameLayer.GameObjects.Add(star);
+                    _gameLayer.AddGameObject(star);
                 }
                 else
                 {
-                    var star = new GameObject("Star", _gameLayer, new Vector2(x, 0));
+                    var star = new GameObject("Star", new Vector2(x, 0));
                     var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
                     var spriteComponent = new SpriteComponent(GetRandomTexture(_minorTextures));
                     star.AddComponent(movementComponent);
                     star.AddComponent(spriteComponent);
-                    _gameLayer.GameObjects.Add(star);
+                    _gameLayer.AddGameObject(star);
                 }
             }
         }

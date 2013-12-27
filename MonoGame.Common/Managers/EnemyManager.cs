@@ -44,7 +44,7 @@ namespace MonoGame.Common.Managers
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);
 
-                var enemy = new GameObject("Enemy", _gameLayer, new Vector2(xLocation, 0));                
+                var enemy = new GameObject("Enemy", new Vector2(xLocation, 0));                
                 var enemySprite = new SpriteComponent(_shipTexture);
                 var enemyMovement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
                 var enemyBullet = new BulletComponent(enemy, SpaceGraphics.BulletAsset, enemyMovement);
@@ -62,7 +62,7 @@ namespace MonoGame.Common.Managers
                 enemy.AddComponent(enemyOutOfBounds);
                 enemy.AddComponent(enemyTimed);
                 enemy.AddComponent(enemyScore);
-                _gameLayer.GameObjects.Add(enemy);
+                _gameLayer.AddGameObject(enemy);
             }
         }
 
