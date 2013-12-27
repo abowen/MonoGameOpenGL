@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Components\BulletComponent.cs" />
     <Compile Include="Components\BoundaryComponent.cs" />
+    <Compile Include="Components\AngularMovementComponent.cs" />
     <Compile Include="Components\SpriteMappingComponent.cs" />
     <Compile Include="Components\LocalKeyboardComponent.cs" />
     <Compile Include="Components\NetworkKeyboardComponent.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\GameLayer.cs" />
     <Compile Include="Infrastructure\GameLevel.cs" />
+    <Compile Include="Interfaces\IRotationComponent.cs" />
+    <Compile Include="Interfaces\IMovementComponent.cs" />
     <Compile Include="Interfaces\ISimpleNetworking.cs" />
     <Compile Include="Interfaces\ISimpleComponent.cs" />
     <Compile Include="Interfaces\ISimpleDrawable.cs" />

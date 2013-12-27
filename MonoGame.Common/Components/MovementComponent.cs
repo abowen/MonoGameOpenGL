@@ -5,13 +5,13 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class MovementComponent : ISimpleComponent, ISimpleUpdateable
+    public class MovementComponent : ISimpleComponent, ISimpleUpdateable, IMovementComponent
     {
-        public MovementComponent(float baseSpeed, FaceDirection startFaceDirection, Vector2 movementDirection)
+        public MovementComponent(float baseSpeed, FaceDirection startFaceDirection, Vector2 movementInputDirection)
         {
             BaseSpeed = baseSpeed;
             FaceDirection = startFaceDirection;
-            Direction = movementDirection;
+            InputDirection = movementInputDirection;
         }
 
         /// <summary>
@@ -43,14 +43,14 @@ namespace MonoGame.Common.Components
         /// <summary>
         /// Movement direction of entity
         /// </summary>
-        public Vector2 Direction { get; set; }
+        public Vector2 InputDirection { get; set; }
 
         /// <summary>
-        /// Direction the Game Object is facing
+        /// InputDirection the Game Object is facing
         /// </summary>
         /// <remarks>
         /// It's important to keep FaceDirection separate 
-        /// from Direction to allow for strafing
+        /// from InputDirection to allow for strafing
         /// </remarks>
         public FaceDirection FaceDirection { get; protected set; }
 
@@ -58,7 +58,7 @@ namespace MonoGame.Common.Components
         {
             get
             {
-                return RelativeSpeed * Direction;
+                return RelativeSpeed * InputDirection;
             }
         }
 

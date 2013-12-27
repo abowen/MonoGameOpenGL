@@ -2,7 +2,6 @@
 using System.Diagnostics.Contracts;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
@@ -13,7 +12,7 @@ namespace MonoGame.Common.Components
 {
     public class InputComponent : ISimpleComponent, ISimpleUpdateable
     {
-        public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, Dictionary<Keys, InputAction> buttonMappings, MovementComponent movementComponent, IKeyboardInput keyboardInput)
+        public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, Dictionary<Keys, InputAction> buttonMappings, IMovementComponent movementComponent, IKeyboardInput keyboardInput)
         {
             _keyboardMappings = keyboardMappings;
             _buttonMappings = buttonMappings;
@@ -25,7 +24,7 @@ namespace MonoGame.Common.Components
 
         private readonly Dictionary<Keys, InputAction> _keyboardMappings;
         private readonly Dictionary<Keys, InputAction> _buttonMappings;
-        private readonly MovementComponent _movementComponent;
+        private readonly IMovementComponent _movementComponent;
         private readonly IKeyboardInput _keyboardInput;
 
         public GameObject Owner { get; set; }
@@ -39,11 +38,11 @@ namespace MonoGame.Common.Components
                 var keysPressed = _keyboardInput.PressedKeys;
                 if (_keyboardMappings != null)
                 {
-                    _movementComponent.Direction = InputHelper.DirectionFromMapping(keysPressed, _keyboardMappings);
+                    _movementComponent.InputDirection = InputHelper.DirectionFromMapping(keysPressed, _keyboardMappings);
                 }
                 else if (_buttonMappings != null)
                 {
-                    _movementComponent.Direction = InputHelper.DirectionFromMapping(keysPressed, _buttonMappings);
+                    _movementComponent.InputDirection = InputHelper.DirectionFromMapping(keysPressed, _buttonMappings);
                 }
 
                 _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;

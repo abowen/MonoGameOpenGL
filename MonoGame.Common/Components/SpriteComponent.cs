@@ -9,6 +9,7 @@ namespace MonoGame.Common.Components
     public class SpriteComponent : ISimpleComponent, ISimpleDrawable
     {
         internal Texture2D Texture;
+        private readonly IRotationComponent _rotationComponent;
         private readonly Vector2 _relativeLocation;
 
         public int Width
@@ -19,17 +20,18 @@ namespace MonoGame.Common.Components
         public int Height
         {
             get { return Texture.Height; }
-        }        
+        }
 
         public GameObject Owner { get; set; }
 
-        public SpriteComponent(Texture2D texture)
+        public SpriteComponent(Texture2D texture, IRotationComponent rotationComponent = null)
         {
             if (texture == null)
             {
-                Contract.Assert(texture != null, "Texture cannot be null");    
-            }            
+                Contract.Assert(texture != null, "Texture cannot be null");
+            }
             Texture = texture;
+            _rotationComponent = rotationComponent;
             _relativeLocation = Vector2.Zero;
         }
 
@@ -41,7 +43,16 @@ namespace MonoGame.Common.Components
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, Color.White);
-        }   
+            if (_rotationComponent != null)
+            {
+                var rotationOrigin = new Vector2(Texture.Width/2, Texture.Height/2);
+                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, null, Color.White,
+                    _rotationComponent.Rotation, rotationOrigin, new Vector2(1, 1), SpriteEffects.None, 1);
+            }
+            else
+            {
+                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, Color.White);
+            }
+        }
     }
 }

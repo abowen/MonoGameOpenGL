@@ -7,7 +7,6 @@ using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Managers;
 using MonoGame.Graphics.Common;
 using MonoGame.Graphics.Surfing;
-using MonoGame.Common.Enums;
 
 namespace MonoGame.Game.Surfing
 {
@@ -39,10 +38,11 @@ namespace MonoGame.Game.Surfing
         {            
             var player = new GameObject("Player", ForegroundLayer, new Vector2(100,100));
             var playerTexture = SurfingGraphics.SurfboardAsset;
-            var playerSpriteComponent = new SpriteComponent(playerTexture);
-            var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
-            var playerLocalKeyboardComponent = new LocalKeyboardComponent(player);
+            
+            var playerMovementComponent = new AngularMovementComponent(2, 4, 180, Vector2.Zero);
+            var playerLocalKeyboardComponent = new LocalKeyboardComponent();
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent, playerLocalKeyboardComponent);
+            var playerSpriteComponent = new SpriteComponent(playerTexture, playerMovementComponent);
 
             player.AddComponent(playerSpriteComponent);
             player.AddComponent(playerMovementComponent);

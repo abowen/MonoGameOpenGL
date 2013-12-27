@@ -44,7 +44,7 @@ namespace MonoGame.Game.Space
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
-            var playerLocalKeyboardComponent = new LocalKeyboardComponent(player);
+            var playerLocalKeyboardComponent = new LocalKeyboardComponent();
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent, playerLocalKeyboardComponent);
 
             //var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
