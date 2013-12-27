@@ -96,6 +96,10 @@
       <Project>{BFA0CA76-D587-43F9-85B7-55A52B132FFF}</Project>
       <Name>MonoGame.Graphics.Space</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MonoGame.Graphics.Surfing\MonoGame.Graphics.Surfing.csproj">
+      <Project>{a8dbff37-c740-42b4-81e3-a1a3f55c8b1f}</Project>
+      <Name>MonoGame.Graphics.Surfing</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

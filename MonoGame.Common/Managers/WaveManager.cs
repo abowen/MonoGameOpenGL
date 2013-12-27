@@ -7,7 +7,8 @@ using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
-using MonoGame.Graphics.Space;
+using MonoGame.Graphics.Common;
+using MonoGame.Graphics.Surfing;
 
 namespace MonoGame.Common.Managers
 {
@@ -32,6 +33,13 @@ namespace MonoGame.Common.Managers
             _random = new Random();            
             _waveHeight = waveHeight;
             _yPosition = yPosition;
+
+            var surfBackground = new GameObject("WAVE", new Vector2(0, yPosition));
+            var waveTexture = SurfingGraphics.WaveAsset;
+            var scaleVector = new Vector2(GameConstants.ScreenBoundary.Right / waveTexture.Width , waveHeight / waveTexture.Height);
+            var spriteComponent = new SpriteComponent(waveTexture, Vector2.Zero, scaleVector);
+            surfBackground.AddComponent(spriteComponent);
+            backgroundLayer.AddGameObject(surfBackground);
         }
 
         public void Update(GameTime gameTime)
@@ -59,7 +67,7 @@ namespace MonoGame.Common.Managers
         private void GenerateFoam(int xPosition)
         {
             var bottomPadding = GameConstants.ScreenBoundary.Bottom - (_yPosition + _waveHeight);
-            var gameObject = new GameObject("Foam", new Vector2(xPosition, _yPosition));
+            var gameObject = new GameObject("FOAM", new Vector2(xPosition, _yPosition));
             var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
             var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures));
             var outOfBoundsComponent = new OutOfBoundsComponent(gameObject, bottomPadding: bottomPadding);
