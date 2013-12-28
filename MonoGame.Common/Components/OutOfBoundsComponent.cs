@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoGame.Common.Entities;
+using MonoGame.Common.Enums;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
 
@@ -7,6 +8,7 @@ namespace MonoGame.Common.Components
 {
     public class OutOfBoundsComponent : ISimpleComponent, ISimpleUpdateable
     {
+        private readonly ObjectEvent _publishEvent;
         private readonly int _leftPadding;
         private readonly int _topPadding;
         private readonly int _rightPadding;
@@ -19,8 +21,9 @@ namespace MonoGame.Common.Components
             Owner = owner;            
         }
 
-        public OutOfBoundsComponent(int leftPadding = 0, int topPadding = 0, int rightPadding = 0, int bottomPadding = 0)
+        public OutOfBoundsComponent(ObjectEvent publishEvent, int leftPadding = 0, int topPadding = 0, int rightPadding = 0, int bottomPadding = 0)
         {
+            _publishEvent = publishEvent;
             _leftPadding = leftPadding;
             _topPadding = topPadding;
             _rightPadding = rightPadding;
@@ -34,7 +37,7 @@ namespace MonoGame.Common.Components
                 Owner.Centre.Y < (0 + _topPadding) ||
                 Owner.Centre.Y > (GameConstants.ScreenBoundary.Bottom - _bottomPadding))
             {
-                Owner.RemoveGameObject();
+                Owner.Event(_publishEvent);
             }
         }
     }

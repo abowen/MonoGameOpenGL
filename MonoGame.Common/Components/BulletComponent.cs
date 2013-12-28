@@ -61,7 +61,7 @@ namespace MonoGame.Common.Components
             var bulletBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width,
                 bulletTexture.Height);
             var instanceComponent = new InstanceComponent();
-            var bulletOutOfBounds = new OutOfBoundsComponent();
+            var bulletOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
             bullet.AddComponent(bulletMovement);
             bullet.AddComponent(bulletSprite);
             bullet.AddComponent(bulletBoundary);

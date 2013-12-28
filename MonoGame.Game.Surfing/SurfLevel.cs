@@ -18,6 +18,8 @@ namespace MonoGame.Game.Surfing
 
         }
 
+        private float _waveSpeed = -0.5f;
+
         protected override void LoadDisplay()
         {
             var text = new GameObject("Text", new Vector2(50, 50));
@@ -30,7 +32,7 @@ namespace MonoGame.Game.Surfing
                 CommonGraphics.WhiteCubeAsset, 
                 CommonGraphics.BlueCubeAsset, 
                 CommonGraphics.LightBlueCubeAsset};
-            var waveManager = new WaveManager(foam, BackgroundLayer, ForegroundLayer, 200, 100);
+            var waveManager = new WaveManager(foam, BackgroundLayer, ForegroundLayer, 200, 100, _waveSpeed);
 
             DisplayLayer.Managers.Add(waveManager);
         }
@@ -42,23 +44,24 @@ namespace MonoGame.Game.Surfing
             var startRotation = (float)(90 * (Math.PI / 180));
 
             var player = new GameObject("Player", new Vector2(250, 100));
-            var playerTexture = SurfingGraphics.SurfboardAsset;
-            var playerGravity = new GravityComponent();
-            var boundayComponent = new BoundaryComponent(playerTexture, playerTexture.Width, playerTexture.Height);            
-            var playerMovementComponent = new AngularMovementComponent(2, startRotation, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
-            var playerLocalKeyboardComponent = new LocalKeyboardComponent();
-            var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent, playerLocalKeyboardComponent);
-            var playerSpriteComponent = new SpriteComponent(playerTexture, playerMovementComponent);
-            var playerBoundaryEventComponent = new BoundaryEventComponent(CommonGraphics.WhiteCubeAsset, new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), ObjectEvent.OnWave, ObjectEvent.InAir);
+            var texture = SurfingGraphics.SurfboardAsset;
+            var waveMovement = new ConstantMovementComponent(new Vector2(_waveSpeed, 0.25f));
+            var outOfBoundary = new OutOfBoundsComponent(ObjectEvent.ResetEntity);
+            var boundary = new BoundaryComponent(texture, texture.Width, texture.Height);            
+            var angularMovement = new AngularMovementComponent(2, startRotation, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
+            var localKeyboard = new LocalKeyboardComponent();
+            var input = new InputComponent(InputHelper.KeyboardMappedKey(), null, angularMovement, localKeyboard);
+            var sprite = new SpriteComponent(texture, angularMovement);
+            var boundaryEvent = new BoundaryEventComponent(CommonGraphics.WhiteCubeAsset, new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), ObjectEvent.OnWave, ObjectEvent.InAir);
 
-
-            player.AddComponent(playerSpriteComponent);
-            player.AddComponent(playerMovementComponent);
-            player.AddComponent(boundayComponent);
-            player.AddComponent(playerLocalKeyboardComponent);
-            player.AddComponent(playerInputComponent);
-            player.AddComponent(playerGravity);
-            player.AddComponent(playerBoundaryEventComponent);
+            player.AddComponent(sprite);
+            player.AddComponent(angularMovement);
+            player.AddComponent(boundary);
+            player.AddComponent(localKeyboard);
+            player.AddComponent(input);
+            player.AddComponent(waveMovement);
+            player.AddComponent(boundaryEvent);
+            player.AddComponent(outOfBoundary);
 
             ForegroundLayer.AddGameObject(player);
         }

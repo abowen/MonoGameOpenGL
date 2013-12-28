@@ -19,18 +19,19 @@ namespace MonoGame.Common.Managers
         private readonly GameLayer _topLayer;        
         private readonly int _waveHeight;
         private readonly int _yPosition;
+        private readonly float _waveSpeed;
         private readonly Random _random;
         private TimeSpan _lastTimeSpan;
 
-        public WaveManager(Texture2D[] majorTextures, GameLayer backgroundLayer, GameLayer topLayer, int waveHeight, int yPosition)
+        public WaveManager(Texture2D[] majorTextures, GameLayer backgroundLayer, GameLayer topLayer, int waveHeight, int yPosition, float waveSpeed)
         {
             _majorTextures = majorTextures;
-
             _topLayer = topLayer;
             _lastTimeSpan = new TimeSpan();
             _random = new Random();            
             _waveHeight = waveHeight;
             _yPosition = yPosition;
+            _waveSpeed = waveSpeed;
 
             var surfBackground = new GameObject("WAVE", new Vector2(0, yPosition));
             var waveTexture = SurfingGraphics.Wave_8x100_Asset;
@@ -64,9 +65,9 @@ namespace MonoGame.Common.Managers
         {
             var bottomPadding = GameConstants.ScreenBoundary.Bottom - (_yPosition + _waveHeight);
             var gameObject = new GameObject("FOAM", new Vector2(xPosition, _yPosition));
-            var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(-0.5f, 1));
+            var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(_waveSpeed, 1));
             var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures), Vector2.Zero, new Vector2(width, 1));
-            var outOfBoundsComponent = new OutOfBoundsComponent(leftPadding: -50, bottomPadding: bottomPadding);
+            var outOfBoundsComponent = new OutOfBoundsComponent(ObjectEvent.RemoveEntity, leftPadding: -50, bottomPadding: bottomPadding);
             gameObject.AddComponent(movementComponent);
             gameObject.AddComponent(spriteComponent);
             gameObject.AddComponent(outOfBoundsComponent);

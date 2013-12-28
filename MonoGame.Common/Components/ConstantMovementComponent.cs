@@ -4,8 +4,9 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class GravityComponent : ISimpleComponent, ISimpleUpdateable
+    public class ConstantMovementComponent : ISimpleComponent, ISimpleUpdateable
     {
+        private readonly Vector2 _movement;
 
         public GameObject Owner { get; private set; }
 
@@ -14,14 +15,14 @@ namespace MonoGame.Common.Components
             Owner = owner;
         }
 
-        public GravityComponent()
+        public ConstantMovementComponent(Vector2 movement)
         {
-            
+            _movement = movement;
         }
 
         public void Update(GameTime gameTime)
         {
-            //Owner.TopLeft += new Vector2(0,0.5f);
+            Owner.TopLeft += _movement;
         }
     }
 }

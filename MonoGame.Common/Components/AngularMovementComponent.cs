@@ -9,12 +9,16 @@ namespace MonoGame.Common.Components
 {
     public class AngularMovementComponent : ISimpleComponent, ISimpleUpdateable, IMovementComponent, IRotationComponent
     {
+        private readonly float _originalSpeed;
+        private readonly float _originalRotation;
         private float _speed;
         private readonly ObjectEvent _enableEvent;
         private readonly ObjectEvent _disableEvent;
 
         public AngularMovementComponent(float speed, float startRotation, Vector2 movementInputDirection, ObjectEvent enableEvent, ObjectEvent disableEvent)
         {
+            _originalSpeed = speed;
+            _originalRotation = startRotation;
             _speed = speed;
             _enableEvent = enableEvent;
             _disableEvent = disableEvent;
@@ -56,8 +60,12 @@ namespace MonoGame.Common.Components
             }
             else if (_disableEvent == objectEventArgs.Action)
             {
-                _movementDisabled = true;
-                //Acceleration = 0;
+                _movementDisabled = true;                
+            }
+            if (ObjectEvent.ResetEntity == objectEventArgs.Action)
+            {
+                _speed = _originalSpeed;
+                Rotation = _originalRotation;
             }
         }
 

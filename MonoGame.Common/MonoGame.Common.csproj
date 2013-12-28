@@ -43,7 +43,7 @@
     <Compile Include="Components\BoundaryComponent.cs" />
     <Compile Include="Components\AngularMovementComponent.cs" />
     <Compile Include="Components\BoundaryEventComponent.cs" />
-    <Compile Include="Components\GravityComponent.cs" />
+    <Compile Include="Components\ConstantMovementComponent.cs" />
     <Compile Include="Components\SpriteMappingComponent.cs" />
     <Compile Include="Components\LocalKeyboardComponent.cs" />
     <Compile Include="Components\NetworkKeyboardComponent.cs" />

@@ -16,6 +16,7 @@
         ScoreIncreaseDisplay,
         InAir,
         OnWave,
-
+        RemoveEntity,
+        ResetEntity
     }
 }

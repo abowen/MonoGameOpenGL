@@ -113,7 +113,7 @@ namespace MonoGame.Game.Space
                 var enemyBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), shipTexture.Width,
                     shipTexture.Height);
                 var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, 500);
-                var enemyOutOfBounds = new OutOfBoundsComponent();
+                var enemyOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
 
                 var healthCounterComponent = new CounterComponent(ObjectEvent.Collision, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
                 var healthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset[1], new Vector2(0, 25), false, ObjectEvent.HealthRemoved, healthCounterComponent);

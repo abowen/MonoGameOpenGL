@@ -44,16 +44,27 @@ namespace MonoGame.Common.Entities
 
         public void Event(ObjectEvent action)
         {
+            if (action == Enums.ObjectEvent.RemoveEntity)
+            {
+                GameLayer.RemoveGameObject(this);
+            }
+            if (action == Enums.ObjectEvent.ResetEntity)
+            {
+                TopLeft = _originalTopLeftLocation;
+            }
             if (ObjectEvent != null)
             {
                 ObjectEvent(this, new ObjectEventArgs { Action = action });
             }
         }
 
+        private readonly Vector2 _originalTopLeftLocation;
+
         public GameObject(string typeName, Vector2 topLeftLocation)
         {
             GameType = typeName;            
             TopLeft = topLeftLocation;
+            _originalTopLeftLocation = topLeftLocation;
         }
 
         public void RemoveGameObject()
