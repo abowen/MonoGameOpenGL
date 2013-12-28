@@ -44,6 +44,7 @@
     <Compile Include="Components\AngularMovementComponent.cs" />
     <Compile Include="Components\BoundaryEventComponent.cs" />
     <Compile Include="Components\ConstantMovementComponent.cs" />
+    <Compile Include="Components\LocalButtonComponent.cs" />
     <Compile Include="Components\SpriteMappingComponent.cs" />
     <Compile Include="Components\LocalKeyboardComponent.cs" />
     <Compile Include="Components\NetworkKeyboardComponent.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\GameLayer.cs" />
     <Compile Include="Infrastructure\GameLevel.cs" />
+    <Compile Include="Interfaces\IButtonInput.cs" />
     <Compile Include="Interfaces\IRotationComponent.cs" />
     <Compile Include="Interfaces\IMovementComponent.cs" />
     <Compile Include="Interfaces\ISimpleNetworking.cs" />

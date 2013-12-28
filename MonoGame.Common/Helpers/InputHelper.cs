@@ -27,12 +27,12 @@ namespace MonoGame.Common.Helpers
             return direction;
         }
 
-        public static Vector2 DirectionFromMapping(IEnumerable<Buttons> keys, Dictionary<Buttons, InputAction> mapping)
+        public static Vector2 DirectionFromMapping(IEnumerable<Buttons> buttons, Dictionary<Buttons, InputAction> mapping)
         {
-            Contract.Assert(keys != null, "Failed to pass input parameter");
+            Contract.Assert(buttons != null, "Failed to pass input parameter");
 
             var direction = Vector2.Zero;
-            foreach (var key in keys)
+            foreach (var key in buttons)
             {
                 if (mapping.ContainsKey(key))
                 {
@@ -84,10 +84,10 @@ namespace MonoGame.Common.Helpers
         {
             var dictionary = new Dictionary<Buttons, InputAction>
             {
-                {Buttons.LeftThumbstickLeft, InputAction.Left},
-                {Buttons.LeftThumbstickRight, InputAction.Right},
-                {Buttons.LeftThumbstickUp, InputAction.Up},
-                {Buttons.LeftThumbstickDown, InputAction.Down},
+                {Buttons.DPadLeft, InputAction.Left},
+                {Buttons.DPadRight, InputAction.Right},
+                {Buttons.DPadUp, InputAction.Up},
+                {Buttons.DPadDown, InputAction.Down},
                 {Buttons.RightTrigger, InputAction.Fire}
             };
             return dictionary;
