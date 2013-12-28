@@ -18,7 +18,12 @@ namespace MonoGame.Common.Components
       
         private IEnumerable<Keys> _lastKnownKeys = new List<Keys>();
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+        }
 
         public void Update(NetworkMessage message)
         {

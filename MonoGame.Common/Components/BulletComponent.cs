@@ -20,15 +20,13 @@ namespace MonoGame.Common.Components
         private bool _canFire = true;
 
         
-        public BulletComponent(GameObject gameObject, Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore)
+        public BulletComponent(Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore)
         {
             _texture2D = texture;
             _movementComponent = movementComponent;
             _fireEvent = fireEvent;
             _stopEvent = stopEvent;
             _startEvent = startEvent;
-            Owner = gameObject;
-            Owner.ObjectEvent += OwnerOnObjectEvent;
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs eventArgs)
@@ -60,9 +58,9 @@ namespace MonoGame.Common.Components
             var bullet = new GameObject("Bullet", startLocation);            
             var bulletMovement = new MovementComponent(3, _movementComponent.FaceDirection, direction);
             var bulletSprite = new SpriteComponent(bulletTexture);
-            var bulletBoundary = new BoundaryComponent(bullet, SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width,
+            var bulletBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width,
                 bulletTexture.Height);
-            var instanceComponent = new InstanceComponent(bullet);
+            var instanceComponent = new InstanceComponent();
             var bulletOutOfBounds = new OutOfBoundsComponent();
             bullet.AddComponent(bulletMovement);
             bullet.AddComponent(bulletSprite);
@@ -73,6 +71,12 @@ namespace MonoGame.Common.Components
             Owner.GameLayer.AddGameObject(bullet);
         }
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+            Owner.ObjectEvent += OwnerOnObjectEvent;
+        }
     }
 }

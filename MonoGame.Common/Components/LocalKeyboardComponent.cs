@@ -6,8 +6,13 @@ using MonoGame.Common.Interfaces;
 namespace MonoGame.Common.Components
 {
     public class LocalKeyboardComponent : ISimpleComponent, IKeyboardInput
-    {        
-        public GameObject Owner { get; set; }
+    {
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+        }
 
         public IEnumerable<Keys> PressedKeys
         {

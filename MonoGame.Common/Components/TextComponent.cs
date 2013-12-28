@@ -18,7 +18,13 @@ namespace MonoGame.Common.Components
             Text = text;
         }
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;            
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             var location = Owner.TopLeft;

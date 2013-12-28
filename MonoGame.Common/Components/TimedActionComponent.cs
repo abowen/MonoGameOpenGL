@@ -9,13 +9,18 @@ namespace MonoGame.Common.Components
     {
         private readonly ObjectEvent _eventTypeRaised;
         private readonly double _intervalMilliseconds;
-        public GameObject Owner { get; set; }
 
-        public TimedActionComponent(GameObject owner, ObjectEvent eventTypeRaised, double intervalMilliseconds)
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+        }
+
+        public TimedActionComponent(ObjectEvent eventTypeRaised, double intervalMilliseconds)
         {
             _eventTypeRaised = eventTypeRaised;
-            _intervalMilliseconds = intervalMilliseconds;
-            Owner = owner;
+            _intervalMilliseconds = intervalMilliseconds;            
         }
 
         private double _timeElapsed;

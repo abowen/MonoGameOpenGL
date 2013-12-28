@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
@@ -9,10 +8,9 @@ namespace MonoGame.Common.Components
 {
     public class InstanceComponent : ISimpleComponent, ISimpleUpdateable
     {
-        public InstanceComponent(GameObject owner)
+        public InstanceComponent()
         {
-            Owner = owner;
-            owner.ObjectEvent += OwnerOnObjectEvent;
+
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
@@ -25,7 +23,13 @@ namespace MonoGame.Common.Components
 
         private bool _hasCollided = false;
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+            owner.ObjectEvent += OwnerOnObjectEvent;
+        }
 
         public void Update(GameTime gameTime)
         {

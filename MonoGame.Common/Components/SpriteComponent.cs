@@ -23,7 +23,12 @@ namespace MonoGame.Common.Components
             get { return Texture.Height; }
         }
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+        }
 
         public SpriteComponent(Texture2D texture, IRotationComponent rotationComponent = null)
         {

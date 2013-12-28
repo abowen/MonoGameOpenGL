@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
+using MonoGame.Common.Events;
 using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
@@ -9,11 +10,15 @@ namespace MonoGame.Common.Components
     {
         private readonly float _minSpeed;
         private readonly float _maxSpeed;
+        private readonly ObjectEvent _enableEvent;
+        private readonly ObjectEvent _disableEvent;
 
-        public AngularMovementComponent(float baseSpeed, float minSpeed, float maxSpeed, float startRotation, Vector2 movementInputDirection)
+        public AngularMovementComponent(float baseSpeed, float minSpeed, float maxSpeed, float startRotation, Vector2 movementInputDirection, ObjectEvent enableEvent, ObjectEvent disableEvent)
         {
             _minSpeed = minSpeed;
             _maxSpeed = maxSpeed;
+            _enableEvent = enableEvent;
+            _disableEvent = disableEvent;
             BaseSpeed = baseSpeed;
             CurrentSpeed = BaseSpeed;
             Rotation = startRotation;
@@ -75,27 +80,49 @@ namespace MonoGame.Common.Components
         //    }
         //}
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+            owner.ObjectEvent += OwnerOnObjectEvent;
+        }
+
+        private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
+        {
+            if (_enableEvent == objectEventArgs.Action)
+            {
+                _movementDisabled = true;
+            }
+            else if (_disableEvent == objectEventArgs.Action)
+            {
+                _movementDisabled = false;
+            }
+        }
+
+        private bool _movementDisabled;
 
 
         public void Update(GameTime gameTime)
         {
             // Process Input
             // Move forward
-            if (InputDirection.Y < 0)
+            if (!_movementDisabled)
             {
-                if (CurrentSpeed < _maxSpeed)
+                if (InputDirection.Y < 0)
                 {
-                    CurrentSpeed++;
+                    if (CurrentSpeed < _maxSpeed)
+                    {
+                        CurrentSpeed++;
+                    }
                 }
-            }
-            else if (InputDirection.Y > 0)
-            {
-                if (CurrentSpeed > _minSpeed)
+                else if (InputDirection.Y > 0)
                 {
-                    CurrentSpeed--;
+                    if (CurrentSpeed > _minSpeed)
+                    {
+                        CurrentSpeed--;
+                    }
                 }
-
             }
             if (InputDirection.X < 0)
             {

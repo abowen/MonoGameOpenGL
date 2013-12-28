@@ -62,7 +62,12 @@ namespace MonoGame.Common.Components
             }
         }
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+        }
 
 
         public void Update(GameTime gameTime)

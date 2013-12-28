@@ -27,7 +27,12 @@ namespace MonoGame.Common.Components
         private readonly IMovementComponent _movementComponent;
         private readonly IKeyboardInput _keyboardInput;
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+        }
 
         private double _elapsedTimeMilliseconds;
 

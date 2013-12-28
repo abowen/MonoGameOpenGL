@@ -4,6 +4,8 @@ namespace MonoGame.Common.Interfaces
 {
     public interface ISimpleComponent
     {
-        GameObject Owner { get; set; }        
+        GameObject Owner { get; }
+
+        void SetOwner(GameObject owner);
     }
 }

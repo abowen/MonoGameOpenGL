@@ -13,6 +13,9 @@
         AmmoReset,
         WoodFire,
         ScoreIncrease,
-        ScoreIncreaseDisplay
+        ScoreIncreaseDisplay,
+        InAir,
+        OnWave,
+
     }
 }

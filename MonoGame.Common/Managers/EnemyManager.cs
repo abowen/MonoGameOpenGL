@@ -47,13 +47,13 @@ namespace MonoGame.Common.Managers
                 var enemy = new GameObject("Enemy", new Vector2(xLocation, 0));                
                 var enemySprite = new SpriteComponent(_shipTexture);
                 var enemyMovement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
-                var enemyBullet = new BulletComponent(enemy, SpaceGraphics.BulletAsset, enemyMovement);
-                var enemyBoundary = new BoundaryComponent(enemy, SpaceGraphics.BoundaryAsset.First(), _shipTexture.Width,
+                var enemyBullet = new BulletComponent(SpaceGraphics.BulletAsset, enemyMovement);
+                var enemyBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), _shipTexture.Width,
                     _shipTexture.Height);
-                var enemyInstance = new InstanceComponent(enemy);
-                var enemyTimed = new TimedActionComponent(enemy, ObjectEvent.Fire, _bulletDelayMilliseconds);
+                var enemyInstance = new InstanceComponent();
+                var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, _bulletDelayMilliseconds);
                 var enemyOutOfBounds = new OutOfBoundsComponent();
-                var enemyScore = new ObjectEventComponent(enemy, ObjectEvent.Collision, IncreaseScore);
+                var enemyScore = new ObjectEventComponent(ObjectEvent.Collision, IncreaseScore);
                 enemy.AddComponent(enemySprite);
                 enemy.AddComponent(enemyMovement);
                 enemy.AddComponent(enemyBullet);

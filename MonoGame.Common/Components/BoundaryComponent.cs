@@ -12,15 +12,19 @@ namespace MonoGame.Common.Components
         public readonly int Width;
         public readonly int Height;
 
-        public BoundaryComponent(GameObject owner, Texture2D texture, int width, int height)
+        public BoundaryComponent(Texture2D texture, int width, int height)
         {
             _texture = texture;
             Width = width;
-            Height = height;
-            Owner = owner;
+            Height = height;            
         }
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {

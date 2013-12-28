@@ -10,13 +10,19 @@ namespace MonoGame.Common.Components
     {
         private readonly ObjectEvent _subscribeEvent;
         private readonly Action<GameObject> _action;
-        public GameObject Owner { get; set; }
 
-        public ObjectEventComponent(GameObject owner, ObjectEvent subscribeEvent, Action<GameObject> action)
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+            owner.ObjectEvent += OwnerOnObjectEvent;
+        }
+
+        public ObjectEventComponent(ObjectEvent subscribeEvent, Action<GameObject> action)
         {
             _subscribeEvent = subscribeEvent;
-            _action = action;
-            owner.ObjectEvent += OwnerOnObjectEvent;
+            _action = action;            
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)

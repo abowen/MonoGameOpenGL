@@ -37,7 +37,7 @@ namespace MonoGame.Common.Entities
             {
                 _networkingComponents.Add(component as ISimpleNetworking);
             }
-            component.Owner = this;
+            component.SetOwner(this);
         }
 
         public event EventHandler<ObjectEventArgs> ObjectEvent;

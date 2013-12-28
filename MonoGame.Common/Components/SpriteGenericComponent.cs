@@ -24,9 +24,15 @@ namespace MonoGame.Common.Components
 
         public int Height { get; private set; }
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
 
-        public SpriteGenericComponent(Texture2D[] textures, Vector2 relativeLocation, GameObject owner, ObjectEvent subscribeEvent, CounterComponent counterComponent, Func<int, int, IEnumerable<Vector2>> drawMethod)
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+            owner.ObjectEvent += OwnerOnObjectEvent;
+        }
+
+        public SpriteGenericComponent(Texture2D[] textures, Vector2 relativeLocation, ObjectEvent subscribeEvent, CounterComponent counterComponent, Func<int, int, IEnumerable<Vector2>> drawMethod)
         {
             Textures = textures;
 
@@ -38,8 +44,6 @@ namespace MonoGame.Common.Components
             _subscribeEvent = subscribeEvent;
             _counterComponent = counterComponent;
             _drawMethod = drawMethod;
-            owner.ObjectEvent += OwnerOnObjectEvent;
-
             _locations = drawMethod.Invoke(_currentValue, 0).ToList();
         }
 
@@ -49,9 +53,8 @@ namespace MonoGame.Common.Components
             {
                 _currentValue = _counterComponent.CurrentValue;
 
-                var requiredItems = _currentValue;// - _locations.Count();
-                var newVectors = _drawMethod(requiredItems, 5).ToList();
-                //_locations.AddRange(newVectors);
+                var requiredItems = _currentValue;
+                var newVectors = _drawMethod(requiredItems, 5).ToList();                
                 _locations = newVectors;
             }
         }

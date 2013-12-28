@@ -27,7 +27,13 @@ namespace MonoGame.Common.Components
             get { return Texture.Height; }
         }
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+            owner.ObjectEvent += OwnerOnObjectEvent;
+        }
 
         public SpriteRepeaterComponent(Texture2D texture, int currentValue, bool isVertical)
         {
@@ -46,7 +52,7 @@ namespace MonoGame.Common.Components
             _isVertical = isVertical;
         }
 
-        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, bool isVertical, GameObject owner, ObjectEvent subscribeEvent, CounterComponent counterComponent, bool isReverse = false)
+        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, bool isVertical, ObjectEvent subscribeEvent, CounterComponent counterComponent, bool isReverse = false)
         {
             Texture = texture;
             _relativeLocation = relativeLocation;
@@ -55,7 +61,7 @@ namespace MonoGame.Common.Components
             _subscribeEvent = subscribeEvent;
             _counterComponent = counterComponent;            
             _isReverse = isReverse;
-            owner.ObjectEvent += OwnerOnObjectEvent;
+
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)

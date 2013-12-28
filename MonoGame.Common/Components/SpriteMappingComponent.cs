@@ -12,7 +12,12 @@ namespace MonoGame.Common.Components
         private readonly string _spriteName;
         private readonly Vector2 _relativeLocation;
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+        }
 
         public SpriteMappingComponent(SpriteMapping spriteMapping, string spriteName, Vector2 relativeLocation)
         {

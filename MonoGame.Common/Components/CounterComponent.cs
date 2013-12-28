@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Common.Entities;
+﻿using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
 using MonoGame.Common.Interfaces;
@@ -18,13 +16,18 @@ namespace MonoGame.Common.Components
         public int CurrentValue { get; private set; }
         private readonly bool _isDescending;
 
-        public GameObject Owner { get; set; }
+        public GameObject Owner { get; private set; }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
+            owner.ObjectEvent += OwnerOnObjectEvent;
+        }
 
 
         // TODO: Determine descending by if start > 0
-        public CounterComponent(GameObject owner, ObjectEvent subscribeEvent, ObjectEvent publishEvent, ObjectEvent lastEvent, ObjectEvent resetEvent, int startValue, int lastValue, bool isDescending = true)
+        public CounterComponent(ObjectEvent subscribeEvent, ObjectEvent publishEvent, ObjectEvent lastEvent, ObjectEvent resetEvent, int startValue, int lastValue, bool isDescending = true)
         {
-            Owner = owner;
             _subscribeEvent = subscribeEvent;
             _publishEvent = publishEvent;
             _lastEvent = lastEvent;
@@ -33,7 +36,6 @@ namespace MonoGame.Common.Components
             _lastValue = lastValue;
             CurrentValue = startValue;
             _isDescending = isDescending;
-            owner.ObjectEvent += OwnerOnObjectEvent;
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
