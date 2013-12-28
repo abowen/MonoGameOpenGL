@@ -42,7 +42,7 @@ namespace MonoGame.Game.Surfing
             // MonoGame works in Radians
             // http://msdn.microsoft.com/en-us/library/system.math.sin%28v=vs.110%29.aspx
             var startRotation = (float)(90 * (Math.PI / 180));
-            var texture = SurfingGraphics.SurfboardAsset;
+            var texture = SurfingGraphics.Surfboard_White_Asset;
 
             var playerOne = new GameObject("PlayerOne", new Vector2(250, 100));
             var waveMovement = new ConstantMovementComponent(new Vector2(_waveSpeed, 0.25f));
@@ -51,7 +51,7 @@ namespace MonoGame.Game.Surfing
             var angularMovement = new AngularMovementComponent(2, startRotation, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
             var localKeyboard = new LocalKeyboardComponent();
             var input = new InputComponent(InputHelper.KeyboardMappedKey(), null, angularMovement, localKeyboard, null);
-            var sprite = new SpriteComponent(texture, angularMovement);
+            var sprite = new SpriteComponent(texture, angularMovement, Color.LightPink);
             var boundaryEvent = new BoundaryEventComponent(CommonGraphics.WhiteCubeAsset, new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), ObjectEvent.OnWave, ObjectEvent.InAir);
 
             playerOne.AddComponent(sprite);
@@ -72,7 +72,7 @@ namespace MonoGame.Game.Surfing
             var angularMovementTwo = new AngularMovementComponent(2, startRotation, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
             var localButtonTwo = new LocalButtonComponent();
             var inputTwo = new InputComponent(null, InputHelper.GamepadMappedKey(), angularMovementTwo, null, localButtonTwo);
-            var spriteTwo = new SpriteComponent(texture, angularMovementTwo);
+            var spriteTwo = new SpriteComponent(texture, angularMovementTwo, Color.LightGreen);
             var boundaryEventTwo = new BoundaryEventComponent(CommonGraphics.WhiteCubeAsset, new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), ObjectEvent.OnWave, ObjectEvent.InAir);
 
             playerTwo.AddComponent(spriteTwo);

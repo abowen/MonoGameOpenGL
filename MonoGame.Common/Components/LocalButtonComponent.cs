@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Entities;
@@ -40,6 +41,10 @@ namespace MonoGame.Common.Components
                     {
                         buttons.Add(Buttons.DPadRight);
                     }
+                }
+                else
+                {
+                    Console.WriteLine("NOT CONNNECTED");
                 }
                 return buttons;
             }

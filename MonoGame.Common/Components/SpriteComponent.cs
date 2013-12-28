@@ -30,8 +30,11 @@ namespace MonoGame.Common.Components
             Owner = owner;
         }
 
-        public SpriteComponent(Texture2D texture, IRotationComponent rotationComponent = null)
+        private readonly Color _color = Color.White;
+
+        public SpriteComponent(Texture2D texture, IRotationComponent rotationComponent = null, Color? color = null)
         {
+            _color = color ?? Color.White;
             if (texture == null)
             {
                 Contract.Assert(texture != null, "Texture cannot be null");
@@ -59,18 +62,18 @@ namespace MonoGame.Common.Components
             if (_rotationComponent != null)
             {
                 var rotationOrigin = new Vector2(Texture.Width/2, Texture.Height/2);
-                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, null, Color.White,
+                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, null, _color,
                     _rotationComponent.Rotation, rotationOrigin, new Vector2(1, 1), SpriteEffects.None, 1);
             }
             else if (_scale != Vector2.Zero)
             {
                 //var rotationOrigin = new Vector2(Texture.Width/2, Texture.Height/2);
                 var origin = new Vector2(0, 0);
-                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, null, Color.White, 0, origin, _scale, SpriteEffects.None, 1);
+                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, null, _color, 0, origin, _scale, SpriteEffects.None, 1);
             }
             else
             {
-                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, Color.White);
+                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, _color);
             }
         }
     }
