@@ -35,20 +35,22 @@ namespace MonoGame.Game.Surfing
         }
 
         protected override void LoadForeground()
-        {            
-            var player = new GameObject("Player", new Vector2(100,100));
+        {
+            var player = new GameObject("Player", new Vector2(100, 100));
             var playerTexture = SurfingGraphics.SurfboardAsset;
             var playerGravity = new GravityComponent();
             var playerMovementComponent = new AngularMovementComponent(2, 0, 20, 180, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
             var playerLocalKeyboardComponent = new LocalKeyboardComponent();
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent, playerLocalKeyboardComponent);
             var playerSpriteComponent = new SpriteComponent(playerTexture, playerMovementComponent);
+            var playerBoundaryEventComponent = new BoundaryEventComponent(CommonGraphics.WhiteCubeAsset, new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), ObjectEvent.OnWave, ObjectEvent.InAir);
 
             player.AddComponent(playerSpriteComponent);
             player.AddComponent(playerMovementComponent);
             player.AddComponent(playerLocalKeyboardComponent);
             player.AddComponent(playerInputComponent);
             player.AddComponent(playerGravity);
+            player.AddComponent(playerBoundaryEventComponent);
 
             ForegroundLayer.AddGameObject(player);
         }

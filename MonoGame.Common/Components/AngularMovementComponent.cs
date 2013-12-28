@@ -92,11 +92,11 @@ namespace MonoGame.Common.Components
         {
             if (_enableEvent == objectEventArgs.Action)
             {
-                _movementDisabled = true;
+                _movementDisabled = false;
             }
             else if (_disableEvent == objectEventArgs.Action)
             {
-                _movementDisabled = false;
+                _movementDisabled = true;
             }
         }
 
