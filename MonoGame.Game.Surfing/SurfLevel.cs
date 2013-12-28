@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Components;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Helpers;
@@ -29,7 +28,7 @@ namespace MonoGame.Game.Surfing
                 CommonGraphics.WhiteCubeAsset, 
                 CommonGraphics.BlueCubeAsset, 
                 CommonGraphics.LightBlueCubeAsset};
-            var waveManager = new WaveManager(foam, new Texture2D[0], BackgroundLayer, ForegroundLayer, 200, 100);
+            var waveManager = new WaveManager(foam, BackgroundLayer, ForegroundLayer, 200, 100);
 
             DisplayLayer.Managers.Add(waveManager);
         }
@@ -38,7 +37,7 @@ namespace MonoGame.Game.Surfing
         {            
             var player = new GameObject("Player", new Vector2(100,100));
             var playerTexture = SurfingGraphics.SurfboardAsset;
-            
+            var playerGravity = new GravityComponent();
             var playerMovementComponent = new AngularMovementComponent(2, 0, 20, 180, Vector2.Zero);
             var playerLocalKeyboardComponent = new LocalKeyboardComponent();
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent, playerLocalKeyboardComponent);
@@ -48,6 +47,7 @@ namespace MonoGame.Game.Surfing
             player.AddComponent(playerMovementComponent);
             player.AddComponent(playerLocalKeyboardComponent);
             player.AddComponent(playerInputComponent);
+            player.AddComponent(playerGravity);
 
             ForegroundLayer.AddGameObject(player);
         }

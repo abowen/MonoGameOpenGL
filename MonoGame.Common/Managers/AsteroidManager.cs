@@ -49,7 +49,7 @@ namespace MonoGame.Common.Managers
                     var asteroidMovement = new MovementComponent(1, FaceDirection.Left, new Vector2(-1,0));
                     var asteroidBoundary = new BoundaryComponent(asteroid, SpaceGraphics.BoundaryAsset.First(),
                         asteroidGraphics.Width, asteroidGraphics.Height);
-                    var asteroidOutOfBounds = new OutOfBoundsComponent(asteroid);
+                    var asteroidOutOfBounds = new OutOfBoundsComponent();
                     asteroid.AddComponent(asteroidInstance);
                     asteroid.AddComponent(asteroidGraphics);
                     asteroid.AddComponent(asteroidMovement);
@@ -66,7 +66,7 @@ namespace MonoGame.Common.Managers
                     var asteroidMovement = new MovementComponent(1, FaceDirection.Right, new Vector2(1, 0));
                     var asteroidBoundary = new BoundaryComponent(asteroid, SpaceGraphics.BoundaryAsset.First(),
                         asteroidGraphics.Width, asteroidGraphics.Height);
-                    var asteroidOutOfBounds = new OutOfBoundsComponent(asteroid);
+                    var asteroidOutOfBounds = new OutOfBoundsComponent();
                     asteroid.AddComponent(asteroidInstance);
                     asteroid.AddComponent(asteroidGraphics);
                     asteroid.AddComponent(asteroidMovement);

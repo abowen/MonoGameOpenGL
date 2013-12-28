@@ -52,7 +52,7 @@ namespace MonoGame.Common.Managers
                     _shipTexture.Height);
                 var enemyInstance = new InstanceComponent(enemy);
                 var enemyTimed = new TimedActionComponent(enemy, ObjectEvent.Fire, _bulletDelayMilliseconds);
-                var enemyOutOfBounds = new OutOfBoundsComponent(enemy);
+                var enemyOutOfBounds = new OutOfBoundsComponent();
                 var enemyScore = new ObjectEventComponent(enemy, ObjectEvent.Collision, IncreaseScore);
                 enemy.AddComponent(enemySprite);
                 enemy.AddComponent(enemyMovement);

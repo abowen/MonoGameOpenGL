@@ -13,13 +13,12 @@ namespace MonoGame.Common.Components
         private readonly int _bottomPadding;
         public GameObject Owner { get; set; }
 
-        public OutOfBoundsComponent(GameObject owner, int leftPadding = 0, int topPadding = 0, int rightPadding = 0, int bottomPadding = 0)
+        public OutOfBoundsComponent(int leftPadding = 0, int topPadding = 0, int rightPadding = 0, int bottomPadding = 0)
         {
             _leftPadding = leftPadding;
             _topPadding = topPadding;
             _rightPadding = rightPadding;
-            _bottomPadding = bottomPadding;
-            Owner = owner;
+            _bottomPadding = bottomPadding;            
         }
 
         public void Update(GameTime gameTime)
