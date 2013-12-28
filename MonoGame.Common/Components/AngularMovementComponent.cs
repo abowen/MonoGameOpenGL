@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
@@ -8,60 +9,23 @@ namespace MonoGame.Common.Components
 {
     public class AngularMovementComponent : ISimpleComponent, ISimpleUpdateable, IMovementComponent, IRotationComponent
     {
-        private readonly float _minSpeed;
-        private readonly float _maxSpeed;
+        private float _speed;
         private readonly ObjectEvent _enableEvent;
         private readonly ObjectEvent _disableEvent;
 
-        public AngularMovementComponent(float baseSpeed, float minSpeed, float maxSpeed, float startRotation, Vector2 movementInputDirection, ObjectEvent enableEvent, ObjectEvent disableEvent)
+        public AngularMovementComponent(float speed, float startRotation, Vector2 movementInputDirection, ObjectEvent enableEvent, ObjectEvent disableEvent)
         {
-            _minSpeed = minSpeed;
-            _maxSpeed = maxSpeed;
+            _speed = speed;
             _enableEvent = enableEvent;
             _disableEvent = disableEvent;
-            BaseSpeed = baseSpeed;
-            CurrentSpeed = BaseSpeed;
             Rotation = startRotation;
             InputDirection = movementInputDirection;
-        }
-
-        /// <summary>
-        /// Speed of the object ignoring the location of the camera        
-        /// </summary>
-        public float BaseSpeed { get; protected set; }
-
-        public float CurrentSpeed { get; protected set; }
-
-        /// <summary>
-        /// Speed of the object relative to the camera
-        /// </summary>
-        public float RelativeSpeed
-        {
-            get
-            {
-                var gameDepth = Owner.GameLayer.GameLayerDepth;
-                if (gameDepth != GameLayerDepth.Display)
-                {
-                    var result = CurrentSpeed / (int)gameDepth;
-                    if (result == 0)
-                    {
-                        // DEBUG
-                    }
-                    return result;
-                }
-                return 0;
-            }
         }
 
         /// <summary>
         /// Movement direction the player wants changed
         /// </summary>
         public Vector2 InputDirection { get; set; }
-
-        /// <summary>
-        /// Actual direction of the object
-        /// </summary>
-        public Vector2 Direction { get; set; }
 
         /// <summary>
         /// InputDirection the Game Object is facing
@@ -72,13 +36,9 @@ namespace MonoGame.Common.Components
         /// </remarks>
         public float Rotation { get; private set; }
 
-        //public Vector2 Velocity
-        //{
-        //    get
-        //    {
-        //        return RelativeSpeed * Direction;
-        //    }
-        //}
+        //public float Acceleration { get; private set; }
+
+        public Vector2 Velocity { get; private set; }
 
         public GameObject Owner { get; private set; }
 
@@ -97,6 +57,7 @@ namespace MonoGame.Common.Components
             else if (_disableEvent == objectEventArgs.Action)
             {
                 _movementDisabled = true;
+                //Acceleration = 0;
             }
         }
 
@@ -111,19 +72,21 @@ namespace MonoGame.Common.Components
             {
                 if (InputDirection.Y < 0)
                 {
-                    if (CurrentSpeed < _maxSpeed)
+                    if (_speed < 30)
                     {
-                        CurrentSpeed++;
+                        _speed++;
                     }
                 }
                 else if (InputDirection.Y > 0)
                 {
-                    if (CurrentSpeed > _minSpeed)
+                    if (_speed > 0)
                     {
-                        CurrentSpeed--;
+                        _speed--;
                     }
                 }
             }
+
+            // Rotate Left / Right by Radian
             if (InputDirection.X < 0)
             {
                 Rotation -= 0.05f;
@@ -133,18 +96,19 @@ namespace MonoGame.Common.Components
                 Rotation += 0.05f;
             }
 
-            // Refactor this to use speed properties and angular inputs
-            var matrix = Matrix.CreateRotationZ(Rotation);
+           
+            if (!_movementDisabled)
+            {
+                var posX = _speed / 10f * ((float)Math.Cos(Rotation));
+                var posY = _speed / 10f * ((float)Math.Sin(Rotation));
+                Velocity = new Vector2(posX, posY);
+            }
+            else
+            {
+                Velocity += new Vector2(0, 0.05f);
+            }
 
-            var x = Owner.TopLeft.X;
-            var y = Owner.TopLeft.Y;
-
-            x += matrix.M12 * 0.1f * CurrentSpeed;
-            y -= matrix.M11 * 0.1f * CurrentSpeed;
-
-            Owner.TopLeft = new Vector2(x, y);
-
-            // http://stackoverflow.com/questions/8200021/getting-a-proper-rotation-from-a-vector-direction              
+            Owner.TopLeft += Velocity;
         }
     }
 }

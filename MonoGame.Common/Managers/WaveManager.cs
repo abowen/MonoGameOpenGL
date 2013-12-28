@@ -46,12 +46,12 @@ namespace MonoGame.Common.Managers
             {
                 _lastTimeSpan = gameTime.TotalGameTime;
                                                 
-                GenerateFoam(GetRandomX(3), 1);
-                GenerateFoam(GetRandomX(4), 1);
-                GenerateFoam(GetRandomX(5), 1);
-                GenerateFoam(GetRandomX(6), 4);
-                GenerateFoam(GetRandomX(7), 6);
-                GenerateFoam(GetRandomX(8), 8);
+                GenerateFoam(GetRandomX(2), 1);
+                GenerateFoam(GetRandomX(2), 1);
+                GenerateFoam(GetRandomX(2), 1);
+                GenerateFoam(GetRandomX(3), 4);
+                GenerateFoam(GetRandomX(4), 6);
+                GenerateFoam(GetRandomX(5), 10);
             }
         }
 
@@ -66,7 +66,7 @@ namespace MonoGame.Common.Managers
             var gameObject = new GameObject("FOAM", new Vector2(xPosition, _yPosition));
             var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(-0.5f, 1));
             var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures), Vector2.Zero, new Vector2(width, 1));
-            var outOfBoundsComponent = new OutOfBoundsComponent(bottomPadding: bottomPadding);
+            var outOfBoundsComponent = new OutOfBoundsComponent(leftPadding: -50, bottomPadding: bottomPadding);
             gameObject.AddComponent(movementComponent);
             gameObject.AddComponent(spriteComponent);
             gameObject.AddComponent(outOfBoundsComponent);

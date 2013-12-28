@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using MonoGame.Common.Components;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
@@ -36,17 +37,24 @@ namespace MonoGame.Game.Surfing
 
         protected override void LoadForeground()
         {
-            var player = new GameObject("Player", new Vector2(100, 100));
+            // MonoGame works in Radians
+            // http://msdn.microsoft.com/en-us/library/system.math.sin%28v=vs.110%29.aspx
+            var startRotation = (float)(90 * (Math.PI / 180));
+
+            var player = new GameObject("Player", new Vector2(250, 100));
             var playerTexture = SurfingGraphics.SurfboardAsset;
             var playerGravity = new GravityComponent();
-            var playerMovementComponent = new AngularMovementComponent(2, 0, 20, 180, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
+            var boundayComponent = new BoundaryComponent(playerTexture, playerTexture.Width, playerTexture.Height);            
+            var playerMovementComponent = new AngularMovementComponent(2, startRotation, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
             var playerLocalKeyboardComponent = new LocalKeyboardComponent();
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent, playerLocalKeyboardComponent);
             var playerSpriteComponent = new SpriteComponent(playerTexture, playerMovementComponent);
             var playerBoundaryEventComponent = new BoundaryEventComponent(CommonGraphics.WhiteCubeAsset, new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), ObjectEvent.OnWave, ObjectEvent.InAir);
 
+
             player.AddComponent(playerSpriteComponent);
             player.AddComponent(playerMovementComponent);
+            player.AddComponent(boundayComponent);
             player.AddComponent(playerLocalKeyboardComponent);
             player.AddComponent(playerInputComponent);
             player.AddComponent(playerGravity);

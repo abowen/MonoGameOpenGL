@@ -21,7 +21,7 @@ namespace MonoGame.Common.Components
 
         public void Update(GameTime gameTime)
         {
-            Owner.TopLeft += new Vector2(0,0.5f);
+            //Owner.TopLeft += new Vector2(0,0.5f);
         }
     }
 }
