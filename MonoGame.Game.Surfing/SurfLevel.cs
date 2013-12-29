@@ -50,7 +50,7 @@ namespace MonoGame.Game.Surfing
             var boundary = new BoundaryComponent(texture, texture.Width, texture.Height);
             var angularMovement = new AngularMovementComponent(2, startRotation, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
             var localKeyboard = new LocalKeyboardComponent();
-            var input = new InputComponent(InputHelper.KeyboardMappedKey(), null, angularMovement, localKeyboard, null);
+            var input = new InputComponent(InputHelper.KeyboardMappedKey(), localKeyboard, angularMovement);
             var sprite = new SpriteComponent(texture, angularMovement, Color.LightPink);
             var boundaryEvent = new BoundaryEventComponent(CommonGraphics.WhiteCubeAsset, new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), ObjectEvent.OnWave, ObjectEvent.InAir);
 
@@ -71,7 +71,7 @@ namespace MonoGame.Game.Surfing
             var boundaryTwo = new BoundaryComponent(texture, texture.Width, texture.Height);
             var angularMovementTwo = new AngularMovementComponent(2, startRotation, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
             var localButtonTwo = new LocalButtonComponent();
-            var inputTwo = new InputComponent(null, InputHelper.GamepadMappedKey(), angularMovementTwo, null, localButtonTwo);
+            var inputTwo = new InputComponent(InputHelper.GamepadMappedKey(), localButtonTwo, angularMovementTwo);
             var spriteTwo = new SpriteComponent(texture, angularMovementTwo, Color.LightGreen);
             var boundaryEventTwo = new BoundaryEventComponent(CommonGraphics.WhiteCubeAsset, new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), ObjectEvent.OnWave, ObjectEvent.InAir);
 

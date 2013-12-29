@@ -12,14 +12,21 @@ namespace MonoGame.Common.Components
 {
     public class InputComponent : ISimpleComponent, ISimpleUpdateable
     {
-        public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, Dictionary<Buttons, InputAction> buttonMappings, IMovementComponent movementComponent, IKeyboardInput keyboardInput, IButtonInput buttonInput)
+        public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, IKeyboardInput keyboardInput, IMovementComponent movementComponent)
         {
-            _keyboardMappings = keyboardMappings;
-            _buttonMappings = buttonMappings;
+            _keyboardMappings = keyboardMappings;            
             
             Contract.Assert(movementComponent != null, "InputComponent has a dependency on the MovementComponent");
             _movementComponent = movementComponent;
-            _keyboardInput = keyboardInput;
+            _keyboardInput = keyboardInput;            
+        }
+
+        public InputComponent(Dictionary<Buttons, InputAction> buttonMappings, IButtonInput buttonInput, IMovementComponent movementComponent)
+        {            
+            _buttonMappings = buttonMappings;
+
+            Contract.Assert(movementComponent != null, "InputComponent has a dependency on the MovementComponent");
+            _movementComponent = movementComponent;            
             _buttonInput = buttonInput;
         }
 

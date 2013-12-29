@@ -41,7 +41,7 @@ namespace MonoGame.Game.Rpg
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
             var networkKeyboardComponent = new NetworkKeyboardComponent(KeyboardPresets.BasicReverseKeyboardMapping);
-            var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), null, playerMovementComponent, networkKeyboardComponent, null);
+            var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), networkKeyboardComponent, playerMovementComponent);
                         
             player.AddComponent(playerSpriteComponent);
             player.AddComponent(playerMovementComponent);
