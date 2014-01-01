@@ -1,7 +1,7 @@
-﻿namespace MonoGame.Common.Interfaces
-{
-    public interface IRotationComponent
-    {
-        float Rotation { get; }        
-    }
-}
+﻿//namespace MonoGame.Common.Interfaces
+//{
+//    public interface IRotationComponent
+//    {
+//        float Rotation { get; }        
+//    }
+//}

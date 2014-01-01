@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -11,7 +12,7 @@ namespace MonoGame.Common.Components
 {
     public class InputComponent : SimpleComponent, ISimpleUpdateable
     {
-        public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, IKeyboardInput keyboardInput, IMovementComponent movementComponent)
+        public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, IKeyboardInput keyboardInput, params IMovementComponent[] movementComponent)
         {
             _keyboardMappings = keyboardMappings;            
             
@@ -20,7 +21,7 @@ namespace MonoGame.Common.Components
             _keyboardInput = keyboardInput;            
         }
 
-        public InputComponent(Dictionary<Buttons, InputAction> buttonMappings, IButtonInput buttonInput, IMovementComponent movementComponent)
+        public InputComponent(Dictionary<Buttons, InputAction> buttonMappings, IButtonInput buttonInput, params IMovementComponent[] movementComponent)
         {            
             _buttonMappings = buttonMappings;
 
@@ -31,7 +32,7 @@ namespace MonoGame.Common.Components
 
         private readonly Dictionary<Keys, InputAction> _keyboardMappings;
         private readonly Dictionary<Buttons, InputAction> _buttonMappings;
-        private readonly IMovementComponent _movementComponent;
+        private readonly IMovementComponent[] _movementComponent;
         private readonly IKeyboardInput _keyboardInput;
         private readonly IButtonInput _buttonInput;
 
@@ -44,14 +45,15 @@ namespace MonoGame.Common.Components
                 var firePressed = false;
                 if (_keyboardMappings != null)
                 {
-                    var keysPressed = _keyboardInput.PressedKeys;
-                    _movementComponent.InputDirection = InputHelper.DirectionFromMapping(keysPressed, _keyboardMappings);
-                    firePressed = keysPressed.Any(k => k == Keys.Space);
+                    var pressed = _keyboardInput.PressedKeys;
+                    Array.ForEach(_movementComponent, movement => movement.InputDirection = InputHelper.DirectionFromMapping(pressed, _keyboardMappings));
+                    
+                    firePressed = pressed.Any(k => k == Keys.Space);
                 }
                 else if (_buttonMappings != null)
                 {
-                    var buttonsPressed = _buttonInput.ButtonsPressed;
-                    _movementComponent.InputDirection = InputHelper.DirectionFromMapping(buttonsPressed, _buttonMappings);
+                    var pressed = _buttonInput.ButtonsPressed;
+                    Array.ForEach(_movementComponent, movement => movement.InputDirection = InputHelper.DirectionFromMapping(pressed, _buttonMappings));                    
                 }
 
                 _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;

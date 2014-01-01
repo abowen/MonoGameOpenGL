@@ -64,6 +64,7 @@ namespace MonoGame.Common.Entities
             if (action == Enums.ObjectEvent.ResetEntity)
             {
                 TopLeft = _originalTopLeftLocation;
+                Rotation = _originalRotation;
             }
             if (ObjectEvent != null)
             {
@@ -72,12 +73,19 @@ namespace MonoGame.Common.Entities
         }
 
         private readonly Vector2 _originalTopLeftLocation;
+        private readonly float _originalRotation;
 
-        public GameObject(string typeName, Vector2 topLeftLocation)
+        public Vector2 Velocity { get; set; }
+
+       
+
+        public GameObject(string typeName, Vector2 topLeftLocation, float rotation = 0)
         {
             GameType = typeName;            
             TopLeft = topLeftLocation;
             _originalTopLeftLocation = topLeftLocation;
+            _originalRotation = rotation;
+            Rotation = rotation;
             Enable();
         }
 
@@ -206,9 +214,14 @@ namespace MonoGame.Common.Entities
             }
         }
 
+
+        public float Rotation { get; set; }
+
         public virtual void Update(GameTime gameTime)
         {
             _updateableComponents.Where(c => c.IsEnabled).ToList().ForEach(c => c.Update(gameTime));
+
+            TopLeft += Velocity;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

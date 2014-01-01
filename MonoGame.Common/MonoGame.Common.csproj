@@ -44,6 +44,9 @@
     <Compile Include="Components\AngularMovementComponent.cs" />
     <Compile Include="Components\BoundaryEventComponent.cs" />
     <Compile Include="Components\ConstantMovementComponent.cs" />
+    <Compile Include="Components\BoundaryStateComponent.cs" />
+    <Compile Include="Components\RotationComponent.cs" />
+    <Compile Include="Components\RotationMovementComponent.cs" />
     <Compile Include="Components\StateComponent.cs" />
     <Compile Include="Components\LocalButtonComponent.cs" />
     <Compile Include="Components\SpriteMappingComponent.cs" />

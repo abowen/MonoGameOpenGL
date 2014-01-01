@@ -7,22 +7,20 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class AngularMovementComponent : SimpleComponent, ISimpleUpdateable, IMovementComponent, IRotationComponent
+    public class AngularMovementComponent : SimpleComponent, ISimpleUpdateable, IMovementComponent
     {
         private readonly float _originalSpeed;
-        private readonly float _originalRotation;
         private float _speed;
         private readonly ObjectEvent _enableEvent;
         private readonly ObjectEvent _disableEvent;
 
-        public AngularMovementComponent(float speed, float startRotation, Vector2 movementInputDirection, ObjectEvent enableEvent, ObjectEvent disableEvent)
+        public AngularMovementComponent(float speed, Vector2 movementInputDirection, ObjectEvent enableEvent, ObjectEvent disableEvent)
         {
             _originalSpeed = speed;
-            _originalRotation = startRotation;
             _speed = speed;
             _enableEvent = enableEvent;
             _disableEvent = disableEvent;
-            Rotation = startRotation;
+            
             InputDirection = movementInputDirection;
         }
 
@@ -31,20 +29,6 @@ namespace MonoGame.Common.Components
         /// </summary>
         public Vector2 InputDirection { get; set; }
 
-        /// <summary>
-        /// InputDirection the Game Object is facing
-        /// </summary>
-        /// <remarks>
-        /// It's important to keep FaceDirection separate 
-        /// from InputDirection to allow for strafing
-        /// </remarks>
-        public float Rotation { get; private set; }
-
-        //public float Acceleration { get; private set; }
-
-        public Vector2 Velocity { get; private set; }
-
-       
         public override void SetOwner(GameObject owner)
         {
             Owner = owner;
@@ -64,7 +48,6 @@ namespace MonoGame.Common.Components
             if (ObjectEvent.ResetEntity == objectEventArgs.Action)
             {
                 _speed = _originalSpeed;
-                Rotation = _originalRotation;
             }
         }
 
@@ -96,26 +79,24 @@ namespace MonoGame.Common.Components
             // Rotate Left / Right by Radian
             if (InputDirection.X < 0)
             {
-                Rotation -= 0.05f;
+                Owner.Rotation -= 0.05f;
             }
             if (InputDirection.X > 0)
             {
-                Rotation += 0.05f;
+                Owner.Rotation += 0.05f;
             }
 
            
             if (!_movementDisabled)
             {
-                var posX = _speed / 10f * ((float)Math.Cos(Rotation));
-                var posY = _speed / 10f * ((float)Math.Sin(Rotation));
-                Velocity = new Vector2(posX, posY);
+                var posX = _speed / 10f * ((float)Math.Cos(Owner.Rotation));
+                var posY = _speed / 10f * ((float)Math.Sin(Owner.Rotation));
+                Owner.Velocity = new Vector2(posX, posY);
             }
             else
             {
-                Velocity += new Vector2(0, 0.05f);
+                Owner.Velocity += new Vector2(0, 0.05f);
             }
-
-            Owner.TopLeft += Velocity;
         }
     }
 }

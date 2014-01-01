@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using MonoGame.Common.Entities;
 using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
@@ -15,7 +14,7 @@ namespace MonoGame.Common.Components
 
         public void Update(GameTime gameTime)
         {
-            Owner.TopLeft += _movement;
+            Owner.Velocity += _movement;
         }
     }
 }
