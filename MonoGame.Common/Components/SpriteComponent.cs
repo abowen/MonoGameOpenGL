@@ -50,12 +50,23 @@ namespace MonoGame.Common.Components
             _relativeLocation = relativeLocation;
         }
 
-        public SpriteComponent(Texture2D texture, Vector2 relativeLocation, Vector2 scale)
+        public SpriteComponent(Texture2D texture, Vector2 relativeLocation, Vector2 scale, Color? color = null)
         {
             Texture = texture;
             _relativeLocation = relativeLocation;
             _scale = scale;
+
+            _color = color ?? Color.White;
         }
+
+
+        public void SetTransparency(int value)
+        {
+            _transparency = value;
+        }
+
+        private int _transparency;
+
 
         public void Draw(SpriteBatch spriteBatch)
         {

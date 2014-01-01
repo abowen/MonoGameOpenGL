@@ -51,7 +51,7 @@ namespace MonoGame.Game.Surfing
             var angularMovement = new AngularMovementComponent(2, startRotation, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
             var localKeyboard = new LocalKeyboardComponent();
             var input = new InputComponent(InputHelper.KeyboardMappedKey(), localKeyboard, angularMovement);
-            var sprite = new SpriteComponent(texture, angularMovement, Color.LightPink);
+            var sprite = new SpriteComponent(texture, angularMovement, Color.Red);
             var boundaryEvent = new BoundaryEventComponent(CommonGraphics.WhiteCubeAsset, new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), ObjectEvent.OnWave, ObjectEvent.InAir);
 
             playerOne.AddComponent(sprite);
