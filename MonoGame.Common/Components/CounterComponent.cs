@@ -5,7 +5,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class CounterComponent : ISimpleComponent
+    public class CounterComponent : SimpleComponent
     {
         private readonly ObjectEvent _subscribeEvent;
         private readonly ObjectEvent _publishEvent;
@@ -16,9 +16,8 @@ namespace MonoGame.Common.Components
         public int CurrentValue { get; private set; }
         private readonly bool _isDescending;
 
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
+     
+        public override void SetOwner(GameObject owner)
         {
             Owner = owner;
             owner.ObjectEvent += OwnerOnObjectEvent;

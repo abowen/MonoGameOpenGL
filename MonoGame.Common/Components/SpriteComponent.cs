@@ -6,7 +6,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class SpriteComponent : ISimpleComponent, ISimpleDrawable
+    public class SpriteComponent : SimpleComponent, ISimpleDrawable
     {
         internal Texture2D Texture;
         private readonly IRotationComponent _rotationComponent;
@@ -21,13 +21,6 @@ namespace MonoGame.Common.Components
         public int Height
         {
             get { return Texture.Height; }
-        }
-
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
-        {
-            Owner = owner;
         }
 
         private readonly Color _color = Color.White;

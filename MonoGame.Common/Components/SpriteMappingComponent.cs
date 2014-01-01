@@ -1,23 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Common.Entities;
 using MonoGame.Common.Interfaces;
 using MonoGame.Graphics.Common;
 
 namespace MonoGame.Common.Components
 {
-    public class SpriteMappingComponent : ISimpleComponent, ISimpleDrawable
+    public class SpriteMappingComponent : SimpleComponent, ISimpleDrawable
     {
         private readonly SpriteMapping _spriteMapping;
         private readonly string _spriteName;
         private readonly Vector2 _relativeLocation;
-
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
-        {
-            Owner = owner;
-        }
 
         public SpriteMappingComponent(SpriteMapping spriteMapping, string spriteName, Vector2 relativeLocation)
         {

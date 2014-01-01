@@ -76,7 +76,7 @@
     <Compile Include="Interfaces\IRotationComponent.cs" />
     <Compile Include="Interfaces\IMovementComponent.cs" />
     <Compile Include="Interfaces\ISimpleNetworking.cs" />
-    <Compile Include="Interfaces\ISimpleComponent.cs" />
+    <Compile Include="Interfaces\SimpleComponent.cs" />
     <Compile Include="Interfaces\ISimpleDrawable.cs" />
     <Compile Include="Interfaces\ISimpleGame.cs" />
     <Compile Include="Interfaces\IKeyboardInput.cs" />

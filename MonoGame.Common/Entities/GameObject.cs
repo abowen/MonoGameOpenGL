@@ -14,7 +14,7 @@ namespace MonoGame.Common.Entities
 {
     public class GameObject: ISimpleDrawable, ISimpleNetworking, ISimpleUpdateable
     {
-        private readonly List<ISimpleComponent> _components = new List<ISimpleComponent>();
+        private readonly List<SimpleComponent> _components = new List<SimpleComponent>();
         private readonly List<ISimpleUpdateable> _updateableComponents = new List<ISimpleUpdateable>();
         private readonly List<ISimpleDrawable> _drawableComponents = new List<ISimpleDrawable>();
         private readonly List<ISimpleNetworking> _networkingComponents = new List<ISimpleNetworking>(); 
@@ -22,7 +22,7 @@ namespace MonoGame.Common.Entities
         public GameLayer GameLayer;
         public string GameType { get; private set; }
 
-        public void AddComponent(ISimpleComponent component)
+        public void AddComponent(SimpleComponent component)
         {
             _components.Add(component);
             if (component is ISimpleUpdateable)

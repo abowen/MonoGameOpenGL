@@ -4,16 +4,9 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class ConstantMovementComponent : ISimpleComponent, ISimpleUpdateable
+    public class ConstantMovementComponent : SimpleComponent, ISimpleUpdateable
     {
         private readonly Vector2 _movement;
-
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
-        {
-            Owner = owner;
-        }
 
         public ConstantMovementComponent(Vector2 movement)
         {

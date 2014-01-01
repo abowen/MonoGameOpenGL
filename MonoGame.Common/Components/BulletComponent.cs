@@ -10,7 +10,7 @@ using MonoGame.Graphics.Space;
 
 namespace MonoGame.Common.Components
 {
-    public class BulletComponent : ISimpleComponent
+    public class BulletComponent : SimpleComponent
     {
         private readonly Texture2D[] _texture2D;
         private readonly MovementComponent _movementComponent;
@@ -71,9 +71,7 @@ namespace MonoGame.Common.Components
             Owner.GameLayer.AddGameObject(bullet);
         }
 
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
+        public override void SetOwner(GameObject owner)
         {
             Owner = owner;
             Owner.ObjectEvent += OwnerOnObjectEvent;

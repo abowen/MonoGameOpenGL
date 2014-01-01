@@ -6,7 +6,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class InstanceComponent : ISimpleComponent, ISimpleUpdateable
+    public class InstanceComponent : SimpleComponent, ISimpleUpdateable
     {
         public InstanceComponent()
         {
@@ -23,9 +23,7 @@ namespace MonoGame.Common.Components
 
         private bool _hasCollided = false;
 
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
+        public override void SetOwner(GameObject owner)
         {
             Owner = owner;
             owner.ObjectEvent += OwnerOnObjectEvent;

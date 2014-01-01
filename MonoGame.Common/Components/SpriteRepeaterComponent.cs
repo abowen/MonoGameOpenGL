@@ -7,7 +7,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class SpriteRepeaterComponent : ISimpleComponent, ISimpleDrawable
+    public class SpriteRepeaterComponent : SimpleComponent, ISimpleDrawable
     {
         internal Texture2D Texture;
         private readonly Vector2 _relativeLocation;
@@ -27,9 +27,7 @@ namespace MonoGame.Common.Components
             get { return Texture.Height; }
         }
 
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
+        public override void SetOwner(GameObject owner)
         {
             Owner = owner;
             owner.ObjectEvent += OwnerOnObjectEvent;

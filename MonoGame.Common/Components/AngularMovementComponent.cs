@@ -7,7 +7,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class AngularMovementComponent : ISimpleComponent, ISimpleUpdateable, IMovementComponent, IRotationComponent
+    public class AngularMovementComponent : SimpleComponent, ISimpleUpdateable, IMovementComponent, IRotationComponent
     {
         private readonly float _originalSpeed;
         private readonly float _originalRotation;
@@ -44,9 +44,8 @@ namespace MonoGame.Common.Components
 
         public Vector2 Velocity { get; private set; }
 
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
+       
+        public override void SetOwner(GameObject owner)
         {
             Owner = owner;
             owner.ObjectEvent += OwnerOnObjectEvent;

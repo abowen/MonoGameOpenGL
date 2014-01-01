@@ -3,14 +3,13 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Helpers;
 using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class InputComponent : ISimpleComponent, ISimpleUpdateable
+    public class InputComponent : SimpleComponent, ISimpleUpdateable
     {
         public InputComponent(Dictionary<Keys, InputAction> keyboardMappings, IKeyboardInput keyboardInput, IMovementComponent movementComponent)
         {
@@ -35,13 +34,6 @@ namespace MonoGame.Common.Components
         private readonly IMovementComponent _movementComponent;
         private readonly IKeyboardInput _keyboardInput;
         private readonly IButtonInput _buttonInput;
-
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
-        {
-            Owner = owner;
-        }
 
         private double _elapsedTimeMilliseconds;
 

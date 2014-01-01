@@ -7,14 +7,8 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class LocalButtonComponent : ISimpleComponent, IButtonInput
+    public class LocalButtonComponent : SimpleComponent, IButtonInput
     {
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
-        {
-            Owner = owner;
-        }
 
         public IEnumerable<Buttons> ButtonsPressed
         {

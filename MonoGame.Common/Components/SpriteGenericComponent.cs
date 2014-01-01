@@ -10,7 +10,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class SpriteGenericComponent : ISimpleComponent, ISimpleDrawable, ISimpleUpdateable
+    public class SpriteGenericComponent : SimpleComponent, ISimpleDrawable, ISimpleUpdateable
     {
         internal Texture2D[] Textures;
         private List<Vector2> _locations;
@@ -24,9 +24,7 @@ namespace MonoGame.Common.Components
 
         public int Height { get; private set; }
 
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
+        public override void SetOwner(GameObject owner)
         {
             Owner = owner;
             owner.ObjectEvent += OwnerOnObjectEvent;

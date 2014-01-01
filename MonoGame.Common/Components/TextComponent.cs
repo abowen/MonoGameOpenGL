@@ -6,7 +6,7 @@ using MonoGame.Graphics.Common;
 
 namespace MonoGame.Common.Components
 {
-    public class TextComponent : ISimpleComponent, ISimpleDrawable
+    public class TextComponent : SimpleComponent, ISimpleDrawable
     {
         private readonly CharacterMapping _characterMapping;
         public string Text;
@@ -16,13 +16,6 @@ namespace MonoGame.Common.Components
         {
             _characterMapping = characterMapping;
             Text = text;
-        }
-
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
-        {
-            Owner = owner;            
         }
 
         public void Draw(SpriteBatch spriteBatch)

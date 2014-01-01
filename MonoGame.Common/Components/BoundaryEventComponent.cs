@@ -8,7 +8,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class BoundaryEventComponent : ISimpleComponent, ISimpleDrawable, ISimpleUpdateable
+    public class BoundaryEventComponent : SimpleComponent, ISimpleDrawable, ISimpleUpdateable
     {
         private readonly Texture2D _texture;
         private readonly Rectangle _boundaryRectangle;
@@ -25,9 +25,7 @@ namespace MonoGame.Common.Components
 
         private ObjectEvent _currentEvent;
 
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
+        public override void SetOwner(GameObject owner)
         {
             Owner = owner;
             var ownerPoint = new Point((int)owner.TopLeft.X, (int)owner.TopLeft.Y);

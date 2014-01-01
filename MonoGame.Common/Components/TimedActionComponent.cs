@@ -5,17 +5,10 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class TimedActionComponent : ISimpleComponent, ISimpleUpdateable
+    public class TimedActionComponent : SimpleComponent, ISimpleUpdateable
     {
         private readonly ObjectEvent _eventTypeRaised;
         private readonly double _intervalMilliseconds;
-
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
-        {
-            Owner = owner;
-        }
 
         public TimedActionComponent(ObjectEvent eventTypeRaised, double intervalMilliseconds)
         {

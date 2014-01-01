@@ -6,14 +6,13 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class ObjectEventComponent : ISimpleComponent
+    public class ObjectEventComponent : SimpleComponent
     {
         private readonly ObjectEvent _subscribeEvent;
         private readonly Action<GameObject> _action;
 
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
+     
+        public override  void SetOwner(GameObject owner)
         {
             Owner = owner;
             owner.ObjectEvent += OwnerOnObjectEvent;

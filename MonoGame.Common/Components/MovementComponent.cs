@@ -5,7 +5,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class MovementComponent : ISimpleComponent, ISimpleUpdateable, IMovementComponent
+    public class MovementComponent : SimpleComponent, ISimpleUpdateable, IMovementComponent
     {
         public MovementComponent(float baseSpeed, FaceDirection startFaceDirection, Vector2 movementInputDirection)
         {
@@ -61,14 +61,6 @@ namespace MonoGame.Common.Components
                 return RelativeSpeed * InputDirection;
             }
         }
-
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
-        {
-            Owner = owner;
-        }
-
 
         public void Update(GameTime gameTime)
         {

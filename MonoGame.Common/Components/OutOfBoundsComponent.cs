@@ -6,20 +6,13 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
 {
-    public class OutOfBoundsComponent : ISimpleComponent, ISimpleUpdateable
+    public class OutOfBoundsComponent : SimpleComponent, ISimpleUpdateable
     {
         private readonly ObjectEvent _publishEvent;
         private readonly int _leftPadding;
         private readonly int _topPadding;
         private readonly int _rightPadding;
         private readonly int _bottomPadding;
-
-        public GameObject Owner { get; private set; }
-
-        public void SetOwner(GameObject owner)
-        {
-            Owner = owner;            
-        }
 
         public OutOfBoundsComponent(ObjectEvent publishEvent, int leftPadding = 0, int topPadding = 0, int rightPadding = 0, int bottomPadding = 0)
         {
