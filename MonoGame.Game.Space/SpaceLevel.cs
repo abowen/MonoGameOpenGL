@@ -17,7 +17,8 @@ namespace MonoGame.Game.Space
     {
         protected override void LoadBackground()
         {
-            var backgroundManager = new BackgroundManager(SpaceGraphics.PlanetAsset, SpaceGraphics.StarAsset, BackgroundLayer);
+            var backgroundManager = new BackgroundManager(SpaceGraphics.PlanetAsset, SpaceGraphics.StarAsset, BackgroundLayer, new Vector2(0, 1));
+            backgroundManager.VerticalBoundary(0,0);
             var backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), 5000, 10000, BackgroundLayer, 2);
             BackgroundLayer.Managers.Add(backgroundManager);
             BackgroundLayer.Managers.Add(backgroundEnemyManager);

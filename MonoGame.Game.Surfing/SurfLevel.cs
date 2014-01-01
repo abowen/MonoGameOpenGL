@@ -15,7 +15,11 @@ namespace MonoGame.Game.Surfing
     {
         protected override void LoadBackground()
         {
-
+            var backgroundManager = new BackgroundManager(new[] {SurfingGraphics.CloudMajorAsset},
+                new[] {SurfingGraphics.CloudMinorAsset}, BackgroundLayer, new Vector2(-1, 0));
+            backgroundManager.HorizontalBoundary(GameConstants.ScreenBoundary.Right, GameConstants.ScreenBoundary.Right);
+            backgroundManager.VerticalBoundary(0, 50);
+            BackgroundLayer.Managers.Add(backgroundManager);
         }
 
         private float _waveSpeed = -0.5f;
