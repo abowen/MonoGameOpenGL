@@ -55,5 +55,17 @@ namespace MonoGame.Game.Space
         {
             ActiveGameLevel.Draw(spriteBatch);
         }
+
+        public void Enable()
+        {
+            IsEnabled = true;
+        }
+
+        public void Disable()
+        {
+            IsEnabled = false;
+        }
+
+        public bool IsEnabled { get; private set; }
     }
 }

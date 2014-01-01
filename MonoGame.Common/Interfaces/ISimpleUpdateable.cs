@@ -6,5 +6,7 @@ namespace MonoGame.Common.Interfaces
     public interface ISimpleUpdateable
     {        
         void Update(GameTime gameTime);
+
+        bool IsEnabled { get; }
     }
 }

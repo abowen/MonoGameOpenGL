@@ -40,6 +40,19 @@ namespace MonoGame.Common.Entities
             component.SetOwner(this);
         }
 
+        public event EventHandler<EventArgs> ObjectState;
+
+        public void SetState(string state)
+        {
+            State = state;
+            if (ObjectState != null)
+            {
+                ObjectState(this, null);
+            }
+        }
+
+        public string State { get; private set; }
+
         public event EventHandler<ObjectEventArgs> ObjectEvent;
 
         public void Event(ObjectEvent action)
@@ -65,6 +78,7 @@ namespace MonoGame.Common.Entities
             GameType = typeName;            
             TopLeft = topLeftLocation;
             _originalTopLeftLocation = topLeftLocation;
+            Enable();
         }
 
         public void RemoveGameObject()
@@ -107,6 +121,7 @@ namespace MonoGame.Common.Entities
         {
             get
             {
+                // TODO: Use Sprite Component if BoundaryComponent not found
                 if (BoundaryComponent != null)
                 {
                     return BoundaryComponent.Width;
@@ -127,6 +142,17 @@ namespace MonoGame.Common.Entities
             }
         }
 
+        public void Enable()
+        {
+            IsEnabled = true;
+        }
+
+        public void Disable()
+        {
+            IsEnabled = false;
+        }
+
+        public bool IsEnabled { get; private set; }
 
         public Rectangle BoundingRectangle
         {
@@ -150,6 +176,20 @@ namespace MonoGame.Common.Entities
             }
         }
 
+        private StateComponent _stateComponent;
+        StateComponent StateComponent
+        {
+            get
+            {
+                if (_stateComponent == null)
+                {
+                    var item = _components.FirstOrDefault(c => c.GetType() == typeof(StateComponent)) as StateComponent;
+                    _stateComponent = item;
+                }
+                return _stateComponent;
+            }
+        }
+
         public bool HasCollision
         {
             get
@@ -158,19 +198,27 @@ namespace MonoGame.Common.Entities
             }
         }
 
+        public bool HasState
+        {
+            get
+            {
+                return StateComponent != null;
+            }
+        }
+
         public virtual void Update(GameTime gameTime)
         {
-            _updateableComponents.ForEach(c => c.Update(gameTime));
+            _updateableComponents.Where(c => c.IsEnabled).ToList().ForEach(c => c.Update(gameTime));
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            _drawableComponents.ForEach(c => c.Draw(spriteBatch));
+            _drawableComponents.Where(c => c.IsEnabled).ToList().ForEach(c => c.Draw(spriteBatch));
         }
 
         public virtual void Update(NetworkMessage networkMessage)
         {
-            _networkingComponents.ForEach(c => c.Update(networkMessage));
+            _networkingComponents.Where(c => c.IsEnabled).ToList().ForEach(c => c.Update(networkMessage));
         }
 
         public override string ToString()

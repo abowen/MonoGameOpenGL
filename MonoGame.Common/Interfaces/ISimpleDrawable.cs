@@ -6,5 +6,7 @@ namespace MonoGame.Common.Interfaces
     public interface ISimpleDrawable
     {        
         void Draw(SpriteBatch spriteBatch);
+
+        bool IsEnabled { get; }
     }
 }

@@ -5,5 +5,7 @@ namespace MonoGame.Common.Interfaces
     public interface ISimpleNetworking
     {
         void Update(NetworkMessage message);
+
+        bool IsEnabled { get; }
     }
 }

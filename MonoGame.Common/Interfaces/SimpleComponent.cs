@@ -5,15 +5,30 @@ namespace MonoGame.Common.Interfaces
 {
     public abstract class SimpleComponent
     {
+        protected SimpleComponent()
+        {
+            Enable();
+        }
+
         public GameObject Owner { get; protected set; }
 
         public virtual void SetOwner(GameObject owner)
         {
             Contract.Assert(owner != null);
-
             Owner = owner;
+          
         }
 
-        public bool IsEnabled { get; set; }
+        public void Enable()
+        {
+            IsEnabled = true;
+        }
+
+        public void Disable()
+        {
+            IsEnabled = false;
+        }
+
+        public bool IsEnabled { get; private set; }
     }
 }

@@ -67,6 +67,18 @@ namespace MonoGame.Common.Infrastructure
             gameObject.GameLayer = null;
         }
 
+        public void Enable()
+        {
+            IsEnabled = true;
+        }
+
+        public void Disable()
+        {
+            IsEnabled = false;
+        }
+
+        public bool IsEnabled { get; private set; }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             _gameObjects.ForEach(s => s.Draw(spriteBatch));
