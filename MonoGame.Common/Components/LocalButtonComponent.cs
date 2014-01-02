@@ -35,6 +35,10 @@ namespace MonoGame.Common.Components
                     {
                         buttons.Add(Buttons.DPadRight);
                     }
+                    if (state.Buttons.A == ButtonState.Pressed)
+                    {
+                        buttons.Add(Buttons.A);
+                    }
                 }
                 else
                 {

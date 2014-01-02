@@ -198,6 +198,14 @@ namespace MonoGame.Common.Entities
             }
         }
 
+        public IEnumerable<IMovementComponent> MovementComponents
+        {
+            get
+            {
+                return _components.OfType<IMovementComponent>();
+            }
+        }
+
         public bool HasCollision
         {
             get

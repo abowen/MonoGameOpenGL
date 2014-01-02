@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="Components\BulletComponent.cs" />
     <Compile Include="Components\BoundaryComponent.cs" />
-    <Compile Include="Components\AngularMovementComponent.cs" />
     <Compile Include="Components\BoundaryEventComponent.cs" />
     <Compile Include="Components\ConstantMovementComponent.cs" />
     <Compile Include="Components\BoundaryStateComponent.cs" />
@@ -88,6 +87,7 @@
     <Compile Include="Interfaces\ISimpleUpdateable.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Managers\BackgroundManager.cs" />
+    <Compile Include="Managers\PlayerManager.cs" />
     <Compile Include="Managers\WaveManager.cs" />
     <Compile Include="Managers\EnemyManager.cs" />
     <Compile Include="Data\DataConvertHelper.cs" />

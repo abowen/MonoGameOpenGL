@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Helpers;
 using MonoGame.Common.Interfaces;
@@ -30,11 +31,22 @@ namespace MonoGame.Common.Components
             _buttonInput = buttonInput;
         }
 
+        public override void SetOwner(GameObject owner)
+        {
+            base.SetOwner(owner);
+            // Delayed set in case the input methods are not known until run time
+            if (_movementComponent == null || !_movementComponent.Any())
+            {
+                _movementComponent = Owner.MovementComponents.ToArray();
+            }
+        }
+
+
         private readonly Dictionary<Keys, InputAction> _keyboardMappings;
-        private readonly Dictionary<Buttons, InputAction> _buttonMappings;
-        private readonly IMovementComponent[] _movementComponent;
+        private readonly Dictionary<Buttons, InputAction> _buttonMappings;        
         private readonly IKeyboardInput _keyboardInput;
         private readonly IButtonInput _buttonInput;
+        private IMovementComponent[] _movementComponent;
 
         private double _elapsedTimeMilliseconds;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Components;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
@@ -15,8 +16,8 @@ namespace MonoGame.Game.Surfing
     {
         protected override void LoadBackground()
         {
-            var backgroundManager = new BackgroundManager(new[] {SurfingGraphics.CloudMajorAsset},
-                new[] {SurfingGraphics.CloudMinorAsset}, BackgroundLayer, new Vector2(-1, 0));
+            var backgroundManager = new BackgroundManager(new[] { SurfingGraphics.CloudMajorAsset },
+                new[] { SurfingGraphics.CloudMinorAsset }, BackgroundLayer, new Vector2(-1, 0));
             backgroundManager.HorizontalBoundary(GameConstants.ScreenBoundary.Right, GameConstants.ScreenBoundary.Right);
             backgroundManager.VerticalBoundary(0, 50);
             BackgroundLayer.Managers.Add(backgroundManager);
@@ -24,12 +25,20 @@ namespace MonoGame.Game.Surfing
 
         private float _waveSpeed = -0.5f;
 
+        private GameObject _playerOneStartText;
+        private GameObject _playerTwoStartText;
+
         protected override void LoadDisplay()
         {
-            var text = new GameObject("Text", new Vector2(50, 50));
-            var textComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "SURFING");
-            text.AddComponent(textComponent);
-            DisplayLayer.AddGameObject(text);
+            _playerOneStartText = new GameObject("Text", new Vector2(50, 450));
+            var textComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "PRESS SPACE");
+            _playerOneStartText.AddComponent(textComponent);
+            DisplayLayer.AddGameObject(_playerOneStartText);
+
+            _playerTwoStartText = new GameObject("Text", new Vector2(250, 450));
+            var playerTwoTextComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "PRESS A GAMEPAD");
+            _playerTwoStartText.AddComponent(playerTwoTextComponent);
+            DisplayLayer.AddGameObject(_playerTwoStartText);
 
             var foam = new[] {
                 CommonGraphics.TransparentCubeAsset, 
@@ -43,67 +52,78 @@ namespace MonoGame.Game.Surfing
 
         protected override void LoadForeground()
         {
+            var playerManager = new PlayerManager();
+            playerManager.AddPlayerListener(Keys.Space, CreatePlayerOne);
+            playerManager.AddPlayerListener(Buttons.A, CreatePlayerTwo);
+            ForegroundLayer.Managers.Add(playerManager);
+        }
+
+        private void CreatePlayerOne()
+        {
+            _playerOneStartText.RemoveGameObject();
+            _playerOneStartText = null;
+
+            var player = CreatePlayer(Vector2.Zero, Color.Red);
+            var localKeyboard = new LocalKeyboardComponent();
+            var input = new InputComponent(InputHelper.KeyboardMappedKey(), localKeyboard);
+
+            player.AddComponent(localKeyboard);
+            player.AddComponent(input);
+        }
+
+        private void CreatePlayerTwo()
+        {
+            _playerTwoStartText.RemoveGameObject();
+            _playerTwoStartText = null;
+
+            var player = CreatePlayer(new Vector2(50,0), Color.LightGreen);
+            var listenerComponent = new LocalButtonComponent();
+            var input = new InputComponent(InputHelper.GamepadMappedKey(), listenerComponent);
+
+            player.AddComponent(listenerComponent);
+            player.AddComponent(input);
+        }
+
+        private GameObject CreatePlayer(Vector2 startOffset, Color color)
+        {
             // MonoGame works in Radians
             // http://msdn.microsoft.com/en-us/library/system.math.sin%28v=vs.110%29.aspx
+            var startLocation = new Vector2(250, 100) + startOffset;
             var startRotation = (float)(90 * (Math.PI / 180));
+
             var texture = SurfingGraphics.Surfboard_White_Asset;
-            var playerOne = new GameObject("PlayerOne", new Vector2(250, 100), startRotation);
-         //   var waveMovement = new ConstantMovementComponent(new Vector2(_waveSpeed, 0.25f));
+            var player = new GameObject("Player", startLocation, startRotation);
             var airGravityMovement = new ConstantMovementComponent(new Vector2(0, 0.05f));
             var outOfBoundary = new OutOfBoundsComponent(ObjectEvent.ResetEntity);
-            var boundary = new BoundaryComponent(texture, texture.Width, texture.Height);           
+            var boundary = new BoundaryComponent(texture, texture.Width, texture.Height);
             var rotationMovement = new RotationMovementComponent(2, Vector2.Zero);
             var rotation = new RotationComponent(Vector2.Zero);
-            var localKeyboard = new LocalKeyboardComponent();
-            var input = new InputComponent(InputHelper.KeyboardMappedKey(), localKeyboard, rotationMovement, rotation);
-            var sprite = new SpriteComponent(texture, Color.Red);
+            var sprite = new SpriteComponent(texture, color);
 
-            playerOne.AddComponent(airGravityMovement);
-            playerOne.AddComponent(sprite);
-            playerOne.AddComponent(rotationMovement);
-            playerOne.AddComponent(boundary);
-            playerOne.AddComponent(localKeyboard);
-            playerOne.AddComponent(input);
-          //  playerOne.AddComponent(waveMovement);          
-            playerOne.AddComponent(outOfBoundary);
-            playerOne.AddComponent(rotation);
+            player.AddComponent(airGravityMovement);
+            player.AddComponent(sprite);
+            player.AddComponent(rotationMovement);
+            player.AddComponent(boundary);            
+            player.AddComponent(outOfBoundary);
+            player.AddComponent(rotation);
 
             var onWave = "OnWave";
             var inAir = "InAir";
-         
 
             var state = new StateComponent();
             state.AddComponentState(rotationMovement, onWave, inAir);
             state.AddComponentState(rotation, inAir, onWave);
             state.AddComponentState(airGravityMovement, inAir, onWave);
 
-            playerOne.AddComponent(state);
+            player.AddComponent(state);
 
-            var boundaryState = new BoundaryStateComponent(new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), onWave, inAir);
-            playerOne.AddComponent(boundaryState);
+            var boundaryState = new BoundaryStateComponent(new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200),
+                onWave, inAir);
+            player.AddComponent(boundaryState);
 
-            ForegroundLayer.AddGameObject(playerOne);
+            ForegroundLayer.AddGameObject(player);
 
-            //var playerTwo = new GameObject("PlayerTwo", new Vector2(300, 100), startRotationTwo);            
-            //var waveMovementTwo = new ConstantMovementComponent(new Vector2(_waveSpeed, 0.25f));
-            //var outOfBoundaryTwo = new OutOfBoundsComponent(ObjectEvent.ResetEntity);
-            //var boundaryTwo = new BoundaryComponent(texture, texture.Width, texture.Height);
-            //var angularMovementTwo = new AngularMovementComponent(2, Vector2.Zero, ObjectEvent.OnWave, ObjectEvent.InAir);
-            //var localButtonTwo = new LocalButtonComponent();
-            //var inputTwo = new InputComponent(InputHelper.GamepadMappedKey(), localButtonTwo, angularMovementTwo);
-            //var spriteTwo = new SpriteComponent(texture, Color.LightGreen);
-            //var boundaryEventTwo = new BoundaryEventComponent(CommonGraphics.WhiteCubeAsset, new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200), ObjectEvent.OnWave, ObjectEvent.InAir);
-
-            //playerTwo.AddComponent(spriteTwo);
-            //playerTwo.AddComponent(angularMovementTwo);
-            //playerTwo.AddComponent(boundaryTwo);
-            //playerTwo.AddComponent(localButtonTwo);
-            //playerTwo.AddComponent(inputTwo);
-            //playerTwo.AddComponent(waveMovementTwo);
-            //playerTwo.AddComponent(boundaryEventTwo);
-            //playerTwo.AddComponent(outOfBoundaryTwo);
-
-            //ForegroundLayer.AddGameObject(playerTwo);
+            return player;
         }
     }
 }
