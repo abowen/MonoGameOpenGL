@@ -7,6 +7,7 @@ using MonoGame.Common.Enums;
 using MonoGame.Common.Helpers;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Managers;
+using MonoGame.Common.Presets;
 using MonoGame.Graphics.Common;
 using MonoGame.Graphics.Surfing;
 
@@ -27,6 +28,7 @@ namespace MonoGame.Game.Surfing
 
         private GameObject _playerOneStartText;
         private GameObject _playerTwoStartText;
+        private GameObject _playerThreeStartText;
 
         protected override void LoadDisplay()
         {
@@ -39,6 +41,12 @@ namespace MonoGame.Game.Surfing
             var playerTwoTextComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "PRESS A GAMEPAD");
             _playerTwoStartText.AddComponent(playerTwoTextComponent);
             DisplayLayer.AddGameObject(_playerTwoStartText);
+
+
+            _playerThreeStartText = new GameObject("Text", new Vector2(450, 450));
+            var playerThreeTextComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "PRESS ENTER");
+            _playerThreeStartText.AddComponent(playerThreeTextComponent);
+            DisplayLayer.AddGameObject(_playerThreeStartText);
 
             var foam = new[] {
                 CommonGraphics.TransparentCubeAsset, 
@@ -55,6 +63,7 @@ namespace MonoGame.Game.Surfing
             var playerManager = new PlayerManager();
             playerManager.AddPlayerListener(Keys.Space, CreatePlayerOne);
             playerManager.AddPlayerListener(Buttons.A, CreatePlayerTwo);
+            playerManager.AddPlayerListener(Keys.Enter, CreatePlayerThree);
             ForegroundLayer.Managers.Add(playerManager);
         }
 
@@ -79,6 +88,19 @@ namespace MonoGame.Game.Surfing
             var player = CreatePlayer(new Vector2(50,0), Color.LightGreen);
             var listenerComponent = new LocalButtonComponent();
             var input = new InputComponent(InputHelper.GamepadMappedKey(), listenerComponent);
+
+            player.AddComponent(listenerComponent);
+            player.AddComponent(input);
+        }
+
+        private void CreatePlayerThree()
+        {
+            _playerThreeStartText.RemoveGameObject();
+            _playerThreeStartText = null;
+
+            var player = CreatePlayer(new Vector2(100, 0), Color.Orange);
+            var listenerComponent = new NetworkKeyboardComponent(KeyboardPresets.BasicReverseKeyboardMapping);
+            var input = new InputComponent(InputHelper.KeyboardMappedKey(), listenerComponent);
 
             player.AddComponent(listenerComponent);
             player.AddComponent(input);

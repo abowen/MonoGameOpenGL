@@ -11,7 +11,7 @@ using MonoGame.Graphics.Surfing;
 
 namespace MonoGame.Game.Surfing
 {
-    public class SurfingGame : ISimpleGame
+    public class SurfingGame : ISimpleGame, ISimpleNetworking
     {        
         protected readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
 
