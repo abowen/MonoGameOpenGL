@@ -12,13 +12,13 @@ using MonoGame.Common.Networking;
 
 namespace MonoGame.Common.Entities
 {
-    public class GameObject: ISimpleDrawable, ISimpleNetworking, ISimpleUpdateable
+    public class GameObject : ISimpleDrawable, ISimpleNetworking, ISimpleUpdateable
     {
         private readonly List<SimpleComponent> _components = new List<SimpleComponent>();
         private readonly List<ISimpleUpdateable> _updateableComponents = new List<ISimpleUpdateable>();
         private readonly List<ISimpleDrawable> _drawableComponents = new List<ISimpleDrawable>();
-        private readonly List<ISimpleNetworking> _networkingComponents = new List<ISimpleNetworking>(); 
-        
+        private readonly List<ISimpleNetworking> _networkingComponents = new List<ISimpleNetworking>();
+
         public GameLayer GameLayer;
         public string GameType { get; private set; }
 
@@ -77,11 +77,11 @@ namespace MonoGame.Common.Entities
 
         public Vector2 Velocity { get; set; }
 
-       
+
 
         public GameObject(string typeName, Vector2 topLeftLocation, float rotation = 0)
         {
-            GameType = typeName;            
+            GameType = typeName;
             TopLeft = topLeftLocation;
             _originalTopLeftLocation = topLeftLocation;
             _originalRotation = rotation;
@@ -227,8 +227,15 @@ namespace MonoGame.Common.Entities
 
         public virtual void Update(GameTime gameTime)
         {
-            _updateableComponents.Where(c => c.IsEnabled).ToList().ForEach(c => c.Update(gameTime));
-
+            var enumerable = _updateableComponents.GetEnumerator();
+            while (IsEnabled && enumerable.MoveNext())
+            {
+                var component = enumerable.Current;
+                if (component.IsEnabled)
+                {
+                    component.Update(gameTime);
+                }                
+            }
             TopLeft += Velocity;
         }
 

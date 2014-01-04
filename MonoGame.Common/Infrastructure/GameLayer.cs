@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -34,6 +35,13 @@ namespace MonoGame.Common.Infrastructure
 
         public void Update(GameTime gameTime)
         {
+            foreach (var gameObject in _gameObjects)
+            {
+                if (gameObject.GameLayer == null)
+                {
+                    Debugger.Break();
+                }
+            }
             _gameObjects.ForEach(s => s.Update(gameTime));
             Managers.ForEach(s => s.Update(gameTime));
 
@@ -63,6 +71,7 @@ namespace MonoGame.Common.Infrastructure
 
         public void RemoveGameObject(GameObject gameObject)
         {
+            gameObject.Disable();
             _gameObjects.Remove(gameObject);
             gameObject.GameLayer = null;
         }
@@ -85,7 +94,7 @@ namespace MonoGame.Common.Infrastructure
         }
 
         public void Update(NetworkMessage message)
-        {
+        {            
             _gameObjects.ForEach(s => s.Update(message));
         }
     }

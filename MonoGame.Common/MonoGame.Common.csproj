@@ -44,6 +44,7 @@
     <Compile Include="Components\BoundaryEventComponent.cs" />
     <Compile Include="Components\ConstantMovementComponent.cs" />
     <Compile Include="Components\BoundaryStateComponent.cs" />
+    <Compile Include="Components\KeyboardActionComponent.cs" />
     <Compile Include="Components\RotationComponent.cs" />
     <Compile Include="Components\RotationMovementComponent.cs" />
     <Compile Include="Components\StateComponent.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Events\ScoreEventArgs.cs" />
     <Compile Include="Helpers\SpriteReader.cs" />
+    <Compile Include="Infrastructure\SimpleGame.cs" />
     <Compile Include="Infrastructure\GameConstants.cs" />
     <Compile Include="Enums\GameLayerDepth.cs" />
     <Compile Include="Enums\ObjectEvent.cs" />

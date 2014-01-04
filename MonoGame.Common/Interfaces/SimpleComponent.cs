@@ -15,6 +15,7 @@ namespace MonoGame.Common.Interfaces
         public virtual void SetOwner(GameObject owner)
         {
             Contract.Assert(owner != null);
+//            Contract.Assert(owner.GameLayer != null);
             Owner = owner;
           
         }

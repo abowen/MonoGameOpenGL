@@ -1,75 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
-using MonoGame.Common.Networking;
 using MonoGame.Graphics.Common;
 using MonoGame.Graphics.Surfing;
 
 namespace MonoGame.Game.Surfing
 {
-    public class SurfingGame : ISimpleGame, ISimpleNetworking
-    {        
-        protected readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
-
+    public class SurfingGame : SimpleGame, ISimpleNetworking
+    {
         public SurfingGame(GameWindow window, ContentManager contentManager)
+            : base(window, contentManager)
         {
             FontGraphics.LoadContent(contentManager);
             CommonGraphics.LoadContent(contentManager);
             SurfingGraphics.LoadContent(contentManager);
 
-            GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
-
             var level = new SurfLevel();
             Levels.Push(level);
-        }
-
-        protected GameLevel ActiveGameLevel
-        {
-            get
-            {
-                return Levels.FirstOrDefault();
-            }
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            if (ActiveGameLevel != null)
-            {
-                ActiveGameLevel.Update(gameTime);
-            }
-        }
-
-        public void Update(NetworkMessage message)
-        {
-            var networkUpdate = ActiveGameLevel as ISimpleNetworking;
-            if (networkUpdate != null)
-            {
-                networkUpdate.Update(message);
-            }
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            if (ActiveGameLevel != null)
-            {
-                ActiveGameLevel.Draw(spriteBatch);
-            }
-        }
-
-        public void Enable()
-        {
-            IsEnabled = true;
-        }
-
-        public void Disable()
-        {
-            IsEnabled = false;
-        }
-
-        public bool IsEnabled { get; private set; }
+        }        
     }
 }

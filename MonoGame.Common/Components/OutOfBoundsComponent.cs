@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;

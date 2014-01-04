@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
 using MonoGame.Common.Components;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Infrastructure;
@@ -9,7 +7,7 @@ using MonoGame.Graphics.Rpg;
 
 namespace MonoGame.Game.Rpg.Screens
 {
-    public class StartScreen : GameLevel
+    public class PlayerSelectScreen : GameLevel
     {
         protected override void LoadBackground()
         {
@@ -26,18 +24,11 @@ namespace MonoGame.Game.Rpg.Screens
             var textEnter = new TextComponent(FontGraphics.DigifontFont16X16, "PRESS ENTER", new Vector2(-80, 25));
             var shield = new SpriteMappingComponent(RpgGraphics.GameboySpriteMapping, "Sword10", new Vector2(-250, 0), 3f);
             var sword = new SpriteMappingComponent(RpgGraphics.GameboySpriteMapping, "Shield10", new Vector2(200, 0), 3f);
-            var action = new KeyboardActionComponent(Keys.Enter, Action);
             display.AddComponent(textSimpleRpg);
             display.AddComponent(textEnter);
             display.AddComponent(shield);
             display.AddComponent(sword);
-            display.AddComponent(action);
             DisplayLayer.AddGameObject(display);
-        }
-
-        private void Action()
-        {
-            
         }
 
         protected override void LoadForeground()
