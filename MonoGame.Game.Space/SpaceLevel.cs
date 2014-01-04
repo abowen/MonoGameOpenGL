@@ -43,13 +43,11 @@ namespace MonoGame.Game.Space
             // TODO: Refactor this into BuilderPattern
             var player = new GameObject("Player", playerStartPosition);            
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
-            var playerSpriteComponent = new SpriteComponent(playerTexture, Vector2.Zero);
+            var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
             var playerLocalKeyboardComponent = new LocalKeyboardComponent();
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), playerLocalKeyboardComponent, playerMovementComponent);
-
-            //var playerHealthComponent = new HealthComponent(player, SpaceGraphics.HealthAsset.First(), new Vector2(10, 10), 5,
-            //    DisplayLayer);
+            
             var playerBoundaryComponent = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
             player.AddComponent(playerBoundaryComponent);
 
@@ -63,8 +61,7 @@ namespace MonoGame.Game.Space
             var playerFireCounterComponent = new CounterComponent(ObjectEvent.Collision, ObjectEvent.WoodFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
             var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, ObjectEvent.WoodFire, playerFireCounterComponent, RandomDrawMethod);
 
-            var playerEventComponent = new ObjectEventComponent(ObjectEvent.HealthEmpty, PlayerDeath);
-            // player.ObjectEvent += PlayerOnObjectEvent;
+            var playerEventComponent = new ObjectEventComponent(ObjectEvent.HealthEmpty, PlayerDeath);            
 
             player.AddComponent(playerSpriteComponent);
             player.AddComponent(playerMovementComponent);

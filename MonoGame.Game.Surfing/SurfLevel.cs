@@ -122,7 +122,7 @@ namespace MonoGame.Game.Surfing
             var boundary = new BoundaryComponent(texture, texture.Width, texture.Height);
             var rotationMovement = new RotationMovementComponent(2, Vector2.Zero);
             var rotation = new RotationComponent(Vector2.Zero);
-            var sprite = new SpriteComponent(texture, Vector2.Zero, new Vector2(1, 1), texture.Centre(), color);
+            var sprite = new SpriteComponent(texture, rotationOrigin: texture.Centre(), color: color);
 
             player.AddComponent(airGravityMovement);
             player.AddComponent(sprite);
