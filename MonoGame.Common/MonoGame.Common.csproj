@@ -65,6 +65,7 @@
     <Compile Include="Components\SpriteComponent.cs" />
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Events\ScoreEventArgs.cs" />
+    <Compile Include="Extensions\Texture2D.cs" />
     <Compile Include="Helpers\SpriteReader.cs" />
     <Compile Include="Infrastructure\SimpleGame.cs" />
     <Compile Include="Infrastructure\GameConstants.cs" />

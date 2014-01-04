@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Components;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
+using MonoGame.Common.Extensions;
 using MonoGame.Common.Helpers;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Managers;
@@ -120,7 +122,7 @@ namespace MonoGame.Game.Surfing
             var boundary = new BoundaryComponent(texture, texture.Width, texture.Height);
             var rotationMovement = new RotationMovementComponent(2, Vector2.Zero);
             var rotation = new RotationComponent(Vector2.Zero);
-            var sprite = new SpriteComponent(texture, color);
+            var sprite = new SpriteComponent(texture, Vector2.Zero, new Vector2(1, 1), texture.Centre(), color);
 
             player.AddComponent(airGravityMovement);
             player.AddComponent(sprite);

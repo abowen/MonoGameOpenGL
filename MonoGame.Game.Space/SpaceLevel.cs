@@ -43,7 +43,7 @@ namespace MonoGame.Game.Space
             // TODO: Refactor this into BuilderPattern
             var player = new GameObject("Player", playerStartPosition);            
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
-            var playerSpriteComponent = new SpriteComponent(playerTexture);
+            var playerSpriteComponent = new SpriteComponent(playerTexture, Vector2.Zero);
             var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
             var playerLocalKeyboardComponent = new LocalKeyboardComponent();
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), playerLocalKeyboardComponent, playerMovementComponent);

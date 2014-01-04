@@ -37,7 +37,7 @@ namespace MonoGame.Common.Managers
             var waveTexture = SurfingGraphics.WaveBackgroundAsset;
             //var scaleVector = new Vector2(GameConstants.ScreenBoundary.Right / waveTexture.Width , waveHeight / waveTexture.Height);
             var scaleVector = new Vector2(GameConstants.ScreenBoundary.Right / waveTexture.Width, 1);
-            var spriteComponent = new SpriteComponent(waveTexture, Vector2.Zero, scaleVector);
+            var spriteComponent = new SpriteComponent(waveTexture, Vector2.Zero, scaleVector, Vector2.Zero);
             surfBackground.AddComponent(spriteComponent);
             backgroundLayer.AddGameObject(surfBackground);
         }
@@ -67,7 +67,7 @@ namespace MonoGame.Common.Managers
             var bottomPadding = GameConstants.ScreenBoundary.Bottom - (_yPosition + _waveHeight);
             var gameObject = new GameObject("FOAM", new Vector2(xPosition, _yPosition));
             var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(_waveSpeed, 1));
-             var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures), Vector2.Zero, new Vector2(width, 1), new Color(Color.Gray, 20));
+             var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures), Vector2.Zero, new Vector2(width, 1), Vector2.Zero, new Color(Color.Gray, 20));
             var outOfBoundsComponent = new OutOfBoundsComponent(ObjectEvent.RemoveEntity, leftPadding: -50, bottomPadding: bottomPadding);
             gameObject.AddComponent(movementComponent);
             gameObject.AddComponent(spriteComponent);

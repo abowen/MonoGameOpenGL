@@ -9,7 +9,9 @@ namespace MonoGame.Common.Components
     {
         internal Texture2D Texture;
         private readonly Vector2 _relativeLocation;
+        private readonly bool _test;
         private readonly Vector2 _scale = Vector2.Zero;
+        private readonly Vector2 _rotationOrigin;
 
         public int Width
         {
@@ -32,36 +34,39 @@ namespace MonoGame.Common.Components
             }
             Texture = texture;
             _relativeLocation = Vector2.Zero;
+            _rotationOrigin = Vector2.Zero;
+            _scale = new Vector2(1, 1);
         }
 
         public SpriteComponent(Texture2D texture, Vector2 relativeLocation)
         {
             Texture = texture;
             _relativeLocation = relativeLocation;
+            _rotationOrigin = Vector2.Zero;
+            _scale = new Vector2(1,1);
         }
 
-        public SpriteComponent(Texture2D texture, Vector2 relativeLocation, Vector2 scale, Color? color = null)
+        public SpriteComponent(Texture2D texture, Vector2 relativeLocation, Vector2 scale, Vector2 rotationOrigin, Color? color = null)
         {
             Texture = texture;
             _relativeLocation = relativeLocation;
             _scale = scale;
+            _rotationOrigin = rotationOrigin;
 
             _color = color ?? Color.White;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (_scale != Vector2.Zero)
+            if (_rotationOrigin != Vector2.Zero)
             {
-                var origin = new Vector2(0, 0);
-                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, null, _color, 0, origin, _scale, SpriteEffects.None, 1);
+                
+                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, null, _color, Owner.Rotation, _rotationOrigin, _scale, SpriteEffects.None, 1);
             }
             else
             {
-                var rotationOrigin = new Vector2(Texture.Width / 2, Texture.Height / 2);
-                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, null, _color,
-                    Owner.Rotation, rotationOrigin, new Vector2(1, 1), SpriteEffects.None, 1);
-            }            
+                spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, null, _color, Owner.Rotation, Vector2.Zero, _scale, SpriteEffects.None, 1);
+            }                     
         }
     }
 }
