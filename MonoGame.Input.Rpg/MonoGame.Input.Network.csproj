@@ -7,8 +7,8 @@
     <ProjectGuid>{CEE11814-AB87-45AE-B5C4-4F8759BE5265}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MonoGame.Input.Rpg</RootNamespace>
-    <AssemblyName>MonoGame.Input.Rpg</AssemblyName>
+    <RootNamespace>MonoGame.Input.Network</RootNamespace>
+    <AssemblyName>MonoGame.Input.Network</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

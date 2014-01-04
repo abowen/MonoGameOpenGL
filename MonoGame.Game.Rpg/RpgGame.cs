@@ -5,27 +5,25 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
 using Microsoft.Xna.Framework;
-using MonoGame.Common.Networking;
+using MonoGame.Game.Rpg.Screens;
 using MonoGame.Graphics.Common;
 using MonoGame.Graphics.Rpg;
-using MonoGame.Graphics.Space;
 
 namespace MonoGame.Game.Rpg
 {
-    public class RpgGame : ISimpleNetworking, ISimpleGame
+    public class RpgGame : ISimpleGame
     {        
         protected readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
 
         public RpgGame(GameWindow window, ContentManager contentManager)
         {
-            FontGraphics.LoadContent(contentManager);
-            SpaceGraphics.LoadSpaceContent(contentManager);
+            FontGraphics.LoadContent(contentManager);            
             RpgGraphics.LoadContent(contentManager);
 
             GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
 
-            var worldLevel = new WorldLevel();
-            Levels.Push(worldLevel);
+            var startScreen = new StartScreen();
+            Levels.Push(startScreen);
         }
 
         protected GameLevel ActiveGameLevel
@@ -44,14 +42,6 @@ namespace MonoGame.Game.Rpg
             }
         }
 
-        public void Update(NetworkMessage message)
-        {
-            var networkUpdate = ActiveGameLevel as ISimpleNetworking;
-            if (networkUpdate != null)
-            {
-                networkUpdate.Update(message);
-            }
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Common.Entities;
 using MonoGame.Common.Interfaces;
 using MonoGame.Graphics.Common;
 
@@ -10,12 +9,15 @@ namespace MonoGame.Common.Components
     {
         private readonly CharacterMapping _characterMapping;
         public string Text;
+        private readonly Vector2 _relativePosition;
 
-        // TODO: Allow for forced upper or lower case
-        public TextComponent(CharacterMapping characterMapping, string text)
+
+        
+        public TextComponent(CharacterMapping characterMapping, string text, Vector2? relativePosition = null)
         {
             _characterMapping = characterMapping;
             Text = text;
+            _relativePosition = relativePosition ?? Vector2.Zero;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -26,7 +28,7 @@ namespace MonoGame.Common.Components
             {
                 if (!char.IsWhiteSpace(character))
                 {
-                    spriteBatch.Draw(_characterMapping.Texture, location, _characterMapping.GetRectangle(character), Color.White);
+                    spriteBatch.Draw(_characterMapping.Texture, location + _relativePosition, _characterMapping.GetRectangle(character), Color.White);
                 }
                 location.X += width;
             }
