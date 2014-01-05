@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MonoGame.Common.Components;
+using MonoGame.Common.Components.Graphics;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Graphics.Common;

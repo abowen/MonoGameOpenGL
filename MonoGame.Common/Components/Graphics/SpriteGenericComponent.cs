@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Common.Components.Logic;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
 using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.Graphics
 {
     public class SpriteGenericComponent : SimpleComponent, ISimpleDrawable, ISimpleUpdateable
     {
@@ -17,7 +18,7 @@ namespace MonoGame.Common.Components
         private readonly Vector2 _relativeLocation;
         private int _currentValue;
         private readonly ObjectEvent _subscribeEvent;
-        private readonly CounterComponent _counterComponent;
+        private readonly CounterIncrementComponent _counterIncrementComponent;
         private readonly Func<int, int, IEnumerable<Vector2>> _drawMethod;
 
         public int Width { get; private set; }
@@ -30,7 +31,7 @@ namespace MonoGame.Common.Components
             owner.ObjectEvent += OwnerOnObjectEvent;
         }
 
-        public SpriteGenericComponent(Texture2D[] textures, Vector2 relativeLocation, ObjectEvent subscribeEvent, CounterComponent counterComponent, Func<int, int, IEnumerable<Vector2>> drawMethod)
+        public SpriteGenericComponent(Texture2D[] textures, Vector2 relativeLocation, ObjectEvent subscribeEvent, CounterIncrementComponent counterIncrementComponent, Func<int, int, IEnumerable<Vector2>> drawMethod)
         {
             Textures = textures;
 
@@ -38,9 +39,9 @@ namespace MonoGame.Common.Components
             Height = Textures.Max(t => t.Height);
 
             _relativeLocation = relativeLocation;
-            _currentValue = counterComponent.CurrentValue;
+            _currentValue = counterIncrementComponent.CurrentValue;
             _subscribeEvent = subscribeEvent;
-            _counterComponent = counterComponent;
+            _counterIncrementComponent = counterIncrementComponent;
             _drawMethod = drawMethod;
             _locations = drawMethod.Invoke(_currentValue, 0).ToList();
         }
@@ -49,7 +50,7 @@ namespace MonoGame.Common.Components
         {
             if (objectEventArgs.Action == _subscribeEvent)
             {
-                _currentValue = _counterComponent.CurrentValue;
+                _currentValue = _counterIncrementComponent.CurrentValue;
 
                 var requiredItems = _currentValue;
                 var newVectors = _drawMethod(requiredItems, 5).ToList();                

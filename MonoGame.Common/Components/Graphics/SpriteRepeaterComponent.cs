@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Common.Components.Logic;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
 using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.Graphics
 {
     public class SpriteRepeaterComponent : SimpleComponent, ISimpleDrawable
     {
@@ -14,7 +15,7 @@ namespace MonoGame.Common.Components
         private int _currentValue;
         private readonly bool _isVertical;
         private readonly ObjectEvent _subscribeEvent;
-        private readonly CounterComponent _counterComponent;        
+        private readonly CounterIncrementComponent _counterIncrementComponent;        
         private readonly bool _isReverse;
 
         public int Width
@@ -50,14 +51,14 @@ namespace MonoGame.Common.Components
             _isVertical = isVertical;
         }
 
-        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, bool isVertical, ObjectEvent subscribeEvent, CounterComponent counterComponent, bool isReverse = false)
+        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, bool isVertical, ObjectEvent subscribeEvent, CounterIncrementComponent counterIncrementComponent, bool isReverse = false)
         {
             Texture = texture;
             _relativeLocation = relativeLocation;
-            _currentValue = counterComponent.CurrentValue;
+            _currentValue = counterIncrementComponent.CurrentValue;
             _isVertical = isVertical;
             _subscribeEvent = subscribeEvent;
-            _counterComponent = counterComponent;            
+            _counterIncrementComponent = counterIncrementComponent;            
             _isReverse = isReverse;
 
         }
@@ -66,7 +67,7 @@ namespace MonoGame.Common.Components
         {
             if (objectEventArgs.Action == _subscribeEvent)
             {
-                _currentValue = _counterComponent.CurrentValue;
+                _currentValue = _counterIncrementComponent.CurrentValue;
             }
         }
 

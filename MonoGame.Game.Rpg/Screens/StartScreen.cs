@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Components;
+using MonoGame.Common.Components.Graphics;
+using MonoGame.Common.Components.Input;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Graphics.Common;

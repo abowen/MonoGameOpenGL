@@ -17,6 +17,8 @@
         InAir,
         OnWave,
         RemoveEntity,
-        ResetEntity
+        ResetEntity,
+        NextCharacter,
+        PreviousCharacter
     }
 }

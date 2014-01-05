@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.Input
 {
     // Seems silly to add this component.
     public class KeyboardActionComponent : SimpleComponent, ISimpleUpdateable

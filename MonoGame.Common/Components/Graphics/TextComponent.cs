@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Interfaces;
 using MonoGame.Graphics.Common;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.Graphics
 {
     public class TextComponent : SimpleComponent, ISimpleDrawable
     {

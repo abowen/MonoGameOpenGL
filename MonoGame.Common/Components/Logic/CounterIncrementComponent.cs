@@ -3,9 +3,9 @@ using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
 using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.Logic
 {
-    public class CounterComponent : SimpleComponent
+    public class CounterIncrementComponent : SimpleComponent, ICounterComponent
     {
         private readonly ObjectEvent _subscribeEvent;
         private readonly ObjectEvent _publishEvent;
@@ -25,7 +25,7 @@ namespace MonoGame.Common.Components
 
 
         // TODO: Determine descending by if start > 0
-        public CounterComponent(ObjectEvent subscribeEvent, ObjectEvent publishEvent, ObjectEvent lastEvent, ObjectEvent resetEvent, int startValue, int lastValue, bool isDescending = true)
+        public CounterIncrementComponent(ObjectEvent subscribeEvent, ObjectEvent publishEvent, ObjectEvent lastEvent, ObjectEvent resetEvent, int startValue, int lastValue, bool isDescending = true)
         {
             _subscribeEvent = subscribeEvent;
             _publishEvent = publishEvent;

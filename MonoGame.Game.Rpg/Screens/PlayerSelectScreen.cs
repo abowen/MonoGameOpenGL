@@ -1,6 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using MonoGame.Common.Components;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using MonoGame.Common.Components.Graphics;
+using MonoGame.Common.Components.Input;
+using MonoGame.Common.Components.Logic;
 using MonoGame.Common.Entities;
+using MonoGame.Common.Enums;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Graphics.Common;
 using MonoGame.Graphics.Rpg;
@@ -14,21 +19,36 @@ namespace MonoGame.Game.Rpg.Screens
 
         }
 
-        protected override void LoadDisplay()
+        private string[] _playerCharacters = new[]
         {
-            var xCentre = GameConstants.ScreenBoundary.Width / 2;
-            var yCentre = GameConstants.ScreenBoundary.Height / 2;
+            "Player1",
+            "Player2",
+            "Player3",
+            "Player4",
+            "Player5",
+            "Player6",
+            "Player7",
+            "Player8",
+            "Player9",
+            "Player10"
+        };
 
-            var display = new GameObject("Text", new Vector2(xCentre, yCentre));
-            var textSimpleRpg = new TextComponent(FontGraphics.DigifontFont_16X16, "SIMPLE RPG", new Vector2(-75, -25));
-            var textEnter = new TextComponent(FontGraphics.DigifontFont_16X16, "PRESS ENTER", new Vector2(-80, 25));
-            var shield = new SpriteMappingComponent(RpgGraphics.GameboySpriteMapping, "Sword10", new Vector2(-250, 0), 3f);
-            var sword = new SpriteMappingComponent(RpgGraphics.GameboySpriteMapping, "Shield10", new Vector2(200, 0), 3f);
-            display.AddComponent(textSimpleRpg);
-            display.AddComponent(textEnter);
-            display.AddComponent(shield);
-            display.AddComponent(sword);
-            DisplayLayer.AddGameObject(display);
+        protected override void LoadDisplay()
+        {                        
+            var player = new GameObject("PlayerOneSelection", new Vector2(10, 10));
+            var textPlayerOne = new TextComponent(FontGraphics.PropertialFont_8X8, "PLAYER ONE");
+            var counterComponent = new CounterComponent(ObjectEvent.NextCharacter, ObjectEvent.PreviousCharacter, 
+                0, _playerCharacters.Count() - 1);
+            var sprites = new SpriteMappingsComponent(RpgGraphics.GameboySpriteMapping, _playerCharacters, new Vector2(10, 50), counterComponent);
+            var nextCharacter = new KeyboardEventComponent(Keys.Right, ObjectEvent.NextCharacter);
+            var previousCharacter = new KeyboardEventComponent(Keys.Left, ObjectEvent.PreviousCharacter);
+      
+            player.AddComponent(textPlayerOne);
+            player.AddComponent(counterComponent);
+            player.AddComponent(sprites);
+            player.AddComponent(nextCharacter);
+            player.AddComponent(previousCharacter);
+            DisplayLayer.AddGameObject(player);
         }
 
         protected override void LoadForeground()

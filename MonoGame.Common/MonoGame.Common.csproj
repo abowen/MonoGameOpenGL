@@ -44,25 +44,28 @@
     <Compile Include="Components\BoundaryEventComponent.cs" />
     <Compile Include="Components\ConstantMovementComponent.cs" />
     <Compile Include="Components\BoundaryStateComponent.cs" />
-    <Compile Include="Components\KeyboardActionComponent.cs" />
+    <Compile Include="Components\Graphics\SpriteMappingsComponent.cs" />
+    <Compile Include="Components\Input\KeyboardEventComponent.cs" />
+    <Compile Include="Components\Input\KeyboardActionComponent.cs" />
+    <Compile Include="Components\Logic\CounterComponent.cs" />
     <Compile Include="Components\RotationComponent.cs" />
     <Compile Include="Components\RotationMovementComponent.cs" />
     <Compile Include="Components\StateComponent.cs" />
-    <Compile Include="Components\LocalButtonComponent.cs" />
-    <Compile Include="Components\SpriteMappingComponent.cs" />
-    <Compile Include="Components\LocalKeyboardComponent.cs" />
-    <Compile Include="Components\NetworkKeyboardComponent.cs" />
+    <Compile Include="Components\Input\LocalButtonComponent.cs" />
+    <Compile Include="Components\Graphics\SpriteMappingComponent.cs" />
+    <Compile Include="Components\Input\LocalKeyboardComponent.cs" />
+    <Compile Include="Components\Input\NetworkKeyboardComponent.cs" />
     <Compile Include="Components\ObjectEventComponent.cs" />
-    <Compile Include="Components\SpriteGenericComponent.cs" />
-    <Compile Include="Components\CounterComponent.cs" />
+    <Compile Include="Components\Graphics\SpriteGenericComponent.cs" />
+    <Compile Include="Components\Logic\CounterIncrementComponent.cs" />
     <Compile Include="Components\OutOfBoundsComponent.cs" />
-    <Compile Include="Components\SpriteRepeaterComponent.cs" />
+    <Compile Include="Components\Graphics\SpriteRepeaterComponent.cs" />
     <Compile Include="Components\InstanceComponent.cs" />
     <Compile Include="Components\InputComponent.cs" />
     <Compile Include="Components\MovementComponent.cs" />
-    <Compile Include="Components\TextComponent.cs" />
+    <Compile Include="Components\Graphics\TextComponent.cs" />
     <Compile Include="Components\TimedActionComponent.cs" />
-    <Compile Include="Components\SpriteComponent.cs" />
+    <Compile Include="Components\Graphics\SpriteComponent.cs" />
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Events\ScoreEventArgs.cs" />
     <Compile Include="Extensions\Texture2D.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\GameLayer.cs" />
     <Compile Include="Infrastructure\GameLevel.cs" />
+    <Compile Include="Interfaces\ICounterComponent.cs" />
     <Compile Include="Interfaces\IButtonInput.cs" />
     <Compile Include="Interfaces\IRotationComponent.cs" />
     <Compile Include="Interfaces\IMovementComponent.cs" />
@@ -115,6 +119,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Binaries.3.0.1\build\net40\MonoGame.Binaries.targets" Condition="Exists('..\packages\MonoGame.Binaries.3.0.1\build\net40\MonoGame.Binaries.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
