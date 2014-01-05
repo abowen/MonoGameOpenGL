@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Common.Components;
 using MonoGame.Common.Components.Graphics;
 using MonoGame.Common.Components.Input;
 using MonoGame.Common.Entities;
@@ -38,11 +36,10 @@ namespace MonoGame.Game.Rpg.Screens
             DisplayLayer.AddGameObject(display);
         }
 
-        private void Action()
+        private void Action(GameObject gameObject)
         {
             var playerSelection = new PlayerSelectScreen();
-            NextLevel(playerSelection);
-            
+            NextLevel(playerSelection);            
         }
 
         protected override void LoadForeground()

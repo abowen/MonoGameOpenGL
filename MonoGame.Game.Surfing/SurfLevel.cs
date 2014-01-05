@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Components;
 using MonoGame.Common.Components.Graphics;
+using MonoGame.Common.Components.Input;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Extensions;
@@ -27,29 +27,31 @@ namespace MonoGame.Game.Surfing
             BackgroundLayer.Managers.Add(backgroundManager);
         }
 
-        private float _waveSpeed = -0.5f;
-
-        private GameObject _playerOneStartText;
-        private GameObject _playerTwoStartText;
-        private GameObject _playerThreeStartText;
+        private float _waveSpeed = -0.5f;                
 
         protected override void LoadDisplay()
         {
-            _playerOneStartText = new GameObject("Text", new Vector2(50, 450));
-            var textComponent = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS SPACE");
-            _playerOneStartText.AddComponent(textComponent);
-            DisplayLayer.AddGameObject(_playerOneStartText);
+            var playerOne = new GameObject("Text", new Vector2(50, 450));
+            var textOne = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS SPACE");
+            var actionOne = new KeyboardActionComponent(Keys.Space, CreatePlayerOne);
+            playerOne.AddComponent(textOne);
+            playerOne.AddComponent(actionOne);
+            DisplayLayer.AddGameObject(playerOne);
 
-            _playerTwoStartText = new GameObject("Text", new Vector2(250, 450));
-            var playerTwoTextComponent = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS A GAMEPAD");
-            _playerTwoStartText.AddComponent(playerTwoTextComponent);
-            DisplayLayer.AddGameObject(_playerTwoStartText);
+            var playerTwo = new GameObject("Text", new Vector2(250, 450));
+            var textTwo = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS A GAMEPAD");
+            var actionTwo = new ButtonActionComponent(Buttons.A, CreatePlayerTwo);
+            playerTwo.AddComponent(textTwo);
+            playerTwo.AddComponent(actionTwo);
+            DisplayLayer.AddGameObject(playerTwo);
 
 
-            _playerThreeStartText = new GameObject("Text", new Vector2(450, 450));
-            var playerThreeTextComponent = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS ENTER");
-            _playerThreeStartText.AddComponent(playerThreeTextComponent);
-            DisplayLayer.AddGameObject(_playerThreeStartText);
+            var playerThree = new GameObject("Text", new Vector2(450, 450));
+            var textThree = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS ENTER");            
+            var actionThree = new KeyboardActionComponent(Keys.Enter, CreatePlayerThree);
+            playerThree.AddComponent(textThree);
+            playerThree.AddComponent(actionThree);
+            DisplayLayer.AddGameObject(playerThree);
 
             var foam = new[] {
                 CommonGraphics.TransparentCubeAsset, 
@@ -62,19 +64,13 @@ namespace MonoGame.Game.Surfing
         }
 
         protected override void LoadForeground()
-        {
-            var playerManager = new PlayerManager();
-            playerManager.AddPlayerListener(Keys.Space, CreatePlayerOne);
-            playerManager.AddPlayerListener(Buttons.A, CreatePlayerTwo);
-            playerManager.AddPlayerListener(Keys.Enter, CreatePlayerThree);
-            ForegroundLayer.Managers.Add(playerManager);
+        {            
         }
 
-        private void CreatePlayerOne()
+        private void CreatePlayerOne(GameObject gameObject)
         {
-            _playerOneStartText.RemoveGameObject();
-            _playerOneStartText = null;
-
+            gameObject.RemoveGameObject();
+            
             var player = CreatePlayer(Vector2.Zero, Color.Red);
             var localKeyboard = new LocalKeyboardComponent();
             var input = new InputComponent(InputHelper.KeyboardMappedKey(), localKeyboard);
@@ -83,10 +79,9 @@ namespace MonoGame.Game.Surfing
             player.AddComponent(input);
         }
 
-        private void CreatePlayerTwo()
+        private void CreatePlayerTwo(GameObject gameObject)
         {
-            _playerTwoStartText.RemoveGameObject();
-            _playerTwoStartText = null;
+            gameObject.RemoveGameObject();            
 
             var player = CreatePlayer(new Vector2(50,0), Color.LightGreen);
             var listenerComponent = new LocalButtonComponent();
@@ -96,10 +91,9 @@ namespace MonoGame.Game.Surfing
             player.AddComponent(input);
         }
 
-        private void CreatePlayerThree()
+        private void CreatePlayerThree(GameObject gameObject)
         {
-            _playerThreeStartText.RemoveGameObject();
-            _playerThreeStartText = null;
+            gameObject.RemoveGameObject();            
 
             var player = CreatePlayer(new Vector2(100, 0), Color.Orange);
             var listenerComponent = new NetworkKeyboardComponent(KeyboardPresets.BasicReverseKeyboardMapping);

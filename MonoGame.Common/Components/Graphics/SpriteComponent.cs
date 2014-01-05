@@ -40,8 +40,7 @@ namespace MonoGame.Common.Components.Graphics
         public void Draw(SpriteBatch spriteBatch)
         {
             if (_rotationOrigin != Vector2.Zero)
-            {
-                
+            {                
                 spriteBatch.Draw(Texture, Owner.TopLeft + _relativeLocation, null, _color, Owner.Rotation, _rotationOrigin, _scale, SpriteEffects.None, 1);
             }
             else

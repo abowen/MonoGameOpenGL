@@ -19,7 +19,7 @@ namespace MonoGame.Game.Rpg.Screens
 
         }
 
-        private string[] _playerCharacters = new[]
+        private readonly string[] _playerCharacters =
         {
             "Player1",
             "Player2",
@@ -37,13 +37,15 @@ namespace MonoGame.Game.Rpg.Screens
         {                        
             var player = new GameObject("PlayerOneSelection", new Vector2(10, 10));
             var textPlayerOne = new TextComponent(FontGraphics.PropertialFont_8X8, "PLAYER ONE");
-            var counterComponent = new CounterComponent(ObjectEvent.NextCharacter, ObjectEvent.PreviousCharacter, 
+            var textPlayerOneStart = new TextComponent(FontGraphics.PropertialFont_8X8, "PRESS SPACE TO START", new Vector2(0, 100));
+            var counterComponent = new CounterComponent(ObjectEvent.PreviousCharacter, ObjectEvent.NextCharacter, 
                 0, _playerCharacters.Count() - 1);
             var sprites = new SpriteMappingsComponent(RpgGraphics.GameboySpriteMapping, _playerCharacters, new Vector2(10, 50), counterComponent);
             var nextCharacter = new KeyboardEventComponent(Keys.Right, ObjectEvent.NextCharacter);
             var previousCharacter = new KeyboardEventComponent(Keys.Left, ObjectEvent.PreviousCharacter);
-      
+
             player.AddComponent(textPlayerOne);
+            player.AddComponent(textPlayerOneStart);
             player.AddComponent(counterComponent);
             player.AddComponent(sprites);
             player.AddComponent(nextCharacter);

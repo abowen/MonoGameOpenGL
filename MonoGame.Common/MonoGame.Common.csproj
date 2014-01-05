@@ -45,6 +45,7 @@
     <Compile Include="Components\ConstantMovementComponent.cs" />
     <Compile Include="Components\BoundaryStateComponent.cs" />
     <Compile Include="Components\Graphics\SpriteMappingsComponent.cs" />
+    <Compile Include="Components\Input\ButtonActionComponent.cs" />
     <Compile Include="Components\Input\KeyboardEventComponent.cs" />
     <Compile Include="Components\Input\KeyboardActionComponent.cs" />
     <Compile Include="Components\Logic\CounterComponent.cs" />
@@ -94,7 +95,6 @@
     <Compile Include="Interfaces\ISimpleUpdateable.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Managers\BackgroundManager.cs" />
-    <Compile Include="Managers\PlayerManager.cs" />
     <Compile Include="Managers\WaveManager.cs" />
     <Compile Include="Managers\EnemyManager.cs" />
     <Compile Include="Data\DataConvertHelper.cs" />

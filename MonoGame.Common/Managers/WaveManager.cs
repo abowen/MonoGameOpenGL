@@ -35,10 +35,9 @@ namespace MonoGame.Common.Managers
             _waveSpeed = waveSpeed;
 
             var surfBackground = new GameObject("WAVE", new Vector2(0, 0));
-            var waveTexture = SurfingGraphics.WaveBackgroundAsset;
-            //var scaleVector = new Vector2(GameConstants.ScreenBoundary.Right / waveTexture.Width , waveHeight / waveTexture.Height);
+            var waveTexture = SurfingGraphics.WaveBackgroundAsset;            
             var scaleVector = new Vector2(GameConstants.ScreenBoundary.Right / waveTexture.Width, 1);
-            var spriteComponent = new SpriteComponent(waveTexture, relativeLocation: Vector2.Zero, scale: scaleVector, rotationOrigin: Vector2.Zero, color: null);
+            var spriteComponent = new SpriteComponent(waveTexture, Vector2.Zero, scaleVector, Vector2.Zero);
             surfBackground.AddComponent(spriteComponent);
             backgroundLayer.AddGameObject(surfBackground);
         }

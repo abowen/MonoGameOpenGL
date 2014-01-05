@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Common.Entities;
 using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components.Input
@@ -10,10 +10,9 @@ namespace MonoGame.Common.Components.Input
     public class KeyboardActionComponent : SimpleComponent, ISimpleUpdateable
     {
         private readonly Keys _key;
-        private readonly Action _action;
+        private readonly Action<GameObject> _action;
 
-
-        public KeyboardActionComponent(Keys key, Action action)
+        public KeyboardActionComponent(Keys key, Action<GameObject> action)
         {
             _key = key;
             _action = action;
@@ -21,10 +20,10 @@ namespace MonoGame.Common.Components.Input
 
         public void Update(GameTime gameTime)
         {
-            var keysPressed = Keyboard.GetState().GetPressedKeys();
-            if (keysPressed.Contains(_key))
+            var keysPressed = Keyboard.GetState().IsKeyDown(_key);
+            if (keysPressed)
             {
-                _action.Invoke();
+                _action.Invoke(Owner);
             }
         }
     }
