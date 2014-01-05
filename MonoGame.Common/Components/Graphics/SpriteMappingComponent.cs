@@ -12,11 +12,11 @@ namespace MonoGame.Common.Components.Graphics
         private readonly Vector2 _relativeLocation;
         private readonly float _scale;
 
-        public SpriteMappingComponent(SpriteMapping spriteMapping, string spriteName, Vector2 relativeLocation, float scale = 1f)
+        public SpriteMappingComponent(SpriteMapping spriteMapping, string spriteName, Vector2? relativeLocation = null, float scale = 1f)
         {
             _spriteMapping = spriteMapping;
             _spriteName = spriteName;
-            _relativeLocation = relativeLocation;
+            _relativeLocation = relativeLocation ?? Vector2.Zero;
             _scale = scale;
         }
 

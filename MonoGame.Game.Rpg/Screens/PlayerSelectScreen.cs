@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Components.Graphics;
@@ -16,7 +17,6 @@ namespace MonoGame.Game.Rpg.Screens
     {
         protected override void LoadBackground()
         {
-
         }
 
         private readonly string[] _playerCharacters =
@@ -36,21 +36,27 @@ namespace MonoGame.Game.Rpg.Screens
         protected override void LoadDisplay()
         {                        
             var player = new GameObject("PlayerOneSelection", new Vector2(10, 10));
-            var textPlayerOne = new TextComponent(FontGraphics.PropertialFont_8X8, "PLAYER ONE");
-            var textPlayerOneStart = new TextComponent(FontGraphics.PropertialFont_8X8, "PRESS SPACE TO START", new Vector2(0, 100));
-            var counterComponent = new CounterComponent(ObjectEvent.PreviousCharacter, ObjectEvent.NextCharacter, 
-                0, _playerCharacters.Count() - 1);
-            var sprites = new SpriteMappingsComponent(RpgGraphics.GameboySpriteMapping, _playerCharacters, new Vector2(10, 50), counterComponent);
+            var playerText = new TextComponent(FontGraphics.PropertialFont_8X8, "PLAYER ONE");
+            var startText = new TextComponent(FontGraphics.PropertialFont_8X8, "PRESS SPACE TO START", new Vector2(0, 100));
+            var counter = new CounterComponent(ObjectEvent.PreviousCharacter, ObjectEvent.NextCharacter, 0, _playerCharacters.Count() - 1);
+            var sprites = new SpriteMappingsComponent(RpgGraphics.GameboySpriteMapping, _playerCharacters, new Vector2(10, 50), counter);
             var nextCharacter = new KeyboardEventComponent(Keys.Right, ObjectEvent.NextCharacter);
             var previousCharacter = new KeyboardEventComponent(Keys.Left, ObjectEvent.PreviousCharacter);
+            var action = new KeyboardActionComponent(Keys.Space, Action);
 
-            player.AddComponent(textPlayerOne);
-            player.AddComponent(textPlayerOneStart);
-            player.AddComponent(counterComponent);
+            player.AddComponent(playerText);
+            player.AddComponent(startText);
+            player.AddComponent(counter);
             player.AddComponent(sprites);
             player.AddComponent(nextCharacter);
             player.AddComponent(previousCharacter);
+            player.AddComponent(action);
             DisplayLayer.AddGameObject(player);
+        }
+
+        private void Action(GameObject gameObject)
+        {
+            NextLevel(new FirstLevel());
         }
 
         protected override void LoadForeground()

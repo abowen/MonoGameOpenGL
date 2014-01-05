@@ -5,7 +5,7 @@ using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
 using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.Movement
 {
     public class RotationMovementComponent : SimpleComponent, ISimpleUpdateable, IMovementComponent
     {

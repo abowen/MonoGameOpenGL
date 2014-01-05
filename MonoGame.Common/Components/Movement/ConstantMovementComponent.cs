@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.Movement
 {
     public class ConstantMovementComponent : SimpleComponent, ISimpleUpdateable
     {

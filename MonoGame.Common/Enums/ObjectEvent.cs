@@ -19,6 +19,12 @@
         RemoveEntity,
         ResetEntity,
         NextCharacter,
-        PreviousCharacter
+        PreviousCharacter,
+        NextItem,
+        PreviousItem,
+        MoveUp,
+        MoveDown,
+        MoveLeft,
+        MoveRight
     }
 }

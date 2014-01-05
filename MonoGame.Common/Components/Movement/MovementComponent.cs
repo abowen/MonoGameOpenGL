@@ -2,7 +2,7 @@
 using MonoGame.Common.Enums;
 using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.Movement
 {
     public class MovementComponent : SimpleComponent, ISimpleUpdateable, IMovementComponent
     {

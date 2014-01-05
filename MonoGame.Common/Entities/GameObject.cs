@@ -59,7 +59,7 @@ namespace MonoGame.Common.Entities
         {
             if (action == Enums.ObjectEvent.RemoveEntity)
             {
-                GameLayer.RemoveGameObject(this);
+                RemoveGameObject();
             }
             if (action == Enums.ObjectEvent.ResetEntity)
             {
@@ -76,8 +76,6 @@ namespace MonoGame.Common.Entities
         private readonly float _originalRotation;
 
         public Vector2 Velocity { get; set; }
-
-
 
         public GameObject(string typeName, Vector2 topLeftLocation, float rotation = 0)
         {
