@@ -35,18 +35,18 @@ namespace MonoGame.Game.Surfing
         protected override void LoadDisplay()
         {
             _playerOneStartText = new GameObject("Text", new Vector2(50, 450));
-            var textComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "PRESS SPACE");
+            var textComponent = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS SPACE");
             _playerOneStartText.AddComponent(textComponent);
             DisplayLayer.AddGameObject(_playerOneStartText);
 
             _playerTwoStartText = new GameObject("Text", new Vector2(250, 450));
-            var playerTwoTextComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "PRESS A GAMEPAD");
+            var playerTwoTextComponent = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS A GAMEPAD");
             _playerTwoStartText.AddComponent(playerTwoTextComponent);
             DisplayLayer.AddGameObject(_playerTwoStartText);
 
 
             _playerThreeStartText = new GameObject("Text", new Vector2(450, 450));
-            var playerThreeTextComponent = new TextComponent(FontGraphics.BloxxitFont8X8, "PRESS ENTER");
+            var playerThreeTextComponent = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS ENTER");
             _playerThreeStartText.AddComponent(playerThreeTextComponent);
             DisplayLayer.AddGameObject(_playerThreeStartText);
 

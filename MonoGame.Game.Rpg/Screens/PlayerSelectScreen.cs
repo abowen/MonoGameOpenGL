@@ -20,8 +20,8 @@ namespace MonoGame.Game.Rpg.Screens
             var yCentre = GameConstants.ScreenBoundary.Height / 2;
 
             var display = new GameObject("Text", new Vector2(xCentre, yCentre));
-            var textSimpleRpg = new TextComponent(FontGraphics.DigifontFont16X16, "SIMPLE RPG", new Vector2(-75, -25));
-            var textEnter = new TextComponent(FontGraphics.DigifontFont16X16, "PRESS ENTER", new Vector2(-80, 25));
+            var textSimpleRpg = new TextComponent(FontGraphics.DigifontFont_16X16, "SIMPLE RPG", new Vector2(-75, -25));
+            var textEnter = new TextComponent(FontGraphics.DigifontFont_16X16, "PRESS ENTER", new Vector2(-80, 25));
             var shield = new SpriteMappingComponent(RpgGraphics.GameboySpriteMapping, "Sword10", new Vector2(-250, 0), 3f);
             var sword = new SpriteMappingComponent(RpgGraphics.GameboySpriteMapping, "Shield10", new Vector2(200, 0), 3f);
             display.AddComponent(textSimpleRpg);

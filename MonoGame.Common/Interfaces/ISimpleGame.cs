@@ -4,7 +4,7 @@ namespace MonoGame.Common.Interfaces
 {
     public interface ISimpleGame : ISimpleUpdateable, ISimpleDrawable
     {
-        //void ChangeLevel(GameLevel level);
-        //void LeaveLevel();
+        //void NextLevel(GameLevel level);
+        //void BackLevel();
     }
 }

@@ -12,8 +12,8 @@ namespace MonoGame.Game.Space
         {                        
             SpaceGraphics.LoadSpaceContent(contentManager);
             
-            var newLevel = new SpaceLevel();
-            Levels.Push(newLevel);
+            var level = new SpaceLevel();
+            NextLevel(level);
         }    
     }
 }

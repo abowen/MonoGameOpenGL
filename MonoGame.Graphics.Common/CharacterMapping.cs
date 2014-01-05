@@ -18,19 +18,28 @@ namespace MonoGame.Graphics.Common
             return _characterLocation[character];
         }
 
-        public CharacterMapping(Texture2D texture, int width, int height, string characters)
+        public CharacterMapping(Texture2D texture, int width, int height, string characters, bool isVertical = false)
         {
             Texture = texture;
             Height = height;
             Width = width;
             var xLocation = 0;
+            var yLocation = 0;
             foreach (var character in characters.ToCharArray())
             {
                 if (!_characterLocation.Keys.Contains(character))
                 {
-                    _characterLocation.Add(character, new Rectangle(xLocation, 0, width, height));
+                    _characterLocation.Add(character, new Rectangle(xLocation, yLocation, width, height));
                 }
-                xLocation += width;
+                if (isVertical)
+                {
+                    yLocation += height;
+                }
+                else
+                {
+                    xLocation += width;
+                }
+                
             }
         }
     }

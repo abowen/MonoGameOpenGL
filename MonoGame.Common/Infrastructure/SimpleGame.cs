@@ -15,13 +15,37 @@ namespace MonoGame.Common.Infrastructure
             GameConstants.ScreenBoundary = new Rectangle(0, 0, window.ClientBounds.Width, window.ClientBounds.Height);
         }
 
-        protected readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
+        private readonly Stack<GameLevel> Levels = new Stack<GameLevel>();
 
         protected GameLevel ActiveGameLevel
         {
             get
             {
                 return Levels.FirstOrDefault();
+            }
+        }
+
+        protected void NextLevel(GameLevel gameLevel)
+        {
+            Levels.Push(gameLevel);
+            gameLevel.ChangeLevelEvent += GameLevelOnChangeLevelEvent;
+        }
+
+        protected void BackLevel()
+        {
+            ActiveGameLevel.ChangeLevelEvent -= GameLevelOnChangeLevelEvent;
+            Levels.Pop();
+        }
+
+        private void GameLevelOnChangeLevelEvent(object sender, LevelEventArgs eventArgs)
+        {
+            if (eventArgs.GameLevel == null)
+            {
+                BackLevel();
+            }
+            else
+            {
+                NextLevel(eventArgs.GameLevel);
             }
         }
 
@@ -61,15 +85,5 @@ namespace MonoGame.Common.Infrastructure
         }
 
         public bool IsEnabled { get; private set; }
-
-        public void ChangeLevel(GameLevel level)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void LeaveLevel()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

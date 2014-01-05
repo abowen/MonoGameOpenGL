@@ -16,7 +16,7 @@ namespace MonoGame.Game.Rpg
             RpgGraphics.LoadContent(contentManager);
             
             var startScreen = new StartScreen();
-            Levels.Push(startScreen);
+            NextLevel(startScreen);
         }    
     }
 }

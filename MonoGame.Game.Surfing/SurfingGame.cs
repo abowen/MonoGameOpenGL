@@ -17,7 +17,7 @@ namespace MonoGame.Game.Surfing
             SurfingGraphics.LoadContent(contentManager);
 
             var level = new SurfLevel();
-            Levels.Push(level);
+            NextLevel(level);
         }        
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Interfaces;
@@ -9,7 +10,7 @@ namespace MonoGame.Common.Infrastructure
     public abstract class GameLevel : ISimpleDrawable, ISimpleUpdateable, ISimpleNetworking
     {
         protected GameLevel()
-        {
+        {            
             LoadForeground();
             LoadBackground();
             LoadDisplay();
@@ -58,5 +59,28 @@ namespace MonoGame.Common.Infrastructure
         }
 
         public bool IsEnabled { get; private set; }
+
+        public event EventHandler<LevelEventArgs> ChangeLevelEvent;
+
+        public void NextLevel(GameLevel gameLevel)
+        {
+            if (ChangeLevelEvent == null) return;
+
+            var eventArgs = new LevelEventArgs() {GameLevel = gameLevel};
+            ChangeLevelEvent.Invoke(this, eventArgs);
+        }
+
+        public void BackLevel()
+        {
+            if (ChangeLevelEvent == null) return;
+
+            var eventArgs = new LevelEventArgs() { GameLevel = null };
+            ChangeLevelEvent.Invoke(this, eventArgs);
+        }
+    }
+
+    public class LevelEventArgs : EventArgs
+    {
+        public GameLevel GameLevel;
     }
 }
