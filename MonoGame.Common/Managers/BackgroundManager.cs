@@ -60,7 +60,7 @@ namespace MonoGame.Common.Managers
 
                 var x = _random.Next(_minX, _maxX);
                 var y = _random.Next(_minY, _maxY);
-                var isMajorItem = _random.Next(0, 100) == 1;
+                var isMajorItem = _random.Next(0, 30) == 1;
                 if (isMajorItem)
                 {                    
                     var star = new GameObject("BackgroundMajor", new Vector2(x, y));

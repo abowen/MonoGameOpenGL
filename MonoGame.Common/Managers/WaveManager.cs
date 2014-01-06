@@ -65,7 +65,7 @@ namespace MonoGame.Common.Managers
 
         private void GenerateFoam(int xPosition, int width)
         {
-            var bottomPadding = GameConstants.ScreenBoundary.Bottom - (_yPosition + _waveHeight);
+            var bottomPadding = GameConstants.ScreenBoundary.Bottom - (_yPosition + _waveHeight + 20);
             var gameObject = new GameObject("FOAM", new Vector2(xPosition, _yPosition));
             var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(_waveSpeed, 1));
              var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures), scale: new Vector2(width, 1), color: new Color(Color.Gray, 20));
