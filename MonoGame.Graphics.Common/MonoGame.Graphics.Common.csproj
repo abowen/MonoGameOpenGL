@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="CharacterMapping.cs" />
     <Compile Include="CommonGraphics.cs" />
+    <Compile Include="Helpers\CsvHelper.cs" />
+    <Compile Include="Helpers\SpriteHelper.cs" />
     <Compile Include="SpriteMapping.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="FontGraphics.cs" />

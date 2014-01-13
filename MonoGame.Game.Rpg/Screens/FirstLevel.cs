@@ -6,6 +6,7 @@ using MonoGame.Common.Components.Movement;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Infrastructure;
+using MonoGame.Common.Managers;
 using MonoGame.Graphics.Rpg;
 
 namespace MonoGame.Game.Rpg.Screens
@@ -14,7 +15,7 @@ namespace MonoGame.Game.Rpg.Screens
     {
         protected override void LoadBackground()
         {
-            
+            TileGenerator.GenerateFromCsv(@".\Maps\Level1\Ground.csv", RpgGraphics.GameboySpriteMapping, BackgroundLayer);
         }        
 
         protected override void LoadForeground()
@@ -43,7 +44,7 @@ namespace MonoGame.Game.Rpg.Screens
             player.AddComponent(moveLeft);
             player.AddComponent(moveRight);
             player.AddComponent(gridMovement);
-            ForegroundLayer.AddGameObject(player);
+            ForegroundLayer.AddGameObject(player);            
         }
 
         private void UseItem(GameObject gameObject)

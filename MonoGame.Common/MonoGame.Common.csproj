@@ -71,7 +71,6 @@
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Events\ScoreEventArgs.cs" />
     <Compile Include="Extensions\Texture2D.cs" />
-    <Compile Include="Helpers\SpriteReader.cs" />
     <Compile Include="Infrastructure\GameInstance.cs" />
     <Compile Include="Infrastructure\SimpleGame.cs" />
     <Compile Include="Infrastructure\GameConstants.cs" />
@@ -97,6 +96,7 @@
     <Compile Include="Interfaces\ISimpleUpdateable.cs" />
     <Compile Include="Managers\AsteroidManager.cs" />
     <Compile Include="Managers\BackgroundManager.cs" />
+    <Compile Include="Managers\TileManager.cs" />
     <Compile Include="Managers\WaveManager.cs" />
     <Compile Include="Managers\EnemyManager.cs" />
     <Compile Include="Data\DataConvertHelper.cs" />

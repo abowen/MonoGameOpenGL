@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Graphics.Common.Helpers;
 
 namespace MonoGame.Graphics.Common
 {
     public class SpriteMapping
     {
         private readonly Dictionary<string, Rectangle> _spriteRectangles = new Dictionary<string, Rectangle>();
-
         public readonly Texture2D Texture;
         public readonly int Height;
         public readonly int Width;
@@ -25,25 +25,10 @@ namespace MonoGame.Graphics.Common
             Height = height;
             Width = width;
 
-            var spriteNames = ReadCsv(csvFile);
+            var spriteNames = CsvHelper.ReadCsv(csvFile);
             AssignSpriteNameToRectangles(spriteNames);
         }
 
-        private static IEnumerable<IEnumerable<string>> ReadCsv(string csvFile)
-        {
-            var lines = System.IO.File.ReadAllLines(csvFile);
-            var spriteNames = new List<List<string>>();
-            foreach (var line in lines)
-            {
-                var sprites = new List<string>();
-                if (!string.IsNullOrWhiteSpace(line))
-                {
-                    sprites = line.Split(',').ToList();
-                }
-                spriteNames.Add(sprites);
-            }
-            return spriteNames;
-        }
 
         private void AssignSpriteNameToRectangles(IEnumerable<IEnumerable<string>> spriteNames)
         {

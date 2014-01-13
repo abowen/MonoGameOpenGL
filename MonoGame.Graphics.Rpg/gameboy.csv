@@ -1,8 +1,8 @@
 BlockedDoor,PlainDoor,WoodDoor,OpenDoor,CellDoor,,,,,
 Window,HalfWindow,StairsDown,StairsUp,,,,,,
-
-
-
+TopLeftIBrick,TopIBrick,TopRightIBrick,TopLeftEBrick,TopRightEBrick,Carpet1,Carpet2,Carpet3,Carpet4,Carpet5
+LeftIBrick,CenterIBrick,RightIBrick,BottomLeftEBrick,BottomRightEBrick
+BottomLeftIBrick,BottomIBrick,BottomRightIBrick
 Ground,Grass,Weed,Plant,,,,,,
 Grave1,Grave2,Gate,Sign,Earthquake,Hole,Obelisk,Table,Rocks,Volcano
 Water,,WaterBoat,WaterDrain,House,HouseWeapon,HouseArmor,HouseMagic,Castle1,Castle2

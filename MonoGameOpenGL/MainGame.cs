@@ -68,7 +68,7 @@ namespace MonoGameOpenGL
         {
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new TopDown(Window, Content);
+            _game = new RpgGame(Window, Content);
             if (IsNetworkGame)
             {
                 _broadcastClient = new BroadcastClient();
