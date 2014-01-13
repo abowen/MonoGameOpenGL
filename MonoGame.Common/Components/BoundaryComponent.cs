@@ -11,18 +11,24 @@ namespace MonoGame.Common.Components
         public readonly int Width;
         public readonly int Height;
 
-        public BoundaryComponent(Texture2D texture, int width, int height)
+        public BoundaryComponent(Texture2D texture, int? width = null, int? height = null)
         {
             _texture = texture;
+            Width = width ?? _texture.Width;
+            Height = height ?? _texture.Height;
+        }
+
+        public BoundaryComponent(int width, int height)
+        {
             Width = width;
-            Height = height;            
+            Height = height;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (GameConstants.ShowObjectBoundary)
+            if (GameConstants.ShowObjectBoundary && _texture != null)
             {
-                spriteBatch.Draw(_texture, new Vector2(Owner.TopLeft.X, Owner.TopLeft.Y), null, Color.White, 0, Vector2.Zero, new Vector2(Height, Width), SpriteEffects.None, 0 );
+                spriteBatch.Draw(_texture, new Vector2(Owner.TopLeft.X, Owner.TopLeft.Y), null, Color.White, 0, Vector2.Zero, new Vector2(Height, Width), SpriteEffects.None, 0);
             }
         }
     }

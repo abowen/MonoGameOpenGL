@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
+using MonoGame.Common.Components;
 using MonoGame.Common.Components.Graphics;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Infrastructure;
@@ -17,9 +19,23 @@ namespace MonoGame.Common.Managers
             
             foreach (var tile in tiles)
             {
-                var spriteName = tile.Value;                
-                var gameObject = new GameObject("Tile", tile.Key);
+                var tileNames = tile.Value;
+                var tileArray = tileNames.Split(';');                
+                var tileName = string.Format("Tile_{0}_{1}_{2}", tileNames, tile.Key.X, tile.Key.Y);
+                var gameObject = new GameObject(tileName, tile.Key);
+
+                var spriteName = tileArray[0];
                 var sprite = new SpriteMappingComponent(spriteMapping, spriteName);
+
+                if (tileArray.Count() > 1)
+                {
+                    var blockingProperty = tileArray[1];
+                    if (blockingProperty.ToUpperInvariant() == "B")
+                    {
+                        var boundary = new BoundaryComponent(spriteMapping.Width, spriteMapping.Height);
+                        gameObject.AddComponent(boundary);
+                    }
+                }
                 gameObject.AddComponent(sprite);
                 layer.AddGameObject(gameObject);
             }

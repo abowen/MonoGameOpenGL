@@ -111,8 +111,7 @@ namespace MonoGame.Game.Space
                 var enemySprite = new SpriteComponent(shipTexture);
                 var enemyMovement = new MovementComponent(0.1f, FaceDirection.Down, new Vector2(0, 1));
                 var enemyBullet = new BulletComponent(SpaceGraphics.BulletAsset, enemyMovement);
-                var enemyBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), shipTexture.Width,
-                    shipTexture.Height);
+                var enemyBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), shipTexture.Width, shipTexture.Height);
                 var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, 500);
                 var enemyOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
 
