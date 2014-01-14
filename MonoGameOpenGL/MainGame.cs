@@ -44,7 +44,11 @@ namespace MonoGameOpenGL
         public MainGame()
             : base()
         {
-            _graphics = new GraphicsDeviceManager(this);           
+            _graphics = new GraphicsDeviceManager(this);
+            // Google for TextureFiltering, turn off texture filtering, pixel art
+            //_graphics.
+            //_graphics.IsFullScreen = true;
+            
         }
 
 
@@ -68,7 +72,14 @@ namespace MonoGameOpenGL
         {
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new RpgGame(Window, Content);
+         //   _game = new RpgGame(Window, Content);
+           _game = new TopDown(Window, Content);
+            // Anchor sprite, position board and on top
+            // Rotate, the character
+            // Phaser.js - 2D javascript
+            // Give the waves a wavey look at the top
+          //  _game = new SurfingGame(Window, Content);
+            // parallax
             if (IsNetworkGame)
             {
                 _broadcastClient = new BroadcastClient();

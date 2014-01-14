@@ -49,6 +49,8 @@ namespace MonoGame.Common.Infrastructure
             var sourceComponents = GameObjects.Where(co => co.HasCollision).ToList();
             var destinationComponents = sourceComponents.ToList();
 
+            // TODO: Optimise, don't do n^2
+            // Break it up into quadrants / boundarys
             foreach (var source in sourceComponents)
             {
                 destinationComponents.Remove(source);

@@ -16,7 +16,13 @@ namespace MonoGame.Game.Rpg.Screens
         protected override void LoadBackground()
         {
             TileGenerator.GenerateFromCsv(@".\Maps\Level1\Ground.csv", RpgGraphics.GameboySpriteMapping, BackgroundLayer);
-        }        
+        }      
+        // abstract graphics from the physics
+        // 2D array of integers, representing the tile
+        // 0, 1 wall, etc
+        // check element array next to it
+        // scale by a constant, tile at row, 4, col 2, multiple by pixel size
+        // tutorials, scale up without blurry
 
         protected override void LoadForeground()
         {

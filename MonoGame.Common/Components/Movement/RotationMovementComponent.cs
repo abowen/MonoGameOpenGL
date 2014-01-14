@@ -70,10 +70,22 @@ namespace MonoGame.Common.Components.Movement
                 Owner.Rotation += 0.05f;
             }
 
+            // boards forwards / backwards
+            // position vector, velocity, accelerator vector
+            // every update loop, position += velocity
+            // velocity += acceleration
+            // 
+            // acceleration, from up, acc = 1, else 0
+            // velcoity return to zero when friction, e.g. landing
+            // friction, every frame velocity * 0.9, take 90% eventually 
+            // if not acceleration, eventually 0
 
-            var posX = _speed / 10f * ((float)Math.Cos(Owner.Rotation));
-            var posY = _speed / 10f * ((float)Math.Sin(Owner.Rotation));
-            Owner.Velocity = new Vector2(posX, posY);          
+            var velocityX = _speed / 10f * ((float)Math.Cos(Owner.Rotation));
+            var velocityY = _speed / 10f * ((float)Math.Sin(Owner.Rotation));
+            //velocityY += 0.5f;
+            //velocityX -= 0.5f;
+            // reuse the constant movement
+            Owner.Velocity = new Vector2(velocityX, velocityY);          
         }
     }
 }

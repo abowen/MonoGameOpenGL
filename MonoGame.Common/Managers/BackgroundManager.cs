@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Common.Components;
 using MonoGame.Common.Components.Graphics;
 using MonoGame.Common.Components.Movement;
 using MonoGame.Common.Entities;
@@ -17,20 +16,24 @@ namespace MonoGame.Common.Managers
         private readonly Texture2D[] _majorTextures;
         private readonly Texture2D[] _minorTextures;
         private readonly GameLayer _gameLayer;
-        private readonly Vector2 _direction;
+        private readonly Vector2 _minDirection;
+        private readonly Vector2 _maxDirection;
         private readonly int _delayMilliseconds;
+        private readonly int _minMaxChance;
         private readonly Random _random;
         private TimeSpan _lastTimeSpan;
 
-        public BackgroundManager(Texture2D[] majorTextures, Texture2D[] minorTextures, GameLayer gameLayer, Vector2 direction, int delayMilliseconds = 1000)
+        public BackgroundManager(Texture2D[] majorTextures, Texture2D[] minorTextures, GameLayer gameLayer, Vector2 minDirection, Vector2 maxDirection, int delayMilliseconds = 1000, int minMaxChance = 5)
         {
             _majorTextures = majorTextures;
             _minorTextures = minorTextures;
             _lastTimeSpan = new TimeSpan();
             _random = new Random();
             _gameLayer = gameLayer;
-            _direction = direction;
+            _minDirection = minDirection;
+            _maxDirection = maxDirection;
             _delayMilliseconds = delayMilliseconds;
+            _minMaxChance = minMaxChance;
         }
 
         public void HorizontalBoundary(int minimum, int maximum)
@@ -60,11 +63,11 @@ namespace MonoGame.Common.Managers
 
                 var x = _random.Next(_minX, _maxX);
                 var y = _random.Next(_minY, _maxY);
-                var isMajorItem = _random.Next(0, 30) == 1;
+                var isMajorItem = _random.Next(0, _minMaxChance) == 1;
                 if (isMajorItem)
                 {                    
                     var star = new GameObject("BackgroundMajor", new Vector2(x, y));
-                    var movementComponent = new MovementComponent(1, FaceDirection.Down, _direction);
+                    var movementComponent = new MovementComponent(1, FaceDirection.Down, _maxDirection);
                     var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures));
                     star.AddComponent(movementComponent);
                     star.AddComponent(spriteComponent);
@@ -73,7 +76,7 @@ namespace MonoGame.Common.Managers
                 else
                 {
                     var star = new GameObject("BackgroundMinor", new Vector2(x, y));
-                    var movementComponent = new MovementComponent(1, FaceDirection.Down, _direction);
+                    var movementComponent = new MovementComponent(1, FaceDirection.Down, _minDirection);
                     var spriteComponent = new SpriteComponent(GetRandomTexture(_minorTextures));
                     star.AddComponent(movementComponent);
                     star.AddComponent(spriteComponent);
