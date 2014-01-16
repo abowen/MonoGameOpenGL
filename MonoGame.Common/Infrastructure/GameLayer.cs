@@ -46,7 +46,7 @@ namespace MonoGame.Common.Infrastructure
             Managers.ForEach(s => s.Update(gameTime));
 
             // Collision Manager
-            var sourceComponents = GameObjects.Where(co => co.HasCollision).ToList();
+            var sourceComponents = GameObjects.Where(co => co.HasCollisionComponent).ToList();
             var destinationComponents = sourceComponents.ToList();
 
             // TODO: Optimise, don't do n^2
@@ -54,16 +54,17 @@ namespace MonoGame.Common.Infrastructure
             foreach (var source in sourceComponents)
             {
                 destinationComponents.Remove(source);
+
                 foreach (var destination in destinationComponents)
                 {
                     if (source.BoundingRectangle.Intersects(destination.BoundingRectangle))
-                    {
-                        source.Event(ObjectEvent.Collision);
-                        destination.Event(ObjectEvent.Collision);
+                    {                        
+                        source.RaiseCollisionEvent();
+                        destination.RaiseCollisionEvent();
                     }
                 }
             }
-        }
+        }        
 
         public void AddGameObject(GameObject gameObject)
         {

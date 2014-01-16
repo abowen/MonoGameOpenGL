@@ -53,7 +53,7 @@ namespace MonoGame.Common.Entities
 
         public string State { get; private set; }
 
-        public event EventHandler<ObjectEventArgs> ObjectEvent;
+        public event EventHandler<ObjectEventArgs> ObjectEvent;        
 
         public void Event(ObjectEvent action)
         {
@@ -225,13 +225,14 @@ namespace MonoGame.Common.Entities
             }
         }
 
-        public bool HasCollision
+        public bool HasCollisionComponent
         {
             get
             {
                 return BoundaryComponent != null;
             }
-        }
+        }        
+        
 
         public bool HasState
         {
@@ -246,6 +247,18 @@ namespace MonoGame.Common.Entities
 
         public virtual void Update(GameTime gameTime)
         {
+            if (!_preHadCollision && _hadCollision)
+            {
+                Event(Enums.ObjectEvent.CollisionEnter);
+                _preHadCollision = true;
+            }
+            else if (_preHadCollision && !_hadCollision)
+            {
+                Event(Enums.ObjectEvent.CollisionExit);
+                _preHadCollision = false;
+            }
+            _hadCollision = false;
+
             var enumerable = _updateableComponents.GetEnumerator();
             while (IsEnabled && enumerable.MoveNext())
             {
@@ -266,6 +279,14 @@ namespace MonoGame.Common.Entities
         public virtual void Update(NetworkMessage networkMessage)
         {
             _networkingComponents.Where(c => c.IsEnabled).ToList().ForEach(c => c.Update(networkMessage));
+        }
+
+        private bool _hadCollision = false;
+        private bool _preHadCollision = false;
+
+        public void RaiseCollisionEvent()
+        {
+            _hadCollision = true;            
         }
 
         public override string ToString()

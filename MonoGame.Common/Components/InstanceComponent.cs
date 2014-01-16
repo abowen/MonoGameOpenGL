@@ -15,7 +15,7 @@ namespace MonoGame.Common.Components
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
         {
-            if (objectEventArgs.Action == ObjectEvent.Collision)
+            if (objectEventArgs.Action == ObjectEvent.CollisionEnter)
             {
                 _hasCollided = true;
             }

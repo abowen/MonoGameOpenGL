@@ -3,7 +3,8 @@
     public enum ObjectEvent
     {
         Ignore,
-        Collision,
+        CollisionEnter,
+        CollisionExit,
         HealthRemoved,
         HealthEmpty,
         HealthReset,

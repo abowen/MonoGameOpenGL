@@ -54,7 +54,7 @@ namespace MonoGame.Common.Managers
                 var enemyInstance = new InstanceComponent();
                 var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, _bulletDelayMilliseconds);
                 var enemyOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
-                var enemyScore = new ObjectEventComponent(ObjectEvent.Collision, IncreaseScore);
+                var enemyScore = new ObjectEventComponent(ObjectEvent.CollisionEnter, IncreaseScore);
                 enemy.AddComponent(enemySprite);
                 enemy.AddComponent(enemyMovement);
                 enemy.AddComponent(enemyBullet);

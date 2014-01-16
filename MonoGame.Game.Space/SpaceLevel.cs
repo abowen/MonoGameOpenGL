@@ -54,14 +54,14 @@ namespace MonoGame.Game.Space
             var playerBoundaryComponent = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
             player.AddComponent(playerBoundaryComponent);
 
-            var playerHealthCounterComponent = new CounterIncrementComponent(ObjectEvent.Collision, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
+            var playerHealthCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
             var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), false, ObjectEvent.HealthRemoved, playerHealthCounterComponent);
 
             var playerBulletComponent = new BulletComponent(SpaceGraphics.BulletAsset, playerMovementComponent, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset);
             var playerAmmoCounterComponent = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10, 0);
             var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.AmmoBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, playerAmmoCounterComponent, true);
 
-            var playerFireCounterComponent = new CounterIncrementComponent(ObjectEvent.Collision, ObjectEvent.WoodFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
+            var playerFireCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.WoodFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
             var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, ObjectEvent.WoodFire, playerFireCounterComponent, RandomDrawMethod);
 
             var playerEventComponent = new ObjectEventComponent(ObjectEvent.HealthEmpty, PlayerDeath);            
@@ -115,7 +115,7 @@ namespace MonoGame.Game.Space
                 var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, 500);
                 var enemyOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
 
-                var healthCounterComponent = new CounterIncrementComponent(ObjectEvent.Collision, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
+                var healthCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
                 var healthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset[1], new Vector2(0, 25), false, ObjectEvent.HealthRemoved, healthCounterComponent);
 
                 enemy.AddComponent(enemySprite);
