@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Components;
@@ -32,7 +34,11 @@ namespace MonoGame.Game.Twitch.Screens
             var yPosition = GameHelper.GetRelativeY(0.1f);
             var gameCounter = new GameObject("GameCounter", new Vector2(xPosition - 20, yPosition));
             var text = new TextComponent(FontGraphics.DigifontFont_16X16, StringFunc);
+            var playerOneOutput = new TextComponent(FontGraphics.DigifontFont_16X16, PlayerOneFunc, new Vector2(-100, 50));
+            var playerTwoOutput = new TextComponent(FontGraphics.DigifontFont_16X16, PlayerTwoFunc, new Vector2(100, 50));
             gameCounter.AddComponent(text);
+            gameCounter.AddComponent(playerOneOutput);
+            gameCounter.AddComponent(playerTwoOutput);
             DisplayLayer.AddGameObject(gameCounter);
 
             var debugHelper = new GameObject("DebugHelper", new Vector2(xPosition - 100, yPosition * 2));
@@ -46,6 +52,16 @@ namespace MonoGame.Game.Twitch.Screens
             return lastActionWonByPlayerName;
         }
 
+        private string PlayerOneFunc(GameObject gameObject)
+        {
+            return lastActionByPlayerOne;
+        }
+
+        private string PlayerTwoFunc(GameObject gameObject)
+        {
+            return lastActionByPlayerTwo;
+        }
+
         private string DebugFunc(GameObject gameObject)
         {
             return playersInCollision ? "COLLISION: TRUE" : "COLLISION: FALSE";
@@ -56,7 +72,6 @@ namespace MonoGame.Game.Twitch.Screens
             var yPosition = GameHelper.GetRelativeY(0.5f);
             var xOffsetOne = GameHelper.GetRelativeX(0.1f);
             var xOffsetTwo = GameHelper.GetRelativeX(0.9f);
-
 
             playerOne = CreatePlayer("Player1", xOffsetOne, yPosition, Keys.Enter);
             playerTwo = CreatePlayer("Player2", xOffsetTwo, yPosition, Keys.Space);
@@ -71,7 +86,6 @@ namespace MonoGame.Game.Twitch.Screens
             var sprites = new SpriteMappingComponent(RpgGraphics.GameboySpriteMapping, playerCharacter);
             var bounday = new BoundaryComponent(null, 16, 16);
             var constantMovement = new AccelerateMovementComponent(GetMovement);
-            //var boundaryEvent = new BoundaryEventComponent()
             var collisionEvent = new ObjectEventComponent(ObjectEvent.CollisionEnter, CollisionEnter);
             var collisionExit = new ObjectEventComponent(ObjectEvent.CollisionExit, CollisionExit);
             var keyAction = new KeyboardActionComponent(key, PlayerAttacked);
@@ -92,43 +106,80 @@ namespace MonoGame.Game.Twitch.Screens
             return _defaultSpeed * inReversePolarity * playerPolarity;
         }
 
-        private Vector2 _defaultSpeed = new Vector2(0.02f, 0);
+        private float _speed = 0.005f;
+        private float _speedIncrease = 0.005f;
+
+        private Vector2 _defaultSpeed
+        {
+            get
+            {
+                return new Vector2(_speed, 0);
+            }
+        }
 
         private bool _isReverse = false;
 
         private void PlayerAttacked(GameObject player)
         {
-            if (!hasRoundBeenWon)
+            //if (!hasRoundBeenWon)
+            //{
+            if (player == playerOne)
             {
-                if (player == playerOne)
+                if (!playerOneAttack)
                 {
-                    if (!playerOneAttack)
-                    {
-                        playerOneAttack = true;
-                        CheckPlayersAttack(player);
-                    }
+                    playerOneAttack = true;
+                    CheckPlayersAttack(player);
                 }
-                else if (player == playerTwo)
+            }
+            else if (player == playerTwo)
+            {
+                if (!playerTwoAttack)
                 {
-                    if (!playerTwoAttack)
-                    {
-                        playerTwoAttack = true;
-                        CheckPlayersAttack(player);
-                    }
+                    playerTwoAttack = true;
+                    CheckPlayersAttack(player);
                 }
-                else
-                {
-                    throw new Exception("Whoops");
-                }
+            }
+            else
+            {
+                throw new Exception("Whoops");
+            }
+            //}
+        }
+
+        private void CheckPlayersAttack(GameObject player)
+        {
+            UpdateAction(player);
+            if (playersInCollision)
+            {
+                lastActionWonByPlayerName = player.GameType.ToUpperInvariant();
+                hasRoundBeenWon = true;
             }
         }
 
-        private void CheckPlayersAttack(GameObject gameObject)
+        private void UpdateAction(GameObject player)
         {
-            if (playersInCollision)
+            // Maybe use memory references?
+            if (player == playerOne)
             {
-                lastActionWonByPlayerName = gameObject.GameType.ToUpperInvariant();
-                hasRoundBeenWon = true;
+                if (playersInCollision)
+                {
+                    lastActionByPlayerOne = "HIT";
+                }
+                else
+                {
+                    lastActionByPlayerOne = "MISSED";
+                }
+            }
+            if (player == playerTwo)
+            {
+                if (playersInCollision)
+                {
+                    lastActionByPlayerTwo = "HIT";
+                }
+                else
+                {
+                    lastActionByPlayerTwo = "MISSED";
+                }
             }
         }
 
@@ -140,6 +191,8 @@ namespace MonoGame.Game.Twitch.Screens
         private bool playerTwoAttack = false;
 
         private string lastActionWonByPlayerName = string.Empty;
+        private string lastActionByPlayerOne = "READY";
+        private string lastActionByPlayerTwo = "READY";
         private bool playersInCollision = false;
 
 
@@ -159,8 +212,17 @@ namespace MonoGame.Game.Twitch.Screens
             {
                 playersInCollision = false;
                 _isReverse = !_isReverse;
-                playerOneAttack = false;
-                playerTwoAttack = false;
+                _speed += _speedIncrease;
+
+                Task.Factory.StartNew(() =>
+                {
+                    Thread.Sleep(1000);
+                    playerOneAttack = false;
+                    playerTwoAttack = false;
+                    lastActionByPlayerOne = "READY";
+                    lastActionByPlayerTwo = "READY";
+                });
+
             }
         }
     }
