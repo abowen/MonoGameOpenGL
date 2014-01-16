@@ -70,6 +70,7 @@ namespace MonoGame.Common.Infrastructure
         {
             if (ActiveGameLevel != null)
             {
+                
                 ActiveGameLevel.Draw(spriteBatch);
             }
         }

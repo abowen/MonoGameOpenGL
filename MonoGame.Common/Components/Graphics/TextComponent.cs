@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Entities;
+using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
 using MonoGame.Graphics.Common;
 
@@ -12,23 +13,23 @@ namespace MonoGame.Common.Components.Graphics
         private readonly CharacterMapping _characterMapping;
         private readonly Func<GameObject, string> _stringFunc;
         public string Text;
-        private readonly int _scale;
+        private readonly int _drawScale;
         private readonly Vector2 _relativePosition;
 
         
-        public TextComponent(CharacterMapping characterMapping, string text, Vector2? relativePosition = null, int scale = 1)
+        public TextComponent(CharacterMapping characterMapping, string text, Vector2? relativePosition = null, int drawScale = 1)
         {
             _characterMapping = characterMapping;
             Text = text;
-            _scale = scale;
+            _drawScale = drawScale;
             _relativePosition = relativePosition ?? Vector2.Zero;
         }
 
-        public TextComponent(CharacterMapping characterMapping, Func<GameObject, string> stringFunc, Vector2? relativePosition = null, int scale = 1)
+        public TextComponent(CharacterMapping characterMapping, Func<GameObject, string> stringFunc, Vector2? relativePosition = null, int drawScale = 1)
         {
             _characterMapping = characterMapping;
             _stringFunc = stringFunc;            
-            _scale = scale;
+            _drawScale = drawScale;
             _relativePosition = relativePosition ?? Vector2.Zero;
         }
 
@@ -40,12 +41,14 @@ namespace MonoGame.Common.Components.Graphics
             }
 
             var location = Owner.TopLeft;
-            var width = _characterMapping.Width * _scale;
+            var width = _characterMapping.Width * _drawScale;
             foreach (var character in Text.ToCharArray())
             {
                 if (!char.IsWhiteSpace(character))
                 {
-                    spriteBatch.Draw(_characterMapping.Texture, location + _relativePosition, _characterMapping.GetRectangle(character), Color.White, 0, Vector2.Zero, _scale, SpriteEffects.None, 0);
+                    var locationScaled = (location + _relativePosition)*GameConstants.Scale;
+                    var drawScale = _drawScale*GameConstants.Scale;                    
+                    spriteBatch.Draw(_characterMapping.Texture, locationScaled, _characterMapping.GetRectangle(character), Color.White, 0, Vector2.Zero, drawScale, SpriteEffects.None, 0);
                 }
                 location.X += width;
             }

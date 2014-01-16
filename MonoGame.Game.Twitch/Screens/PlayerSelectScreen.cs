@@ -14,6 +14,11 @@ namespace MonoGame.Game.Twitch.Screens
 {
     public class PlayerSelectScreen : GameLevel
     {
+        public PlayerSelectScreen()
+        {
+            GameConstants.CameraScale = 3;
+        }
+
         protected override void LoadBackground()
         {
         }

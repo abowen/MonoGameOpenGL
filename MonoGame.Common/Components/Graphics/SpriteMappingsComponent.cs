@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
 using MonoGame.Graphics.Common;
 
@@ -11,25 +12,23 @@ namespace MonoGame.Common.Components.Graphics
         private readonly string[] _spriteNames;
         private readonly Vector2 _relativeLocation;
         private readonly ICounterComponent _counterIncrement;
-        private readonly Vector2 _scale;
+        private readonly Vector2 _drawScale;
 
-
-        //public int Width { get; private set; }
-        //public int Height { get; private set; }
-
-        public SpriteMappingsComponent(SpriteMapping spriteMapping, string[] spriteNames, Vector2 relativeLocation, ICounterComponent counterIncrement, Vector2? scale = null)
-        {            
+        public SpriteMappingsComponent(SpriteMapping spriteMapping, string[] spriteNames, Vector2 relativeLocation, ICounterComponent counterIncrement, Vector2? drawScale = null)
+        {
             _spriteMapping = spriteMapping;
             _spriteNames = spriteNames;
             _relativeLocation = relativeLocation;
             _counterIncrement = counterIncrement;
-            _scale = scale ?? new Vector2(1,1);
+            _drawScale = drawScale ?? new Vector2(1, 1);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             var spriteName = _spriteNames[_counterIncrement.CurrentValue];
-            spriteBatch.Draw(_spriteMapping.Texture, Owner.TopLeft + _relativeLocation, _spriteMapping.GetRectangle(spriteName), Color.White, 0, Vector2.Zero, _scale, SpriteEffects.None, 0);                       
+            var drawScale = _drawScale * GameConstants.Scale;
+            var locationScaled = (Owner.TopLeft + _relativeLocation) * GameConstants.Scale;
+            spriteBatch.Draw(_spriteMapping.Texture, locationScaled, _spriteMapping.GetRectangle(spriteName), Color.White, 0, Vector2.Zero, drawScale, SpriteEffects.None, 0);
         }
     }
 }

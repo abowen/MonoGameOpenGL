@@ -4,6 +4,7 @@ using MonoGame.Common.Components.Logic;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
+using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components.Graphics
@@ -79,15 +80,17 @@ namespace MonoGame.Common.Components.Graphics
                 var newLocation = Owner.TopLeft;
                 newLocation += _relativeLocation;
 
+                var locationScaled = newLocation*GameConstants.Scale;
+
                 if (!_isReverse)
-                {                                        
-                    newLocation += count * new Vector2(Texture.Width, Texture.Height) * expansion;
+                {
+                    locationScaled += count * new Vector2(Texture.Width, Texture.Height) * expansion;
                 }
                 else
                 {
-                    newLocation -= count * new Vector2(Texture.Width, Texture.Height) * expansion;
+                    locationScaled -= count * new Vector2(Texture.Width, Texture.Height) * expansion;
                 }
-                spriteBatch.Draw(Texture, newLocation, Color.White);
+                spriteBatch.Draw(Texture, locationScaled, Color.White);
             }
         }
    }

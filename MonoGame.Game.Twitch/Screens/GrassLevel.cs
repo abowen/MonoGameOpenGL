@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Components;
@@ -17,6 +15,11 @@ namespace MonoGame.Game.Twitch.Screens
 {
     public class GrassLevel : GameLevel
     {
+        public GrassLevel()
+        {
+            GameConstants.CameraScale = 1;
+        }
+
         protected override void LoadBackground()
         {
 

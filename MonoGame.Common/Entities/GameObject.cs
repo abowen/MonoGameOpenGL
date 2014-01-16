@@ -92,10 +92,15 @@ namespace MonoGame.Common.Entities
             GameLayer.RemoveGameObject(this);
         }
 
-        /// <summary>
-        /// Top left co-ordinates for the object
-        /// </summary>
         public Vector2 TopLeft { get; set; }
+
+        public Vector2 TopLeftScaled
+        {
+            get
+            {
+                return TopLeft*GameConstants.Scale;
+            }
+        }
 
         /// <summary>
         /// Global Centre co-ordinates of the object
@@ -123,28 +128,19 @@ namespace MonoGame.Common.Entities
             }
         }
 
-        public int WidthUnscaled
+        public float WidthScaled
         {
             get
             {
-                // TODO: Use Sprite Component if BoundaryComponent not found
-                if (BoundaryComponent != null)
-                {
-                    return BoundaryComponent.WidthUnscaled;
-                }
-                return 1;
+                return Width*GameConstants.Scale;
             }
         }
 
-        public int HeightUnscaled
+        public float HeighScaled
         {
             get
             {
-                if (BoundaryComponent != null)
-                {
-                    return BoundaryComponent.HeightUnscaled;
-                }
-                return 1;
+                return Height*GameConstants.Scale;
             }
         }
 

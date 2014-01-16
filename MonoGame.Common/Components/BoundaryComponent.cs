@@ -9,37 +9,37 @@ namespace MonoGame.Common.Components
     {
         private readonly Texture2D _texture;
         public readonly bool IsCameraScaled;
-        public readonly int WidthUnscaled;
-        public readonly int HeightUnscaled;
+        public readonly int Width;
+        public readonly int Height;
 
-        public int Width
+        public int WidthScaled
         {
             get
             {
-                return (int)(WidthUnscaled * GameConstants.GameScale * GameConstants.CameraScale);
+                return (int)(Width * GameConstants.GameScale * GameConstants.CameraScale);
             }
         }
 
-        public int Height
+        public int HeightScaled
         {
             get
             {
-                return (int)(HeightUnscaled * GameConstants.GameScale * GameConstants.CameraScale);
+                return (int)(Height * GameConstants.GameScale * GameConstants.CameraScale);
             }
         }
 
         public BoundaryComponent(Texture2D texture, int? width = null, int? height = null, bool cameraScale = true)
         {
             _texture = texture;
-            WidthUnscaled = width ?? _texture.Width;
-            HeightUnscaled = height ?? _texture.Height;
+            Width = width ?? _texture.Width;
+            Height = height ?? _texture.Height;
             IsCameraScaled = cameraScale;
         }
 
         public BoundaryComponent(int width, int height)
         {
-            WidthUnscaled = width;
-            HeightUnscaled = height;
+            Width = width;
+            Height = height;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -7,6 +7,7 @@ using MonoGame.Common.Components.Logic;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
+using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components.Graphics
@@ -20,6 +21,7 @@ namespace MonoGame.Common.Components.Graphics
         private readonly ObjectEvent _subscribeEvent;
         private readonly CounterIncrementComponent _counterIncrementComponent;
         private readonly Func<int, int, IEnumerable<Vector2>> _drawMethod;
+        //private readonly int _drawScale = 1;
 
         public int Width { get; private set; }
 
@@ -63,6 +65,9 @@ namespace MonoGame.Common.Components.Graphics
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            
+            //var drawScale = _drawScale * GameConstants.Scale;
+
             var index = (int) (_elapsedTimeSpan/_spriteRefresh);
             var texture = Textures[index];
             for (var count = 0; count < _currentValue; count++)
@@ -72,7 +77,9 @@ namespace MonoGame.Common.Components.Graphics
                     var newLocation = Owner.TopLeft;
                     newLocation += _relativeLocation;
                     newLocation += _locations.ToList()[count];
-                    spriteBatch.Draw(texture, newLocation, Color.White);
+
+                    var locationScaled = (newLocation) * GameConstants.Scale;
+                    spriteBatch.Draw(texture, locationScaled, Color.White);
                 }
             }
         }

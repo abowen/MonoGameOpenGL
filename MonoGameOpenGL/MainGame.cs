@@ -48,10 +48,8 @@ namespace MonoGameOpenGL
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 1280; 
             _graphics.PreferredBackBufferHeight = 720;
-            //_graphics.IsFullScreen = true;            
-            // Google for TextureFiltering, turn off texture filtering, pixel art
-            //_graphics.
             
+            //_graphics.IsFullScreen = true;                                    
         }
 
 
@@ -132,8 +130,9 @@ namespace MonoGameOpenGL
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            _spriteBatch.Begin();
+            // Point clamp removes smoothness :)
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
+            _spriteBatch.GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
             _game.Draw(_spriteBatch);
             _spriteBatch.End();
 

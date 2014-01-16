@@ -11,5 +11,13 @@ namespace MonoGame.Common.Infrastructure
 
         public static int GameScale = 1;
         public static float CameraScale = 1f;
+
+        public static float Scale
+        {
+            get
+            {
+                return GameScale * CameraScale;
+            }
+        }
     }
 }
