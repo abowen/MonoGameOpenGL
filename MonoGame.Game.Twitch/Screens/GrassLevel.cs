@@ -10,6 +10,7 @@ using MonoGame.Common.Components.Movement;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Infrastructure;
+using MonoGame.Common.Managers;
 using MonoGame.Graphics.Common;
 using MonoGame.Graphics.Rpg;
 
@@ -18,13 +19,13 @@ namespace MonoGame.Game.Twitch.Screens
     public class GrassLevel : GameLevel
     {
         public GrassLevel()
-            : base(2f)
+            : base(3f)
         {
         }
 
         protected override void LoadBackground()
         {
-
+            TileGenerator.GenerateFromCsv(@".\Maps\Grass.csv", RpgGraphics.GameboySpriteMapping, BackgroundLayer);
         }
 
         protected override void LoadDisplay()
