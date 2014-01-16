@@ -1,5 +1,4 @@
 ﻿#region Using Statements
-
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +9,6 @@ using MonoGame.Game.Space;
 using MonoGame.Game.Surfing;
 using MonoGame.Game.Twitch;
 using MonoGame.Server;
-
 #endregion
 
 namespace MonoGameOpenGL
@@ -45,10 +43,12 @@ namespace MonoGameOpenGL
         public MainGame()
             : base()
         {
-            _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1280; 
-            _graphics.PreferredBackBufferHeight = 720;
-            
+            _graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = 1280,
+                PreferredBackBufferHeight = 720
+            };
+
             //_graphics.IsFullScreen = true;                                    
         }
 
@@ -73,15 +73,12 @@ namespace MonoGameOpenGL
         {
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-         //   _game = new RpgGame(Window, Content);
+
+            //_game = new RpgGame(Window, Content);
             //_game = new TopDown(Window, Content);
             _game = new TwitchGame(Window, Content);
-            // Anchor sprite, position board and on top
-            // Rotate, the character
-            // Phaser.js - 2D javascript
-            // Give the waves a wavey look at the top
-          //  _game = new SurfingGame(Window, Content);
-            // parallax
+            //_game = new SurfingGame(Window, Content);
+                                                          
             if (IsNetworkGame)
             {
                 _broadcastClient = new BroadcastClient();
@@ -120,8 +117,8 @@ namespace MonoGameOpenGL
             base.Update(gameTime);
         }
 
-        private int frames;
-        private double timeElapsedMilliseconds;
+        private int _frames;
+        private double _timeElapsedMilliseconds;
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -131,21 +128,24 @@ namespace MonoGameOpenGL
         {
             GraphicsDevice.Clear(Color.Black);
             // Point clamp removes smoothness :)
-            _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
+            // MSDN: 	Begins a sprite batch operation using deferred sort and default state objects 
+            // (BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise). 
+
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
             _spriteBatch.GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
             _game.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);
 
-            frames++;
-            timeElapsedMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timeElapsedMilliseconds > 2000)
+            _frames++;
+            _timeElapsedMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (_timeElapsedMilliseconds > 2000)
             {
-                var fps = frames / (timeElapsedMilliseconds / 1000);
+                var fps = _frames / (_timeElapsedMilliseconds / 1000);
                 System.Diagnostics.Debug.WriteLine("FPS {0:N0}", fps);
-                timeElapsedMilliseconds = 0;
-                frames = 0;
+                _timeElapsedMilliseconds = 0;
+                _frames = 0;
             }
         }
     }
