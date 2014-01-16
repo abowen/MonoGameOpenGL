@@ -8,6 +8,7 @@ using MonoGame.Common.Interfaces;
 using MonoGame.Game.Rpg;
 using MonoGame.Game.Space;
 using MonoGame.Game.Surfing;
+using MonoGame.Game.Twitch;
 using MonoGame.Server;
 
 #endregion
@@ -45,9 +46,11 @@ namespace MonoGameOpenGL
             : base()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 1280; 
+            _graphics.PreferredBackBufferHeight = 720;
+            //_graphics.IsFullScreen = true;            
             // Google for TextureFiltering, turn off texture filtering, pixel art
             //_graphics.
-            //_graphics.IsFullScreen = true;
             
         }
 
@@ -73,7 +76,8 @@ namespace MonoGameOpenGL
             // Create a new SpriteBatch, which can be used to draw textures.            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
          //   _game = new RpgGame(Window, Content);
-           _game = new TopDown(Window, Content);
+            //_game = new TopDown(Window, Content);
+            _game = new TwitchGame(Window, Content);
             // Anchor sprite, position board and on top
             // Rotate, the character
             // Phaser.js - 2D javascript

@@ -77,6 +77,10 @@
       <Project>{7561853a-87e4-414e-bef7-9f8310002e65}</Project>
       <Name>MonoGame.Game.Surfing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MonoGame.Game.Twitch\MonoGame.Game.Twitch.csproj">
+      <Project>{27492c32-5d3a-49b1-a182-29bee5f064e1}</Project>
+      <Name>MonoGame.Game.Twitch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MonoGame.Server\MonoGame.Server.csproj">
       <Project>{a4b862cd-d259-4595-8b84-812f1a6a9533}</Project>
       <Name>MonoGame.Server</Name>
