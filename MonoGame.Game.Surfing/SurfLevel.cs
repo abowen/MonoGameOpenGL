@@ -113,7 +113,7 @@ namespace MonoGame.Game.Surfing
 
             var texture = SurfingGraphics.Surfboard_Large_White_Asset;
             var player = new GameObject("Player", startLocation, startRotation);
-            var airGravityMovement = new ConstantMovementComponent(new Vector2(0, 0.05f));
+            var airGravityMovement = new AccelerateMovementComponent(new Vector2(0, 0.05f));
             var outOfBoundary = new OutOfBoundsComponent(ObjectEvent.ResetEntity);
             var boundary = new BoundaryComponent(texture, texture.Width, texture.Height);
             var rotationMovement = new RotationMovementComponent(2, Vector2.Zero);

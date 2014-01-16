@@ -123,6 +123,31 @@ namespace MonoGame.Common.Entities
             }
         }
 
+        public int WidthUnscaled
+        {
+            get
+            {
+                // TODO: Use Sprite Component if BoundaryComponent not found
+                if (BoundaryComponent != null)
+                {
+                    return BoundaryComponent.WidthUnscaled;
+                }
+                return 1;
+            }
+        }
+
+        public int HeightUnscaled
+        {
+            get
+            {
+                if (BoundaryComponent != null)
+                {
+                    return BoundaryComponent.HeightUnscaled;
+                }
+                return 1;
+            }
+        }
+
         public int Width
         {
             get

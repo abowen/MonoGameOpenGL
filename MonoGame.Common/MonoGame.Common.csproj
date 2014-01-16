@@ -42,7 +42,7 @@
     <Compile Include="Components\BulletComponent.cs" />
     <Compile Include="Components\BoundaryComponent.cs" />
     <Compile Include="Components\BoundaryEventComponent.cs" />
-    <Compile Include="Components\Movement\ConstantMovementComponent.cs" />
+    <Compile Include="Components\Movement\AccelerateMovementComponent.cs" />
     <Compile Include="Components\BoundaryStateComponent.cs" />
     <Compile Include="Components\Graphics\SpriteMappingsComponent.cs" />
     <Compile Include="Components\Input\ButtonActionComponent.cs" />

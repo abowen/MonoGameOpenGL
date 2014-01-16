@@ -3,11 +3,11 @@
 
 //namespace MonoGame.Common.Components.Movement
 //{
-//    public class ConstantMovementComponent : SimpleComponent, ISimpleUpdateable
+//    public class AccelerateMovementComponent : SimpleComponent, ISimpleUpdateable
 //    {
 //        private readonly Vector2 _movement;
 
-//        public ConstantMovementComponent(Vector2 movement)
+//        public AccelerateMovementComponent(Vector2 movement)
 //        {
 //            _movement = movement;
 //        }
