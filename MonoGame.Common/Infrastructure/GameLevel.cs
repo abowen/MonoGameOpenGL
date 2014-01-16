@@ -9,8 +9,9 @@ namespace MonoGame.Common.Infrastructure
 {
     public abstract class GameLevel : ISimpleDrawable, ISimpleUpdateable, ISimpleNetworking
     {
-        protected GameLevel()
-        {            
+        protected GameLevel(float cameraScale = 1f)
+        {
+            GameConstants.CameraScale = cameraScale;
             LoadForeground();
             LoadBackground();
             LoadDisplay();

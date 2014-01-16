@@ -5,6 +5,16 @@ namespace MonoGame.Common.Infrastructure
     public static class GameConstants
     {
         public static Rectangle ScreenBoundary;
+
+        public static Rectangle ScreenBoundaryDividedByScale
+        {
+            get
+            {
+                return new Rectangle(0, 0, (int)(ScreenBoundary.X / Scale), (int)(ScreenBoundary.Y / Scale));
+            }
+        }
+
+
         public static bool ShowObjectBoundary = false;
         public static readonly int MaximumEnemies = 3;
         public static GameInstance GameInstance = new GameInstance();

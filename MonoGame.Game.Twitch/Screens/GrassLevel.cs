@@ -15,9 +15,8 @@ namespace MonoGame.Game.Twitch.Screens
 {
     public class GrassLevel : GameLevel
     {
-        public GrassLevel()
-        {
-            GameConstants.CameraScale = 1;
+        public GrassLevel() : base(2f)
+        {            
         }
 
         protected override void LoadBackground()
@@ -27,13 +26,15 @@ namespace MonoGame.Game.Twitch.Screens
 
         protected override void LoadDisplay()
         {
-            var xPosition = GameConstants.ScreenBoundary.Width / 2;
-            var gameCounter = new GameObject("GameCounter", new Vector2(xPosition - 20, 100));
+            //var xPosition = GameConstants.ScreenBoundaryDividedByScale.Width / 2;            
+            var xPosition = GameHelper.GetRelativeX(0.5f);
+            var yPosition = GameHelper.GetRelativeY(0.1f);
+            var gameCounter = new GameObject("GameCounter", new Vector2(xPosition - 20, yPosition));
             var text = new TextComponent(FontGraphics.DigifontFont_16X16, StringFunc);
             gameCounter.AddComponent(text);
             DisplayLayer.AddGameObject(gameCounter);
 
-            var debugHelper = new GameObject("DebugHelper", new Vector2(xPosition - 50, 150));
+            var debugHelper = new GameObject("DebugHelper", new Vector2(xPosition - 100, yPosition * 2));
             var collisionDetection = new TextComponent(FontGraphics.DigifontFont_16X16, DebugFunc);
             debugHelper.AddComponent(collisionDetection);
             DisplayLayer.AddGameObject(debugHelper);
@@ -52,11 +53,12 @@ namespace MonoGame.Game.Twitch.Screens
 
         protected override void LoadForeground()
         {
-            var yStartPosition = 400;
-            var xStartOffset = 50;
+            var yPosition = GameHelper.GetRelativeY(0.5f);
+            var xOffsetOne = GameHelper.GetRelativeX(0.1f);
+            var xOffsetTwo = GameHelper.GetRelativeX(0.9f);
             var speed = 0.02f;
-            playerOne = CreatePlayer("Player1", xStartOffset, yStartPosition, speed, Keys.Enter);
-            playerTwo = CreatePlayer("Player2", GameConstants.ScreenBoundary.Width - xStartOffset, yStartPosition, -speed, Keys.Space);
+            playerOne = CreatePlayer("Player1", xOffsetOne, yPosition, speed, Keys.Enter);
+            playerTwo = CreatePlayer("Player2", xOffsetTwo, yPosition, -speed, Keys.Space);
         }
 
         private GameObject CreatePlayer(string playerCharacter, int xStartPosition, int yStartPosition, float xDirection, Keys key)
