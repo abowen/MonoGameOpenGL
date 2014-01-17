@@ -14,15 +14,15 @@ namespace MonoGame.Graphics.Common
             content.RootDirectory = @".\Fonts";
 
             var bloxxitTexture = content.Load<Texture2D>("bloxxit_8x8");
-            BloxxitFont_8X8 = new CharacterMapping(bloxxitTexture, 8, 8, StringHelper.Base26UpperChars);
+            BloxxitFont_8X8 = new CharacterMapping(bloxxitTexture, 8, 8, StringHelper.Base26UpperChars, isUpperCaseOnly:true);
 
             var digifontTexture = content.Load<Texture2D>("digifont_16x16");
             var characterString = @" !""© % '() +,-./0123456789:;<=>?@" + StringHelper.Base26UpperChars;
-            DigifontFont_16X16 = new CharacterMapping(digifontTexture, 16, 16, characterString);
+            DigifontFont_16X16 = new CharacterMapping(digifontTexture, 16, 16, characterString, isUpperCaseOnly: true);
 
             var propertialTexture = content.Load<Texture2D>("proportional_8x8");
             var propertialCharacters = @" !""#$%&'()*+,-./0123456789:;{=}?@" + StringHelper.Base26UpperChars + "[\\]^_'{|}";
-            PropertialFont_8X8 = new CharacterMapping(propertialTexture, 8, 8, propertialCharacters, true);
+            PropertialFont_8X8 = new CharacterMapping(propertialTexture, 8, 8, propertialCharacters, true, true);
         }
     }
 }

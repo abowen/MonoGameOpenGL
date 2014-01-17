@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,17 +12,23 @@ namespace MonoGame.Graphics.Common
 
         public readonly Texture2D Texture;
         public readonly int Height;
+        private readonly bool _isUpperCaseOnly;
         public readonly int Width;
 
         public Rectangle GetRectangle(char character)
         {
+            //if (_isUpperCaseOnly)
+            //{
+            //    character = character.ToString(CultureInfo.InvariantCulture).ToUpperInvariant().ToCharArray()[0];
+            //}
             return _characterLocation[character];
         }
 
-        public CharacterMapping(Texture2D texture, int width, int height, string characters, bool isVertical = false)
+        public CharacterMapping(Texture2D texture, int width, int height, string characters, bool isVertical = false, bool isUpperCaseOnly = false)
         {
             Texture = texture;
             Height = height;
+            _isUpperCaseOnly = isUpperCaseOnly;
             Width = width;
             var xLocation = 0;
             var yLocation = 0;

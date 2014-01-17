@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Entities;
@@ -19,6 +20,7 @@ namespace MonoGame.Common.Components.Graphics
         
         public TextComponent(CharacterMapping characterMapping, string text, Vector2? relativePosition = null, int drawScale = 1)
         {
+            Contract.Assert(characterMapping != null);
             _characterMapping = characterMapping;
             Text = text;
             _drawScale = drawScale;
@@ -27,6 +29,7 @@ namespace MonoGame.Common.Components.Graphics
 
         public TextComponent(CharacterMapping characterMapping, Func<GameObject, string> stringFunc, Vector2? relativePosition = null, int drawScale = 1)
         {
+            Contract.Assert(characterMapping != null);
             _characterMapping = characterMapping;
             _stringFunc = stringFunc;            
             _drawScale = drawScale;
