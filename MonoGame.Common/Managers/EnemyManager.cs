@@ -41,7 +41,8 @@ namespace MonoGame.Common.Managers
             var enemyCount = _gameLayer.GameObjects.Count(gameObject => gameObject.GameType == "Enemy");
 
             _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds && enemyCount < GameConstants.MaximumEnemies)
+            //if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds && enemyCount < GameConstants.MaximumEnemies)
+            if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds)
             {
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);

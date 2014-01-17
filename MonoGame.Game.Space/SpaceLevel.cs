@@ -33,13 +33,17 @@ namespace MonoGame.Game.Space
         }
 
         protected override void LoadForeground()
-        {
-            var asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, ForegroundLayer);
-
+        {            
             var xCentre = GameConstants.ScreenBoundary.Width / 2;
             var yCentre = GameConstants.ScreenBoundary.Height / 2;
 
-            var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1500, 2000, ForegroundLayer, 1);
+
+            var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 200, 1000, ForegroundLayer, 1);
+            ForegroundLayer.Managers.Add(enemyManager);
+
+            var asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, ForegroundLayer);
+            ForegroundLayer.Managers.Add(asteroidManager);
+
 
             var playerStartPosition = new Vector2(xCentre, yCentre + 50);
 
@@ -47,7 +51,7 @@ namespace MonoGame.Game.Space
             var player = new GameObject("Player", playerStartPosition);            
             var playerTexture = SpaceGraphics.PlayerShipAsset.First();
             var playerSpriteComponent = new SpriteComponent(playerTexture);
-            var playerMovementComponent = new MovementComponent(2, FaceDirection.Up, Vector2.Zero);
+            var playerMovementComponent = new MovementComponent(5, FaceDirection.Up, Vector2.Zero);
             var playerLocalKeyboardComponent = new LocalKeyboardComponent();
             var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), playerLocalKeyboardComponent, playerMovementComponent);
             
@@ -57,9 +61,10 @@ namespace MonoGame.Game.Space
             var playerHealthCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
             var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), false, ObjectEvent.HealthRemoved, playerHealthCounterComponent);
 
-            var playerBulletComponent = new BulletComponent(SpaceGraphics.BulletAsset, playerMovementComponent, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset);
-            var playerAmmoCounterComponent = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10, 0);
-            var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.AmmoBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, playerAmmoCounterComponent, true);
+            var playerBulletComponent = new BulletComponent(SpaceGraphics.LargeBulletAsset, playerMovementComponent, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10);
+            var playerAmmoCounterComponent = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 50, 0);
+            var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, playerAmmoCounterComponent, true, Color.Gray);
+            var playerEventMovement = new EventMovementComponent(new Vector2(0, 5), ObjectEvent.AmmoRemoved);
 
             var playerFireCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.WoodFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
             var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, ObjectEvent.WoodFire, playerFireCounterComponent, RandomDrawMethod);
@@ -69,6 +74,7 @@ namespace MonoGame.Game.Space
             player.AddComponent(playerSpriteComponent);
             player.AddComponent(playerMovementComponent);
             player.AddComponent(playerInputComponent);
+            player.AddComponent(playerEventMovement);
             player.AddComponent(playerBulletComponent);
             player.AddComponent(playerHealthCounterComponent);
             player.AddComponent(playerHealthBarComponent);
@@ -90,8 +96,8 @@ namespace MonoGame.Game.Space
 
             DisplayLayer.AddGameObject(score);
 
-            ForegroundLayer.Managers.Add(asteroidManager);
-            ForegroundLayer.Managers.Add(enemyManager);
+            
+            
 
             GameConstants.GameInstance.ScoreEventHandler += ScoreMilestones;
         }

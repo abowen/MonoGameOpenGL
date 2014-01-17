@@ -29,5 +29,7 @@ namespace MonoGame.Common.Infrastructure
                 return GameScale * CameraScale;
             }
         }
+
+        public static double RepeaterDelay = 100;
     }
 }

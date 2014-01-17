@@ -15,6 +15,7 @@ namespace MonoGame.Graphics.Space
         private static readonly string PlayerShip = "PlayerShip";
         private static readonly string EnemyShip = "EnemyShip";
         private static readonly string Bullet = "Bullet";
+        private static readonly string LargeBullet = "LargeBullet";
         private static readonly string MiniBullet = "MiniBullet";
         private static readonly string MiniEnemyShip = "MiniEnemyShip";
         private static readonly string Health = "Health";
@@ -23,6 +24,7 @@ namespace MonoGame.Graphics.Space
         private static readonly string Boundary = "Boundary";
         private static readonly string HealthBar = "HealthBar";
         private static readonly string AmmoBar = "AmmoBar";
+        private static readonly string OnePixelBar = "OnePixelBar";
         private static readonly string Fire = "Fire";
         private static readonly string BossA = "BossA";
 
@@ -32,6 +34,7 @@ namespace MonoGame.Graphics.Space
         public static Texture2D[] PlayerShipAsset { get { return Assets[PlayerShip]; } }
         public static Texture2D[] EnemyShipAsset { get { return Assets[EnemyShip]; } }
         public static Texture2D[] BulletAsset { get { return Assets[Bullet]; } }
+        public static Texture2D[] LargeBulletAsset { get { return Assets[LargeBullet]; } }
         public static Texture2D[] MiniBulletAsset { get { return Assets[MiniBullet]; } }
         public static Texture2D[] MiniEnemyShipAsset { get { return Assets[MiniEnemyShip]; } }
         public static Texture2D[] HealthAsset { get { return Assets[Health]; } }
@@ -40,6 +43,7 @@ namespace MonoGame.Graphics.Space
         public static Texture2D[] BoundaryAsset { get { return Assets[Boundary]; } }
         public static Texture2D[] HealthBarAsset { get { return Assets[HealthBar]; } }
         public static Texture2D[] AmmoBarAsset { get { return Assets[AmmoBar]; } }
+        public static Texture2D[] OnePixelBarAsset { get { return Assets[OnePixelBar]; } }
         public static Texture2D[] FireAsset { get { return Assets[Fire]; } }
         public static Texture2D[] BossAAsset { get { return Assets[BossA]; } }
 
@@ -100,6 +104,12 @@ namespace MonoGame.Graphics.Space
             };
             Assets.Add(Bullet, bullet);
 
+            var largeBullet = new[]
+            {
+                content.Load<Texture2D>("LargeBullet")
+            };
+            Assets.Add(LargeBullet, largeBullet);
+
             var miniBullet = new[]
             {
                 content.Load<Texture2D>("MiniBullet")
@@ -135,6 +145,12 @@ namespace MonoGame.Graphics.Space
                 content.Load<Texture2D>("AmmoBar")
             };
             Assets.Add(AmmoBar, ammoBar);
+
+            var onePixelBar = new[]
+            {
+                content.Load<Texture2D>("OnePixelBar")
+            };
+            Assets.Add(OnePixelBar, onePixelBar);
 
             var fire = new[]
             {

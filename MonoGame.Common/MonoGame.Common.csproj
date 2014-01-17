@@ -49,6 +49,7 @@
     <Compile Include="Components\Input\KeyboardEventComponent.cs" />
     <Compile Include="Components\Input\KeyboardActionComponent.cs" />
     <Compile Include="Components\Logic\CounterComponent.cs" />
+    <Compile Include="Components\Movement\EventMovementComponent.cs" />
     <Compile Include="Components\Movement\FrictionComponent.cs" />
     <Compile Include="Components\Movement\GridMovementComponent.cs" />
     <Compile Include="Components\Movement\RotationComponent.cs" />

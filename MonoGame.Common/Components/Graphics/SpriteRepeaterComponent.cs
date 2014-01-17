@@ -43,6 +43,8 @@ namespace MonoGame.Common.Components.Graphics
             _relativeLocation = Vector2.Zero;
         }
 
+        private Color _color = Color.White;
+
         // TODO: Use optional parameters, introduce gap
         public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, int currentValue, bool isVertical)
         {
@@ -52,7 +54,7 @@ namespace MonoGame.Common.Components.Graphics
             _isVertical = isVertical;
         }
 
-        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, bool isVertical, ObjectEvent subscribeEvent, CounterIncrementComponent counterIncrementComponent, bool isReverse = false)
+        public SpriteRepeaterComponent(Texture2D texture, Vector2 relativeLocation, bool isVertical, ObjectEvent subscribeEvent, CounterIncrementComponent counterIncrementComponent, bool isReverse = false, Color? color = null)
         {
             Texture = texture;
             _relativeLocation = relativeLocation;
@@ -61,7 +63,7 @@ namespace MonoGame.Common.Components.Graphics
             _subscribeEvent = subscribeEvent;
             _counterIncrementComponent = counterIncrementComponent;            
             _isReverse = isReverse;
-
+            _color = color ?? Color.White;
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
@@ -90,7 +92,7 @@ namespace MonoGame.Common.Components.Graphics
                 {
                     locationScaled -= count * new Vector2(Texture.Width, Texture.Height) * expansion;
                 }
-                spriteBatch.Draw(Texture, locationScaled, Color.White);
+                spriteBatch.Draw(Texture, locationScaled, _color);
             }
         }
    }

@@ -19,16 +19,18 @@ namespace MonoGame.Common.Components
         private readonly ObjectEvent _fireEvent;
         private readonly ObjectEvent _stopEvent;
         private readonly ObjectEvent _startEvent;
+        private readonly int _bulletSpeed;
         private bool _canFire = true;
 
         
-        public BulletComponent(Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore)
+        public BulletComponent(Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore, int bulletSpeed = 3)
         {
             _texture2D = texture;
             _movementComponent = movementComponent;
             _fireEvent = fireEvent;
             _stopEvent = stopEvent;
             _startEvent = startEvent;
+            _bulletSpeed = bulletSpeed;
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs eventArgs)
@@ -57,8 +59,8 @@ namespace MonoGame.Common.Components
             var startLocation = Owner.Centre;
             startLocation += (direction * new Vector2(Owner.Width, Owner.Height));
             startLocation += (direction * new Vector2(bulletTexture.Width + 1, bulletTexture.Height + 1));
-            var bullet = new GameObject("Bullet", startLocation);            
-            var bulletMovement = new MovementComponent(3, _movementComponent.FaceDirection, direction);
+            var bullet = new GameObject("Bullet", startLocation);
+            var bulletMovement = new MovementComponent(_bulletSpeed, _movementComponent.FaceDirection, direction);
             var bulletSprite = new SpriteComponent(bulletTexture);
             var bulletBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width, bulletTexture.Height);
             var instanceComponent = new InstanceComponent();

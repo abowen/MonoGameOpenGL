@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Helpers;
+using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components
@@ -70,7 +71,7 @@ namespace MonoGame.Common.Components
 
                 _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                if (firePressed && _elapsedTimeMilliseconds > 500)
+                if (firePressed && _elapsedTimeMilliseconds > GameConstants.RepeaterDelay)
                 {
                     _elapsedTimeMilliseconds = 0;
                     Owner.Event(ObjectEvent.Fire);
