@@ -20,10 +20,11 @@ namespace MonoGame.Common.Components
         private readonly ObjectEvent _stopEvent;
         private readonly ObjectEvent _startEvent;
         private readonly int _bulletSpeed;
+        private readonly string[] _ignoreCollisionTypes;
         private bool _canFire = true;
 
         
-        public BulletComponent(Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore, int bulletSpeed = 3)
+        public BulletComponent(Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore, int bulletSpeed = 3, params string[] ignoreCollisionTypes)
         {
             _texture2D = texture;
             _movementComponent = movementComponent;
@@ -31,6 +32,7 @@ namespace MonoGame.Common.Components
             _stopEvent = stopEvent;
             _startEvent = startEvent;
             _bulletSpeed = bulletSpeed;
+            _ignoreCollisionTypes = ignoreCollisionTypes;
         }
 
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs eventArgs)
@@ -62,7 +64,7 @@ namespace MonoGame.Common.Components
             var bullet = new GameObject("Bullet", startLocation);
             var bulletMovement = new MovementComponent(_bulletSpeed, _movementComponent.FaceDirection, direction);
             var bulletSprite = new SpriteComponent(bulletTexture);
-            var bulletBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width, bulletTexture.Height);
+            var bulletBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width, bulletTexture.Height, true, _ignoreCollisionTypes);
             var instanceComponent = new InstanceComponent();
             var bulletOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
             bullet.AddComponent(bulletMovement);

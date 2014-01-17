@@ -59,8 +59,8 @@ namespace MonoGame.Common.Infrastructure
                 {
                     if (source.BoundingRectangle.Intersects(destination.BoundingRectangle))
                     {                        
-                        source.RaiseCollisionEvent();
-                        destination.RaiseCollisionEvent();
+                        source.RaiseCollisionEvent(destination);
+                        destination.RaiseCollisionEvent(source);
                     }
                 }
             }

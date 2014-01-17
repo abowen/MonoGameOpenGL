@@ -24,7 +24,7 @@ namespace MonoGame.Game.Space
         {
             var backgroundManager = new BackgroundManager(SpaceGraphics.PlanetAsset, SpaceGraphics.StarAsset, BackgroundLayer, new Vector2(0, 0.25f), new Vector2(0, 1f), 3000, 30);
             backgroundManager.VerticalBoundary(0,0);
-            var backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), 5000, 10000, BackgroundLayer, 2);
+            var backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), 5000, 10000, BackgroundLayer, 2, SpaceSounds.Sound_Explosion01);
             BackgroundLayer.Managers.Add(backgroundManager);
             BackgroundLayer.Managers.Add(backgroundEnemyManager);
         }
@@ -39,8 +39,7 @@ namespace MonoGame.Game.Space
             var xCentre = GameConstants.ScreenBoundary.Width / 2;
             var yCentre = GameConstants.ScreenBoundary.Height / 2;
 
-
-            var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 200, 1000, ForegroundLayer, 1);
+            var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1000, 1000, ForegroundLayer, 1, SpaceSounds.Sound_Explosion01);
             ForegroundLayer.Managers.Add(enemyManager);
 
             var asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, ForegroundLayer);
@@ -73,6 +72,7 @@ namespace MonoGame.Game.Space
             var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, ObjectEvent.WoodFire, playerFireCounterComponent, RandomDrawMethod);
 
             var playerEventComponent = new ObjectEventComponent(ObjectEvent.HealthEmpty, PlayerDeath);            
+            
 
             player.AddComponent(playerSpriteComponent);
             player.AddComponent(playerEventSound);

@@ -9,6 +9,7 @@ namespace MonoGame.Common.Components
     {
         private readonly Texture2D _texture;
         public readonly bool IsCameraScaled;
+        public readonly string[] IgnoreTypes;
         public readonly int Width;
         public readonly int Height;
 
@@ -28,12 +29,13 @@ namespace MonoGame.Common.Components
             }
         }
 
-        public BoundaryComponent(Texture2D texture, int? width = null, int? height = null, bool cameraScale = true)
+        public BoundaryComponent(Texture2D texture, int? width = null, int? height = null, bool cameraScale = true, params string[] ignoreTypes)
         {
             _texture = texture;
             Width = width ?? _texture.Width;
             Height = height ?? _texture.Height;
             IsCameraScaled = cameraScale;
+            IgnoreTypes = ignoreTypes ?? new string[0];
         }
 
         public BoundaryComponent(int width, int height)
