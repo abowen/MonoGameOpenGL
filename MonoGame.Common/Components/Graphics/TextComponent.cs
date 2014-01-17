@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Entities;
@@ -12,6 +13,7 @@ namespace MonoGame.Common.Components.Graphics
     public class TextComponent : SimpleComponent, ISimpleDrawable
     {
         private readonly CharacterMapping _characterMapping;
+        private readonly ICounterComponent _counterComponent;
         private readonly Func<GameObject, string> _stringFunc;
         public string Text;
         private readonly int _drawScale;
@@ -23,6 +25,15 @@ namespace MonoGame.Common.Components.Graphics
             Contract.Assert(characterMapping != null);
             _characterMapping = characterMapping;
             Text = text;
+            _drawScale = drawScale;
+            _relativePosition = relativePosition ?? Vector2.Zero;
+        }
+
+        public TextComponent(CharacterMapping characterMapping, ICounterComponent counterComponent, Vector2? relativePosition = null, int drawScale = 1)
+        {
+            Contract.Assert(characterMapping != null);
+            _characterMapping = characterMapping;
+            _counterComponent = counterComponent;            
             _drawScale = drawScale;
             _relativePosition = relativePosition ?? Vector2.Zero;
         }
@@ -41,6 +52,10 @@ namespace MonoGame.Common.Components.Graphics
             if (_stringFunc != null)
             {
                 Text = _stringFunc(Owner);
+            }
+            else if (_counterComponent != null)
+            {
+                Text = _counterComponent.CurrentValue.ToString(CultureInfo.InvariantCulture);
             }
 
             var location = Owner.TopLeft;

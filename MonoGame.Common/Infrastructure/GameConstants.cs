@@ -33,9 +33,7 @@ namespace MonoGame.Common.Infrastructure
         }
 
         // TODO: Refactor into own class / GameInstance?
-        public static int CurrentMaximumEnemies { get; set; }
-        public static int TotalMaximumEnemies { get; set; }
-        public static int EnemyDelay { get; set; }
+
         public static double RepeaterDelay = 100;
     }
 }
