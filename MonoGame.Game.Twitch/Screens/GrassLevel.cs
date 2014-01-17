@@ -19,7 +19,7 @@ namespace MonoGame.Game.Twitch.Screens
     public class GrassLevel : GameLevel
     {
         public GrassLevel()
-            : base(3f)
+            : base(4f)
         {
         }
 
@@ -29,8 +29,7 @@ namespace MonoGame.Game.Twitch.Screens
         }
 
         protected override void LoadDisplay()
-        {
-            //var xPosition = GameConstants.ScreenBoundaryDividedByScale.Width / 2;            
+        {            
             var xPosition = GameHelper.GetRelativeX(0.5f);
             var yPosition = GameHelper.GetRelativeY(0.1f);
             var gameCounter = new GameObject("GameCounter", new Vector2(xPosition - 20, yPosition));
@@ -153,7 +152,7 @@ namespace MonoGame.Game.Twitch.Screens
             if (playersInCollision)
             {
                 lastActionWonByPlayerName = player.GameType.ToUpperInvariant();
-                hasRoundBeenWon = true;
+                //hasRoundBeenWon = true;
             }
         }
 
@@ -187,7 +186,7 @@ namespace MonoGame.Game.Twitch.Screens
         private GameObject playerOne;
         private GameObject playerTwo;
 
-        private bool hasRoundBeenWon = false;
+        //private bool hasRoundBeenWon = false;
         private bool playerOneAttack = false;
         private bool playerTwoAttack = false;
 
