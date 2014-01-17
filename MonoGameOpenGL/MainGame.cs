@@ -47,11 +47,9 @@ namespace MonoGameOpenGL
             {
                 // Optimize for TV's and 24" computers.
                 PreferredBackBufferWidth = 1920,
-                PreferredBackBufferHeight = 1080,                
+                PreferredBackBufferHeight = 1080,
+                IsFullScreen = true,
             };
-
-            
-            _graphics.IsFullScreen = true;                                    
         }
 
 

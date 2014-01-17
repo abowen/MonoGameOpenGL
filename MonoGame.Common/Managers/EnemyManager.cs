@@ -24,7 +24,7 @@ namespace MonoGame.Common.Managers
         private readonly SoundEffect _deathSound;
         private double _elapsedTimeMilliseconds;
         private readonly Random _random;
-        private readonly double _spawnDelayMilliseconds;
+        private double _spawnDelayMilliseconds;
         private readonly double _bulletDelayMilliseconds;
 
         public EnemyManager(Texture2D shipTexture, Texture2D bulletTexture, double spawnDelayMilliseconds, double bulletDelayMilliseconds, GameLayer gameLayer, int speed, SoundEffect deathSound)
@@ -42,16 +42,19 @@ namespace MonoGame.Common.Managers
 
         public void Update(GameTime gameTime)
         {
-            //var enemyCount = _gameLayer.GameObjects.Count(gameObject => gameObject.GameType == "Enemy");
-
+            var enemyGameType = "Enemy";
+            var enemyCount = _gameLayer.GameObjects.Count(gameObject => gameObject.GameType == enemyGameType);
             _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;
-            //if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds && enemyCount < GameConstants.MaximumEnemies)
-            if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds)
+            //Console.WriteLine("Maximum: {0} Counted: {1} Delay: {2}", GameConstants.CurrentMaximumEnemies, enemyCount, _elapsedTimeMilliseconds);
+
+            if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds && 
+                enemyCount < GameConstants.CurrentMaximumEnemies && 
+                enemyCount < GameConstants.TotalMaximumEnemies)            
             {
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);
 
-                var enemyGameType = "Enemy";
+                
                 var gameObject = new GameObject(enemyGameType, new Vector2(xLocation, 0));                
                 var sprite = new SpriteComponent(_shipTexture);
                 var movement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, 1));
@@ -78,6 +81,8 @@ namespace MonoGame.Common.Managers
         private static void IncreaseScore(GameObject gameObject)
         {
             GameConstants.GameInstance.UpdateScore();
-        }
+            GameConstants.CurrentMaximumEnemies++;
+            //GameConstants.EnemyDelay += -10;
+         }
     }
 }

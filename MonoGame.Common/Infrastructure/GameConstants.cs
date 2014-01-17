@@ -16,11 +16,13 @@ namespace MonoGame.Common.Infrastructure
 
 
         public static bool ShowObjectBoundary = false;
-        public static readonly int MaximumEnemies = 3;
+        
         public static GameInstance GameInstance = new GameInstance();
 
         public static int GameScale = 1;
         public static float CameraScale = 1f;
+
+        
 
         public static float Scale
         {
@@ -30,6 +32,10 @@ namespace MonoGame.Common.Infrastructure
             }
         }
 
+        // TODO: Refactor into own class / GameInstance?
+        public static int CurrentMaximumEnemies { get; set; }
+        public static int TotalMaximumEnemies { get; set; }
+        public static int EnemyDelay { get; set; }
         public static double RepeaterDelay = 100;
     }
 }

@@ -20,13 +20,21 @@ namespace MonoGame.Game.Space
 {
     public class SpaceLevel : GameLevel
     {
+        public SpaceLevel() : base(2f)
+        {
+            GameConstants.CurrentMaximumEnemies = 5;
+            GameConstants.TotalMaximumEnemies = 50;
+            GameConstants.EnemyDelay = 500;
+        }
+
         protected override void LoadBackground()
         {
             var backgroundManager = new BackgroundManager(SpaceGraphics.PlanetAsset, SpaceGraphics.StarAsset, BackgroundLayer, new Vector2(0, 0.25f), new Vector2(0, 1f), 3000, 30);
-            backgroundManager.VerticalBoundary(0,0);
-            var backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), 5000, 10000, BackgroundLayer, 2, SpaceSounds.Sound_Explosion01);
             BackgroundLayer.Managers.Add(backgroundManager);
-            BackgroundLayer.Managers.Add(backgroundEnemyManager);
+            backgroundManager.VerticalBoundary(0,0);
+            //var backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), SpaceGraphics.MiniBulletAsset.First(), 5000, 10000, BackgroundLayer, 2, SpaceSounds.Sound_Explosion01);
+            
+        //    BackgroundLayer.Managers.Add(backgroundEnemyManager);
         }
 
         protected override void LoadDisplay()
@@ -35,18 +43,16 @@ namespace MonoGame.Game.Space
         }
 
         protected override void LoadForeground()
-        {            
-            var xCentre = GameConstants.ScreenBoundary.Width / 2;
-            var yCentre = GameConstants.ScreenBoundary.Height / 2;
-
-            var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 1000, 1000, ForegroundLayer, 1, SpaceSounds.Sound_Explosion01);
+        {
+            var xCentre = GameHelper.GetRelativeX(0.5f);            
+            var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), SpaceGraphics.BulletAsset.First(), 100, 1000, ForegroundLayer, 1, SpaceSounds.Sound_Explosion01);
             ForegroundLayer.Managers.Add(enemyManager);
 
             var asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, ForegroundLayer);
             ForegroundLayer.Managers.Add(asteroidManager);
 
-
-            var playerStartPosition = new Vector2(xCentre, yCentre + 50);
+            var yPlayer = GameHelper.GetRelativeY(0.8f);
+            var playerStartPosition = new Vector2(xCentre, yPlayer);
 
             // TODO: Refactor this into BuilderPattern
             var player = new GameObject("Player", playerStartPosition);            
@@ -66,7 +72,7 @@ namespace MonoGame.Game.Space
             var playerAmmoCounterComponent = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 50, 0);
             var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, playerAmmoCounterComponent, true, Color.Gray);
             var playerEventMovement = new EventMovementComponent(new Vector2(0, 5), ObjectEvent.AmmoRemoved);
-            var playerEventSound = new EventSoundComponent(SpaceSounds.Sound_LongFire01, ObjectEvent.AmmoRemoved);
+            var playerEventSound = new EventSoundComponent(SpaceSounds.Sound_ShortFire01, ObjectEvent.AmmoRemoved);
 
             var playerFireCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.WoodFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
             var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, ObjectEvent.WoodFire, playerFireCounterComponent, RandomDrawMethod);

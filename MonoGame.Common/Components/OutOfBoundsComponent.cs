@@ -24,10 +24,14 @@ namespace MonoGame.Common.Components
 
         public void Update(GameTime gameTime)
         {
-            if (Owner.Centre.X > (GameConstants.ScreenBoundary.Right - _rightPadding) ||
-                Owner.Centre.X < (0 + _leftPadding) ||
-                Owner.Centre.Y < (0 + _topPadding) ||
-                Owner.Centre.Y > (GameConstants.ScreenBoundary.Bottom - _bottomPadding))
+            var maximumX = (GameConstants.ScreenBoundary.Right - _rightPadding)/GameConstants.Scale;
+            var maximumY = (GameConstants.ScreenBoundary.Bottom - _bottomPadding)/GameConstants.Scale;
+            var minimumX = _leftPadding/GameConstants.Scale;
+            var minimumY = _topPadding/GameConstants.Scale;
+            if (Owner.Centre.X > maximumX ||
+                Owner.Centre.X < minimumX ||
+                Owner.Centre.Y < minimumY ||
+                Owner.Centre.Y > maximumY)
             {
                 Owner.Event(_publishEvent);
             }
