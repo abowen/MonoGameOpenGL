@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGameOpenGL.Content", "MonoGameOpenGL.Content\MonoGameOpenGL.Content\MonoGameOpenGL.Content.csproj", "{4CF9D401-509F-4ED0-A952-384D38B5DC62}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "MonoGameOpenGL.ContentContent", "MonoGameOpenGL.Content\MonoGameOpenGL.ContentContent\MonoGameOpenGL.ContentContent.contentproj", "{B77DD823-A27E-431F-98D4-4D0AE17610A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CF9D401-509F-4ED0-A952-384D38B5DC62}.Debug|x86.ActiveCfg = Debug|x86
+		{4CF9D401-509F-4ED0-A952-384D38B5DC62}.Debug|x86.Build.0 = Debug|x86
+		{4CF9D401-509F-4ED0-A952-384D38B5DC62}.Release|x86.ActiveCfg = Release|x86
+		{4CF9D401-509F-4ED0-A952-384D38B5DC62}.Release|x86.Build.0 = Release|x86
+		{B77DD823-A27E-431F-98D4-4D0AE17610A6}.Debug|x86.ActiveCfg = Debug|x86
+		{B77DD823-A27E-431F-98D4-4D0AE17610A6}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

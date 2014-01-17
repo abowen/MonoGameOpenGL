@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Common.Components;
+using MonoGame.Common.Components.Audio;
 using MonoGame.Common.Components.Graphics;
 using MonoGame.Common.Components.Logic;
 using MonoGame.Common.Components.Movement;
@@ -13,6 +14,7 @@ using MonoGame.Common.Helpers;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Managers;
 using MonoGame.Graphics.Space;
+using MonoGame.Sounds.Space;
 
 namespace MonoGame.Game.Space
 {
@@ -65,6 +67,7 @@ namespace MonoGame.Game.Space
             var playerAmmoCounterComponent = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 50, 0);
             var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, playerAmmoCounterComponent, true, Color.Gray);
             var playerEventMovement = new EventMovementComponent(new Vector2(0, 5), ObjectEvent.AmmoRemoved);
+            var playerEventSound = new EventSoundComponent(SpaceSounds.Sound_LongFire01, ObjectEvent.AmmoRemoved);
 
             var playerFireCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.WoodFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
             var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal, ObjectEvent.WoodFire, playerFireCounterComponent, RandomDrawMethod);
@@ -72,6 +75,7 @@ namespace MonoGame.Game.Space
             var playerEventComponent = new ObjectEventComponent(ObjectEvent.HealthEmpty, PlayerDeath);            
 
             player.AddComponent(playerSpriteComponent);
+            player.AddComponent(playerEventSound);
             player.AddComponent(playerMovementComponent);
             player.AddComponent(playerInputComponent);
             player.AddComponent(playerEventMovement);

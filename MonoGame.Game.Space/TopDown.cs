@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Graphics.Space;
+using MonoGame.Sounds.Space;
 
 namespace MonoGame.Game.Space
 {
@@ -11,7 +12,8 @@ namespace MonoGame.Game.Space
             : base(window, contentManager)
         {                        
             SpaceGraphics.LoadSpaceContent(contentManager);
-            
+            SpaceSounds.LoadSpaceSounds(contentManager);
+
             var level = new SpaceLevel();
             NextLevel(level);
         }    
