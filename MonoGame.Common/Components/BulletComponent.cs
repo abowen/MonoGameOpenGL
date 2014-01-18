@@ -20,11 +20,12 @@ namespace MonoGame.Common.Components
         private readonly ObjectEvent _stopEvent;
         private readonly ObjectEvent _startEvent;
         private readonly int _bulletSpeed;
+        private readonly Color _color;
         private readonly string[] _ignoreCollisionTypes;
         private bool _canFire = true;
 
         
-        public BulletComponent(Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore, int bulletSpeed = 3, params string[] ignoreCollisionTypes)
+        public BulletComponent(Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore, int bulletSpeed = 3, Color? color = null, params string[] ignoreCollisionTypes)
         {
             _texture2D = texture;
             _movementComponent = movementComponent;
@@ -32,6 +33,7 @@ namespace MonoGame.Common.Components
             _stopEvent = stopEvent;
             _startEvent = startEvent;
             _bulletSpeed = bulletSpeed;
+            _color = color ?? Color.White;
             _ignoreCollisionTypes = ignoreCollisionTypes;
         }
 
@@ -63,7 +65,7 @@ namespace MonoGame.Common.Components
             startLocation += (direction * new Vector2(bulletTexture.Width + 1, bulletTexture.Height + 1));
             var bullet = new GameObject("Bullet", startLocation);
             var bulletMovement = new MovementComponent(_bulletSpeed, _movementComponent.FaceDirection, direction);
-            var bulletSprite = new SpriteComponent(bulletTexture);
+            var bulletSprite = new SpriteComponent(bulletTexture, color: _color);
             var bulletBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width, bulletTexture.Height, true, _ignoreCollisionTypes);
             var instanceComponent = new InstanceComponent();
             var bulletOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);

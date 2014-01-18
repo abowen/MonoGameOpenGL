@@ -43,7 +43,7 @@ namespace MonoGame.Game.Space.Levels
         }
 
         protected override void LoadForeground()
-        {            
+        {
             var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), 100, 1000, ForegroundLayer, 2, SpaceSounds.Sound_Explosion01, 5, 50);
             ForegroundLayer.Managers.Add(enemyManager);
 
@@ -63,50 +63,53 @@ namespace MonoGame.Game.Space.Levels
             var yPosition = GameHelper.GetRelativeY(0.8f);
 
             var player = new GameObject("Player", new Vector2(xPosition, yPosition));
-            var playerTexture = SpaceGraphics.PlayerShipAsset.First();
-            var playerSpriteComponent = new SpriteComponent(playerTexture);
-            var playerMovementComponent = new MovementComponent(5, FaceDirection.Up, Vector2.Zero);
-            var playerLocalKeyboardComponent = new LocalKeyboardComponent();
-            var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), playerLocalKeyboardComponent, playerMovementComponent);
 
-            var playerBoundaryComponent = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
+            var texture = SpaceGraphics.PlayerShipAsset.First();
+            var sprite = new SpriteComponent(texture);
+            var movement = new MovementComponent(5, FaceDirection.Up, Vector2.Zero);
+            var localKeyboard = new LocalKeyboardComponent();
+            var input = new InputComponent(InputHelper.KeyboardMappedKey(), localKeyboard, movement);
+            var boundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), texture.Width, texture.Height);
 
-            var playerHealthCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter,
-                ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
-            var playerHealthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25),
-                false, ObjectEvent.HealthRemoved, playerHealthCounterComponent);
+            var healthCounter = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
+            var healthBar = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 25), false, ObjectEvent.HealthRemoved, healthCounter, false, Color.ForestGreen);
+            //healthBar.SetDynamicColors(Color.DarkRed, Color.Red, Color.Orange, Color.Yellow, Color.ForestGreen);
+            healthBar.SetColorEvent(ObjectEvent.HealthRemoved, HealthColourFunc);
 
-            var playerBulletComponent = new BulletComponent(SpaceGraphics.LargeBulletAsset, playerMovementComponent,
-                ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10);
-            var playerAmmoCounterComponent = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved,
-                ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 50, 0);
-            var playerAmmoBarComponent = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(),
-                new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, playerAmmoCounterComponent, true, Color.Gray);
-            var playerEventMovement = new EventMovementComponent(new Vector2(0, 5), ObjectEvent.AmmoRemoved);
-            var playerEventSound = new EventSoundComponent(SpaceSounds.Sound_ShortFire01, ObjectEvent.AmmoRemoved);
+            var bullet = new BulletComponent(SpaceGraphics.LargeBulletAsset, movement, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10, Color.DarkRed);
+            var ammoCounter = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 50, 0);
+            var ammoBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, ammoCounter, true, Color.Gray);
+            var ammoMovement = new EventMovementComponent(new Vector2(0, 5), ObjectEvent.AmmoRemoved);
+            var ammoSound = new EventSoundComponent(SpaceSounds.Sound_ShortFire01, ObjectEvent.AmmoRemoved);
 
-            var playerFireCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.WoodFire,
-                ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
-            var playerWoodFireComponent = new SpriteGenericComponent(SpaceGraphics.FireAsset, player.CentreLocal,
-                ObjectEvent.WoodFire, playerFireCounterComponent, RandomDrawMethod);
+            var fireCounter = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.ElectricalFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
+            var fireSprite = new SpriteGenericComponent(SpaceGraphics.FireAsset, Vector2.Zero, ObjectEvent.ElectricalFire, fireCounter, RandomDrawMethod);
 
-            var playerEventComponent = new ObjectEventComponent(ObjectEvent.HealthEmpty, PlayerDeath);
+            var deathEvent = new ObjectEventComponent(ObjectEvent.HealthEmpty, PlayerDeath);
 
-            player.AddComponent(playerBoundaryComponent);
-            player.AddComponent(playerSpriteComponent);
-            player.AddComponent(playerEventSound);
-            player.AddComponent(playerMovementComponent);
-            player.AddComponent(playerInputComponent);
-            player.AddComponent(playerEventMovement);
-            player.AddComponent(playerBulletComponent);
-            player.AddComponent(playerHealthCounterComponent);
-            player.AddComponent(playerHealthBarComponent);
-            player.AddComponent(playerAmmoCounterComponent);
-            player.AddComponent(playerAmmoBarComponent);
-            player.AddComponent(playerFireCounterComponent);
-            player.AddComponent(playerWoodFireComponent);
-            player.AddComponent(playerEventComponent);
+            player.AddComponent(boundary);
+            player.AddComponent(sprite);
+            player.AddComponent(ammoSound);
+            player.AddComponent(movement);
+            player.AddComponent(input);
+            player.AddComponent(ammoMovement);
+            player.AddComponent(bullet);
+            player.AddComponent(healthCounter);
+            player.AddComponent(healthBar);
+            player.AddComponent(ammoCounter);
+            player.AddComponent(ammoBar);
+            player.AddComponent(fireCounter);
+            player.AddComponent(fireSprite);
+            player.AddComponent(deathEvent);
             ForegroundLayer.AddGameObject(player);
+        }
+
+        private readonly Stack<Color> _playerColourStack = new Stack<Color>(new[] { Color.Gray, Color.DarkRed, Color.Red, Color.Yellow, Color.Orange });
+
+        private Color HealthColourFunc(GameObject gameObject)
+        {
+            var colour = _playerColourStack.Pop();
+            return colour;
         }
 
         private void PlayerDeath(GameObject gameObject)
@@ -146,7 +149,7 @@ namespace MonoGame.Game.Space.Levels
             _scoreGameObject = score;
             GameConstants.GameInstance.ScoreEventHandler += ScoreMilestones;
         }
-        
+
         private void ScoreMilestones(object sender, ScoreEventArgs scoreEventArgs)
         {
             if (_scoreGameObject != null)
@@ -192,10 +195,10 @@ namespace MonoGame.Game.Space.Levels
         }
 
         private void BossDeath(GameObject gameObject)
-        {            
+        {
             gameObject.RemoveGameObject();
             var death = new GameObject("BossDeath", gameObject.Centre);
-            var deathSprite = new ScaleAnimationComponent(SpaceGraphics.PlanetAsset[3], 0, 10, 500, animationCompleteEvent:  ObjectEvent.RemoveEntity);
+            var deathSprite = new ScaleAnimationComponent(SpaceGraphics.PlanetAsset[3], 0, 10, 500, animationCompleteEvent: ObjectEvent.RemoveEntity);
             death.AddComponent(deathSprite);
             ForegroundLayer.AddGameObject(death);
         }

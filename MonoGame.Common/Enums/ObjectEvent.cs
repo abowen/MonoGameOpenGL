@@ -12,7 +12,7 @@
         AmmoRemoved,
         AmmoEmpty,
         AmmoReset,
-        WoodFire,
+        ElectricalFire,
         ScoreIncrease,
         ScoreIncreaseDisplay,
         InAir,

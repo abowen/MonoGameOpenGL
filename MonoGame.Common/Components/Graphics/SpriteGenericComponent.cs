@@ -74,12 +74,12 @@ namespace MonoGame.Common.Components.Graphics
             {
                 if (_locations.Any())
                 {
-                    var newLocation = Owner.TopLeft;
+                    var newLocation = Owner.Centre;
                     newLocation += _relativeLocation;
-                    newLocation += _locations.ToList()[count];
+                    newLocation += _locations.ToList()[count] * GameConstants.Scale;
 
                     var locationScaled = (newLocation) * GameConstants.Scale;
-                    spriteBatch.Draw(texture, locationScaled, Color.White);
+                    spriteBatch.Draw(texture, locationScaled, null, Color.White, 0, Vector2.Zero, GameConstants.Scale, SpriteEffects.None, 1);
                 }
             }
         }
