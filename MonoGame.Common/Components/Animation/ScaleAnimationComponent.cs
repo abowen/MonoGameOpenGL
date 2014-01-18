@@ -54,7 +54,7 @@ namespace MonoGame.Common.Components.Animation
                 var animationScale = scaleAmount + _startScale;
 
                 var locationScaled = (Owner.TopLeft + _relativeLocation) * GameConstants.Scale;
-                var drawScale = (float)(animationScale * GameConstants.Scale);
+                var drawScale = (float)(animationScale * GameConstants.Scale * Owner.Scale);
                 var centreOrigin = new Vector2(Width / 2, Height / 2);
 
                 spriteBatch.Draw(Texture, locationScaled, null, _color, Owner.Rotation, centreOrigin, drawScale, SpriteEffects.None, 1);

@@ -41,7 +41,8 @@ namespace MonoGame.Common.Components.Graphics
         public void Draw(SpriteBatch spriteBatch)
         {
             var locationScaled = (Owner.TopLeft + _relativeLocation) * GameConstants.Scale;
-            var drawScale = _drawScale * GameConstants.Scale;
+            var drawScale = _drawScale * GameConstants.Scale * Owner.Scale;
+
             if (_rotationOrigin != Vector2.Zero)
             {
                 spriteBatch.Draw(Texture, locationScaled, null, _color, Owner.Rotation, _rotationOrigin, drawScale, SpriteEffects.None, 1);

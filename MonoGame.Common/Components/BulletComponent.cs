@@ -60,7 +60,8 @@ namespace MonoGame.Common.Components
             var bulletTexture = _texture2D.First();
             var direction = _movementComponent.FaceDirection.GetVector2();
             direction.Normalize();
-            var startLocation = Owner.Centre;
+
+            var startLocation = Owner.Centre;            
             startLocation += (direction * new Vector2(Owner.Width, Owner.Height));
             startLocation += (direction * new Vector2(bulletTexture.Width + 1, bulletTexture.Height + 1));
             var bullet = new GameObject(_bulletGameType, startLocation);

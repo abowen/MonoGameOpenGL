@@ -27,8 +27,9 @@ namespace MonoGame.Common.Entities
         private bool _preHadCollision;
         private StateComponent _stateComponent;
 
-        public GameObject(string typeName, Vector2 topLeftLocation, float rotation = 0)
+        public GameObject(string typeName, Vector2 topLeftLocation, float rotation = 0, float scale = 1f)
         {
+            Scale = scale;
             GameType = typeName;
             TopLeft = topLeftLocation;
             _originalTopLeftLocation = topLeftLocation;
@@ -44,6 +45,8 @@ namespace MonoGame.Common.Entities
         public Vector2 Velocity { get; set; }
 
         public Vector2 TopLeft { get; set; }
+
+        public float Scale { get; set; }
 
         public Vector2 TopLeftScaled
         {
@@ -93,7 +96,7 @@ namespace MonoGame.Common.Entities
                 // TODO: Use Sprite Component if BoundaryComponent not found
                 if (BoundaryComponent != null)
                 {
-                    return BoundaryComponent.Width;
+                    return (int)(BoundaryComponent.Width * Scale);
                 }
                 return 1;
             }
@@ -105,7 +108,7 @@ namespace MonoGame.Common.Entities
             {
                 if (BoundaryComponent != null)
                 {
-                    return BoundaryComponent.Height;
+                    return (int)(BoundaryComponent.Height * Scale);
                 }
                 return 1;
             }

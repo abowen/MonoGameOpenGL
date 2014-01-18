@@ -116,7 +116,7 @@ namespace MonoGame.Game.Space.Levels
         {            
             gameObject.RemoveGameObject();
             var death = new GameObject("Death", gameObject.TopLeft);
-            var deathAnimation = new ScaleAnimationComponent(SpaceGraphics.LargeExpolosionAsset[0], 0, 50, 5000, Color.DarkRed, null, ObjectEvent.RemoveEntity);
+            var deathAnimation = new ScaleAnimationComponent(SpaceGraphics.LargeExpolosionAsset[0], 0, 50, 3000, Color.DarkRed, null, ObjectEvent.RemoveEntity);
             var exitLevel = new ObjectEventComponent(ObjectEvent.RemoveEntity, ExitLevelAction);
             death.AddComponent(deathAnimation);
             death.AddComponent(exitLevel);
@@ -161,9 +161,13 @@ namespace MonoGame.Game.Space.Levels
             {
                 _scoreGameObject.Event(ObjectEvent.ScoreIncrease);
             }
-            if (scoreEventArgs.Score == 1)
+            if (scoreEventArgs.Score == 5)
             {
-                CreateBossOne();
+                CreateBossOne(750);
+            }
+            if (scoreEventArgs.Score == 10)
+            {                
+                CreateBossOne(500, 2);
             }
         }
 
@@ -171,16 +175,17 @@ namespace MonoGame.Game.Space.Levels
 
         #region Boss
 
-        private void CreateBossOne()
+        private void CreateBossOne(int enemyBulletDelay, int scale = 1)
         {
             var xPosition = GameHelper.GetRelativeX(0.5f);
-            var enemy = new GameObject("BossOne", new Vector2(xPosition, 0));
+            var enemy = new GameObject("Boss", new Vector2(xPosition, 0)) {Scale = scale};
+
             var shipTexture = SpaceGraphics.BossAAsset.First();
             var enemySprite = new SpriteComponent(shipTexture);
             var enemyMovement = new MovementComponent(0.1f, FaceDirection.Down, new Vector2(0, 1));
             var enemyBullet = new BulletComponent(TopDown.EnemyBulletName, SpaceGraphics.BulletAsset, enemyMovement);
             var enemyBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), shipTexture.Width, shipTexture.Height);
-            var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, 500);
+            var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, enemyBulletDelay);
             var enemyOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
             var healthCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
             var healthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset[1], new Vector2(0, 25), false, ObjectEvent.HealthRemoved, healthCounterComponent);
@@ -198,6 +203,7 @@ namespace MonoGame.Game.Space.Levels
 
             ForegroundLayer.AddGameObject(enemy);
         }
+
 
         private void BossDeath(GameObject gameObject)
         {
