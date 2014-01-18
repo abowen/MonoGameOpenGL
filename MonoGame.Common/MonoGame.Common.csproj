@@ -45,7 +45,7 @@
     <Compile Include="Components\BoundaryComponent.cs" />
     <Compile Include="Components\BoundaryEventComponent.cs" />
     <Compile Include="Components\Movement\AccelerateMovementComponent.cs" />
-    <Compile Include="Components\BoundaryStateComponent.cs" />
+    <Compile Include="Components\States\BoundaryStateComponent.cs" />
     <Compile Include="Components\Graphics\SpriteMappingsComponent.cs" />
     <Compile Include="Components\Input\ButtonActionComponent.cs" />
     <Compile Include="Components\Input\KeyboardEventComponent.cs" />
@@ -70,6 +70,7 @@
     <Compile Include="Components\InputComponent.cs" />
     <Compile Include="Components\Movement\MovementComponent.cs" />
     <Compile Include="Components\Graphics\TextComponent.cs" />
+    <Compile Include="Components\States\MovementStateComponent.cs" />
     <Compile Include="Components\TimedActionComponent.cs" />
     <Compile Include="Components\Graphics\SpriteComponent.cs" />
     <Compile Include="Entities\GameObject.cs" />

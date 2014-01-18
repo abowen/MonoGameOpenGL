@@ -8,6 +8,22 @@ namespace MonoGame.Graphics.Space
     // Convention could be A..D representats variation, while 01..04 represents animation
     public class SpaceGraphics
     {
+
+        public static Texture2D FlameAsset { get; private set; }
+
+        public static void LoadSpaceContent(ContentManager content)
+        {
+            content.RootDirectory = @".\Graphics";
+            FlameAsset = content.Load<Texture2D>("Flame");
+
+            // Messy way of doing things.
+            OldMethodLoadSpaceContent(content);
+        }
+
+        public static Texture2D Asset { get; private set; }
+
+        #region Old Method
+
         public static Dictionary<string, Texture2D[]> Assets { get; private set; }
 
         private static readonly string Asteroid = "Asteroid";
@@ -49,9 +65,8 @@ namespace MonoGame.Graphics.Space
         public static Texture2D[] FireAsset { get { return Assets[Fire]; } }
         public static Texture2D[] BossAAsset { get { return Assets[BossA]; } }
 
-        public static void LoadSpaceContent(ContentManager content)
-        {
-            content.RootDirectory = @".\Graphics";
+        private static void OldMethodLoadSpaceContent(ContentManager content)
+        {            
             Assets = new Dictionary<string, Texture2D[]>();
 
             var planets = new[]
@@ -173,5 +188,7 @@ namespace MonoGame.Graphics.Space
             };
             Assets.Add(BossA, bossA);
         }
+
+        #endregion
     }
 }
