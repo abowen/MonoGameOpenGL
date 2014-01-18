@@ -39,6 +39,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Animation\ScaleAnimationComponent.cs" />
     <Compile Include="Components\Audio\EventSoundComponent.cs" />
     <Compile Include="Components\BulletComponent.cs" />
     <Compile Include="Components\BoundaryComponent.cs" />

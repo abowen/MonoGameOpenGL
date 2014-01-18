@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Common.Components;
+using MonoGame.Common.Components.Animation;
 using MonoGame.Common.Components.Audio;
 using MonoGame.Common.Components.Graphics;
 using MonoGame.Common.Components.Logic;
@@ -42,8 +43,7 @@ namespace MonoGame.Game.Space.Levels
         }
 
         protected override void LoadForeground()
-        {
-            var xCentre = GameHelper.GetRelativeX(0.5f);
+        {            
             var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), 100, 1000, ForegroundLayer, 2, SpaceSounds.Sound_Explosion01, 5, 50);
             ForegroundLayer.Managers.Add(enemyManager);
 
@@ -53,6 +53,8 @@ namespace MonoGame.Game.Space.Levels
             CreatePlayer();
             CreateScoreDisplay();
         }
+
+        #region Player
 
 
         private void CreatePlayer()
@@ -65,11 +67,9 @@ namespace MonoGame.Game.Space.Levels
             var playerSpriteComponent = new SpriteComponent(playerTexture);
             var playerMovementComponent = new MovementComponent(5, FaceDirection.Up, Vector2.Zero);
             var playerLocalKeyboardComponent = new LocalKeyboardComponent();
-            var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), playerLocalKeyboardComponent,
-                playerMovementComponent);
+            var playerInputComponent = new InputComponent(InputHelper.KeyboardMappedKey(), playerLocalKeyboardComponent, playerMovementComponent);
 
-            var playerBoundaryComponent = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), playerTexture.Width,
-                playerTexture.Height);
+            var playerBoundaryComponent = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), playerTexture.Width, playerTexture.Height);
 
             var playerHealthCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter,
                 ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
@@ -109,6 +109,31 @@ namespace MonoGame.Game.Space.Levels
             ForegroundLayer.AddGameObject(player);
         }
 
+        private void PlayerDeath(GameObject gameObject)
+        {
+            // Could be moved into the component instead of action?
+            // Or maybe set a flag on game object that other components respond to?
+            gameObject.RemoveGameObject();
+            var death = new GameObject("Death", gameObject.TopLeft);
+            var deathSprite = new SpriteComponent(SpaceGraphics.PlanetAsset[3]);
+            death.AddComponent(deathSprite);
+            ForegroundLayer.AddGameObject(death);
+        }
+
+        private IEnumerable<Vector2> RandomDrawMethod(int requiredValues, int width)
+        {
+            for (var i = 0; i < requiredValues; i++)
+            {
+                var xValue = _random.Next(-width, width);
+                var yValue = _random.Next(-width, width);
+                yield return new Vector2(xValue, yValue);
+            }
+        }
+
+        #endregion
+
+        #region Score
+
         private void CreateScoreDisplay()
         {
             var score = new GameObject("Score", new Vector2(10, 10));
@@ -121,73 +146,62 @@ namespace MonoGame.Game.Space.Levels
             _scoreGameObject = score;
             GameConstants.GameInstance.ScoreEventHandler += ScoreMilestones;
         }
-
-
+        
         private void ScoreMilestones(object sender, ScoreEventArgs scoreEventArgs)
         {
             if (_scoreGameObject != null)
             {
                 _scoreGameObject.Event(ObjectEvent.ScoreIncrease);
             }
-            if (scoreEventArgs.Score == 5)
+            if (scoreEventArgs.Score == 1)
             {
-                var xPosition = GameHelper.GetRelativeX(0.5f);
-                var enemy = new GameObject("Boss", new Vector2(xPosition, 0));
-                var shipTexture = SpaceGraphics.BossAAsset.First();
-                var enemySprite = new SpriteComponent(shipTexture);
-                var enemyMovement = new MovementComponent(0.1f, FaceDirection.Down, new Vector2(0, 1));
-                var enemyBullet = new BulletComponent(SpaceGraphics.BulletAsset, enemyMovement);
-                var enemyBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), shipTexture.Width, shipTexture.Height);
-                var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, 500);
-                var enemyOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
-
-                var healthCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
-                var healthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset[1], new Vector2(0, 25), false, ObjectEvent.HealthRemoved, healthCounterComponent);
-
-                enemy.AddComponent(enemySprite);
-                enemy.AddComponent(enemyMovement);
-                enemy.AddComponent(enemyBullet);
-                enemy.AddComponent(enemyBoundary);
-                enemy.AddComponent(enemyOutOfBounds);
-                enemy.AddComponent(enemyTimed);
-                enemy.AddComponent(healthCounterComponent);
-                enemy.AddComponent(healthBarComponent);
-
-                ForegroundLayer.AddGameObject(enemy);
+                CreateBossOne();
             }
         }
 
-        private void PlayerDeath(GameObject gameObject)
+        #endregion
+
+        #region Boss
+
+        private void CreateBossOne()
         {
-            // Could be moved into the component instead of action?
-            // Or maybe set a flag on game object that other components respond to?
+            var xPosition = GameHelper.GetRelativeX(0.5f);
+            var enemy = new GameObject("BossOne", new Vector2(xPosition, 0));
+            var shipTexture = SpaceGraphics.BossAAsset.First();
+            var enemySprite = new SpriteComponent(shipTexture);
+            var enemyMovement = new MovementComponent(0.1f, FaceDirection.Down, new Vector2(0, 1));
+            var enemyBullet = new BulletComponent(SpaceGraphics.BulletAsset, enemyMovement);
+            var enemyBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), shipTexture.Width, shipTexture.Height);
+            var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, 500);
+            var enemyOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
+            var healthCounterComponent = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
+            var healthBarComponent = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset[1], new Vector2(0, 25), false, ObjectEvent.HealthRemoved, healthCounterComponent);
+            var deathAction = new ObjectEventComponent(ObjectEvent.HealthEmpty, BossDeath);
+
+            enemy.AddComponent(enemySprite);
+            enemy.AddComponent(enemyMovement);
+            enemy.AddComponent(enemyBullet);
+            enemy.AddComponent(enemyBoundary);
+            enemy.AddComponent(enemyOutOfBounds);
+            enemy.AddComponent(enemyTimed);
+            enemy.AddComponent(healthCounterComponent);
+            enemy.AddComponent(healthBarComponent);
+            enemy.AddComponent(deathAction);
+
+            ForegroundLayer.AddGameObject(enemy);
+        }
+
+        private void BossDeath(GameObject gameObject)
+        {            
             gameObject.RemoveGameObject();
-            var death = new GameObject("Death", gameObject.TopLeft);
-            var deathSprite = new SpriteComponent(SpaceGraphics.PlanetAsset[3]);
+            var death = new GameObject("BossDeath", gameObject.Centre);
+            var deathSprite = new ScaleAnimationComponent(SpaceGraphics.PlanetAsset[3], 0, 10, 500, animationCompleteEvent:  ObjectEvent.RemoveEntity);
             death.AddComponent(deathSprite);
             ForegroundLayer.AddGameObject(death);
         }
 
+        #endregion
 
 
-
-        private IEnumerable<Vector2> RandomDrawMethod(int requiredValues, int width)
-        {
-            for (var i = 0; i < requiredValues; i++)
-            {
-                var xValue = _random.Next(-width, width);
-                var yValue = _random.Next(-width, width);
-                yield return new Vector2(xValue, yValue);
-            }
-        }
-
-        private IEnumerable<Vector2> VerticalDrawMethod(int requiredValues, int height)
-        {
-            for (var i = 0; i < requiredValues; i++)
-            {
-                var yValue = height * i;
-                yield return new Vector2(0, yValue);
-            }
-        }
     }
 }
