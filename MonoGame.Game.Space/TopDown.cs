@@ -19,6 +19,15 @@ namespace MonoGame.Game.Space
             
             var level = new StartScreen();
             NextLevel(level);
-        }    
+        }
+
+        #region Game Constants
+
+        public const string EnemyBulletName = "EnemyBullet";
+        public const string EnemyName = "Enemy";
+        public const string PlayerName = "Player";
+        public const string PlayerBulletName = "PlayerBullet";
+
+        #endregion
     }
 }

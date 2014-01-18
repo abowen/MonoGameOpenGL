@@ -14,6 +14,7 @@ namespace MonoGame.Common.Components
 {
     public class BulletComponent : SimpleComponent
     {
+        private readonly string _bulletGameType;
         private readonly Texture2D[] _texture2D;
         private readonly MovementComponent _movementComponent;
         private readonly ObjectEvent _fireEvent;
@@ -25,8 +26,9 @@ namespace MonoGame.Common.Components
         private bool _canFire = true;
 
         
-        public BulletComponent(Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore, int bulletSpeed = 3, Color? color = null, params string[] ignoreCollisionTypes)
+        public BulletComponent(string bulletGameType, Texture2D[] texture, MovementComponent movementComponent, ObjectEvent fireEvent = ObjectEvent.Fire, ObjectEvent stopEvent = ObjectEvent.Ignore, ObjectEvent startEvent = ObjectEvent.Ignore, int bulletSpeed = 3, Color? color = null, params string[] ignoreCollisionTypes)
         {
+            _bulletGameType = bulletGameType;
             _texture2D = texture;
             _movementComponent = movementComponent;
             _fireEvent = fireEvent;
@@ -50,10 +52,8 @@ namespace MonoGame.Common.Components
             else if (eventArgs.Action == _startEvent)
             {
                 _canFire = true;
-            }
-            
+            }            
         }
-
 
         public void Fire()
         {
@@ -63,7 +63,7 @@ namespace MonoGame.Common.Components
             var startLocation = Owner.Centre;
             startLocation += (direction * new Vector2(Owner.Width, Owner.Height));
             startLocation += (direction * new Vector2(bulletTexture.Width + 1, bulletTexture.Height + 1));
-            var bullet = new GameObject("Bullet", startLocation);
+            var bullet = new GameObject(_bulletGameType, startLocation);
             var bulletMovement = new MovementComponent(_bulletSpeed, _movementComponent.FaceDirection, direction);
             var bulletSprite = new SpriteComponent(bulletTexture, color: _color);
             var bulletBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width, bulletTexture.Height, true, _ignoreCollisionTypes);

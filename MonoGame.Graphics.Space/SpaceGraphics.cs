@@ -16,6 +16,7 @@ namespace MonoGame.Graphics.Space
         private static readonly string EnemyShip = "EnemyShip";
         private static readonly string Bullet = "Bullet";
         private static readonly string LargeBullet = "LargeBullet";
+        private static readonly string LargeExplosion = "LargeExplosion";
         private static readonly string MiniBullet = "MiniBullet";
         private static readonly string MiniEnemyShip = "MiniEnemyShip";
         private static readonly string Health = "Health";
@@ -35,6 +36,7 @@ namespace MonoGame.Graphics.Space
         public static Texture2D[] EnemyShipAsset { get { return Assets[EnemyShip]; } }
         public static Texture2D[] BulletAsset { get { return Assets[Bullet]; } }
         public static Texture2D[] LargeBulletAsset { get { return Assets[LargeBullet]; } }
+        public static Texture2D[] LargeExpolosionAsset { get { return Assets[LargeExplosion]; } }
         public static Texture2D[] MiniBulletAsset { get { return Assets[MiniBullet]; } }
         public static Texture2D[] MiniEnemyShipAsset { get { return Assets[MiniEnemyShip]; } }
         public static Texture2D[] HealthAsset { get { return Assets[Health]; } }
@@ -109,6 +111,12 @@ namespace MonoGame.Graphics.Space
                 content.Load<Texture2D>("LargeBullet")
             };
             Assets.Add(LargeBullet, largeBullet);
+
+            var largeExplosion = new[]
+            {
+                content.Load<Texture2D>("LargeExplosion01")
+            };
+            Assets.Add(LargeExplosion, largeExplosion);
 
             var miniBullet = new[]
             {

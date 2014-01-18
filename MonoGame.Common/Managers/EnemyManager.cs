@@ -17,6 +17,8 @@ namespace MonoGame.Common.Managers
 {
     public class EnemyManager : IManager
     {
+        private readonly string _enemyName;
+        private readonly string _bulletName;
         private readonly Texture2D _shipTexture;        
         private readonly GameLayer _gameLayer;
         private readonly int _speed;
@@ -28,8 +30,10 @@ namespace MonoGame.Common.Managers
         private int _currentMaximumEnemies;
         private readonly int _totalMaximumEnemies;
 
-        public EnemyManager(Texture2D shipTexture, double spawnDelayMilliseconds, double bulletDelayMilliseconds, GameLayer gameLayer, int speed, SoundEffect deathSound, int currentMaximumEnemies, int totalMaximumEnemies)
+        public EnemyManager(string enemyName, string bulletName, Texture2D shipTexture, double spawnDelayMilliseconds, double bulletDelayMilliseconds, GameLayer gameLayer, int speed, SoundEffect deathSound, int currentMaximumEnemies, int totalMaximumEnemies)
         {
+            _enemyName = enemyName;
+            _bulletName = bulletName;
             _shipTexture = shipTexture;            
             _gameLayer = gameLayer;
             _speed = speed;
@@ -40,12 +44,11 @@ namespace MonoGame.Common.Managers
             _currentMaximumEnemies = currentMaximumEnemies;
             _totalMaximumEnemies = totalMaximumEnemies;
         }
-
-        private const string EnemyGameType = "Enemy";
+        
 
         public void Update(GameTime gameTime)
-        {            
-            var enemyCount = _gameLayer.GameObjects.Count(gameObject => gameObject.GameType == EnemyGameType);
+        {
+            var enemyCount = _gameLayer.GameObjects.Count(gameObject => gameObject.GameType == _enemyName);
             _elapsedTimeMilliseconds += gameTime.ElapsedGameTime.TotalMilliseconds;            
 
             if (_elapsedTimeMilliseconds > _spawnDelayMilliseconds &&
@@ -54,11 +57,11 @@ namespace MonoGame.Common.Managers
             {
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);
-                var gameObject = new GameObject(EnemyGameType, new Vector2(xLocation, 0));
+                var gameObject = new GameObject(_enemyName, new Vector2(xLocation, 0));
                 var sprite = new SpriteComponent(_shipTexture);
                 var movement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, _speed));
-                var bullet = new BulletComponent(SpaceGraphics.BulletAsset, movement, ignoreCollisionTypes: EnemyGameType);
-                var boundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), _shipTexture.Width, _shipTexture.Height, true, EnemyGameType);
+                var bullet = new BulletComponent(_bulletName, SpaceGraphics.BulletAsset, movement, ignoreCollisionTypes: _enemyName);
+                var boundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), _shipTexture.Width, _shipTexture.Height, true, _enemyName);
                 var instance = new InstanceComponent();
                 var timedAction = new TimedActionComponent(ObjectEvent.Fire, _bulletDelayMilliseconds);
                 var outOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);

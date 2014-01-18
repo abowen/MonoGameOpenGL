@@ -33,7 +33,7 @@ namespace MonoGame.Game.Space.Levels
             BackgroundLayer.Managers.Add(backgroundManager);
             backgroundManager.VerticalBoundary(0, 0);
 
-            var backgroundEnemyManager = new EnemyManager(SpaceGraphics.MiniEnemyShipAsset.First(), 5000, 10000, BackgroundLayer, 2, SpaceSounds.Sound_Explosion01, 10, 20);
+            var backgroundEnemyManager = new EnemyManager(TopDown.EnemyName, TopDown.EnemyBulletName, SpaceGraphics.MiniEnemyShipAsset.First(), 5000, 10000, BackgroundLayer, 2, SpaceSounds.Sound_Explosion01, 10, 20);
             BackgroundLayer.Managers.Add(backgroundEnemyManager);
         }
 
@@ -44,7 +44,7 @@ namespace MonoGame.Game.Space.Levels
 
         protected override void LoadForeground()
         {
-            var enemyManager = new EnemyManager(SpaceGraphics.EnemyShipAsset.First(), 100, 1000, ForegroundLayer, 2, SpaceSounds.Sound_Explosion01, 5, 50);
+            var enemyManager = new EnemyManager(TopDown.EnemyName, TopDown.EnemyBulletName, SpaceGraphics.EnemyShipAsset.First(), 100, 1000, ForegroundLayer, 2, SpaceSounds.Sound_Explosion01, 5, 50);
             ForegroundLayer.Managers.Add(enemyManager);
 
             var asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, ForegroundLayer);
@@ -62,7 +62,7 @@ namespace MonoGame.Game.Space.Levels
             var xPosition = GameHelper.GetRelativeX(0.5f);
             var yPosition = GameHelper.GetRelativeY(0.8f);
 
-            var player = new GameObject("Player", new Vector2(xPosition, yPosition));
+            var player = new GameObject(TopDown.PlayerName, new Vector2(xPosition, yPosition));
 
             var texture = SpaceGraphics.PlayerShipAsset.First();
             var sprite = new SpriteComponent(texture);
@@ -76,7 +76,7 @@ namespace MonoGame.Game.Space.Levels
             //healthBar.SetDynamicColors(Color.DarkRed, Color.Red, Color.Orange, Color.Yellow, Color.ForestGreen);
             healthBar.SetColorEvent(ObjectEvent.HealthRemoved, HealthColourFunc);
 
-            var bullet = new BulletComponent(SpaceGraphics.LargeBulletAsset, movement, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10, Color.DarkRed);
+            var bullet = new BulletComponent(TopDown.PlayerBulletName, SpaceGraphics.LargeBulletAsset, movement, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10, Color.DarkOrange);
             var ammoCounter = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 50, 0);
             var ammoBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, ammoCounter, true, Color.Gray);
             var ammoMovement = new EventMovementComponent(new Vector2(0, 5), ObjectEvent.AmmoRemoved);
@@ -113,14 +113,19 @@ namespace MonoGame.Game.Space.Levels
         }
 
         private void PlayerDeath(GameObject gameObject)
-        {
-            // Could be moved into the component instead of action?
-            // Or maybe set a flag on game object that other components respond to?
+        {            
             gameObject.RemoveGameObject();
             var death = new GameObject("Death", gameObject.TopLeft);
-            var deathSprite = new SpriteComponent(SpaceGraphics.PlanetAsset[3]);
-            death.AddComponent(deathSprite);
-            ForegroundLayer.AddGameObject(death);
+            var deathAnimation = new ScaleAnimationComponent(SpaceGraphics.LargeExpolosionAsset[0], 0, 50, 5000, Color.DarkRed, null, ObjectEvent.RemoveEntity);
+            var exitLevel = new ObjectEventComponent(ObjectEvent.RemoveEntity, ExitLevelAction);
+            death.AddComponent(deathAnimation);
+            death.AddComponent(exitLevel);
+            DisplayLayer.AddGameObject(death);
+        }
+
+        private void ExitLevelAction(GameObject gameObject)
+        {
+            BackLevel();
         }
 
         private IEnumerable<Vector2> RandomDrawMethod(int requiredValues, int width)
@@ -173,7 +178,7 @@ namespace MonoGame.Game.Space.Levels
             var shipTexture = SpaceGraphics.BossAAsset.First();
             var enemySprite = new SpriteComponent(shipTexture);
             var enemyMovement = new MovementComponent(0.1f, FaceDirection.Down, new Vector2(0, 1));
-            var enemyBullet = new BulletComponent(SpaceGraphics.BulletAsset, enemyMovement);
+            var enemyBullet = new BulletComponent(TopDown.EnemyBulletName, SpaceGraphics.BulletAsset, enemyMovement);
             var enemyBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), shipTexture.Width, shipTexture.Height);
             var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, 500);
             var enemyOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
@@ -198,8 +203,8 @@ namespace MonoGame.Game.Space.Levels
         {
             gameObject.RemoveGameObject();
             var death = new GameObject("BossDeath", gameObject.Centre);
-            var deathSprite = new ScaleAnimationComponent(SpaceGraphics.PlanetAsset[3], 0, 10, 500, animationCompleteEvent: ObjectEvent.RemoveEntity);
-            death.AddComponent(deathSprite);
+            var deathAnimation = new ScaleAnimationComponent(SpaceGraphics.PlanetAsset[3], 0, 10, 500, animationCompleteEvent: ObjectEvent.RemoveEntity);
+            death.AddComponent(deathAnimation);
             ForegroundLayer.AddGameObject(death);
         }
 
