@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Common.Components;
+using MonoGame.Common.Components.States;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
 using MonoGame.Common.Infrastructure;
@@ -25,7 +26,7 @@ namespace MonoGame.Common.Entities
         private BoundaryComponent _boundaryComponent;
         private bool _hadCollision;
         private bool _preHadCollision;
-        private StateComponent _stateComponent;
+        private StateStringComponent _stateStringComponent;
 
         public GameObject(string typeName, Vector2 topLeftLocation, float rotation = 0, float scale = 1f)
         {
@@ -132,16 +133,16 @@ namespace MonoGame.Common.Entities
             }
         }
 
-        private StateComponent StateComponent
+        private StateStringComponent StateStringComponent
         {
             get
             {
-                if (_stateComponent == null)
+                if (_stateStringComponent == null)
                 {
-                    var item = _components.FirstOrDefault(c => c.GetType() == typeof(StateComponent)) as StateComponent;
-                    _stateComponent = item;
+                    var item = _components.FirstOrDefault(c => c.GetType() == typeof(StateStringComponent)) as StateStringComponent;
+                    _stateStringComponent = item;
                 }
-                return _stateComponent;
+                return _stateStringComponent;
             }
         }
 
@@ -169,7 +170,7 @@ namespace MonoGame.Common.Entities
 
         public bool HasState
         {
-            get { return StateComponent != null; }
+            get { return StateStringComponent != null; }
         }
 
 

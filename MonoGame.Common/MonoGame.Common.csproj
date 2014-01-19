@@ -56,7 +56,8 @@
     <Compile Include="Components\Movement\GridMovementComponent.cs" />
     <Compile Include="Components\Movement\RotationComponent.cs" />
     <Compile Include="Components\Movement\RotationMovementComponent.cs" />
-    <Compile Include="Components\StateComponent.cs" />
+    <Compile Include="Components\States\StateComponent.cs" />
+    <Compile Include="Components\States\StateStringComponent.cs" />
     <Compile Include="Components\Input\LocalButtonComponent.cs" />
     <Compile Include="Components\Graphics\SpriteMappingComponent.cs" />
     <Compile Include="Components\Input\LocalKeyboardComponent.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\GameLayer.cs" />
     <Compile Include="Infrastructure\GameLevel.cs" />
+    <Compile Include="Interfaces\IStateComponent.cs" />
     <Compile Include="Interfaces\ICounterComponent.cs" />
     <Compile Include="Interfaces\IButtonInput.cs" />
     <Compile Include="Interfaces\IRotationComponent.cs" />

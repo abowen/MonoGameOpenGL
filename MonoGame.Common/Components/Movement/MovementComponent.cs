@@ -4,7 +4,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components.Movement
 {
-    public class MovementComponent : SimpleComponent, ISimpleUpdateable, IMovementComponent
+    public class MovementComponent : SimpleComponent, ISimpleUpdateable, IMovementComponent, IStateComponent
     {
         public MovementComponent(float baseSpeed, FaceDirection startFaceDirection, Vector2 movementInputDirection)
         {
@@ -64,6 +64,14 @@ namespace MonoGame.Common.Components.Movement
         public void Update(GameTime gameTime)
         {
             Owner.TopLeft += Velocity;            
-        }           
+        }
+
+        public bool State
+        {
+            get
+            {
+                return InputDirection != Vector2.Zero;
+            }            
+        }
     }
 }

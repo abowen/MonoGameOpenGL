@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.States
 {
-    public class StateComponent : SimpleComponent
+    public class StateStringComponent : SimpleComponent
     {
         public override void SetOwner(GameObject owner)
         {
@@ -30,20 +30,20 @@ namespace MonoGame.Common.Components
 
         public void AddComponentState(SimpleComponent component, string enableState, string disableState)
         {
-            var state = new State(component, enableState, disableState);
+            var state = new StateString(component, enableState, disableState);
             States.Add(state);
         }
 
-        public List<State> States = new List<State>(); 
+        public List<StateString> States = new List<StateString>(); 
     }
 
-    public class State
+    public class StateString
     {
         public readonly SimpleComponent Component;
         public readonly string EnableState;
         public readonly string DisableState;
 
-        public State(SimpleComponent component, string enableState, string disableState)
+        public StateString(SimpleComponent component, string enableState, string disableState)
         {
             Component = component;
             EnableState = enableState;

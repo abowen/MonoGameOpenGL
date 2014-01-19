@@ -131,7 +131,7 @@ namespace MonoGame.Game.Surfing
             var onWave = "OnWave";
             var inAir = "InAir";
 
-            var state = new StateComponent();
+            var state = new StateStringComponent();
             state.AddComponentState(rotationMovement, onWave, inAir);
             state.AddComponentState(rotation, inAir, onWave);
             state.AddComponentState(airGravityMovement, inAir, onWave);

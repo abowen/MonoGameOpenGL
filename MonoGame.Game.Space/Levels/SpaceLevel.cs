@@ -87,13 +87,9 @@ namespace MonoGame.Game.Space.Levels
             player.AddComponent(thrusterRight);
 
             // STATE
-            var state = new StateComponent();
-            var isMoving = "IsMoving";
-            var notMoving = "NotMoving";
-            state.AddComponentState(thrusterLeft, isMoving, notMoving);
-            state.AddComponentState(thrusterRight, isMoving, notMoving);
-            var movementState = new MovementStateComponent(movement, isMoving, notMoving);
-            player.AddComponent(movementState);
+            var state = new StateComponent();            
+            state.AddComponentState(thrusterLeft, movement);
+            state.AddComponentState(thrusterRight, movement);            
             player.AddComponent(state);
                                     
             // HEALTH
