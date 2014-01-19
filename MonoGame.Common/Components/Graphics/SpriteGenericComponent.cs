@@ -12,6 +12,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components.Graphics
 {
+    // TODO: Could refactor this into more individual parts
     public class SpriteGenericComponent : SimpleComponent, ISimpleDrawable, ISimpleUpdateable
     {
         internal Texture2D[] Textures;
@@ -55,7 +56,7 @@ namespace MonoGame.Common.Components.Graphics
                 _currentValue = _counterIncrementComponent.CurrentValue;
 
                 var requiredItems = _currentValue;
-                var newVectors = _drawMethod(requiredItems, 5).ToList();                
+                var newVectors = _drawMethod(requiredItems, 4).ToList();                
                 _locations = newVectors;
             }
         }

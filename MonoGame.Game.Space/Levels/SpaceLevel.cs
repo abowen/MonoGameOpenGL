@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Components;
 using MonoGame.Common.Components.Animation;
 using MonoGame.Common.Components.Audio;
@@ -86,10 +87,16 @@ namespace MonoGame.Game.Space.Levels
             player.AddComponent(input);
 
             // THRUSTER            
-            var thrusterLeft = new SpriteComponent(SpaceGraphics.FlameAsset, new Vector2(2, 16), color: Color.DarkRed);
-            var thrusterRight = new SpriteComponent(SpaceGraphics.FlameAsset, new Vector2(11, 16), color: Color.DarkRed);
+            var thrusterLeft = new SpriteComponent(SpaceGraphics.FlameAsset, new Vector2(2, 16), color: Color.BlueViolet);
+            var thrusterRight = new SpriteComponent(SpaceGraphics.FlameAsset, new Vector2(11, 16), color: Color.BlueViolet);
             player.AddComponent(thrusterLeft);
             player.AddComponent(thrusterRight);
+
+            // GUNS
+            var gunLeft = new SpriteComponent(SpaceGraphics.PlayerGunLeftAsset, new Vector2(-6, 8), color: Color.White);
+            var gunRight = new SpriteComponent(SpaceGraphics.PlayerGunRightAsset, new Vector2(16, 8), color: Color.White);
+            player.AddComponent(gunLeft);
+            player.AddComponent(gunRight);
 
             // STATE
             var state = new StateComponent();            
@@ -105,17 +112,31 @@ namespace MonoGame.Game.Space.Levels
             player.AddComponent(healthCounter);
             player.AddComponent(healthBar); 
 
-            // FIRING
-            var bullet = new BulletComponent(TopDown.PlayerBulletName, SpaceGraphics.LargeBulletAsset, movement, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 10, Color.DarkOrange);
+            // FIRING - MACHINE GUN
+            var machineGun = new BulletComponent(TopDown.PlayerBulletName, SpaceGraphics.LargeBulletAsset, movement, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 20, Color.DarkOrange);
             var ammoCounter = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 50, 0);
-            var ammoBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, ammoCounter, true, Color.Gray);
+            var ammoBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, ammoCounter, true, Color.DarkOrange);
             var ammoMovement = new EventMovementComponent(new Vector2(0, 5), ObjectEvent.AmmoRemoved);
             var ammoSound = new EventSoundComponent(SpaceSounds.Sound_LongFire01, ObjectEvent.AmmoRemoved);
-            player.AddComponent(bullet);
+            player.AddComponent(machineGun);
             player.AddComponent(ammoCounter);
             player.AddComponent(ammoMovement);                        
             player.AddComponent(ammoBar);
             player.AddComponent(ammoSound);
+
+            // FIRING - MISSILE
+            var missileKeyboard = new KeyboardEventComponent(Keys.Z, ObjectEvent.MissileFire);
+            var missile = new BulletComponent(TopDown.PlayerBulletName, SpaceGraphics.MissileAsset, movement, ObjectEvent.MissileRemoved, ObjectEvent.MissileEmpty, ObjectEvent.MissileReset, 0, Color.White, 0.5f, new Vector2(-15, 10));
+            var missileCounter = new CounterIncrementComponent(ObjectEvent.MissileFire, ObjectEvent.MissileRemoved, ObjectEvent.MissileEmpty, ObjectEvent.MissileReset, 10, 0);
+            var missileBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-30, 25), true, ObjectEvent.MissileRemoved, missileCounter, true, Color.DarkGray);
+            var missileMovement = new EventMovementComponent(new Vector2(0, 10), ObjectEvent.MissileRemoved);
+            var missileSound = new EventSoundComponent(SpaceSounds.Sound_ShortFire01, ObjectEvent.MissileRemoved);
+            player.AddComponent(missileKeyboard);
+            player.AddComponent(missile);
+            player.AddComponent(missileCounter);
+            player.AddComponent(missileMovement);
+            player.AddComponent(missileBar);
+            player.AddComponent(missileSound);
 
             // DAMAGE
             var fireCounter = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.ElectricalFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);
@@ -209,7 +230,7 @@ namespace MonoGame.Game.Space.Levels
             var shipTexture = SpaceGraphics.BossAAsset.First();
             var enemySprite = new SpriteComponent(shipTexture);
             var enemyMovement = new MovementComponent(0.1f, FaceDirection.Down, new Vector2(0, 1));
-            var enemyBullet = new BulletComponent(TopDown.EnemyBulletName, SpaceGraphics.BulletAsset, enemyMovement);
+            var enemyBullet = new BulletComponent(TopDown.EnemyBulletName, SpaceGraphics.BulletAsset[0], enemyMovement);
             var enemyBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), shipTexture.Width, shipTexture.Height);
             var enemyTimed = new TimedActionComponent(ObjectEvent.Fire, enemyBulletDelay);
             var enemyOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
