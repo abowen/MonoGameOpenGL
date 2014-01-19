@@ -27,6 +27,7 @@ namespace MonoGame.Game.Space
         public const string EnemyName = "Enemy";
         public const string PlayerName = "Player";
         public const string PlayerBulletName = "PlayerBullet";
+        public const string AllTypes = "AllTypes";
 
         #endregion
     }

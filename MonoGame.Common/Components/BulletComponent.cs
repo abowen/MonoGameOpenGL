@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -63,6 +64,13 @@ namespace MonoGame.Common.Components
             }
         }
 
+        private Action<GameObject> _collisionAction;
+
+        public void SetCollisionAction(Action<GameObject> collisionAction)
+        {
+            _collisionAction = collisionAction;
+        }
+
         public void Fire()
         {
             var bulletTexture = _texture2D;
@@ -88,13 +96,24 @@ namespace MonoGame.Common.Components
             }
 
             var bulletSprite = new SpriteComponent(bulletTexture, color: _color);
-            var bulletBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width, bulletTexture.Height, true, _ignoreCollisionTypes);
-            var instanceComponent = new InstanceComponent();
+            var bulletBoundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), bulletTexture.Width, bulletTexture.Height, true, false, _ignoreCollisionTypes);
+
+            if (_collisionAction != null)
+            {
+                var collisionAction = new ObjectEventComponent(ObjectEvent.CollisionEnter, _collisionAction);
+                bullet.AddComponent(collisionAction);
+            }
+            else
+            {
+                var instanceComponent = new InstanceComponent();
+                bullet.AddComponent(instanceComponent);
+            }
+            
             var bulletOutOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
             
             bullet.AddComponent(bulletSprite);
             bullet.AddComponent(bulletBoundary);
-            bullet.AddComponent(instanceComponent);
+            
             bullet.AddComponent(bulletOutOfBounds);
 
             Owner.GameLayer.AddGameObject(bullet);

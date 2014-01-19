@@ -29,14 +29,17 @@ namespace MonoGame.Common.Components.Boundary
             }
         }
 
-        public BoundaryComponent(Texture2D texture, int? width = null, int? height = null, bool cameraScale = true, params string[] ignoreTypes)
+        public BoundaryComponent(Texture2D texture, int? width = null, int? height = null, bool cameraScale = true, bool isInvulnerable = false, params string[] ignoreTypes)
         {
             _texture = texture;
             Width = width ?? _texture.Width;
             Height = height ?? _texture.Height;
             IsCameraScaled = cameraScale;
+            IsInvulnerable = isInvulnerable;
             IgnoreTypes = ignoreTypes ?? new string[0];
         }
+
+        public bool IsInvulnerable { get; private set; }
 
         public BoundaryComponent(int width, int height)
         {

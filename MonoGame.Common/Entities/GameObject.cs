@@ -278,7 +278,7 @@ namespace MonoGame.Common.Entities
 
         public void RaiseCollisionEvent(GameObject otherGameObject)
         {
-            if (IgnoreCollisionTypes.Contains(otherGameObject.GameType))
+            if (IgnoreCollisionTypes.Contains(otherGameObject.GameType) || BoundaryComponent.IsInvulnerable)
             {
                 return;
             }

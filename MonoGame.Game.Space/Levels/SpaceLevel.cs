@@ -29,7 +29,8 @@ namespace MonoGame.Game.Space.Levels
         private GameObject _scoreGameObject;
         private readonly Random _random = new Random();
 
-        public SpaceLevel() : base(2f)
+        public SpaceLevel()
+            : base(2f)
         {
             GameConstants.GameInstance.ResetScore();
         }
@@ -77,7 +78,7 @@ namespace MonoGame.Game.Space.Levels
             var sprite = new SpriteComponent(texture);
             var boundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), texture.Width, texture.Height);
             player.AddComponent(boundary);
-            player.AddComponent(sprite);            
+            player.AddComponent(sprite);
 
             // MOVEMENT
             var movement = new MovementComponent(5, FaceDirection.Up, Vector2.Zero);
@@ -99,18 +100,18 @@ namespace MonoGame.Game.Space.Levels
             player.AddComponent(gunRight);
 
             // STATE
-            var state = new StateComponent();            
+            var state = new StateComponent();
             state.AddComponentState(thrusterLeft, movement);
-            state.AddComponentState(thrusterRight, movement);            
+            state.AddComponentState(thrusterRight, movement);
             player.AddComponent(state);
-                                    
+
             // HEALTH
             var healthCounter = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.HealthRemoved, ObjectEvent.HealthEmpty, ObjectEvent.HealthReset, 5, 0);
             var healthBar = new SpriteRepeaterComponent(SpaceGraphics.HealthBarAsset.First(), new Vector2(0, 35), false, ObjectEvent.HealthRemoved, healthCounter, false, Color.ForestGreen);
             //healthBar.SetDynamicColors(Color.DarkRed, Color.Red, Color.Orange, Color.Yellow, Color.ForestGreen);
             healthBar.SetColorEvent(ObjectEvent.HealthRemoved, HealthColourFunc);
             player.AddComponent(healthCounter);
-            player.AddComponent(healthBar); 
+            player.AddComponent(healthBar);
 
             // FIRING - MACHINE GUN
             var machineGun = new BulletComponent(TopDown.PlayerBulletName, SpaceGraphics.LargeBulletAsset, movement, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 20, Color.DarkOrange);
@@ -120,7 +121,7 @@ namespace MonoGame.Game.Space.Levels
             var ammoSound = new EventSoundComponent(SpaceSounds.Sound_LongFire01, ObjectEvent.AmmoRemoved);
             player.AddComponent(machineGun);
             player.AddComponent(ammoCounter);
-            player.AddComponent(ammoMovement);                        
+            player.AddComponent(ammoMovement);
             player.AddComponent(ammoBar);
             player.AddComponent(ammoSound);
 
@@ -131,6 +132,7 @@ namespace MonoGame.Game.Space.Levels
             var missileBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-30, 25), true, ObjectEvent.MissileRemoved, missileCounter, true, Color.DarkGray);
             var missileMovement = new EventMovementComponent(new Vector2(0, 10), ObjectEvent.MissileRemoved);
             var missileSound = new EventSoundComponent(SpaceSounds.Sound_ShortFire01, ObjectEvent.MissileRemoved);
+            missile.SetCollisionAction(MissileCollision);
             player.AddComponent(missileKeyboard);
             player.AddComponent(missile);
             player.AddComponent(missileCounter);
@@ -147,8 +149,25 @@ namespace MonoGame.Game.Space.Levels
             // DEATH
             var deathEvent = new ObjectEventComponent(ObjectEvent.HealthEmpty, PlayerDeath);
             player.AddComponent(deathEvent);
-                                                                                               
+
             ForegroundLayer.AddGameObject(player);
+        }
+
+        private void MissileCollision(GameObject gameObject)
+        {
+            var explosionScale = 7;
+            var explosionTexture = SpaceGraphics.LargeExpolosionAsset[0];
+            var dimension = explosionTexture.Width * explosionScale;
+
+            var explosion = new GameObject("Collision", gameObject.TopLeft);
+            var animation = new ScaleAnimationComponent(explosionTexture, 0, explosionScale, 100, Color.OrangeRed, null, ObjectEvent.RemoveEntity);            
+            var boundary = new BoundaryComponent(null, dimension, dimension, isInvulnerable: true);
+            explosion.AddComponent(animation);            
+            explosion.AddComponent(boundary);
+
+            gameObject.GameLayer.AddGameObject(explosion);
+            gameObject.RemoveGameObject();
+            
         }
 
         private readonly Stack<Color> _playerColourStack = new Stack<Color>(new[] { Color.Gray, Color.DarkRed, Color.Red, Color.Yellow, Color.Orange });
@@ -160,7 +179,7 @@ namespace MonoGame.Game.Space.Levels
         }
 
         private void PlayerDeath(GameObject gameObject)
-        {            
+        {
             gameObject.RemoveGameObject();
             var death = new GameObject("Death", gameObject.TopLeft);
             var deathAnimation = new ScaleAnimationComponent(SpaceGraphics.LargeExpolosionAsset[0], 0, 50, 3000, Color.DarkRed, null, ObjectEvent.RemoveEntity);
@@ -213,7 +232,7 @@ namespace MonoGame.Game.Space.Levels
                 CreateBossOne(750);
             }
             if (scoreEventArgs.Score == 20)
-            {                
+            {
                 CreateBossOne(500, 2);
             }
         }
@@ -225,7 +244,7 @@ namespace MonoGame.Game.Space.Levels
         private void CreateBossOne(int enemyBulletDelay, int scale = 1)
         {
             var xPosition = GameHelper.GetRelativeX(0.5f);
-            var enemy = new GameObject("Boss", new Vector2(xPosition, 0)) {Scale = scale};
+            var enemy = new GameObject("Boss", new Vector2(xPosition, 0)) { Scale = scale };
 
             var shipTexture = SpaceGraphics.BossAAsset.First();
             var enemySprite = new SpriteComponent(shipTexture);

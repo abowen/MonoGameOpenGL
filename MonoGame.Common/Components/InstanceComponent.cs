@@ -7,12 +7,7 @@ using MonoGame.Common.Interfaces;
 namespace MonoGame.Common.Components
 {
     public class InstanceComponent : SimpleComponent, ISimpleUpdateable
-    {
-        public InstanceComponent()
-        {
-
-        }
-
+    {        
         private void OwnerOnObjectEvent(object sender, ObjectEventArgs objectEventArgs)
         {
             if (objectEventArgs.Action == ObjectEvent.CollisionEnter)

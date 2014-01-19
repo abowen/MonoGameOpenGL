@@ -62,7 +62,7 @@ namespace MonoGame.Common.Managers
                 var sprite = new SpriteComponent(_shipTexture);
                 var movement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, _speed));
                 var bullet = new BulletComponent(_bulletName, SpaceGraphics.BulletAsset[0], movement, ignoreCollisionTypes: _enemyName);
-                var boundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), _shipTexture.Width, _shipTexture.Height, true, _enemyName);
+                var boundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), _shipTexture.Width, _shipTexture.Height, true, false, _enemyName);
                 var instance = new InstanceComponent();
                 var timedAction = new TimedActionComponent(ObjectEvent.Fire, _bulletDelayMilliseconds);
                 var outOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
