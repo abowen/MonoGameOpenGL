@@ -5,7 +5,9 @@ using Microsoft.Xna.Framework;
 using MonoGame.Common.Components;
 using MonoGame.Common.Components.Animation;
 using MonoGame.Common.Components.Audio;
+using MonoGame.Common.Components.Boundary;
 using MonoGame.Common.Components.Graphics;
+using MonoGame.Common.Components.Input;
 using MonoGame.Common.Components.Logic;
 using MonoGame.Common.Components.Movement;
 using MonoGame.Common.Components.States;
@@ -26,7 +28,10 @@ namespace MonoGame.Game.Space.Levels
         private GameObject _scoreGameObject;
         private readonly Random _random = new Random();
 
-        public SpaceLevel() : base(2f) { }
+        public SpaceLevel() : base(2f)
+        {
+            GameConstants.GameInstance.ResetScore();
+        }
 
         protected override void LoadBackground()
         {
@@ -105,7 +110,7 @@ namespace MonoGame.Game.Space.Levels
             var ammoCounter = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 50, 0);
             var ammoBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, ammoCounter, true, Color.Gray);
             var ammoMovement = new EventMovementComponent(new Vector2(0, 5), ObjectEvent.AmmoRemoved);
-            var ammoSound = new EventSoundComponent(SpaceSounds.Sound_ShortFire01, ObjectEvent.AmmoRemoved);
+            var ammoSound = new EventSoundComponent(SpaceSounds.Sound_LongFire01, ObjectEvent.AmmoRemoved);
             player.AddComponent(bullet);
             player.AddComponent(ammoCounter);
             player.AddComponent(ammoMovement);                        
@@ -182,11 +187,11 @@ namespace MonoGame.Game.Space.Levels
             {
                 _scoreGameObject.Event(ObjectEvent.ScoreIncrease);
             }
-            if (scoreEventArgs.Score == 5)
+            if (scoreEventArgs.Score == 10)
             {
                 CreateBossOne(750);
             }
-            if (scoreEventArgs.Score == 10)
+            if (scoreEventArgs.Score == 20)
             {                
                 CreateBossOne(500, 2);
             }

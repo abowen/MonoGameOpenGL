@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Common.Components;
+using MonoGame.Common.Components.Boundary;
 using MonoGame.Common.Components.States;
 using MonoGame.Common.Enums;
 using MonoGame.Common.Events;
@@ -204,7 +204,7 @@ namespace MonoGame.Common.Entities
             List<ISimpleUpdateable>.Enumerator enumerable = _updateableComponents.GetEnumerator();
             while (IsEnabled && enumerable.MoveNext())
             {
-                ISimpleUpdateable component = enumerable.Current;
+                var component = enumerable.Current;
                 if (component.IsEnabled)
                 {
                     component.Update(gameTime);

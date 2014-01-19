@@ -17,6 +17,15 @@ namespace MonoGame.Common.Infrastructure
             }
         }
 
+        public void ResetScore()
+        {
+            _score = 0;
+            if (ScoreEventHandler != null)
+            {
+                ScoreEventHandler.Invoke(this, new ScoreEventArgs { Score = _score });
+            }
+        }
+
         public EventHandler<ScoreEventArgs> ScoreEventHandler;
     }
 }

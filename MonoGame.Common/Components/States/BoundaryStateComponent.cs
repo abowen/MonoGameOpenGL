@@ -4,6 +4,7 @@ using MonoGame.Common.Interfaces;
 
 namespace MonoGame.Common.Components.States
 {
+    // TODO: Use the IStateComponent and remove StateStringComponent
     public class BoundaryStateComponent : SimpleComponent, ISimpleUpdateable
     {
         private readonly Rectangle _boundaryRectangle;

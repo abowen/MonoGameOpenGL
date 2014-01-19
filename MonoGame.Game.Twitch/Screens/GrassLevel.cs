@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Components;
+using MonoGame.Common.Components.Boundary;
 using MonoGame.Common.Components.Graphics;
 using MonoGame.Common.Components.Input;
 using MonoGame.Common.Components.Movement;

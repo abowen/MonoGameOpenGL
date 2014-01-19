@@ -42,8 +42,8 @@
     <Compile Include="Components\Animation\ScaleAnimationComponent.cs" />
     <Compile Include="Components\Audio\EventSoundComponent.cs" />
     <Compile Include="Components\BulletComponent.cs" />
-    <Compile Include="Components\BoundaryComponent.cs" />
-    <Compile Include="Components\BoundaryEventComponent.cs" />
+    <Compile Include="Components\Boundary\BoundaryComponent.cs" />
+    <Compile Include="Components\Boundary\BoundaryEventComponent.cs" />
     <Compile Include="Components\Movement\AccelerateMovementComponent.cs" />
     <Compile Include="Components\States\BoundaryStateComponent.cs" />
     <Compile Include="Components\Graphics\SpriteMappingsComponent.cs" />
@@ -52,7 +52,6 @@
     <Compile Include="Components\Input\KeyboardActionComponent.cs" />
     <Compile Include="Components\Logic\CounterComponent.cs" />
     <Compile Include="Components\Movement\EventMovementComponent.cs" />
-    <Compile Include="Components\Movement\FrictionComponent.cs" />
     <Compile Include="Components\Movement\GridMovementComponent.cs" />
     <Compile Include="Components\Movement\RotationComponent.cs" />
     <Compile Include="Components\Movement\RotationMovementComponent.cs" />
@@ -65,13 +64,12 @@
     <Compile Include="Components\ObjectEventComponent.cs" />
     <Compile Include="Components\Graphics\SpriteGenericComponent.cs" />
     <Compile Include="Components\Logic\CounterIncrementComponent.cs" />
-    <Compile Include="Components\OutOfBoundsComponent.cs" />
+    <Compile Include="Components\Boundary\OutOfBoundsComponent.cs" />
     <Compile Include="Components\Graphics\SpriteRepeaterComponent.cs" />
     <Compile Include="Components\InstanceComponent.cs" />
-    <Compile Include="Components\InputComponent.cs" />
+    <Compile Include="Components\Input\InputComponent.cs" />
     <Compile Include="Components\Movement\MovementComponent.cs" />
     <Compile Include="Components\Graphics\TextComponent.cs" />
-    <Compile Include="Components\States\MovementStateComponent.cs" />
     <Compile Include="Components\TimedActionComponent.cs" />
     <Compile Include="Components\Graphics\SpriteComponent.cs" />
     <Compile Include="Entities\GameObject.cs" />

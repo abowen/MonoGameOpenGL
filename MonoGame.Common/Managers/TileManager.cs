@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Common.Components;
+using MonoGame.Common.Components.Boundary;
 using MonoGame.Common.Components.Graphics;
 using MonoGame.Common.Entities;
 using MonoGame.Common.Infrastructure;

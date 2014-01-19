@@ -10,7 +10,7 @@ using MonoGame.Common.Helpers;
 using MonoGame.Common.Infrastructure;
 using MonoGame.Common.Interfaces;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.Input
 {
     public class InputComponent : SimpleComponent, ISimpleUpdateable
     {

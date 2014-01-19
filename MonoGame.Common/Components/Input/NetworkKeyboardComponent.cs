@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Interfaces;
 using MonoGame.Common.Networking;
 
-namespace MonoGame.Common.Components
+namespace MonoGame.Common.Components.Input
 {
     public class NetworkKeyboardComponent : SimpleComponent, ISimpleNetworking, IKeyboardInput
     {
