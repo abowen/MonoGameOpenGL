@@ -113,10 +113,11 @@ namespace MonoGame.Game.Space.Levels
             player.AddComponent(healthCounter);
             player.AddComponent(healthBar);
 
+            // TODO: Refactor into their own game objects that are attached to PlayerObject
             // FIRING - MACHINE GUN
             var machineGun = new BulletComponent(TopDown.PlayerBulletName, SpaceGraphics.LargeBulletAsset, movement, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 20, Color.DarkOrange, 0, null, TopDown.EnemyBulletName);
             var ammoCounter = new CounterIncrementComponent(ObjectEvent.Fire, ObjectEvent.AmmoRemoved, ObjectEvent.AmmoEmpty, ObjectEvent.AmmoReset, 50, 0);
-            var ammoBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, ammoCounter, true, Color.DarkOrange);
+            var ammoBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-25, 25), true, ObjectEvent.AmmoRemoved, ammoCounter, true, Color.Red);
             var ammoMovement = new EventMovementComponent(new Vector2(0, 2), ObjectEvent.AmmoRemoved);
             var ammoSound = new EventSoundComponent(SpaceSounds.Sound_LongFire01, ObjectEvent.AmmoRemoved);
             player.AddComponent(machineGun);
@@ -127,7 +128,7 @@ namespace MonoGame.Game.Space.Levels
 
             // FIRING - MISSILE
             var missileKeyboard = new KeyboardEventComponent(Keys.Z, ObjectEvent.MissileFire);
-            var missile = new BulletComponent(TopDown.PlayerBulletName, SpaceGraphics.MissileAsset, movement, ObjectEvent.MissileRemoved, ObjectEvent.MissileEmpty, ObjectEvent.MissileReset, 0, Color.White, 0.5f, new Vector2(-15, 10), TopDown.EnemyBulletName);
+            var missile = new BulletComponent(TopDown.PlayerBulletName, SpaceGraphics.MissileAsset, movement, ObjectEvent.MissileRemoved, ObjectEvent.MissileEmpty, ObjectEvent.MissileReset, 0, Color.White, 0.5f, new Vector2(-10, 5), TopDown.EnemyBulletName);
             var missileCounter = new CounterIncrementComponent(ObjectEvent.MissileFire, ObjectEvent.MissileRemoved, ObjectEvent.MissileEmpty, ObjectEvent.MissileReset, 50, 0);
             var missileBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-30, 25), true, ObjectEvent.MissileRemoved, missileCounter, true, Color.DarkGray);
             var missileMovement = new EventMovementComponent(new Vector2(0, 5), ObjectEvent.MissileRemoved);
@@ -139,6 +140,21 @@ namespace MonoGame.Game.Space.Levels
             player.AddComponent(missileMovement);
             player.AddComponent(missileBar);
             player.AddComponent(missileSound);
+
+            // FIRING - LASER
+            var laserKeyboard = new KeyboardEventComponent(Keys.C, ObjectEvent.LaserFire);
+            var laser = new BulletComponent(TopDown.PlayerBulletName, SpaceGraphics.LaserAsset, movement, ObjectEvent.LaserRemoved, ObjectEvent.LaserEmpty, ObjectEvent.LaserReset, 20, Color.LightBlue, 0, new Vector2(10, 5), TopDown.EnemyBulletName, TopDown.EnemyName);
+            var laserCounter = new CounterIncrementComponent(ObjectEvent.LaserFire, ObjectEvent.LaserRemoved, ObjectEvent.LaserEmpty, ObjectEvent.LaserReset, 50, 0);
+            var laserBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-20, 25), true, ObjectEvent.LaserRemoved, laserCounter, true, Color.Blue);
+            var laserMovement = new EventMovementComponent(new Vector2(0, 1), ObjectEvent.LaserRemoved);
+            var laserSound = new EventSoundComponent(SpaceSounds.Sound_ShortFire01, ObjectEvent.LaserRemoved);
+            
+            player.AddComponent(laserKeyboard);
+            player.AddComponent(laser);
+            player.AddComponent(laserCounter);
+            player.AddComponent(laserMovement);
+            player.AddComponent(laserBar);
+            player.AddComponent(laserSound);
 
             // DAMAGE
             var fireCounter = new CounterIncrementComponent(ObjectEvent.CollisionEnter, ObjectEvent.ElectricalFire, ObjectEvent.Ignore, ObjectEvent.Ignore, 0, 5, false);

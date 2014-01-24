@@ -11,6 +11,7 @@ namespace MonoGame.Graphics.Space
 
         public static Texture2D FlameAsset { get; private set; }
         public static Texture2D MissileAsset { get; private set; }
+        public static Texture2D LaserAsset { get; private set; }
         public static Texture2D PlayerGunLeftAsset { get; private set; }
         public static Texture2D PlayerGunRightAsset { get; private set; }
         public static Texture2D LargeBulletAsset { get; private set; }
@@ -19,6 +20,7 @@ namespace MonoGame.Graphics.Space
         {
             content.RootDirectory = @".\Graphics";
             FlameAsset = content.Load<Texture2D>("Flame");
+            LaserAsset = content.Load<Texture2D>("Laser");
             PlayerGunLeftAsset = content.Load<Texture2D>("PlayerGunLeft");
             PlayerGunRightAsset = content.Load<Texture2D>("PlayerGunRight");
             MissileAsset = content.Load<Texture2D>("Missile");
