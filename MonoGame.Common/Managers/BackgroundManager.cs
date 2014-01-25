@@ -36,6 +36,16 @@ namespace MonoGame.Common.Managers
             _minMaxChance = minMaxChance;
         }
 
+        public void PreFill(int maxX, int maxY, int count)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                var x = _random.Next(_minX, maxX);
+                var y = _random.Next(_minY, maxY);
+                AddBackgroundItem(x, y);
+            }
+        }
+
         public void HorizontalBoundary(int minimum, int maximum)
         {
             _minX = minimum;
@@ -63,25 +73,30 @@ namespace MonoGame.Common.Managers
 
                 var x = _random.Next(_minX, _maxX);
                 var y = _random.Next(_minY, _maxY);
-                var isMajorItem = _random.Next(0, _minMaxChance) == 1;
-                if (isMajorItem)
-                {                    
-                    var star = new GameObject("BackgroundMajor", new Vector2(x, y));
-                    var movementComponent = new MovementComponent(1, FaceDirection.Down, _maxDirection);
-                    var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures));
-                    star.AddComponent(movementComponent);
-                    star.AddComponent(spriteComponent);
-                    _gameLayer.AddGameObject(star);
-                }
-                else
-                {
-                    var star = new GameObject("BackgroundMinor", new Vector2(x, y));
-                    var movementComponent = new MovementComponent(1, FaceDirection.Down, _minDirection);
-                    var spriteComponent = new SpriteComponent(GetRandomTexture(_minorTextures));
-                    star.AddComponent(movementComponent);
-                    star.AddComponent(spriteComponent);
-                    _gameLayer.AddGameObject(star);
-                }
+                AddBackgroundItem(x, y);
+            }
+        }
+
+        private void AddBackgroundItem(int x, int y)
+        {
+            var isMajorItem = _random.Next(0, _minMaxChance) == 1;
+            if (isMajorItem)
+            {
+                var star = new GameObject("BackgroundMajor", new Vector2(x, y));
+                var movementComponent = new MovementComponent(1, FaceDirection.Down, _maxDirection);
+                var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures));
+                star.AddComponent(movementComponent);
+                star.AddComponent(spriteComponent);
+                _gameLayer.AddGameObject(star);
+            }
+            else
+            {
+                var star = new GameObject("BackgroundMinor", new Vector2(x, y));
+                var movementComponent = new MovementComponent(1, FaceDirection.Down, _minDirection);
+                var spriteComponent = new SpriteComponent(GetRandomTexture(_minorTextures));
+                star.AddComponent(movementComponent);
+                star.AddComponent(spriteComponent);
+                _gameLayer.AddGameObject(star);
             }
         }
 

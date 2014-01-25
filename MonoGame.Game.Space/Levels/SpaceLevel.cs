@@ -40,6 +40,7 @@ namespace MonoGame.Game.Space.Levels
             var backgroundManager = new BackgroundManager(SpaceGraphics.PlanetAsset, SpaceGraphics.StarAsset, BackgroundLayer, new Vector2(0, 0.1f), new Vector2(0, 0.5f), 3000, 30);
             BackgroundLayer.Managers.Add(backgroundManager);
             backgroundManager.VerticalBoundary(0, 0);
+            backgroundManager.PreFill(GameHelper.GetRelativeScaleX(1f), GameHelper.GetRelativeScaleY(1f), 100);
 
             var backgroundEnemyManager = new EnemyManager(TopDown.EnemyName, TopDown.EnemyBulletName, SpaceGraphics.MiniEnemyShipAsset.First(), 5000, 10000, BackgroundLayer, 2, SpaceSounds.Sound_Explosion01, 10, 20);
             BackgroundLayer.Managers.Add(backgroundEnemyManager);

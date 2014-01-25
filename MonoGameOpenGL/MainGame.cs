@@ -48,7 +48,7 @@ namespace MonoGameOpenGL
                 // Optimize for TV's and 24" computers.
                 PreferredBackBufferWidth = 1920,
                 PreferredBackBufferHeight = 1080,
-            //    IsFullScreen = true,
+                IsFullScreen = true,
             };
         }
 
@@ -76,8 +76,8 @@ namespace MonoGameOpenGL
             
             // UNCOMMENT THE GAME HERE
 
-            //_game = new TopDown(Window, Content);            
-            _game = new SurfingGame(Window, Content);
+            _game = new TopDown(Window, Content);            
+            //_game = new SurfingGame(Window, Content);
             //_game = new RpgGame(Window, Content);
             //_game = new TwitchGame(Window, Content);
                                                           
