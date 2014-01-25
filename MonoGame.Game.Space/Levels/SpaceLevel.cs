@@ -67,8 +67,8 @@ namespace MonoGame.Game.Space.Levels
 
         private void CreatePlayer()
         {
-            var xPosition = GameHelper.GetRelativeX(0.5f);
-            var yPosition = GameHelper.GetRelativeY(0.8f);
+            var xPosition = GameHelper.GetRelativeScaleX(0.5f);
+            var yPosition = GameHelper.GetRelativeScaleY(0.8f);
 
             // PLAYER
             var player = new GameObject(TopDown.PlayerName, new Vector2(xPosition, yPosition));
@@ -259,7 +259,7 @@ namespace MonoGame.Game.Space.Levels
 
         private void CreateBossOne(int enemyBulletDelay, int scale = 1)
         {
-            var xPosition = GameHelper.GetRelativeX(0.5f);
+            var xPosition = GameHelper.GetRelativeScaleX(0.5f);
             var enemy = new GameObject("Boss", new Vector2(xPosition, 0)) { Scale = scale };
 
             var shipTexture = SpaceGraphics.BossAAsset.First();

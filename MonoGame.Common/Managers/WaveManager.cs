@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Common.Components;
 using MonoGame.Common.Components.Boundary;
 using MonoGame.Common.Components.Graphics;
 using MonoGame.Common.Components.Movement;
@@ -17,14 +16,13 @@ namespace MonoGame.Common.Managers
     public class WaveManager : IManager
     {
         private readonly Texture2D[] _majorTextures;
-        
-        
         private readonly GameLayer _topLayer;        
         private readonly int _waveHeight;
         private readonly int _yPosition;
         private readonly float _waveSpeed;
         private readonly Random _random;
         private TimeSpan _lastTimeSpan;
+
 
         public WaveManager(Texture2D[] majorTextures, GameLayer backgroundLayer, GameLayer topLayer, int waveHeight, int yPosition, float waveSpeed)
         {
@@ -38,7 +36,8 @@ namespace MonoGame.Common.Managers
 
             var surfBackground = new GameObject("WAVE", new Vector2(0, 0));
             var waveTexture = SurfingGraphics.WaveBackgroundAsset;            
-            var scaleVector = new Vector2(GameConstants.ScreenBoundary.Right / waveTexture.Width, 1);
+
+            var scaleVector = new Vector2(x: GameHelper.GetRelativeScaleX(1f) / waveTexture.Width, y: 1);
             var spriteComponent = new SpriteComponent(waveTexture, Vector2.Zero, scaleVector, Vector2.Zero);
             surfBackground.AddComponent(spriteComponent);
             backgroundLayer.AddGameObject(surfBackground);
@@ -61,12 +60,14 @@ namespace MonoGame.Common.Managers
 
         private int GetRandomX(int divider)
         {
-            return _random.Next(0, GameConstants.ScreenBoundary.Right/divider);
+            var width = GameHelper.GetRelativeScaleX(1f);
+            return _random.Next(0, width / divider);
         }
 
         private void GenerateFoam(int xPosition, int width)
         {
-            var bottomPadding = GameConstants.ScreenBoundary.Bottom - (_yPosition + _waveHeight + 20);
+            var _gameHeight = GameHelper.GetRelativeScaleY(1f);
+            var bottomPadding = _gameHeight - (_yPosition + _waveHeight + 20);
             var gameObject = new GameObject("FOAM", new Vector2(xPosition, _yPosition));
             var movementComponent = new MovementComponent(1, FaceDirection.Down, new Vector2(_waveSpeed, 1));
              var spriteComponent = new SpriteComponent(GetRandomTexture(_majorTextures), drawScale: new Vector2(width, 1), color: new Color(Color.Gray, 20));
@@ -77,7 +78,7 @@ namespace MonoGame.Common.Managers
             _topLayer.AddGameObject(gameObject);
         }
 
-        public Texture2D GetRandomTexture(Texture2D[] textures)
+        private Texture2D GetRandomTexture(Texture2D[] textures)
         {
             var randomValue = _random.Next(0, textures.Count());
             return textures[randomValue];

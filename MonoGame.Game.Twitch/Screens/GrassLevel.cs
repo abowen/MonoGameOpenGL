@@ -31,8 +31,8 @@ namespace MonoGame.Game.Twitch.Screens
 
         protected override void LoadDisplay()
         {            
-            var xPosition = GameHelper.GetRelativeX(0.5f);
-            var yPosition = GameHelper.GetRelativeY(0.1f);
+            var xPosition = GameHelper.GetRelativeScaleX(0.5f);
+            var yPosition = GameHelper.GetRelativeScaleY(0.1f);
             var gameCounter = new GameObject("GameCounter", new Vector2(xPosition - 20, yPosition));
             var text = new TextComponent(FontGraphics.DigifontFont_16X16, StringFunc);
             var playerOneOutput = new TextComponent(FontGraphics.DigifontFont_16X16, PlayerOneFunc, new Vector2(-100, 50));
@@ -70,9 +70,9 @@ namespace MonoGame.Game.Twitch.Screens
 
         protected override void LoadForeground()
         {
-            var yPosition = GameHelper.GetRelativeY(0.5f);
-            var xOffsetOne = GameHelper.GetRelativeX(0.1f);
-            var xOffsetTwo = GameHelper.GetRelativeX(0.9f);
+            var yPosition = GameHelper.GetRelativeScaleY(0.5f);
+            var xOffsetOne = GameHelper.GetRelativeScaleX(0.1f);
+            var xOffsetTwo = GameHelper.GetRelativeScaleX(0.9f);
 
             playerOne = CreatePlayer("Player1", xOffsetOne, yPosition, Keys.Enter);
             playerTwo = CreatePlayer("Player2", xOffsetTwo, yPosition, Keys.Space);

@@ -23,10 +23,10 @@ namespace MonoGame.Game.Space.Levels
 
         protected override void LoadDisplay()
         {
-            var xCentre = GameHelper.GetRelativeX(0.5f);
-            var yCentre = GameHelper.GetRelativeY(0.5f);
-            var xOffset = GameHelper.GetRelativeX(0.1f);
-            var yOffset = GameHelper.GetRelativeX(0.1f);
+            var xCentre = GameHelper.GetRelativeScaleX(0.5f);
+            var yCentre = GameHelper.GetRelativeScaleY(0.5f);
+            var xOffset = GameHelper.GetRelativeScaleX(0.1f);
+            var yOffset = GameHelper.GetRelativeScaleX(0.1f);
 
             var display = new GameObject("Title", new Vector2(xCentre, yCentre));
             var font = FontGraphics.PropertialFont_8X8;

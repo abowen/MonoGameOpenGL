@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Common.Components;
 using MonoGame.Common.Components.Boundary;
 using MonoGame.Common.Components.Graphics;
 using MonoGame.Common.Components.Input;
@@ -21,27 +20,33 @@ namespace MonoGame.Game.Surfing
 {
     public class SurfLevel : GameLevel
     {
+        public SurfLevel() : base(2f) { }
+
         protected override void LoadBackground()
         {
             var backgroundManager = new BackgroundManager(new[] { SurfingGraphics.CloudMajorAsset },
                 new[] { SurfingGraphics.CloudMinorAsset }, BackgroundLayer, new Vector2(-1, 0), new Vector2(-2, 0), 3000);
             backgroundManager.HorizontalBoundary(GameConstants.ScreenBoundary.Right, GameConstants.ScreenBoundary.Right);
+
             backgroundManager.VerticalBoundary(0, 50);
             BackgroundLayer.Managers.Add(backgroundManager);
         }
 
-        private float _waveSpeed = -0.5f;                
+        private float _waveSpeed = -0.5f;
 
         protected override void LoadDisplay()
         {
-            var playerOne = new GameObject("Text", new Vector2(50, 450));
+            var textX = GameHelper.GetRelativeScaleX(0.2f);
+            var textY = GameHelper.GetRelativeScaleY(0.9f);
+
+            var playerOne = new GameObject("Text", new Vector2(textX, textY));
             var textOne = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS SPACE");
             var actionOne = new KeyboardActionComponent(Keys.Space, CreatePlayerOne);
             playerOne.AddComponent(textOne);
             playerOne.AddComponent(actionOne);
             DisplayLayer.AddGameObject(playerOne);
 
-            var playerTwo = new GameObject("Text", new Vector2(250, 450));
+            var playerTwo = new GameObject("Text", new Vector2(textX * 2, textY));
             var textTwo = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS A GAMEPAD");
             var actionTwo = new ButtonActionComponent(Buttons.A, CreatePlayerTwo);
             playerTwo.AddComponent(textTwo);
@@ -49,8 +54,8 @@ namespace MonoGame.Game.Surfing
             DisplayLayer.AddGameObject(playerTwo);
 
 
-            var playerThree = new GameObject("Text", new Vector2(450, 450));
-            var textThree = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS ENTER");            
+            var playerThree = new GameObject("Text", new Vector2(textX * 3, textY));
+            var textThree = new TextComponent(FontGraphics.BloxxitFont_8X8, "PRESS ENTER");
             var actionThree = new KeyboardActionComponent(Keys.Enter, CreatePlayerThree);
             playerThree.AddComponent(textThree);
             playerThree.AddComponent(actionThree);
@@ -61,20 +66,20 @@ namespace MonoGame.Game.Surfing
                 CommonGraphics.WhiteCubeAsset, 
                 CommonGraphics.BlueCubeAsset, 
                 CommonGraphics.LightBlueCubeAsset};
-            var waveManager = new WaveManager(foam, BackgroundLayer, ForegroundLayer, 200, 100, _waveSpeed);
+            var waveManager = new WaveManager(foam, BackgroundLayer, ForegroundLayer, _waveHeight, _waveTopY, _waveSpeed);
 
             DisplayLayer.Managers.Add(waveManager);
         }
 
         protected override void LoadForeground()
-        {            
+        {
         }
 
         private void CreatePlayerOne(GameObject gameObject)
         {
             gameObject.RemoveGameObject();
-            
-            var player = CreatePlayer(Vector2.Zero, Color.Red);
+
+            var player = CreatePlayer(1, Color.Red);
             var localKeyboard = new LocalKeyboardComponent();
             var input = new InputComponent(InputHelper.KeyboardMappedKey(), localKeyboard);
 
@@ -84,9 +89,9 @@ namespace MonoGame.Game.Surfing
 
         private void CreatePlayerTwo(GameObject gameObject)
         {
-            gameObject.RemoveGameObject();            
+            gameObject.RemoveGameObject();
 
-            var player = CreatePlayer(new Vector2(50,0), Color.LightGreen);
+            var player = CreatePlayer(2, Color.LightGreen);
             var listenerComponent = new LocalButtonComponent();
             var input = new InputComponent(InputHelper.GamepadMappedKey(), listenerComponent);
 
@@ -96,21 +101,40 @@ namespace MonoGame.Game.Surfing
 
         private void CreatePlayerThree(GameObject gameObject)
         {
-            gameObject.RemoveGameObject();            
+            gameObject.RemoveGameObject();
 
-            var player = CreatePlayer(new Vector2(100, 0), Color.Orange);
+            var player = CreatePlayer(3, Color.Orange);
             var listenerComponent = new NetworkKeyboardComponent(KeyboardPresets.BasicReverseKeyboardMapping);
             var input = new InputComponent(InputHelper.KeyboardMappedKey(), listenerComponent);
 
             player.AddComponent(listenerComponent);
             player.AddComponent(input);
+
+
         }
 
-        private GameObject CreatePlayer(Vector2 startOffset, Color color)
+        private int _waveTopY
+        {
+            get { return GameHelper.GetRelativeScaleY(0.2f); }
+        }
+
+        private int _waveBottomY
+        {
+            get { return GameHelper.GetRelativeScaleY(0.5f); }
+        }
+
+        private int _waveHeight
+        {
+            get { return _waveBottomY - _waveTopY; }
+        }
+
+
+        private GameObject CreatePlayer(int playerNumber, Color color)
         {
             // MonoGame works in Radians
             // http://msdn.microsoft.com/en-us/library/system.math.sin%28v=vs.110%29.aspx
-            var startLocation = new Vector2(250, 100) + startOffset;
+            var startX = GameHelper.GetRelativeScaleX(0.1f);
+            var startLocation = new Vector2(startX, _waveTopY) + new Vector2(playerNumber * startX, 0);
             var startRotation = (float)(90 * (Math.PI / 180));
 
             var texture = SurfingGraphics.Surfboard_Large_White_Asset;
@@ -125,7 +149,7 @@ namespace MonoGame.Game.Surfing
             player.AddComponent(airGravityMovement);
             player.AddComponent(sprite);
             player.AddComponent(rotationMovement);
-            player.AddComponent(boundary);            
+            player.AddComponent(boundary);
             player.AddComponent(outOfBoundary);
             player.AddComponent(rotation);
 
@@ -139,8 +163,7 @@ namespace MonoGame.Game.Surfing
 
             player.AddComponent(state);
 
-            var boundaryState = new BoundaryStateComponent(new Rectangle(0, 100, GameConstants.ScreenBoundary.Width, 200),
-                onWave, inAir);
+            var boundaryState = new BoundaryStateComponent(new Rectangle(0, _waveTopY, GameHelper.GetRelativeScaleX(1f), (int) (_waveHeight * 1.3f)), onWave, inAir);
             player.AddComponent(boundaryState);
 
             ForegroundLayer.AddGameObject(player);
