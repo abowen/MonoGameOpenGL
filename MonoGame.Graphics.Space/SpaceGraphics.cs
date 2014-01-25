@@ -15,6 +15,7 @@ namespace MonoGame.Graphics.Space
         public static Texture2D PlayerGunLeftAsset { get; private set; }
         public static Texture2D PlayerGunRightAsset { get; private set; }
         public static Texture2D LargeBulletAsset { get; private set; }
+        public static Texture2D[] EnemyShipChunkAssets { get; private set; }
 
         public static void LoadSpaceContent(ContentManager content)
         {
@@ -25,6 +26,14 @@ namespace MonoGame.Graphics.Space
             PlayerGunRightAsset = content.Load<Texture2D>("PlayerGunRight");
             MissileAsset = content.Load<Texture2D>("Missile");
             LargeBulletAsset = content.Load<Texture2D>("LargeBullet");
+
+            EnemyShipChunkAssets = new []
+            {
+                content.Load<Texture2D>("EnemyShipChunk01"),
+                content.Load<Texture2D>("EnemyShipChunk02"),
+                content.Load<Texture2D>("EnemyShipChunk03"),
+                content.Load<Texture2D>("EnemyShipChunk04")
+            };
 
             // Messy way of doing things.
             OldMethodLoadSpaceContent(content);
@@ -40,7 +49,7 @@ namespace MonoGame.Graphics.Space
         private static readonly string MiniAsteroid = "MiniAsteroid";
         private static readonly string PlayerShip = "PlayerShip";
         private static readonly string EnemyShip = "EnemyShip";
-        private static readonly string Bullet = "Bullet";        
+        private static readonly string Bullet = "Bullet";
         private static readonly string LargeExplosion = "LargeExplosion";
         private static readonly string MiniBullet = "MiniBullet";
         private static readonly string MiniEnemyShip = "MiniEnemyShip";
@@ -59,7 +68,7 @@ namespace MonoGame.Graphics.Space
         public static Texture2D[] MiniAsteroidAsset { get { return Assets[MiniAsteroid]; } }
         public static Texture2D[] PlayerShipAsset { get { return Assets[PlayerShip]; } }
         public static Texture2D[] EnemyShipAsset { get { return Assets[EnemyShip]; } }
-        public static Texture2D[] BulletAsset { get { return Assets[Bullet]; } }        
+        public static Texture2D[] BulletAsset { get { return Assets[Bullet]; } }
         public static Texture2D[] LargeExpolosionAsset { get { return Assets[LargeExplosion]; } }
         public static Texture2D[] MiniBulletAsset { get { return Assets[MiniBullet]; } }
         public static Texture2D[] MiniEnemyShipAsset { get { return Assets[MiniEnemyShip]; } }
@@ -74,7 +83,7 @@ namespace MonoGame.Graphics.Space
         public static Texture2D[] BossAAsset { get { return Assets[BossA]; } }
 
         private static void OldMethodLoadSpaceContent(ContentManager content)
-        {            
+        {
             Assets = new Dictionary<string, Texture2D[]>();
 
             var planets = new[]
@@ -83,7 +92,7 @@ namespace MonoGame.Graphics.Space
                 content.Load<Texture2D>("Planet02"),
                 content.Load<Texture2D>("Planet03"),                
                 content.Load<Texture2D>("Planet04")                
-            };            
+            };
             Assets.Add(Planet, planets);
 
             var asteroids = new[]

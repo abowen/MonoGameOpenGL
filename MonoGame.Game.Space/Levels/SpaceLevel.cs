@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Common.Components;
 using MonoGame.Common.Components.Animation;
@@ -54,6 +55,7 @@ namespace MonoGame.Game.Space.Levels
         protected override void LoadForeground()
         {
             var enemyManager = new EnemyManager(TopDown.EnemyName, TopDown.EnemyBulletName, SpaceGraphics.EnemyShipAsset.First(), 100, 1000, ForegroundLayer, 2, SpaceSounds.Sound_Explosion01, 5, 50);
+            enemyManager.AddObjectEventAction(ObjectEvent.CollisionEnter, EnemyShipDestroyed);
             ForegroundLayer.Managers.Add(enemyManager);
 
             var asteroidManager = new AsteroidManager(SpaceGraphics.AsteroidAsset, SpaceGraphics.MiniAsteroidAsset, ForegroundLayer);
@@ -62,6 +64,36 @@ namespace MonoGame.Game.Space.Levels
             CreatePlayer();
             CreateScoreDisplay();
         }
+
+        #region Enemy
+
+        public void EnemyShipDestroyed(GameObject gameObject)
+        {
+            var items = new[]
+            {
+                new { Texture = SpaceGraphics.EnemyShipChunkAssets[0], Direction = new Vector2(-1,-1) },
+                new { Texture = SpaceGraphics.EnemyShipChunkAssets[1], Direction = new Vector2(1,-1) },
+                new { Texture = SpaceGraphics.EnemyShipChunkAssets[2], Direction = new Vector2(-1,0) },
+                new { Texture = SpaceGraphics.EnemyShipChunkAssets[3], Direction = new Vector2(1,0) }
+            };
+            foreach (var item in items)
+            {
+                var centre = gameObject.CentreLocal;
+                var direction = item.Direction + gameObject.Velocity;
+                var chunk = new GameObject("EnemyChunk", gameObject.Centre + (centre * item.Direction));
+                var sprite = new SpriteComponent(item.Texture, color: Color.White);
+                var instance = new InstanceComponent();
+                var outOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
+                var movement = new MovementComponent(gameObject.Velocity.Y, FaceDirection.Down, direction);
+                chunk.AddComponent(outOfBounds);
+                chunk.AddComponent(sprite);
+                chunk.AddComponent(instance);
+                chunk.AddComponent(movement);
+                gameObject.GameLayer.AddGameObject(chunk);                
+            }
+        }
+
+        #endregion
 
         #region Player
 
@@ -149,7 +181,7 @@ namespace MonoGame.Game.Space.Levels
             var laserBar = new SpriteRepeaterComponent(SpaceGraphics.OnePixelBarAsset.First(), new Vector2(-20, 25), true, ObjectEvent.LaserRemoved, laserCounter, true, Color.Blue);
             var laserMovement = new EventMovementComponent(new Vector2(0, 1), ObjectEvent.LaserRemoved);
             var laserSound = new EventSoundComponent(SpaceSounds.Sound_ShortFire01, ObjectEvent.LaserRemoved);
-            
+
             player.AddComponent(laserKeyboard);
             player.AddComponent(laser);
             player.AddComponent(laserCounter);
@@ -177,14 +209,14 @@ namespace MonoGame.Game.Space.Levels
             var dimension = explosionTexture.Width * explosionScale;
 
             var explosion = new GameObject("Collision", gameObject.TopLeft);
-            var animation = new ScaleAnimationComponent(explosionTexture, 0, explosionScale, 100, Color.OrangeRed, null, ObjectEvent.RemoveEntity);            
+            var animation = new ScaleAnimationComponent(explosionTexture, 0, explosionScale, 100, Color.OrangeRed, null, ObjectEvent.RemoveEntity);
             var boundary = new BoundaryComponent(null, dimension, dimension, isInvulnerable: true);
-            explosion.AddComponent(animation);            
+            explosion.AddComponent(animation);
             explosion.AddComponent(boundary);
 
             gameObject.GameLayer.AddGameObject(explosion);
             gameObject.RemoveGameObject();
-            
+
         }
 
         private readonly Stack<Color> _playerColourStack = new Stack<Color>(new[] { Color.Gray, Color.DarkRed, Color.Red, Color.Yellow, Color.Orange });

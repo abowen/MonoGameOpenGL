@@ -63,7 +63,7 @@ namespace MonoGame.Common.Components.Movement
 
         public void Update(GameTime gameTime)
         {
-            Owner.TopLeft += Velocity;            
+            Owner.Velocity = Velocity;            
         }
 
         public bool State

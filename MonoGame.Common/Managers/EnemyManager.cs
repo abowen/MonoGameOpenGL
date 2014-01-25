@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -45,7 +46,13 @@ namespace MonoGame.Common.Managers
             _currentMaximumEnemies = currentMaximumEnemies;
             _totalMaximumEnemies = totalMaximumEnemies;
         }
-        
+
+        public void AddObjectEventAction(ObjectEvent objectEvent, Action<GameObject> action)
+        {
+           _eventActions.Add(new Tuple<ObjectEvent, Action<GameObject>>(objectEvent, action));
+        }
+
+        private readonly List<Tuple<ObjectEvent, Action<GameObject>>> _eventActions = new List<Tuple<ObjectEvent, Action<GameObject>>>(); 
 
         public void Update(GameTime gameTime)
         {
@@ -58,27 +65,38 @@ namespace MonoGame.Common.Managers
             {
                 _elapsedTimeMilliseconds = 0;
                 var xLocation = _random.Next(0, GameConstants.ScreenBoundary.Right - _shipTexture.Width);
+
                 var gameObject = new GameObject(_enemyName, new Vector2(xLocation, 0));
                 var sprite = new SpriteComponent(_shipTexture);
                 var movement = new MovementComponent(1, FaceDirection.Down, new Vector2(0, _speed));
-                var bullet = new BulletComponent(_bulletName, SpaceGraphics.BulletAsset[0], movement, ignoreCollisionTypes: _enemyName);
-                var boundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), _shipTexture.Width, _shipTexture.Height, true, false, _enemyName);
-                var instance = new InstanceComponent();
-                var timedAction = new TimedActionComponent(ObjectEvent.Fire, _bulletDelayMilliseconds);
-                var outOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
-                var score = new ObjectEventComponent(ObjectEvent.CollisionEnter, IncreaseScore);
-                var deathSound = new EventSoundComponent(_deathSound, ObjectEvent.CollisionEnter);
-                var collisionAction = new ObjectEventComponent(ObjectEvent.CollisionEnter, CollisionAction);
                 gameObject.AddComponent(sprite);
                 gameObject.AddComponent(movement);
+
+                var bullet = new BulletComponent(_bulletName, SpaceGraphics.BulletAsset[0], movement, ignoreCollisionTypes: _enemyName);
+                var timedAction = new TimedActionComponent(ObjectEvent.Fire, _bulletDelayMilliseconds);
                 gameObject.AddComponent(bullet);
+                gameObject.AddComponent(timedAction);
+
+                var boundary = new BoundaryComponent(SpaceGraphics.BoundaryAsset.First(), _shipTexture.Width, _shipTexture.Height, true, false, _enemyName);
+                var instance = new InstanceComponent();
+                var outOfBounds = new OutOfBoundsComponent(ObjectEvent.RemoveEntity);
                 gameObject.AddComponent(boundary);
                 gameObject.AddComponent(instance);
                 gameObject.AddComponent(outOfBounds);
-                gameObject.AddComponent(timedAction);
+                
+                var score = new ObjectEventComponent(ObjectEvent.CollisionEnter, IncreaseScore);
+                var deathSound = new EventSoundComponent(_deathSound, ObjectEvent.CollisionEnter);
+                var collisionAction = new ObjectEventComponent(ObjectEvent.CollisionEnter, CollisionAction);
                 gameObject.AddComponent(score);
                 gameObject.AddComponent(deathSound);
                 gameObject.AddComponent(collisionAction);
+
+                foreach (var objectEventAction in _eventActions)
+                {
+                    var objectEvent = new ObjectEventComponent(objectEventAction.Item1, objectEventAction.Item2);
+                    gameObject.AddComponent(objectEvent);
+                }
+
                 _gameLayer.AddGameObject(gameObject);
             }
         }

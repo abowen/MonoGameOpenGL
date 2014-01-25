@@ -45,6 +45,8 @@ namespace MonoGame.Common.Entities
 
         public Vector2 Velocity { get; set; }
 
+        //public Vector2 InstantVelocity { get; set; }
+
         public Vector2 TopLeft { get; set; }
 
         public float Scale { get; set; }
