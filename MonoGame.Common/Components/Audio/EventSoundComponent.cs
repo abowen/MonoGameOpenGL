@@ -27,7 +27,7 @@ namespace MonoGame.Common.Components.Audio
         {
             if (objectEventArgs.Action == _subscribeEvent)
             {
-                _soundEffect.Play();
+          //      _soundEffect.Play();
             }
         }
     }
